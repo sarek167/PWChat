@@ -78,4 +78,8 @@ CMakeLists.txt.user*
 .obj/
 .pch/
 .rcc/
-.uic/# User QtCreator *.user.qtcreator/# Build directories**/build*/build/
+.uic/# User QtCreator *.user.qtcreator/
+
+# Build directories
+**/build*/
+build/
