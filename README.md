@@ -150,5 +150,44 @@
             +decode(vector~char~ data)* vector~float~
         }
     }
+```
 
+## Database Entity Relationship diagram
+```mermaid
+erDiagram
+USERS ||--o{ USERS_ROOMS : "belongs to"
+    ROOMS ||--o{ USERS_ROOMS : "has members"
+    USERS ||--o{ MESSAGES : "sends"
+    ROOMS ||--o{ MESSAGES : "contains"
+    USERS ||--o{ ROOMS : "owns (creator)"
 
+    USERS {
+        int id PK
+        string nickname
+        string password_hash
+        datetime created_at
+    }
+    ROOMS {
+        int id PK
+        string name
+        string type
+        string access_code
+        int owner_id FK
+        datetime created_at
+    }
+    MESSAGES {
+        int id PK
+        int room_id FK
+        int sender_id FK
+        text content
+        string audioURL
+        datetime timestamp
+        bool type
+    }
+    USERS_ROOMS {
+        int id PK
+        int room_id FK
+        int user_id FK
+        bool is_admin
+    }
+```
