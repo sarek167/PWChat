@@ -1,3 +1,10 @@
+## Goal cloud architecture
+Below diagram shows goal architecture of application. Each client will have client version of app installed on their machine. Server will work as a container in Azure Container Instances, which will allow easier scaling. Audio files will be stored as blobs in Azure Storage Account and database will run on MSSQL server. Any secrets to the application or its resources will be safely stored in Azure Key Vault. Application logs will be stored and collected because of Application Insights and Log Analytics Workspace.
+
+In the future, in case of need for upscaling application, horizontal scaling could be implemented. Adding new containers will require additional resource of Azure Cache for Redis which will act as connector for messages between servers. It would work as publishers and subscribers. If one user would be managed by server A and send a message to another user managed by server B, this mechanism would be necessary for proper traffic flow.
+
+![PWChat goal cloud architecture](./docs/img/PWChat-cloud-arch.png "PWChat goal cloud architecture")
+
 ## UML class diagram
 ```mermaid
  classDiagram
