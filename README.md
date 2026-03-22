@@ -195,6 +195,71 @@ Params:
 * `int id`: ID of a user
 * `string nickname`: unique nickname by which user can be identified
 
+#### Server classes
+##### Server
+The main class of the server application responsible for lifecycle management and network orchestration.
+
+Params:
+* `asio::io_context io_context`: core Asio object providing I/O functionality for asynchronous operations
+* `tcp::acceptor acceptor`: listens for and accepts incoming TCP connections
+* `RoomManager roomManager`: manages the collection of chat rooms
+* `DBConnector db`: polymorphic interface for database operations - it is needed to be polymorphic as first in the project there is SQLite database which later will be transformed to MSSQL database
+
+Methods:
+* `start()`: initializes the server and starts the I/O context loop
+* `start_accept()`: an internal asynchronous method that waits for new client connections and creates new Session objects
+
+##### Session
+Represents a single active network connection with a client.
+
+Params:
+* `tcp::socket socket`: communication socket used for data transfer
+* `shared_ptr~User~ user`: points to the authenticated user associated with this specific connection
+
+Methods:
+* `do_read()`: asynchronously reads a Packet from the socket, starting with the header
+* `deliver(Packet p)`: sends a Packet to the connected client
+* `handlePacket(Packet p)`: internal logic that decodes the packet type and triggers the appropriate logic
+
+##### RoomManager
+A central registry for all chat rooms existing on the server. It manages rooms and holds their state.
+
+Params:
+* `map~string, shared_ptr~Room~~ allRooms`: a collection mapping room names to room objects
+
+Methods:
+* `createRoom(...)`: instantiates a new PublicRoom or PrivateRoom and adds it to the registry
+* `getRoom(string name)`: retrieves a pointer to a specific room
+* `removeRoom(string name)`: closes a room and removes it from the registry
+
+##### Room
+An abstract base class representing a chat room.
+
+Params:
+* `string name`: name of the room
+* `vector~shared_ptr~Session~~ clients`: list of sessions currently active in the room. It does not need to hold all users which are members of the room, as it is a task for database - here only active users will be added, so messages can be delivered to them.
+* `vector~shared_ptr~User~~ admins`: list of users with administrative privileges in the room
+
+Methods:
+* `canJoin(string token)*`: pure virtual method to check if a user is allowed to enter (e.g., password check)
+* `broadcast(Packet p)`: iterates through all active sessions and delivers the packet to each
+* `addClient/removeClient(...)`: manages the list of active participants
+
+##### Command
+A polymorphic interface for executing business logic based on received network packets.
+
+Methods:
+* `execute(session, body)*`: pure virtual method that defines the specific action to be taken (e.g., joining a room or saving a message)
+
+##### DBConnector
+An interface for abstraction over different database engines (SQLite, MSSQL).
+
+Methods:
+* `openConnection()`: establishes a connection to the database file or server
+* `authenticateUser(...)`: validates user credentials against stored data
+* `saveMessage(Message m)`: persists a message object in the database
+* `getHistory(...)`: retrieves a collection of messages based on room ID or user nickname. Thanks to method overload the application can retrieve data from proper table in database
+
 ## Database Entity Relationship diagram
 ```mermaid
 erDiagram
