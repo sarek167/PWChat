@@ -260,6 +260,37 @@ Methods:
 * `saveMessage(Message m)`: persists a message object in the database
 * `getHistory(...)`: retrieves a collection of messages based on room ID or user nickname. Thanks to method overload the application can retrieve data from proper table in database
 
+#### Client classes
+##### NetworkManager
+Handles all network communication on the client side using an asynchronous thread.
+
+Params:
+* `asio::io_context ctx`: manages asynchronous I/O operations
+* `tcp::socket socket`: TCP socket connected to the server
+* `thread workerThread`: dedicated thread for running the Asio context to prevent GUI freezing
+
+Methods:
+* `connect(host, port)`: establishes a connection to the server
+* `send(Packet p)`: serializes and sends a packet to the server
+* `messageReceived(Packet p)`: a Qt signal emitted when a new packet arrives from the server
+
+##### AudioManager
+Manages audio hardware for recording and playing voice messages.
+
+Params:
+* `AudioCodec codec`: reference to a codec used for compression and decompression
+
+Methods:
+* `startRecording()`: initializes microphone input and starts capturing audio frames
+* `playAudio(vector~char~ data)`: decompresses received audio data and sends it to the speakers
+
+##### AudioCodec
+An abstract interface for audio data processing.
+
+Methods:
+* `encode(...)*`: transforms raw PCM audio into a compressed byte buffer
+* `decode(...)*`: transforms compressed bytes back into raw PCM audio for playback
+
 ## Database Entity Relationship diagram
 ```mermaid
 erDiagram
@@ -285,7 +316,8 @@ USERS ||--o{ USERS_ROOMS : "belongs to"
     }
     MESSAGES {
         int id PK
-        int room_id FK
+        int receiver_id FK
+        bool receiver_type
         int sender_id FK
         text content
         string audioURL
