@@ -1,32 +1,11 @@
 cmake_minimum_required(VERSION 3.19)
 project(PWChat LANGUAGES CXX)
 
-find_package(Qt6 6.5 REQUIRED COMPONENTS Core)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-qt_standard_project_setup()
+find_package(Qt6 6.5 REQUIRED COMPONENTS Core Network Widgets Multimedia Sql)
 
-qt_add_executable(PWChat
-    main.cpp
-    common/CMakeLists.txt
-    client/CMakeLists.txt
-    server/CMakeLists.txt
-    server/include/server/Server.h
-    common/include/common/Packet.h
-    common/src/Packet.cpp
-    server/src/Server.cpp
-    client/include/client/NetworkManager.h
-    client/src/NetworkManager.cpp
-)
-
-target_link_libraries(PWChat
-    PRIVATE
-        Qt::Core
-)
-
-include(GNUInstallDirs)
-
-install(TARGETS PWChat
-    BUNDLE  DESTINATION .
-    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-)
+add_subdirectory(common)
+add_subdirectory(server)
+add_subdirectory(client)
