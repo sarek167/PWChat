@@ -1,8 +1,15 @@
 #include <QCoreApplication>
+#include <asio.hpp>
+#include <server/Server.h>
 
 int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
+    asio::io_context io_context;
+    Server s(io_context, 25000);
+    io_context.run();
+    return 0;
+
 
     // Set up code that uses the Qt event loop here.
     // Call a.quit() or a.exit() to quit the application.
@@ -15,5 +22,5 @@ int main(int argc, char *argv[])
     // If you do not need a running Qt event loop, remove the call
     // to a.exec() or use the Non-Qt Plain C++ Application template.
 
-    return a.exec();
+
 }
