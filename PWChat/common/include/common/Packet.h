@@ -5,14 +5,17 @@
 #include <cereal/archives/binary.hpp>
 #include <cereal/types/vector.hpp>
 #include "PacketHeader.h"
+#include "MessageType.h"
 
 class Packet {
 public:
     Packet() = default;
     Packet(uint8_t type, const std::vector<char> body);
+    Packet(MessageType type, uint32_t targetId, uint32_t senderId, const std::vector<char>& body);
 
     std::vector<char> pack() const;
     static Packet unpack(std::vector<char>& rawData);
+    static PacketHeader unpackHeader(std::vector<char>& rawData);
 
     const PacketHeader& header() const;
     const std::vector<char>& body() const;

@@ -1,4 +1,5 @@
 #include "server/Session.h"
+#include "common/Packet.h"
 #include <iostream>
 
 using asio::ip::tcp;
@@ -15,11 +16,16 @@ void Session::wait_for_request() {
     asio::async_read_until(m_socket, m_buffer, "\0",
                            [this,self](std::error_code ec, std::size_t) {
         if (!ec) {
-            std::string data{
+            std::vector<char> rawData{
                 std::istreambuf_iterator<char>(&m_buffer),
-                    std::istreambuf_iterator<char>()
+                std::istreambuf_iterator<char>()
             };
-            std::cout << data << std::endl;
+            Packet receivedPacket = Packet::unpack(rawData);
+            std::cout << receivedPacket.header().signature << std::endl;
+            std::cout << (int)receivedPacket.header().type << std::endl;
+            std::cout << (int)receivedPacket.header().bodySize << std::endl;
+            std::string message{receivedPacket.body().begin(), receivedPacket.body().end()};
+            std::cout << message << std::endl;
             wait_for_request();
         } else {
             std::cout << "error: " << ec << std::endl;
