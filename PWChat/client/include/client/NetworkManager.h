@@ -3,6 +3,7 @@
 
 #include <string>
 #include <asio.hpp>
+#include "common/Packet.h"
 
 using asio::ip::tcp;
 
@@ -11,6 +12,7 @@ public:
     NetworkManager() : m_socket(m_io_context), m_resolver(m_io_context) {}
     ~NetworkManager();
     void connect(const std::string& host, const std::string& port);
+    void send(const Packet& p);
 
 private:
     asio::io_context m_io_context;

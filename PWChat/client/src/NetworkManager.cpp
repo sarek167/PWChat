@@ -14,18 +14,17 @@ void NetworkManager::connect(const std::string& host, const std::string& port) {
     try {
         asio::connect(m_socket, m_resolver.resolve(host, port));
 
-        std::string data{"some client data..."};
-        std::vector<char> body(data.begin(), data.end());
-
-        Packet packetData(MessageType::TEXT_TO_USER, 0, 0, body);
-        std::vector<char> toSend = packetData.pack();
-
-        size_t bytesSent = asio::write(m_socket, asio::buffer(toSend));
-
-        std::cout << "Wyslano pakiet!" << std::endl;
-        std::cout << "Rozmiar danych: " << data.length() << " bajtow" << std::endl;
-        std::cout << "Calkowity rozmiar (z naglowkiem): " << bytesSent << " bajtow" << std::endl;
     } catch (std::exception& e) {
         std::cerr << "Blad podczas testu: " << e.what() << std::endl;
     }
 }
+
+void NetworkManager::send(const Packet& p) {
+    std::vector<char> toSend = p.pack();
+
+    size_t bytesSent = asio::write(m_socket, asio::buffer(toSend));
+
+    std::cout << "Wyslano pakiet!" << std::endl;
+    std::cout << "Calkowity rozmiar (z naglowkiem): " << bytesSent << " bajtow" << std::endl;
+}
+
