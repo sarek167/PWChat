@@ -1,6 +1,12 @@
 #include "common/Packet.h"
 #include <sstream>
 
+Packet::Packet(uint8_t type, const std::vector<char> body) {
+    m_header.type = type;
+    m_header.bodySize = static_cast<uint32_t>(body.size());
+    m_body = body;
+}
+
 const std::vector<char>& Packet::body() const {
     return m_body;
 }
