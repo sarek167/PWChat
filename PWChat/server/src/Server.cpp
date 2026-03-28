@@ -9,13 +9,18 @@ Server::Server(asio::io_context& io_context, short port)
         do_accept();
     }
 
+const std::shared_ptr<Session> Server::client(uint32_t clientId) {
+    return m_clients[clientId];
+}
+
 void Server::do_accept() {
     m_acceptor.async_accept([this](asio::error_code ec, tcp::socket socket) {
         if (!ec) {
             std::cout << "creatin session on: "
                       << socket.remote_endpoint().address().to_string()
                       << ":" << socket.remote_endpoint().port() << "\n";
-            std::make_shared<Session>(std::move(socket)) -> do_read();
+            auto newSession = std::make_shared<Session>(std::move(socket), *this);
+            newSession -> do_read();
         } else {
             std::cout << "error: " << ec.message() << std::endl;
         }
@@ -24,3 +29,23 @@ void Server::do_accept() {
     });
 }
 
+void Server::insertClient(std::shared_ptr<Session> session) {
+    std::lock_guard<std::mutex> lock(m_clientsMutex);
+    m_clients.insert({session->userId(), session});
+}
+
+void Server::routePacket(const Packet& p) {
+    std::cout << "in route packet" << std::endl;
+    MessageType messType = p.header().type;
+    uint32_t targetId = p.header().targetId;
+
+    if (messType == MessageType::TEXT_TO_USER) {
+        std::cout << "in if message type" << std::endl;
+        const std::shared_ptr<Session> targetClient = client(targetId);
+        std::cout << "before deliver" << std::endl;
+        targetClient->deliver(p);
+    } else {
+        std::cout << "Message was not to user - right now it's the only option :c" << std::endl;
+    }
+
+}

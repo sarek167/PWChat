@@ -3,6 +3,8 @@ add_library(common STATIC
     include/common/Packet.h
     include/common/PacketHeader.h
     include/common/MessageType.h
+    include/common/User.h
+    src/User.cpp
 )
 
 target_include_directories(common PUBLIC
