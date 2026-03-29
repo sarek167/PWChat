@@ -17,7 +17,7 @@ public:
     void setUser(uint32_t id, std::string nickname);
 
     void doRead();
-    void deliver(const Packet& p) const;
+    void deliver(const Packet& p);
     void handleLogin(uint32_t id, std::string nickname);
 
 private:

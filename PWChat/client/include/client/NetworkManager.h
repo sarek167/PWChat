@@ -13,11 +13,15 @@ public:
     ~NetworkManager();
     void connect(const std::string& host, const std::string& port);
     void send(const Packet& p);
+    void doRead();
 
 private:
+    void waitForRequest();
+    void readBody(PacketHeader header);
     asio::io_context m_io_context;
     tcp::socket m_socket;
     tcp::resolver m_resolver;
+    asio::streambuf m_buffer;
 };
 
 #endif // NETWORKMANAGER_H

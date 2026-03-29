@@ -73,8 +73,22 @@ void Session::readBody(PacketHeader header) {
     });
 }
 
-void Session::deliver(const Packet& p) const {
-    std::cout << "Got package! From: " << p.header().senderId << std:: endl;
-    std::cout << "Will be delivered to: " << p.header().targetId << std::endl;
-    std::cout << "User session: " << m_user->id() << std::endl;
+void Session::deliver(const Packet& p){
+    std::vector<char> toSend = p.pack();
+
+    auto self(shared_from_this());
+    asio::async_write(m_socket, asio::buffer(toSend),
+        [this, self, title = p.header().targetId, data = toSend](std::error_code ec, std::size_t bytesTransferred) {
+            if (!ec) {
+                std::cout << "Succesfully sent " << bytesTransferred << " bytes to User " << title << std::endl;
+            } else {
+                std::cerr << "Send error " << ec.message() << std::endl;
+            }
+    });
+// }
+
+//     size_t bytesSent = asio::async_write(m_socket, asio::buffer(toSend));
+//     std::cout << "Got package! From: " << p.header().senderId << std:: endl;
+//     std::cout << "Will be delivered to: " << p.header().targetId << std::endl;
+//     std::cout << "User session: " << m_user->id() << std::endl;
 }
