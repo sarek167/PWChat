@@ -2,6 +2,11 @@ add_executable(server
     src/main.cpp
     src/Server.cpp
     src/Session.cpp
+    include/server/Room.h
+    include/server/PublicRoom.h
+    include/server/PrivateRoom.h
+    src/PublicRoom.cpp
+    src/PrivateRoom.cpp
 )
 
 set_target_properties(server PROPERTIES WIN32_EXECUTABLE FALSE)
