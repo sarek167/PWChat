@@ -1,7 +1,9 @@
 #ifndef MESSAGETYPES_H
 #define MESSAGETYPES_H
 
-enum class MessageType {
+#include <stdint.h>
+
+enum class MessageType : uint8_t {
     TEXT_TO_USER = 0,
     TEXT_TO_ROOM = 1,
     AUDIO_TO_USER = 2,

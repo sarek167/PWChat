@@ -20,39 +20,56 @@ void Session::handleLogin(uint32_t id, std::string nickname) {
     m_server.insertClient(shared_from_this());
 }
 
-void Session::do_read() {
-    wait_for_request();
+void Session::doRead() {
+    waitForRequest();
 }
 
-void Session::wait_for_request() {
+void Session::waitForRequest() {
     auto self(shared_from_this());
-    asio::async_read_until(m_socket, m_buffer, "\0",
-                           [this,self](std::error_code ec, std::size_t) {
+    asio::async_read(m_socket, m_buffer, asio::transfer_exactly(sizeof(PacketHeader)),
+                           [this,self](std::error_code ec, std::size_t bytesTransferred) {
         if (!ec) {
-            std::vector<char> rawData{
-                std::istreambuf_iterator<char>(&m_buffer),
-                std::istreambuf_iterator<char>()
-            };
-            PacketHeader header = Packet::unpackHeader(rawData);
-            if (header.type == MessageType::LOGIN_REQUEST) {
-                handleLogin(header.senderId, "Nick");
-            } else if (header.type == MessageType::TEXT_TO_USER) {
-                Packet receivedPacket = Packet::unpack(rawData);
-                m_server.routePacket(receivedPacket);
-                std::cout << receivedPacket.header().signature << std::endl;
-                std::cout << (int)receivedPacket.header().type << std::endl;
-                std::cout << (int)receivedPacket.header().bodySize << std::endl;
-                std::string message{receivedPacket.body().begin(), receivedPacket.body().end()};
-                std::cout << message << std::endl;
+            PacketHeader header;
+            asio::buffer_copy(asio::buffer(&header, sizeof(PacketHeader)), m_buffer.data());
+            m_buffer.consume(bytesTransferred);
 
-            } else {
-                std::cout << "takiego typu jeszcze nie obsługujemy" << std::endl;
-            }
 
-            wait_for_request();
+            readBody(header);
+
         } else {
             std::cout << "error: " << ec << std::endl;
         }
+    });
+}
+
+void Session::readBody(PacketHeader header) {
+    auto self(shared_from_this());
+    asio::async_read(m_socket, m_buffer, asio::transfer_exactly(header.bodySize),
+                           [this,self,header](std::error_code ec, std::size_t bytesTransferred) {
+        std::istream is(&m_buffer);
+        std::vector<char> deserializedBody;
+
+        try {
+            cereal::BinaryInputArchive iarchive(is);
+            iarchive(deserializedBody);
+        } catch (const std::exception& e) {
+            std::cerr << "Cereal error: " << e.what() << std::endl;
+        }
+
+        Packet packet(header, deserializedBody);
+
+        if (header.type == MessageType::LOGIN_REQUEST) {
+            handleLogin(header.senderId, "Nick");
+        } else {
+            m_server.routePacket(packet);
+            std::cout << packet.header().signature << std::endl;
+            std::cout << (int)packet.header().type << std::endl;
+            std::cout << (int)packet.header().bodySize << std::endl;
+            std::string message{packet.body().begin(), packet.body().end()};
+            std::cout << message << std::endl;
+
+        }
+        waitForRequest();
     });
 }
 

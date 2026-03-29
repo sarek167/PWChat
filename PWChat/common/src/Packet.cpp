@@ -1,6 +1,12 @@
 #include "common/Packet.h"
 #include <sstream>
 
+Packet::Packet(const PacketHeader& header, const std::vector<char> body){
+    m_header = header;
+    m_body = body;
+}
+
+
 Packet::Packet(MessageType type, uint32_t targetId, uint32_t senderId, const std::vector<char>& body) {
     m_header.type = type;
     m_header.targetId = targetId;
@@ -22,34 +28,35 @@ std::vector<char> Packet::pack() const {
 
     {
         cereal::BinaryOutputArchive oarchive(ss);
-        oarchive(*this);
+        oarchive(m_body);
     }
 
-    std::string str_ss = ss.str();
-    return std::vector<char>(str_ss.begin(), str_ss.end());
+    std::string serializedBody = ss.str();
+
+    PacketHeader headerCopy = m_header;
+    headerCopy.bodySize = static_cast<uint32_t>(serializedBody.size());
+
+    std::vector<char> totalPacket;
+    totalPacket.reserve(sizeof(PacketHeader) + headerCopy.bodySize);
+
+    auto const headerPtr = reinterpret_cast<const char*>(&headerCopy);
+    totalPacket.insert(totalPacket.end(), headerPtr, headerPtr + sizeof(PacketHeader));
+
+    totalPacket.insert(totalPacket.end(), serializedBody.begin(), serializedBody.end());
+
+    return totalPacket;
 }
 
-PacketHeader Packet::unpackHeader(std::vector<char>& rawData) {
+Packet Packet::unpack(const PacketHeader& header, std::vector<char>& rawData) {
     std::string dataStr(rawData.begin(), rawData.end());
     std::istringstream ss(dataStr, std::ios::binary);
 
-    PacketHeader header;
+    std::vector<char> deserializedBody;
+
     {
         cereal::BinaryInputArchive iarchive(ss);
-        iarchive(header);
+        iarchive(deserializedBody);
     }
-    return header;
-}
-
-Packet Packet::unpack(std::vector<char>& rawData) {
-    std::string dataStr(rawData.begin(), rawData.end());
-    std::istringstream ss(dataStr, std::ios::binary);
-
-    Packet deserializedPacket;
-    {
-        cereal::BinaryInputArchive iarchive(ss);
-        iarchive(deserializedPacket);
-    }
-
+    Packet deserializedPacket(header, deserializedBody);
     return deserializedPacket;
 }

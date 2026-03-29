@@ -20,7 +20,7 @@ void Server::do_accept() {
                       << socket.remote_endpoint().address().to_string()
                       << ":" << socket.remote_endpoint().port() << "\n";
             auto newSession = std::make_shared<Session>(std::move(socket), *this);
-            newSession -> do_read();
+            newSession -> doRead();
         } else {
             std::cout << "error: " << ec.message() << std::endl;
         }
@@ -35,14 +35,11 @@ void Server::insertClient(std::shared_ptr<Session> session) {
 }
 
 void Server::routePacket(const Packet& p) {
-    std::cout << "in route packet" << std::endl;
     MessageType messType = p.header().type;
     uint32_t targetId = p.header().targetId;
 
     if (messType == MessageType::TEXT_TO_USER) {
-        std::cout << "in if message type" << std::endl;
         const std::shared_ptr<Session> targetClient = client(targetId);
-        std::cout << "before deliver" << std::endl;
         targetClient->deliver(p);
     } else {
         std::cout << "Message was not to user - right now it's the only option :c" << std::endl;

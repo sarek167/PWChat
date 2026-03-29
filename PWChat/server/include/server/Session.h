@@ -16,7 +16,7 @@ public:
     uint32_t userId();
     void setUser(uint32_t id, std::string nickname);
 
-    void do_read();
+    void doRead();
     void deliver(const Packet& p) const;
     void handleLogin(uint32_t id, std::string nickname);
 
@@ -25,7 +25,8 @@ private:
     asio::streambuf m_buffer;
     Server& m_server;
     std::shared_ptr<User> m_user;
-    void wait_for_request();
+    void waitForRequest();
+    void readBody(PacketHeader header);
 };
 
 #endif // SESSION_H
