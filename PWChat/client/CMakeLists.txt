@@ -1,13 +1,18 @@
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 
+set(CMAKE_AUTOUIC_SEARCH_PATHS "${CMAKE_CURRENT_SOURCE_DIR}/ui")
+
 add_executable(client WIN32
     src/main.cpp
     src/NetworkManager.cpp
+    ui/LoginWindow.ui
+    view/loginwindow.h view/loginwindow.cpp
 )
 
 target_include_directories(client PRIVATE
     include
+    view
     ${CMAKE_SOURCE_DIR}/libs/asio-1.36.0/include
 )
 

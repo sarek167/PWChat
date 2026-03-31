@@ -5,6 +5,7 @@
 
 class PublicRoom : public Room {
 public:
+    PublicRoom(uint32_t id, std::string name) : Room(id, name) {}
     bool canJoin(const std::string& token) override;
 };
 

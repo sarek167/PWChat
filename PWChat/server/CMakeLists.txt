@@ -9,6 +9,7 @@ add_executable(server
     src/PrivateRoom.cpp
     src/Room.cpp
     include/server/RoomManager.h
+    src/RoomManager.cpp
 )
 
 set_target_properties(server PROPERTIES WIN32_EXECUTABLE FALSE)
