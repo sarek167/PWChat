@@ -10,6 +10,14 @@ NetworkManager::~NetworkManager() {
     m_io_context.stop();
 }
 
+std::shared_ptr<User> NetworkManager::user() {
+    return m_user;
+}
+
+void NetworkManager::setUser(std::shared_ptr<User> user) {
+    m_user = user;
+}
+
 void NetworkManager::connect(const std::string& host, const std::string& port) {
     try {
         asio::connect(m_socket, m_resolver.resolve(host, port));
@@ -58,27 +66,30 @@ void NetworkManager::waitForRequest() {
 void NetworkManager::readBody(PacketHeader header) {
     asio::async_read(m_socket, m_buffer, asio::transfer_exactly(header.bodySize),
      [this,header](std::error_code ec, std::size_t bytesTransferred) {
-         std::istream is(&m_buffer);
-         std::vector<char> deserializedBody;
+        std::istream is(&m_buffer);
+        std::vector<char> deserializedBody;
 
-         try {
-             cereal::BinaryInputArchive iarchive(is);
-             iarchive(deserializedBody);
-         } catch (const std::exception& e) {
-             std::cerr << "Cereal error: " << e.what() << std::endl;
-         }
+        try {
+            cereal::BinaryInputArchive iarchive(is);
+            iarchive(deserializedBody);
+        } catch (const std::exception& e) {
+            std::cerr << "Cereal error: " << e.what() << std::endl;
+        }
 
-         Packet packet(header, deserializedBody);
+        Packet packet(header, deserializedBody);
 
-         std::cout << "KLIENT DOSTAŁ PAKIET!!!" << std::endl;
-         std::cout << packet.header().signature << std::endl;
-         std::cout << (int)packet.header().type << std::endl;
-         std::cout << (int)packet.header().bodySize << std::endl;
-         std::string message{packet.body().begin(), packet.body().end()};
-         std::cout << message << std::endl;
+        if (header.type == MessageType::AUTH_RESPONSE) {
+            emit AuthResultReceived(std::string(deserializedBody.begin(), deserializedBody.end()));
+        }
+        std::cout << "KLIENT DOSTAŁ PAKIET!!!" << std::endl;
+        std::cout << packet.header().signature << std::endl;
+        std::cout << (int)packet.header().type << std::endl;
+        std::cout << (int)packet.header().bodySize << std::endl;
+        std::string message{packet.body().begin(), packet.body().end()};
+        std::cout << message << std::endl;
 
 
-         waitForRequest();
+        waitForRequest();
      });
 }
 

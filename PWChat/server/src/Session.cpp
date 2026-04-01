@@ -16,8 +16,14 @@ void Session::setUser(uint32_t id, std::string nickname) {
 }
 
 void Session::handleLogin(uint32_t id, std::string nickname) {
+    std::cout << "Logging in user " << id << " with nickname " << nickname << std::endl;
     this->setUser(id, nickname);
     m_server.insertClient(shared_from_this());
+
+    std::string status{"success"};
+    std::vector<char> body{status.begin(), status.end()};
+    Packet responsePacket(MessageType::AUTH_RESPONSE, id, 0, body);
+    deliver(responsePacket);
 }
 
 void Session::doRead() {
@@ -59,7 +65,11 @@ void Session::readBody(PacketHeader header) {
         Packet packet(header, deserializedBody);
 
         if (header.type == MessageType::LOGIN_REQUEST) {
-            handleLogin(header.senderId, "Nick");
+            if (packet.body().empty()) {
+                std::cerr << "User with ID " << header.senderId << " did not set nickname" << std::endl;
+            }
+            std::string nickname = std::string(deserializedBody.data());
+            handleLogin(header.senderId, nickname);
         } else {
             m_server.routePacket(packet);
             std::cout << packet.header().signature << std::endl;

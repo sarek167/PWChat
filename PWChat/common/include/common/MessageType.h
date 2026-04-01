@@ -9,7 +9,8 @@ enum class MessageType : uint8_t {
     AUDIO_TO_USER = 2,
     AUDIO_TO_ROOM = 3,
     SERVER_COMMAND = 4,
-    LOGIN_REQUEST = 5
+    LOGIN_REQUEST = 5,
+    AUTH_RESPONSE = 6
 };
 
 #endif // MESSAGETYPES_H

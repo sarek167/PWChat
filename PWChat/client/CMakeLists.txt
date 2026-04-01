@@ -6,8 +6,13 @@ set(CMAKE_AUTOUIC_SEARCH_PATHS "${CMAKE_CURRENT_SOURCE_DIR}/ui")
 add_executable(client WIN32
     src/main.cpp
     src/NetworkManager.cpp
+    include/client/NetworkManager.h
     ui/LoginWindow.ui
-    view/loginwindow.h view/loginwindow.cpp
+    ui/mainwindow.ui
+    view/loginwindow.h
+    view/loginwindow.cpp
+    view/mainwindow.h
+    view/mainwindow.cpp
 )
 
 target_include_directories(client PRIVATE
