@@ -6,12 +6,14 @@
 #include "Session.h"
 #include "common/Packet.h"
 #include "server/RoomManager.h"
+#include "server/Command.h"
 
 using asio::ip::tcp;
 
 class Server {
 public:
     Server(asio::io_context& io_context, short port);
+    void onPacketReceived(std::shared_ptr<Session> session, const Packet& p);
     void routePacket(const Packet& p);
     void insertClient(std::shared_ptr<Session> session);
     const std::shared_ptr<Session> client(uint32_t clientId);
@@ -22,6 +24,7 @@ private:
     std::map<uint32_t, std::shared_ptr<Session>> m_clients;
     std::mutex m_clientsMutex;
     RoomManager m_roomManager;
+    std::map<MessageType, std::unique_ptr<Command>> m_commands;
 };
 
 #endif // SERVER_H

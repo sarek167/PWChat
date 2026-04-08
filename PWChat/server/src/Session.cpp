@@ -71,7 +71,7 @@ void Session::readBody(PacketHeader header) {
             std::string nickname = std::string(deserializedBody.data());
             handleLogin(header.senderId, nickname);
         } else {
-            m_server.routePacket(packet);
+            m_server.onPacketReceived(self, packet);
             std::cout << packet.header().signature << std::endl;
             std::cout << (int)packet.header().type << std::endl;
             std::cout << (int)packet.header().bodySize << std::endl;

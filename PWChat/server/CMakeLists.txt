@@ -10,6 +10,11 @@ add_executable(server
     src/Room.cpp
     include/server/RoomManager.h
     src/RoomManager.cpp
+    include/server/Command.h
+    include/server/JoinRoomCommand.h
+    src/JoinRoomCommand.cpp
+    include/server/CreateRoomCommand.h
+    src/CreateRoomCommand.cpp
 )
 
 set_target_properties(server PROPERTIES WIN32_EXECUTABLE FALSE)
