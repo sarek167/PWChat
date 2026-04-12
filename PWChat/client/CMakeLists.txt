@@ -1,5 +1,6 @@
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
+set(CMAKE_AUTORCC ON)
 
 set(CMAKE_AUTOUIC_SEARCH_PATHS "${CMAKE_CURRENT_SOURCE_DIR}/ui")
 
@@ -13,6 +14,8 @@ add_executable(client WIN32
     view/loginwindow.cpp
     view/mainwindow.h
     view/mainwindow.cpp
+
+    resources/resources.qrc
 )
 
 target_include_directories(client PRIVATE
