@@ -34,12 +34,18 @@ void NetworkManager::connect(const std::string& host, const std::string& port) {
 }
 
 void NetworkManager::send(const Packet& p) {
-    std::vector<char> toSend = p.pack();
+    auto toSend = std::make_shared<std::vector<char>>(p.pack());
 
-    size_t bytesSent = asio::write(m_socket, asio::buffer(toSend));
-
-    std::cout << "Wyslano pakiet!" << std::endl;
-    std::cout << "Calkowity rozmiar (z naglowkiem): " << bytesSent << " bajtow" << std::endl;
+    asio::post(m_io_context, [this, toSend]() {
+        asio::async_write(m_socket, asio::buffer(*toSend),
+                [toSend](std::error_code ec, std::size_t bytesTransferred) {
+            if (!ec) {
+                std::cout << "Wysłano pakiet długości " << bytesTransferred << std::endl;
+            } else {
+                std::cerr << "Błąd wysyłania: " << ec.message() << std::endl;
+            }
+        });
+    });
 }
 
 void NetworkManager::doRead() {

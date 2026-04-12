@@ -1,8 +1,10 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "createroomdialog.h"
 
-MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
+MainWindow::MainWindow(NetworkManager* manager, QWidget *parent)
+    : m_networkManager(manager)
+    , QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
@@ -20,3 +22,10 @@ void MainWindow::on_btnSend_clicked() {
 
     emit sendRequested(m_targetId, m_message, m_toRoom);
 }
+
+void MainWindow::on_btnCreateRoom_clicked()
+{
+    CreateRoomDialog dlg(this);
+    dlg.exec();
+}
+

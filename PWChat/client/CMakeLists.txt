@@ -16,6 +16,11 @@ add_executable(client WIN32
     view/mainwindow.cpp
 
     resources/resources.qrc
+    view/createroomdialog.h
+    view/createroomdialog.cpp
+    ui/createroomdialog.ui
+    include/client/AppManager.h
+    src/AppManager.cpp
 )
 
 target_include_directories(client PRIVATE
