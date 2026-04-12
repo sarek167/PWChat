@@ -25,6 +25,7 @@ private:
 
 signals:
     void sendRequested(uint32_t targetId, std::string message, bool toRoom);
+    void createRoomRequested(std::string roomName, bool isPrivate, bool isAdmin);
 
 private slots:
     void on_btnSend_clicked();

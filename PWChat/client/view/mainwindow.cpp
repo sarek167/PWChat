@@ -26,6 +26,7 @@ void MainWindow::on_btnSend_clicked() {
 void MainWindow::on_btnCreateRoom_clicked()
 {
     CreateRoomDialog dlg(this);
+    connect(&dlg, &CreateRoomDialog::createRoomRequested, this, &MainWindow::createRoomRequested);
     dlg.exec();
 }
 
