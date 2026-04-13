@@ -7,7 +7,7 @@
 class Command {
 public:
     virtual ~Command() = default;
-    virtual void execute(std::shared_ptr<Session> session, const Packet& p) = 0;
+    virtual void execute(std::shared_ptr<Session> session, const Packet& p, Server& server) = 0;
 };
 
 #endif // COMMAND_H

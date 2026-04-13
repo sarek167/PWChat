@@ -14,6 +14,7 @@ public:
     Session(tcp::socket socket, Server& server);
 
     uint32_t userId();
+    std::shared_ptr<User> user();
     void setUser(uint32_t id, std::string nickname);
 
     void doRead();

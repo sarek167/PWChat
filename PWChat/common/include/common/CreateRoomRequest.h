@@ -3,7 +3,7 @@
 #include <string>
 #include <cereal/types/string.hpp>
 
-struct RoomRequest {
+struct CreateRoomRequest {
     std::string roomName;
     bool isPrivate;
     bool isAdmin;

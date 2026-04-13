@@ -79,10 +79,71 @@ QPushButton:hover {
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="searchBar">
-         <property name="class" stdset="0">
-          <string>searchBar</string>
+        <widget class="QFrame" name="frame_2">
+         <property name="styleSheet">
+          <string notr="true">QFrame QLineEdit, QFrame QPushButton {
+    border-radius: 0px;
+	border: 1px solid #212121;
+}
+
+QLineEdit#searchBar {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-right: none;
+}
+
+QPushButton#btnTalkToUser {
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}</string>
          </property>
+         <property name="frameShape">
+          <enum>QFrame::Shape::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Shadow::Raised</enum>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_6">
+          <property name="spacing">
+           <number>0</number>
+          </property>
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <item>
+           <widget class="QLineEdit" name="searchBar">
+            <property name="text">
+             <string>Fill in name...</string>
+            </property>
+            <property name="class" stdset="0">
+             <string>searchBar</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btnJoinRoom">
+            <property name="text">
+             <string>Join room</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btnTalkToUser">
+            <property name="text">
+             <string>Talk to user</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </widget>
        </item>
        <item>

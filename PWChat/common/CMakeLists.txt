@@ -5,8 +5,9 @@ add_library(common STATIC
     include/common/MessageType.h
     include/common/User.h
     src/User.cpp
-    include/common/RoomRequest.h
+    include/common/CreateRoomRequest.h
     include/common/LoginRequest.h
+    include/common/JoinRoomRequest.h
 )
 
 target_include_directories(common PUBLIC

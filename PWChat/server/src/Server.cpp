@@ -21,7 +21,7 @@ void Server::onPacketReceived(std::shared_ptr<Session> session, const Packet& p)
 
     auto it = m_commands.find(messType);
     if (it != m_commands.end()) {
-        it->second->execute(session, p);
+        it->second->execute(session, p, *this);
     } else {
         std::cout << "Packet does not contain Command -> routing it" << std::endl;
         routePacket(p);

@@ -14,7 +14,6 @@ public:
     Packet(const PacketHeader& header, const std::vector<char>& body);
 
     std::vector<char> pack() const;
-    // static Packet unpackBody(std::vector<char>& rawData);
 
     const PacketHeader& header() const;
     const std::vector<char>& body() const;

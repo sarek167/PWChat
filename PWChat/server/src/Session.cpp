@@ -11,6 +11,10 @@ uint32_t Session::userId() {
     return m_user->id();
 }
 
+std::shared_ptr<User> Session::user() {
+    return m_user;
+}
+
 void Session::setUser(uint32_t id, std::string nickname) {
     m_user = std::make_unique<User>(id, nickname);
 }

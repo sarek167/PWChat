@@ -1,5 +1,5 @@
 #include "client/AppManager.h"
-#include "common/RoomRequest.h"
+#include "common/CreateRoomRequest.h"
 #include "common/LoginRequest.h"
 
 AppManager::AppManager(QObject *parent)
@@ -46,7 +46,7 @@ void AppManager::setupConnections() {
     });
 
     connect(&m_mainWin, &MainWindow::createRoomRequested, this, [this](std::string roomName, bool isPrivate, bool isAdmin) {
-        RoomRequest request{roomName, isPrivate, isAdmin};
+        CreateRoomRequest request{roomName, isPrivate, isAdmin};
 
         Packet sendPacket(MessageType::CREATE_ROOM_COMM, 0, m_networkManager->user()->id(), request);
         m_networkManager->send(sendPacket);
