@@ -15,6 +15,8 @@ add_executable(server
     src/JoinRoomCommand.cpp
     include/server/CreateRoomCommand.h
     src/CreateRoomCommand.cpp
+    include/server/LoginCommand.h
+    src/LoginCommand.cpp
 )
 
 set_target_properties(server PROPERTIES WIN32_EXECUTABLE FALSE)

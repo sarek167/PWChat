@@ -72,20 +72,22 @@ void NetworkManager::waitForRequest() {
 void NetworkManager::readBody(PacketHeader header) {
     asio::async_read(m_socket, m_buffer, asio::transfer_exactly(header.bodySize),
      [this,header](std::error_code ec, std::size_t bytesTransferred) {
-        std::istream is(&m_buffer);
-        std::vector<char> deserializedBody;
+        std::vector<char> rawBody(header.bodySize);
+        auto bufs = m_buffer.data();
+        std::copy(asio::buffers_begin(bufs), asio::buffers_begin(bufs)+header.bodySize, rawBody.begin());
+        m_buffer.consume(header.bodySize);
 
-        try {
-            cereal::BinaryInputArchive iarchive(is);
-            iarchive(deserializedBody);
-        } catch (const std::exception& e) {
-            std::cerr << "Cereal error: " << e.what() << std::endl;
-        }
+        Packet packet(header, rawBody);
 
-        Packet packet(header, deserializedBody);
 
         if (header.type == MessageType::AUTH_RESPONSE) {
-            emit AuthResultReceived(std::string(deserializedBody.begin(), deserializedBody.end()));
+            try {
+                std::string status = packet.unpackBody<std::string>();
+                emit AuthResultReceived(status);
+            } catch (...) {
+                std::cerr << "Błąd dekodowania auth" << std::endl;
+            }
+
         }
         std::cout << "KLIENT DOSTAŁ PAKIET!!!" << std::endl;
         std::cout << packet.header().signature << std::endl;

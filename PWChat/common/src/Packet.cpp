@@ -1,5 +1,9 @@
 #include "common/Packet.h"
-#include <sstream>
+
+Packet::Packet(const PacketHeader& header, const std::vector<char>& body)
+    : m_header(header), m_body(body)
+{
+}
 
 const std::vector<char>& Packet::body() const {
     return m_body;
@@ -23,16 +27,16 @@ std::vector<char> Packet::pack() const {
     return totalPacket;
 }
 
-Packet Packet::unpack(const PacketHeader& header, std::vector<char>& rawData) {
-    std::string dataStr(rawData.begin(), rawData.end());
-    std::istringstream ss(dataStr, std::ios::binary);
+// Packet Packet::unpackBody(const PacketHeader& header, std::vector<char>& rawData) {
+//     std::string dataStr(rawData.begin(), rawData.end());
+//     std::istringstream ss(dataStr, std::ios::binary);
 
-    std::vector<char> deserializedBody;
+//     std::vector<char> deserializedBody;
 
-    {
-        cereal::BinaryInputArchive iarchive(ss);
-        iarchive(deserializedBody);
-    }
-    Packet deserializedPacket(header, deserializedBody);
-    return deserializedPacket;
-}
+//     {
+//         cereal::BinaryInputArchive iarchive(ss);
+//         iarchive(deserializedBody);
+//     }
+//     Packet deserializedPacket(header, deserializedBody);
+//     return deserializedPacket;
+// }

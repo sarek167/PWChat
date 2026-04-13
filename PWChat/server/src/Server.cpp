@@ -1,6 +1,7 @@
 #include "server/Server.h"
 #include "server/Session.h"
 #include <iostream>
+#include "server/LoginCommand.h"
 #include "server/JoinRoomCommand.h"
 #include "server/CreateRoomCommand.h"
 
@@ -8,6 +9,7 @@ using asio::ip::tcp;
 
 Server::Server(asio::io_context& io_context, short port)
     : m_acceptor(io_context, tcp::endpoint(tcp::v4(), port)), m_roomManager() {
+        m_commands[MessageType::LOGIN_REQUEST] = std::make_unique<LoginCommand>();
         m_commands[MessageType::JOIN_ROOM_COMM] = std::make_unique<JoinRoomCommand>();
         m_commands[MessageType::CREATE_ROOM_COMM] = std::make_unique<CreateRoomCommand>();
 

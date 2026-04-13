@@ -6,6 +6,7 @@ add_library(common STATIC
     include/common/User.h
     src/User.cpp
     include/common/RoomRequest.h
+    include/common/LoginRequest.h
 )
 
 target_include_directories(common PUBLIC

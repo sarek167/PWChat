@@ -1,5 +1,6 @@
 #include "client/AppManager.h"
 #include "common/RoomRequest.h"
+#include "common/LoginRequest.h"
 
 AppManager::AppManager(QObject *parent)
     : QObject(parent)
@@ -17,8 +18,8 @@ void AppManager::start() {
 
 void AppManager::setupConnections() {
     connect(&m_loginWin, &LoginWindow::loginRequested, this, [this](uint32_t id, std::string nickname){
-        std::vector<char> body(nickname.begin(), nickname.end());
-        Packet loginPacket(MessageType::LOGIN_REQUEST, 0, id, body);
+        LoginRequest req{id, nickname};
+        Packet loginPacket(MessageType::LOGIN_REQUEST, 0, id, req);
         m_networkManager->send(loginPacket);
         m_networkManager->setUser(std::make_shared<User>(id, nickname));
     });

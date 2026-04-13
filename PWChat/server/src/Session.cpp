@@ -21,8 +21,7 @@ void Session::handleLogin(uint32_t id, std::string nickname) {
     m_server.insertClient(shared_from_this());
 
     std::string status{"success"};
-    std::vector<char> body{status.begin(), status.end()};
-    Packet responsePacket(MessageType::AUTH_RESPONSE, id, 0, body);
+    Packet responsePacket(MessageType::AUTH_RESPONSE, id, 0, status);
     deliver(responsePacket);
 }
 
@@ -52,34 +51,18 @@ void Session::readBody(PacketHeader header) {
     auto self(shared_from_this());
     asio::async_read(m_socket, m_buffer, asio::transfer_exactly(header.bodySize),
                            [this,self,header](std::error_code ec, std::size_t bytesTransferred) {
-        std::istream is(&m_buffer);
-        std::vector<char> deserializedBody;
+        if (!ec) {
+            std::vector<char> rawBody(header.bodySize);
+            auto bufs = m_buffer.data();
+            std::copy(asio::buffers_begin(bufs), asio::buffers_begin(bufs) + header.bodySize, rawBody.begin());
+            m_buffer.consume(header.bodySize);
 
-        try {
-            cereal::BinaryInputArchive iarchive(is);
-            iarchive(deserializedBody);
-        } catch (const std::exception& e) {
-            std::cerr << "Cereal error: " << e.what() << std::endl;
-        }
-
-        Packet packet(header, deserializedBody);
-
-        if (header.type == MessageType::LOGIN_REQUEST) {
-            if (packet.body().empty()) {
-                std::cerr << "User with ID " << header.senderId << " did not set nickname" << std::endl;
-            }
-            std::string nickname = std::string(deserializedBody.data());
-            handleLogin(header.senderId, nickname);
-        } else {
+            Packet packet(header, rawBody);
             m_server.onPacketReceived(self, packet);
-            std::cout << packet.header().signature << std::endl;
-            std::cout << (int)packet.header().type << std::endl;
-            std::cout << (int)packet.header().bodySize << std::endl;
-            std::string message{packet.body().begin(), packet.body().end()};
-            std::cout << message << std::endl;
 
+            waitForRequest();
         }
-        waitForRequest();
+
     });
 }
 
