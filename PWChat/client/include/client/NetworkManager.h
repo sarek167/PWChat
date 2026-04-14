@@ -32,6 +32,7 @@ private:
 
 signals:
     void AuthResultReceived(std::string status);
+    void MessageReceived(const QString& senderId, const QString& message);
 };
 
 #endif // NETWORKMANAGER_H

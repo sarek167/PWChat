@@ -88,6 +88,13 @@ void NetworkManager::readBody(PacketHeader header) {
                 std::cerr << "Błąd dekodowania auth" << std::endl;
             }
 
+        } else if (header.type == MessageType::TEXT_TO_USER) {
+            try {
+                std::string message = packet.unpackBody<std::string>();
+                emit MessageReceived(QString::number(header.senderId), QString::fromStdString(message));
+            } catch (...) {
+                std::cerr << "Błąd dekodowania message" << std::endl;
+            }
         }
         std::cout << "KLIENT DOSTAŁ PAKIET!!!" << std::endl;
         std::cout << packet.header().signature << std::endl;
