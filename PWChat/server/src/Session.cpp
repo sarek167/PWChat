@@ -82,10 +82,4 @@ void Session::deliver(const Packet& p){
                 std::cerr << "Send error " << ec.message() << std::endl;
             }
     });
-// }
-
-//     size_t bytesSent = asio::async_write(m_socket, asio::buffer(toSend));
-//     std::cout << "Got package! From: " << p.header().senderId << std:: endl;
-//     std::cout << "Will be delivered to: " << p.header().targetId << std::endl;
-//     std::cout << "User session: " << m_user->id() << std::endl;
 }

@@ -33,7 +33,6 @@ void AppManager::setupConnections() {
     }, Qt::QueuedConnection);
 
     connect(&m_mainWin, &MainWindow::sendRequested, this, [this](uint32_t targetId, std::string message, bool toRoom) {
-        std::vector<char> body(message.begin(), message.end());
         MessageType messType;
 
         if (toRoom) {
@@ -41,7 +40,7 @@ void AppManager::setupConnections() {
         } else {
             messType = MessageType::TEXT_TO_USER;
         }
-        Packet sendPacket(messType, targetId, m_networkManager->user()->id(), body);
+        Packet sendPacket(messType, targetId, m_networkManager->user()->id(), message);
         m_networkManager->send(sendPacket);
     });
 
@@ -49,6 +48,11 @@ void AppManager::setupConnections() {
         CreateRoomRequest request{roomName, isPrivate, isAdmin};
 
         Packet sendPacket(MessageType::CREATE_ROOM_COMM, 0, m_networkManager->user()->id(), request);
+        m_networkManager->send(sendPacket);
+    });
+
+    connect(&m_mainWin, &MainWindow::joinRoomRequested, this, [this](std::string roomName) {
+        Packet sendPacket(MessageType::JOIN_ROOM_COMM, 0, m_networkManager->user()->id(), roomName);
         m_networkManager->send(sendPacket);
     });
 

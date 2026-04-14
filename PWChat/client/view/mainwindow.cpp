@@ -30,3 +30,10 @@ void MainWindow::on_btnCreateRoom_clicked()
     dlg.exec();
 }
 
+
+void MainWindow::on_btnJoinRoom_clicked()
+{
+    std::string roomName = ui->searchBar->text().toStdString();
+    emit joinRoomRequested(roomName);
+}
+

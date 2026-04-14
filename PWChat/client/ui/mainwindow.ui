@@ -84,6 +84,10 @@ QPushButton:hover {
           <string notr="true">QFrame QLineEdit, QFrame QPushButton {
     border-radius: 0px;
 	border: 1px solid #212121;
+	min-height: 22px; 
+    max-height: 22px;
+    padding: 5px 15px; 
+    margin: 0px;	
 }
 
 QLineEdit#searchBar {
@@ -122,6 +126,9 @@ QPushButton#btnTalkToUser {
           <item>
            <widget class="QLineEdit" name="searchBar">
             <property name="text">
+             <string/>
+            </property>
+            <property name="placeholderText">
              <string>Fill in name...</string>
             </property>
             <property name="class" stdset="0">

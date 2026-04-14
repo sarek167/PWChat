@@ -69,12 +69,14 @@ void Server::routePacket(const Packet& p) {
 
     if (messType == MessageType::TEXT_TO_USER) {
         const std::shared_ptr<Session> targetClient = client(targetId);
-        std::cout << "before adding to room" << std::endl;
-        m_roomManager.getRoom("Lobby")->addClient(targetClient);
         targetClient->deliver(p);
 
     } else if (messType == MessageType::TEXT_TO_ROOM) {
-        m_roomManager.getRoom("Lobby")->broadcast(p);
+        try {
+            m_roomManager.getRoom(p.header().targetId)->broadcast(p);
+        } catch (...) {
+            std::cerr << "Error while sending message to room" << std::endl;
+        }
     } else {
         std::cout << "Message was not to user - right now it's the only option :c" << std::endl;
     }

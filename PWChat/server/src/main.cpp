@@ -1,7 +1,6 @@
 #include <QCoreApplication>
 #include <asio.hpp>
 #include <server/Server.h>
-#include "server/PublicRoom.h"
 
 int main(int argc, char *argv[])
 {
@@ -9,7 +8,6 @@ int main(int argc, char *argv[])
     asio::io_context io_context;
     Server s(io_context, 25000);
 
-    s.roomManager().createRoom("Lobby", false, nullptr, false);
     io_context.run();
     return 0;
 
