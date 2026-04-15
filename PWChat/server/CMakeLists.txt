@@ -17,6 +17,10 @@ add_executable(server
     src/CreateRoomCommand.cpp
     include/server/LoginCommand.h
     src/LoginCommand.cpp
+    include/server/UserTextMessCommand.h
+    src/UserTextMessCommand.cpp
+    include/server/RoomTextMessCommand.h
+    src/RoomTextMessCommand.cpp
 )
 
 set_target_properties(server PROPERTIES WIN32_EXECUTABLE FALSE)

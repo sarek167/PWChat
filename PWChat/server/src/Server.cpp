@@ -4,6 +4,8 @@
 #include "server/LoginCommand.h"
 #include "server/JoinRoomCommand.h"
 #include "server/CreateRoomCommand.h"
+#include "server/RoomTextMessCommand.h"
+#include "server/UserTextMessCommand.h"
 
 using asio::ip::tcp;
 
@@ -12,6 +14,8 @@ Server::Server(asio::io_context& io_context, short port)
         m_commands[MessageType::LOGIN_REQUEST] = std::make_unique<LoginCommand>();
         m_commands[MessageType::JOIN_ROOM_COMM] = std::make_unique<JoinRoomCommand>();
         m_commands[MessageType::CREATE_ROOM_COMM] = std::make_unique<CreateRoomCommand>();
+        m_commands[MessageType::TEXT_TO_USER] = std::make_unique<UserTextMessCommand>();
+        m_commands[MessageType::TEXT_TO_ROOM] = std::make_unique<RoomTextMessCommand>();
 
         do_accept();
     }
@@ -23,8 +27,7 @@ void Server::onPacketReceived(std::shared_ptr<Session> session, const Packet& p)
     if (it != m_commands.end()) {
         it->second->execute(session, p, *this);
     } else {
-        std::cout << "Packet does not contain Command -> routing it" << std::endl;
-        routePacket(p);
+        std::cerr << "Unknown message type received" << std::endl;
     }
 
 }
@@ -61,24 +64,4 @@ void Server::do_accept() {
 void Server::insertClient(std::shared_ptr<Session> session) {
     std::lock_guard<std::mutex> lock(m_clientsMutex);
     m_clients.insert({session->userId(), session});
-}
-
-void Server::routePacket(const Packet& p) {
-    MessageType messType = p.header().type;
-    uint32_t targetId = p.header().targetId;
-
-    if (messType == MessageType::TEXT_TO_USER) {
-        const std::shared_ptr<Session> targetClient = client(targetId);
-        targetClient->deliver(p);
-
-    } else if (messType == MessageType::TEXT_TO_ROOM) {
-        try {
-            m_roomManager.getRoom(p.header().targetId)->broadcast(p);
-        } catch (...) {
-            std::cerr << "Error while sending message to room" << std::endl;
-        }
-    } else {
-        std::cout << "Message was not to user - right now it's the only option :c" << std::endl;
-    }
-
 }
