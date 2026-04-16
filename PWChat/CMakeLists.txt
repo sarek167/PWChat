@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.19)
-project(PWChat LANGUAGES CXX)
+project(PWChat LANGUAGES CXX C)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)

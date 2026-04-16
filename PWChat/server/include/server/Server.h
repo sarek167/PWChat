@@ -7,6 +7,7 @@
 #include "common/Packet.h"
 #include "server/RoomManager.h"
 #include "server/Command.h"
+#include "server/DBConnector.h"
 
 using asio::ip::tcp;
 
@@ -24,6 +25,7 @@ private:
     std::map<uint32_t, std::shared_ptr<Session>> m_clients;
     std::mutex m_clientsMutex;
     RoomManager m_roomManager;
+    std::unique_ptr<DBConnector> m_db;
     std::map<MessageType, std::unique_ptr<Command>> m_commands;
 };
 

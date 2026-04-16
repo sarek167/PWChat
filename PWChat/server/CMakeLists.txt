@@ -1,3 +1,6 @@
+set(SQLITE_SRC ${CMAKE_SOURCE_DIR}/libs/SQLite/sqlite3.c)
+set_source_files_properties(${SQLITE_SRC} PROPERTIES LANGUAGE C)
+
 add_executable(server
     src/main.cpp
     src/Server.cpp
@@ -21,13 +24,20 @@ add_executable(server
     src/UserTextMessCommand.cpp
     include/server/RoomTextMessCommand.h
     src/RoomTextMessCommand.cpp
+    include/server/DBConnector.h
+    include/server/DBConnector.h
+    include/server/SQLiteConnector.h
+    src/SQLiteConnector.cpp
+    ${SQLITE_SRC}
 )
+
 
 set_target_properties(server PROPERTIES WIN32_EXECUTABLE FALSE)
 
 target_include_directories(server PRIVATE
     include
     ${CMAKE_SOURCE_DIR}/libs/asio-1.36.0/include
+    ${CMAKE_SOURCE_DIR}/libs/SQLite
 )
 
 target_compile_definitions(server PRIVATE ASIO_STANDALONE)

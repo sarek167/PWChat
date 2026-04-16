@@ -6,11 +6,20 @@
 #include "server/CreateRoomCommand.h"
 #include "server/RoomTextMessCommand.h"
 #include "server/UserTextMessCommand.h"
-
+#include "server/SQLiteConnector.h"
 using asio::ip::tcp;
 
 Server::Server(asio::io_context& io_context, short port)
     : m_acceptor(io_context, tcp::endpoint(tcp::v4(), port)), m_roomManager() {
+        m_db = std::make_unique<SQLiteConnector>();
+
+        if (m_db->connect("pwchat_db.db")) {
+            static_cast<SQLiteConnector*>(m_db.get())->initializeSchema();
+            std::cout << "DB is up and ready";
+        } else {
+            std::cerr << "Error while connecting to db" << std::endl;
+        }
+
         m_commands[MessageType::LOGIN_REQUEST] = std::make_unique<LoginCommand>();
         m_commands[MessageType::JOIN_ROOM_COMM] = std::make_unique<JoinRoomCommand>();
         m_commands[MessageType::CREATE_ROOM_COMM] = std::make_unique<CreateRoomCommand>();
