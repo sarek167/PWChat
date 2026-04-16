@@ -15,7 +15,7 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(NetworkManager* manager, QWidget *parent = nullptr);
     ~MainWindow();
-    void appendMessage(const QString& sender, const QString& text);
+    void appendMessage(const QString& sender, const QString& text, bool isFromOthers=true);
 
 
 private:
@@ -25,7 +25,7 @@ private:
     bool m_toRoom;
     NetworkManager* m_networkManager;
     void scrollToBottom();
-    QWidget* createMessageWidget(const QString& senderId, const QString& message);
+    QWidget* createMessageWidget(const QString& senderId, const QString& message, bool isFromOthers=true);
 
 signals:
     void sendRequested(uint32_t targetId, std::string message, bool toRoom);

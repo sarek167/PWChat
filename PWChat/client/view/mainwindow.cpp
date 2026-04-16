@@ -25,36 +25,49 @@ void MainWindow::scrollToBottom() {
     });
 }
 
-QWidget* MainWindow::createMessageWidget(const QString& senderId, const QString& message) {
+QWidget* MainWindow::createMessageWidget(const QString& senderId, const QString& message, bool isFromOthers) {
     QWidget* container = new QWidget();
     QVBoxLayout* layout = new QVBoxLayout(container);
 
     QLabel* senderLabel = new QLabel(senderId);
-    senderLabel->setStyleSheet("font-weight: bold; color: white;");
+    senderLabel->setStyleSheet(isFromOthers ? "font-weight: bold; color: #212121;" : "font-weight: bold; color: white;");
 
     QLabel* textLabel = new QLabel(message);
     textLabel->setWordWrap(true);
-    textLabel->setStyleSheet("color: white;");
+    textLabel->setStyleSheet(isFromOthers ? "color: #212121;" : "color: white;");
 
     layout->addWidget(senderLabel);
     layout->addWidget(textLabel);
 
-    container->setStyleSheet(
+    QString bgColor = isFromOthers ? "white" : "#212121";
+    container->setStyleSheet(QString(
         "QWidget { "
-        "   background-color: #212121;"
+        "   background-color: %1;"
         "   border-radius: 10px;"
         "   padding: 5px;"
+        "   min-width: 100px;"
         "   max-width: 400px;"
         "}"
-        );
+        ).arg(bgColor));
     return container;
 }
 
-void MainWindow::appendMessage(const QString& sender, const QString& text) {
-    QWidget* msgWidget = createMessageWidget(sender, text);
+void MainWindow::appendMessage(const QString& sender, const QString& text, bool isFromOthers) {
+    QWidget* msgWidget = createMessageWidget(sender, text, isFromOthers);
+
+    QWidget* wrapper = new QWidget();
+    QHBoxLayout* wrapperLayout = new QHBoxLayout(wrapper);
+    wrapperLayout->setContentsMargins(0,0,0,0);
+    if (isFromOthers) {
+        wrapperLayout->addWidget(msgWidget);
+        wrapperLayout->addStretch();
+    } else {
+        wrapperLayout->addStretch();
+        wrapperLayout->addWidget(msgWidget);
+    }
 
     int spacerIdx = ui->verticalLayoutChat->count() - 1;
-    ui->verticalLayoutChat->insertWidget(spacerIdx, msgWidget);
+    ui->verticalLayoutChat->insertWidget(spacerIdx, wrapper);
 
     scrollToBottom();
 }
@@ -66,6 +79,7 @@ void MainWindow::on_btnSend_clicked() {
     m_toRoom = ui->checkSendRoom->isChecked();
 
     emit sendRequested(m_targetId, m_message, m_toRoom);
+    appendMessage(QString("You"), QString::fromStdString(m_message), false);
 }
 
 void MainWindow::on_btnCreateRoom_clicked()

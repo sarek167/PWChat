@@ -32,7 +32,9 @@ void AppManager::setupConnections() {
         }
     }, Qt::QueuedConnection);
 
-    connect(m_networkManager, &NetworkManager::MessageReceived, &m_mainWin, &MainWindow::appendMessage);
+    connect(m_networkManager, &NetworkManager::MessageReceived, this, [this](const QString& senderId, const QString& message) {
+        m_mainWin.appendMessage(senderId, message, true);
+    });
 
     connect(&m_mainWin, &MainWindow::sendRequested, this, [this](uint32_t targetId, std::string message, bool toRoom) {
         MessageType messType;
