@@ -17,8 +17,10 @@ public:
     void onPacketReceived(std::shared_ptr<Session> session, const Packet& p);
     void routePacket(const Packet& p);
     void insertClient(std::shared_ptr<Session> session);
+    void loadDataFromDB();
     const std::shared_ptr<Session> client(uint32_t clientId);
     RoomManager& roomManager();
+    DBConnector& db();
 private:
     void do_accept();
     tcp::acceptor m_acceptor;

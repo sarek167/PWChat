@@ -41,22 +41,22 @@ void Room::broadcast(const Packet& p) {
     }
 }
 
-void Room::addAdmin(std::shared_ptr<User> adminToAdd) {
-    auto it = std::find(m_admins.begin(), m_admins.end(), adminToAdd);
+void Room::addAdmin(uint32_t adminToAdd) {
+    auto it = std::find(m_adminIds.begin(), m_adminIds.end(), adminToAdd);
 
-    if (it != m_admins.end()) {
-        std::cerr << "Error: User " << adminToAdd->id() << " is already an admin of the room " << m_name << std::endl;
+    if (it != m_adminIds.end()) {
+        std::cerr << "Error: User " << adminToAdd << " is already an admin of the room " << m_name << std::endl;
     } else {
-        m_admins.push_back(adminToAdd);
+        m_adminIds.push_back(adminToAdd);
     }
 }
 
-void Room::removeAdmin(std::shared_ptr<User> adminToRemove) {
-    auto it = std::find(m_admins.begin(), m_admins.end(), adminToRemove);
+void Room::removeAdmin(uint32_t adminToRemove) {
+    auto it = std::find(m_adminIds.begin(), m_adminIds.end(), adminToRemove);
 
-    if (it != m_admins.end()) {
-        m_admins.erase(it, m_admins.end());
+    if (it != m_adminIds.end()) {
+        m_adminIds.erase(it, m_adminIds.end());
     } else {
-        std::cerr << "Error: User " << adminToRemove->id() << " wasn't admin of the room " << m_name << std::endl;
+        std::cerr << "Error: User " << adminToRemove << " wasn't admin of the room " << m_name << std::endl;
     }
 }

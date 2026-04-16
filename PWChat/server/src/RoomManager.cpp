@@ -16,21 +16,29 @@ std::shared_ptr<Room> RoomManager::getRoom(std::string name) {
 }
 
 
-void RoomManager::createRoom(std::string name, bool isPrivate, std::shared_ptr<User> owner, bool ownerIsAdmin) {
+void RoomManager::createRoom(uint32_t roomId, std::string name, bool isPrivate, uint32_t ownerId, bool ownerIsAdmin = false) {
     std::shared_ptr<Room> newRoom;
-    uint32_t newId = m_nextId++;
     if (isPrivate) {
-        newRoom = std::make_shared<PrivateRoom>(newId, name);
+        newRoom = std::make_shared<PrivateRoom>(roomId, name, ownerId);
     } else {
-        newRoom = std::make_shared<PublicRoom>(newId, name);
+        newRoom = std::make_shared<PublicRoom>(roomId, name, ownerId);
     }
 
     if (ownerIsAdmin) {
-        newRoom->addAdmin(owner);
+        newRoom->addAdmin(ownerId);
     }
-    m_allRooms[newId] = newRoom;
+    m_allRooms[roomId] = newRoom;
     m_allRoomsByName[name] = newRoom;
-    std::cout << "Created room with id " << newId << std::endl;
+    std::cout << "Created room with id " << roomId << std::endl;
+}
+
+void RoomManager::initialize(const std::vector<RoomData>& rooms) {
+    m_allRooms.clear();
+    m_allRoomsByName.clear();
+
+    for (const auto& rd : rooms) {
+        createRoom(rd.id, rd.name, rd.isPrivate, rd.ownerId);
+    }
 }
 
 // TO DO: add remove room

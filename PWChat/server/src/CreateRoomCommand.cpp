@@ -4,6 +4,14 @@
 
 void CreateRoomCommand::execute(std::shared_ptr<Session> session, const Packet& p, Server& server) {
     CreateRoomRequest request = p.unpackBody<CreateRoomRequest>();
-    server.roomManager().createRoom(request.roomName, request.isPrivate, session->user(), request.isAdmin);
-    server.roomManager().getRoom(request.roomName)->addClient(session);
+
+    uint32_t roomId = server.db().saveRoom(request.roomName, request.isPrivate, p.header().senderId);
+    std::cout << "Saving room: " << roomId << std::endl;
+
+    if (roomId) {
+        server.roomManager().createRoom(roomId, request.roomName, request.isPrivate, p.header().senderId, request.isAdmin);
+        server.roomManager().getRoom(request.roomName)->addClient(session);
+    } else {
+        std::cerr << "Error while saving room to db" << std::endl;
+    }
 }

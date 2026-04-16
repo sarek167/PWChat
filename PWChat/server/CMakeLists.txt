@@ -29,6 +29,7 @@ add_executable(server
     include/server/SQLiteConnector.h
     src/SQLiteConnector.cpp
     ${SQLITE_SRC}
+    include/server/RoomData.h
 )
 
 

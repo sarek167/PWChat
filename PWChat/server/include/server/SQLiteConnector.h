@@ -14,6 +14,8 @@ public:
     bool connect(const std::string& dbPath) override;
     void disconnect() override;
     void initializeSchema() override;
+    std::vector<RoomData> getAllRooms() override;
+    int saveRoom(const std::string& name, const bool isPrivate, const uint32_t ownerId) override;
 };
 
 #endif // SQLITECONNECTOR_H

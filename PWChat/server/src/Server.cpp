@@ -20,6 +20,8 @@ Server::Server(asio::io_context& io_context, short port)
             std::cerr << "Error while connecting to db" << std::endl;
         }
 
+        loadDataFromDB();
+
         m_commands[MessageType::LOGIN_REQUEST] = std::make_unique<LoginCommand>();
         m_commands[MessageType::JOIN_ROOM_COMM] = std::make_unique<JoinRoomCommand>();
         m_commands[MessageType::CREATE_ROOM_COMM] = std::make_unique<CreateRoomCommand>();
@@ -43,6 +45,10 @@ void Server::onPacketReceived(std::shared_ptr<Session> session, const Packet& p)
 
 RoomManager& Server::roomManager() {
     return m_roomManager;
+}
+
+DBConnector& Server::db() {
+    return *m_db;
 }
 
 const std::shared_ptr<Session> Server::client(uint32_t clientId) {
@@ -73,4 +79,10 @@ void Server::do_accept() {
 void Server::insertClient(std::shared_ptr<Session> session) {
     std::lock_guard<std::mutex> lock(m_clientsMutex);
     m_clients.insert({session->userId(), session});
+}
+
+void Server::loadDataFromDB() {
+    auto roomsData = m_db->getAllRooms();
+    m_roomManager.initialize(roomsData);
+    std::cout << "Loaded " << roomsData.size() << "rooms from db" << std::endl;
 }
