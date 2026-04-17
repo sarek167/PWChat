@@ -19,16 +19,6 @@ void Session::setUser(uint32_t id, std::string nickname) {
     m_user = std::make_unique<User>(id, nickname);
 }
 
-void Session::handleLogin(uint32_t id, std::string nickname) {
-    std::cout << "Logging in user " << id << " with nickname " << nickname << std::endl;
-    this->setUser(id, nickname);
-    m_server.insertClient(shared_from_this());
-
-    std::string status{"success"};
-    Packet responsePacket(MessageType::AUTH_RESPONSE, id, 0, status);
-    deliver(responsePacket);
-}
-
 void Session::doRead() {
     waitForRequest();
 }

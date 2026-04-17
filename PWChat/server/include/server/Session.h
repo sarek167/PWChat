@@ -16,10 +16,8 @@ public:
     uint32_t userId();
     std::shared_ptr<User> user();
     void setUser(uint32_t id, std::string nickname);
-
     void doRead();
     void deliver(const Packet& p);
-    void handleLogin(uint32_t id, std::string nickname);
 
 private:
     tcp::socket m_socket;

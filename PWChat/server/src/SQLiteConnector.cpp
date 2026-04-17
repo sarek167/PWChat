@@ -101,3 +101,57 @@ std::vector<RoomData> SQLiteConnector::getAllRooms() {
     return rooms;
 }
 
+std::vector<RoomData> SQLiteConnector::getUserRooms(const uint32_t userId) {
+    std::vector<RoomData> rooms;
+    const char* sql =
+        "SELECT r.id, r.name, r.is_private, r.owner_id "
+        "FROM rooms r "
+        "JOIN users_rooms ur ON r.id = ur.room_id "
+        "WHERE ur.user_id = ?";
+
+    sqlite3_stmt* stmt = nullptr;
+
+    if (sqlite3_prepare_v2(m_db, sql, -1, &stmt, nullptr) == SQLITE_OK) {
+        sqlite3_bind_int(stmt, 1, static_cast<int>(userId));
+
+        while (sqlite3_step(stmt) == SQLITE_ROW) {
+            RoomData room;
+            room.id = static_cast<uint32_t>(sqlite3_column_int(stmt, 0));
+            room.name = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 1));
+            room.isPrivate = sqlite3_column_int(stmt, 2) != 0;
+            room.ownerId = static_cast<uint32_t>(sqlite3_column_int(stmt, 3));
+            rooms.push_back(room);
+        }
+    } else {
+        std::cerr << "SQL Error: " << sqlite3_errmsg(m_db) << std::endl;
+    }
+
+    sqlite3_finalize(stmt);
+    return rooms;
+}
+
+bool SQLiteConnector::saveUserRoom(const uint32_t userId, const uint32_t roomId, bool isAdmin) {
+    const char* sql = "INSERT INTO users_rooms (user_id, room_id, is_admin) VALUES (?, ?, ?)";
+    sqlite3_stmt* stmt = nullptr;
+
+    if (sqlite3_prepare_v2(m_db, sql, -1, &stmt, nullptr) != SQLITE_OK) {
+        std::cerr << "SQL Error: " << sqlite3_errmsg(m_db) << std::endl;
+        return false;
+    }
+
+    sqlite3_bind_int(stmt, 1, static_cast<int>(userId));
+    sqlite3_bind_int(stmt, 2, static_cast<int>(roomId));
+    sqlite3_bind_int(stmt, 3, isAdmin ? 1 : 0);
+
+    int rc = sqlite3_step(stmt);
+    bool success = (rc == SQLITE_DONE);
+
+    if (!success) {
+        std::cerr << "SQL Error (Step): " << sqlite3_errmsg(m_db) << std::endl;
+    }
+
+    sqlite3_finalize(stmt);
+    return true;
+
+}
+
