@@ -1,3 +1,16 @@
+include(FetchContent)
+
+FetchContent_Declare(
+  opus
+  GIT_REPOSITORY https://github.com/xiph/opus.git
+  GIT_TAG        v1.4
+)
+
+set(OPUS_BUILD_PROGRAMS OFF CACHE BOOL "" FORCE)
+set(OPUS_BUILD_TESTING OFF CACHE BOOL "" FORCE)
+
+FetchContent_MakeAvailable(opus)
+
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTORCC ON)
@@ -21,6 +34,11 @@ add_executable(client WIN32
     ui/createroomdialog.ui
     include/client/AppManager.h
     src/AppManager.cpp
+    include/client/AudioManager.h
+    src/AudioManager.cpp
+    include/client/AudioCodec.h
+    include/client/OpusCodec.h
+    src/OpusCodec.cpp
 )
 
 target_include_directories(client PRIVATE
@@ -32,4 +50,4 @@ target_include_directories(client PRIVATE
 target_compile_definitions(client PRIVATE ASIO_STANDALONE)
 
 target_include_directories(client PRIVATE include)
-target_link_libraries(client PRIVATE Qt6::Widgets Qt6::Network Qt6::Multimedia common)
+target_link_libraries(client PRIVATE Qt6::Widgets Qt6::Network Qt6::Multimedia opus common)
