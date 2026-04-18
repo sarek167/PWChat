@@ -314,6 +314,13 @@ QPushButton#btnTalkToUser {
                  </widget>
                 </item>
                 <item>
+                 <widget class="QPushButton" name="btnRecordAudio">
+                  <property name="text">
+                   <string>Record</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
                  <widget class="QPushButton" name="btnSend">
                   <property name="text">
                    <string>Send</string>

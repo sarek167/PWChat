@@ -13,11 +13,16 @@ public:
     AudioManager();
     void startRecording();
     void stopRecording();
+    void playAudio(const std::vector<float>& pcmData);
+    std::shared_ptr<AudioCodec> codec();
 private:
     QAudioSource* m_audioSource = nullptr;
     QBuffer m_buffer;
     QByteArray m_audioData;
-    std::unique_ptr<AudioCodec> m_codec;
+    std::shared_ptr<AudioCodec> m_codec;
+
+signals:
+    void audioReadyToSend(const std::vector<char>& compressedData);
 };
 
 #endif // AUDIOMANAGER_H

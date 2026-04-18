@@ -6,6 +6,7 @@
 #include "server/CreateRoomCommand.h"
 #include "server/RoomTextMessCommand.h"
 #include "server/UserTextMessCommand.h"
+#include "server/UserAudioMessCommand.h"
 #include "server/SQLiteConnector.h"
 using asio::ip::tcp;
 
@@ -27,6 +28,7 @@ Server::Server(asio::io_context& io_context, short port)
         m_commands[MessageType::CREATE_ROOM_COMM] = std::make_unique<CreateRoomCommand>();
         m_commands[MessageType::TEXT_TO_USER] = std::make_unique<UserTextMessCommand>();
         m_commands[MessageType::TEXT_TO_ROOM] = std::make_unique<RoomTextMessCommand>();
+        m_commands[MessageType::AUDIO_TO_USER] = std::make_unique<UserAudioMessCommand>();
 
         do_accept();
     }

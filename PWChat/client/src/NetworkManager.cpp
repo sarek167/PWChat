@@ -95,6 +95,12 @@ void NetworkManager::readBody(PacketHeader header) {
             } catch (...) {
                 std::cerr << "Błąd dekodowania message" << std::endl;
             }
+        } else if (header.type == MessageType::AUDIO_TO_USER) {
+            try {
+                emit AudioMessageReceived(QString::number(header.senderId), packet.body());
+            } catch (...) {
+                std::cerr << "Błąd dekodowania audio" << std::endl;
+            }
         }
         std::cout << "KLIENT DOSTAŁ PAKIET!!!" << std::endl;
         std::cout << packet.header().signature << std::endl;

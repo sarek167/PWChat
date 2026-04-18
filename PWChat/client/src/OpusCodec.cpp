@@ -26,7 +26,7 @@ OpusCodec::~OpusCodec() {
     }
 }
 
-std::vector<char> OpusCodec::encode(std::vector<float>& pcmData) {
+std::vector<char> OpusCodec::encode(const std::vector<float>& pcmData) {
     std::vector<char> totalEncodedData;
     unsigned char outBuf[4000];
 
@@ -42,7 +42,7 @@ std::vector<char> OpusCodec::encode(std::vector<float>& pcmData) {
     return totalEncodedData;
 }
 
-std::vector<float> OpusCodec::decode(std::vector<char>& compressedData) {
+std::vector<float> OpusCodec::decode(const std::vector<char>& compressedData) {
     std::vector<float> totalDecodedData;
     size_t offset = 0;
     float outputBuffer[960];

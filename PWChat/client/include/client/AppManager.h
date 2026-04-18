@@ -4,6 +4,7 @@
 #include "client/NetworkManager.h"
 #include "loginwindow.h"
 #include "mainwindow.h"
+#include "client/AudioManager.h"
 
 class AppManager : public QObject {
     Q_OBJECT
@@ -12,6 +13,7 @@ public:
     void start();
 private:
     NetworkManager* m_networkManager;
+    AudioManager* m_audioManager;
     LoginWindow m_loginWin;
     MainWindow m_mainWin;
 

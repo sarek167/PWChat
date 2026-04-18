@@ -31,11 +31,15 @@ signals:
     void sendRequested(uint32_t targetId, std::string message, bool toRoom);
     void createRoomRequested(std::string roomName, bool isPrivate, bool isAdmin);
     void joinRoomRequested(std::string roomName);
+    void audioRecordingStarted();
+    void audioRecordingStopped();
 
 private slots:
     void on_btnSend_clicked();
     void on_btnCreateRoom_clicked();
     void on_btnJoinRoom_clicked();
+    void on_btnRecordAudio_pressed();
+    void on_btnRecordAudio_released();
 };
 
 #endif // MAINWINDOW_H

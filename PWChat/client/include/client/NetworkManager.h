@@ -33,6 +33,7 @@ private:
 signals:
     void AuthResultReceived(std::string status);
     void MessageReceived(const QString& senderId, const QString& message);
+    void AudioMessageReceived(const QString& senderId, const std::vector<char>& audioMessage);
 };
 
 #endif // NETWORKMANAGER_H

@@ -26,17 +26,3 @@ std::vector<char> Packet::pack() const {
 
     return totalPacket;
 }
-
-// Packet Packet::unpackBody(const PacketHeader& header, std::vector<char>& rawData) {
-//     std::string dataStr(rawData.begin(), rawData.end());
-//     std::istringstream ss(dataStr, std::ios::binary);
-
-//     std::vector<char> deserializedBody;
-
-//     {
-//         cereal::BinaryInputArchive iarchive(ss);
-//         iarchive(deserializedBody);
-//     }
-//     Packet deserializedPacket(header, deserializedBody);
-//     return deserializedPacket;
-// }

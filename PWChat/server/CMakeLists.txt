@@ -30,6 +30,8 @@ add_executable(server
     src/SQLiteConnector.cpp
     ${SQLITE_SRC}
     include/server/RoomData.h
+    include/server/UserAudioMessCommand.h
+    src/UserAudioMessCommand.cpp
 )
 
 

@@ -8,8 +8,8 @@ class OpusCodec : public AudioCodec {
 public:
     OpusCodec();
     ~OpusCodec();
-    std::vector<char> encode(std::vector<float>& pcmData) override;
-    std::vector<float> decode(std::vector<char>& compressedData) override;
+    std::vector<char> encode(const std::vector<float>& pcmData) override;
+    std::vector<float> decode(const std::vector<char>& compressedData) override;
 private:
     OpusEncoder* m_encoder = nullptr;
     OpusDecoder* m_decoder = nullptr;

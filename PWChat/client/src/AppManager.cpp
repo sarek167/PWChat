@@ -6,7 +6,8 @@ AppManager::AppManager(QObject *parent)
     : QObject(parent)
     , m_networkManager(new NetworkManager())
     , m_loginWin(m_networkManager, nullptr)
-    , m_mainWin(m_networkManager, nullptr) {
+    , m_mainWin(m_networkManager, nullptr)
+    , m_audioManager(new AudioManager()){
     setupConnections();
 }
 
@@ -36,6 +37,11 @@ void AppManager::setupConnections() {
         m_mainWin.appendMessage(senderId, message, true);
     });
 
+    connect(m_networkManager, &NetworkManager::AudioMessageReceived, this, [this](const QString& senderId, const std::vector<char>& audioMessage) {
+        std::vector<float> decodedAudio = m_audioManager->codec()->decode(audioMessage);
+        m_audioManager->playAudio(decodedAudio);
+    });
+
     connect(&m_mainWin, &MainWindow::sendRequested, this, [this](uint32_t targetId, std::string message, bool toRoom) {
         MessageType messType;
 
@@ -58,6 +64,25 @@ void AppManager::setupConnections() {
     connect(&m_mainWin, &MainWindow::joinRoomRequested, this, [this](std::string roomName) {
         Packet sendPacket(MessageType::JOIN_ROOM_COMM, 0, m_networkManager->user()->id(), roomName);
         m_networkManager->send(sendPacket);
+    });
+
+    connect(&m_mainWin, &MainWindow::audioRecordingStarted, this, [this] {
+        m_audioManager->startRecording();
+    });
+
+    connect(&m_mainWin, &MainWindow::audioRecordingStopped, this, [this] {
+        m_audioManager->stopRecording();
+    });
+
+    connect(m_audioManager, &AudioManager::audioReadyToSend, this, [this](const std::vector<char>& compressedData) {
+        PacketHeader header;
+        header.type = MessageType::AUDIO_TO_USER;
+        header.senderId = m_networkManager->user()->id();
+        header.targetId = 101;
+        header.bodySize = static_cast<uint32_t>(compressedData.size());
+        Packet sendPacket(header, compressedData);
+        m_networkManager->send(sendPacket);
+        std::cout << "Sent package with audio" << std::endl;
     });
 
 }
