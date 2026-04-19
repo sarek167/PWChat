@@ -35,12 +35,13 @@ void NetworkManager::connect(const std::string& host, const std::string& port) {
 
 void NetworkManager::send(const Packet& p) {
     auto toSend = std::make_shared<std::vector<char>>(p.pack());
-
+    std::cout << p.header().targetId << " " << int(p.header().type) << std::endl;
     asio::post(m_io_context, [this, toSend]() {
         asio::async_write(m_socket, asio::buffer(*toSend),
                 [toSend](std::error_code ec, std::size_t bytesTransferred) {
             if (!ec) {
                 std::cout << "Wysłano pakiet długości " << bytesTransferred << std::endl;
+
             } else {
                 std::cerr << "Błąd wysyłania: " << ec.message() << std::endl;
             }
@@ -91,7 +92,7 @@ void NetworkManager::readBody(PacketHeader header) {
         } else if (header.type == MessageType::TEXT_TO_USER || header.type == MessageType::TEXT_TO_ROOM) {
             try {
                 std::string message = packet.unpackBody<std::string>();
-                emit MessageReceived(QString::number(header.senderId), QString::fromStdString(message));
+                emit MessageReceived(header.senderId, header.targetId, QString::fromStdString(message), header.type == MessageType::TEXT_TO_ROOM);
             } catch (...) {
                 std::cerr << "Błąd dekodowania message" << std::endl;
             }

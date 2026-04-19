@@ -39,6 +39,7 @@ add_executable(client WIN32
     include/client/AudioCodec.h
     include/client/OpusCodec.h
     src/OpusCodec.cpp
+    include/client/ChatContext.h
 )
 
 target_include_directories(client PRIVATE

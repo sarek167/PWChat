@@ -33,7 +33,7 @@ private:
 
 signals:
     void AuthResultReceived(std::string status, const std::vector<RoomData>& rooms);
-    void MessageReceived(const QString& senderId, const QString& message);
+    void MessageReceived(const uint32_t senderId, const uint32_t targetId, const QString& message, bool toRoom);
     void AudioMessageReceived(const QString& senderId, const std::vector<char>& audioMessage);
     void RoomRequestConfirmation(const RoomData& room);
 };

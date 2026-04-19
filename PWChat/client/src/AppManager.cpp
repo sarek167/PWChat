@@ -38,8 +38,8 @@ void AppManager::setupConnections() {
         m_mainWin.addRoom(room);
     });
 
-    connect(m_networkManager, &NetworkManager::MessageReceived, this, [this](const QString& senderId, const QString& message) {
-        m_mainWin.appendMessage(senderId, message, true);
+    connect(m_networkManager, &NetworkManager::MessageReceived, this, [this](const uint32_t senderId, const uint32_t targetId, const QString& message, bool toRoom) {
+        m_mainWin.onMessageReceived(senderId, targetId, message, toRoom);
     });
 
     connect(m_networkManager, &NetworkManager::AudioMessageReceived, this, [this](const QString& senderId, const std::vector<char>& audioMessage) {
@@ -49,7 +49,7 @@ void AppManager::setupConnections() {
 
     connect(&m_mainWin, &MainWindow::sendRequested, this, [this](uint32_t targetId, std::string message, bool toRoom) {
         MessageType messType;
-
+        std::cout << "In sendRequested signal" << std::endl;
         if (toRoom) {
             messType = MessageType::TEXT_TO_ROOM;
         } else {

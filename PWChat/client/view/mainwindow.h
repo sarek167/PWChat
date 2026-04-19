@@ -2,8 +2,10 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QPushButton>
 #include "common/RoomData.h"
 #include "common/User.h"
+#include "client/ChatContext.h"
 
 namespace Ui {
 class MainWindow;
@@ -16,18 +18,23 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    ChatContext currentChat();
+    void onMessageReceived(const uint32_t senderId, const uint32_t targetId, const QString& text, bool toRoom);
     void appendMessage(const QString& sender, const QString& text, bool isFromOthers=true);
-    void appendUserRoomWidget(const QString& name, bool isRoom = false);
+    void appendUserRoomWidget(const uint32_t id, const QString& name, bool isRoom = false);
     void afterLoginChanges(const std::string& nickname, const std::vector<RoomData> userRooms);
     void addRoom(const RoomData& room);
+    void onRoomWidgetClicked(uint32_t roomId);
 
 private:
     Ui::MainWindow *ui;
     std::vector<RoomData> m_userRooms;
     std::vector<User> m_recentUsers;
+    ChatContext m_currentChat;
     void scrollToBottom();
     QWidget* createMessageWidget(const QString& senderId, const QString& message, bool isFromOthers=true);
-    QWidget* createUserRoomWidget(const QString& name, bool isRoom = false);
+    QPushButton* createUserRoomWidget(const QString& name, bool isRoom = false);
+    void clearLayout(QLayout *layout);
 
 signals:
     void sendRequested(uint32_t targetId, std::string message, bool toRoom);

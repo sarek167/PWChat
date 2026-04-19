@@ -372,7 +372,7 @@ QPushButton#btnTalkToUser {
                <x>0</x>
                <y>0</y>
                <width>686</width>
-               <height>289</height>
+               <height>323</height>
               </rect>
              </property>
              <layout class="QVBoxLayout" name="verticalLayoutChat">
@@ -384,7 +384,7 @@ QPushButton#btnTalkToUser {
                 <property name="sizeHint" stdset="0">
                  <size>
                   <width>20</width>
-                  <height>264</height>
+                  <height>40</height>
                  </size>
                 </property>
                </spacer>
@@ -398,18 +398,7 @@ QPushButton#btnTalkToUser {
             <layout class="QVBoxLayout" name="verticalLayout_3">
              <item>
               <widget class="QWidget" name="widget_5" native="true">
-               <layout class="QHBoxLayout" name="horizontalLayout_3">
-                <item>
-                 <widget class="QLabel" name="labelTargetID">
-                  <property name="text">
-                   <string>ID of target </string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QLineEdit" name="editTargetID"/>
-                </item>
-               </layout>
+               <layout class="QHBoxLayout" name="horizontalLayout_3"/>
               </widget>
              </item>
              <item>
@@ -431,13 +420,6 @@ QPushButton#btnTalkToUser {
              <item>
               <widget class="QWidget" name="widget_7" native="true">
                <layout class="QHBoxLayout" name="horizontalLayout_5">
-                <item>
-                 <widget class="QCheckBox" name="checkSendRoom">
-                  <property name="text">
-                   <string>Send to room</string>
-                  </property>
-                 </widget>
-                </item>
                 <item>
                  <widget class="QPushButton" name="btnRecordAudio">
                   <property name="text">
