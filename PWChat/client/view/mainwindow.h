@@ -2,7 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "client/NetworkManager.h"
+#include "common/RoomData.h"
+#include "common/User.h"
 
 namespace Ui {
 class MainWindow;
@@ -13,19 +14,20 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit MainWindow(NetworkManager* manager, QWidget *parent = nullptr);
+    explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     void appendMessage(const QString& sender, const QString& text, bool isFromOthers=true);
-
+    void appendUserRoomWidget(const QString& name, bool isRoom = false);
+    void afterLoginChanges(const std::string& nickname, const std::vector<RoomData> userRooms);
+    void addRoom(const RoomData& room);
 
 private:
     Ui::MainWindow *ui;
-    uint32_t m_targetId;
-    std::string m_message;
-    bool m_toRoom;
-    NetworkManager* m_networkManager;
+    std::vector<RoomData> m_userRooms;
+    std::vector<User> m_recentUsers;
     void scrollToBottom();
     QWidget* createMessageWidget(const QString& senderId, const QString& message, bool isFromOthers=true);
+    QWidget* createUserRoomWidget(const QString& name, bool isRoom = false);
 
 signals:
     void sendRequested(uint32_t targetId, std::string message, bool toRoom);

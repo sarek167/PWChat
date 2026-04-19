@@ -1,4 +1,4 @@
-#include "server/UserTextMessCommand.h"
+#include "server/Commands/UserTextMessCommand.h"
 #include "server/Server.h"
 
 void UserTextMessCommand::execute(std::shared_ptr<Session> session, const Packet& p, Server& server) {

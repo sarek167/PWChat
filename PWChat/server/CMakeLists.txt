@@ -13,25 +13,24 @@ add_executable(server
     src/Room.cpp
     include/server/RoomManager.h
     src/RoomManager.cpp
-    include/server/Command.h
-    include/server/JoinRoomCommand.h
-    src/JoinRoomCommand.cpp
-    include/server/CreateRoomCommand.h
-    src/CreateRoomCommand.cpp
-    include/server/LoginCommand.h
-    src/LoginCommand.cpp
-    include/server/UserTextMessCommand.h
-    src/UserTextMessCommand.cpp
-    include/server/RoomTextMessCommand.h
-    src/RoomTextMessCommand.cpp
+    include/server/Commands/Command.h
+    include/server/Commands/JoinRoomCommand.h
+    src/Commands/JoinRoomCommand.cpp
+    include/server/Commands/CreateRoomCommand.h
+    src/Commands/CreateRoomCommand.cpp
+    include/server/Commands/LoginCommand.h
+    src/Commands/LoginCommand.cpp
+    include/server/Commands/UserTextMessCommand.h
+    src/Commands/UserTextMessCommand.cpp
+    include/server/Commands/RoomTextMessCommand.h
+    src/Commands/RoomTextMessCommand.cpp
     include/server/DBConnector.h
     include/server/DBConnector.h
     include/server/SQLiteConnector.h
     src/SQLiteConnector.cpp
     ${SQLITE_SRC}
-    include/server/RoomData.h
-    include/server/UserAudioMessCommand.h
-    src/UserAudioMessCommand.cpp
+    include/server/Commands/UserAudioMessCommand.h
+    src/Commands/UserAudioMessCommand.cpp
 )
 
 

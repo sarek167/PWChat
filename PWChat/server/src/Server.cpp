@@ -1,12 +1,12 @@
 #include "server/Server.h"
 #include "server/Session.h"
 #include <iostream>
-#include "server/LoginCommand.h"
-#include "server/JoinRoomCommand.h"
-#include "server/CreateRoomCommand.h"
-#include "server/RoomTextMessCommand.h"
-#include "server/UserTextMessCommand.h"
-#include "server/UserAudioMessCommand.h"
+#include "server/Commands/LoginCommand.h"
+#include "server/Commands/JoinRoomCommand.h"
+#include "server/Commands/CreateRoomCommand.h"
+#include "server/Commands/RoomTextMessCommand.h"
+#include "server/Commands/UserTextMessCommand.h"
+#include "server/Commands/UserAudioMessCommand.h"
 #include "server/SQLiteConnector.h"
 using asio::ip::tcp;
 

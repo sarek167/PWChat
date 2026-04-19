@@ -1,4 +1,4 @@
-#include "server/UserAudioMessCommand.h"
+#include "server/Commands/UserAudioMessCommand.h"
 #include "server/Server.h"
 
 void UserAudioMessCommand::execute(std::shared_ptr<Session> session, const Packet& p, Server& server) {

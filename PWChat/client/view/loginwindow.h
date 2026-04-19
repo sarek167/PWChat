@@ -13,11 +13,10 @@ class LoginWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit LoginWindow(NetworkManager* networkManager, QWidget *parent = nullptr);
+    explicit LoginWindow(QWidget *parent = nullptr);
     ~LoginWindow();
 
 private:
-    NetworkManager* m_networkManager;
     uint32_t m_id;
     std::string m_nickname;
     Ui::LoginWindow *ui;

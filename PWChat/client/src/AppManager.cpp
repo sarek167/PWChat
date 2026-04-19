@@ -5,8 +5,8 @@
 AppManager::AppManager(QObject *parent)
     : QObject(parent)
     , m_networkManager(new NetworkManager())
-    , m_loginWin(m_networkManager, nullptr)
-    , m_mainWin(m_networkManager, nullptr)
+    , m_loginWin(nullptr)
+    , m_mainWin(nullptr)
     , m_audioManager(new AudioManager()){
     setupConnections();
 }
@@ -25,13 +25,18 @@ void AppManager::setupConnections() {
         m_networkManager->setUser(std::make_shared<User>(id, nickname));
     });
 
-    connect(m_networkManager, &NetworkManager::AuthResultReceived, this, [this](std::string status) {
+    connect(m_networkManager, &NetworkManager::AuthResultReceived, this, [this](std::string status, const std::vector<RoomData>& rooms) {
         if (status == "success") {
             std::cout << "Logged in successfuly" << std::endl;
+            m_mainWin.afterLoginChanges(m_networkManager->user()->nickname(), rooms);
             m_loginWin.hide();
             m_mainWin.show();
         }
     }, Qt::QueuedConnection);
+
+    connect(m_networkManager, &NetworkManager::RoomRequestConfirmation, this, [this](const RoomData& room) {
+        m_mainWin.addRoom(room);
+    });
 
     connect(m_networkManager, &NetworkManager::MessageReceived, this, [this](const QString& senderId, const QString& message) {
         m_mainWin.appendMessage(senderId, message, true);

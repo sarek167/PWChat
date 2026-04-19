@@ -1,4 +1,4 @@
-#include "server/CreateRoomCommand.h"
+#include "server/Commands/CreateRoomCommand.h"
 #include "common/CreateRoomRequest.h"
 #include "server/Server.h"
 
@@ -15,6 +15,15 @@ void CreateRoomCommand::execute(std::shared_ptr<Session> session, const Packet& 
         if (request.isAdmin) {
             addedRoom->addAdmin(p.header().senderId);
         }
+        addedRoom->addClient(session);
+
+        RoomData roomData;
+        roomData.id = roomId;
+        roomData.name = request.roomName;
+        roomData.isPrivate = request.isPrivate;
+        roomData.ownerId = p.header().senderId;
+        Packet confirmationPacket(MessageType::CREATE_ROOM_COMM, p.header().senderId, 0, roomData);
+        session->deliver(confirmationPacket);
     } else {
         std::cerr << "Error while saving room to db" << std::endl;
     }

@@ -4,7 +4,7 @@
 #include <string>
 #include <stdint.h>
 #include <vector>
-#include "server/RoomData.h"
+#include "common/RoomData.h"
 
 class DBConnector {
 public:

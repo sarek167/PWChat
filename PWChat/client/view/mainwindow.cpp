@@ -3,10 +3,10 @@
 #include "createroomdialog.h"
 #include <QTimer>
 #include <QScrollBar>
+#include <iostream>
 
-MainWindow::MainWindow(NetworkManager* manager, QWidget *parent)
-    : m_networkManager(manager)
-    , QMainWindow(parent)
+MainWindow::MainWindow(QWidget *parent)
+    : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
@@ -72,14 +72,62 @@ void MainWindow::appendMessage(const QString& sender, const QString& text, bool 
     scrollToBottom();
 }
 
+QWidget* MainWindow::createUserRoomWidget(const QString& name, bool isRoom) {
+    QWidget* container = new QWidget();
+    QHBoxLayout* layout = new QHBoxLayout(container);
+
+    QLabel* iconLabel = new QLabel();
+    QIcon icon(":/room-icon.svg");
+    QPixmap iconPixmap = icon.pixmap(QSize(24,24));
+    iconLabel->setPixmap(iconPixmap);
+
+    QLabel* nameLabel = new QLabel(name);
+
+    layout->addWidget(iconLabel);
+    layout->addWidget(nameLabel);
+    layout->addStretch();
+
+    container->setStyleSheet(QString(
+                                 "QWidget { "
+                                 "   background-color: white;"
+                                 "   border-radius: 10px;"
+                                 "   padding: 5px;"
+                                 "}"));
+    container->setCursor(Qt::PointingHandCursor);
+    return container;
+}
+
+void MainWindow::appendUserRoomWidget(const QString& name, bool isRoom) {
+    QWidget* cardWidget = createUserRoomWidget(name, isRoom);
+
+    if (isRoom) {
+        ui->verticalLayoutRooms->insertWidget(0, cardWidget);
+    } else {
+        ui->verticalLayoutPeople->insertWidget(0, cardWidget);
+    }
+}
+
+
+void MainWindow::afterLoginChanges(const std::string& nickname, const std::vector<RoomData> userRooms) {
+    ui->labelUsername->setText(QString::fromStdString(nickname));
+    m_userRooms = userRooms;
+    for (auto& room : userRooms) {
+        appendUserRoomWidget(QString::fromStdString(room.name), true);
+    }
+}
+
+void MainWindow::addRoom(const RoomData& room) {
+    m_userRooms.push_back(room);
+    appendUserRoomWidget(QString::fromStdString(room.name), true);
+}
 
 void MainWindow::on_btnSend_clicked() {
-    m_targetId = ui->editTargetID->text().toUInt();
-    m_message = ui->editMess->text().toStdString();
-    m_toRoom = ui->checkSendRoom->isChecked();
+    uint32_t targetId = ui->editTargetID->text().toUInt();
+    std::string message = ui->editMess->text().toStdString();
+    bool toRoom = ui->checkSendRoom->isChecked();
 
-    emit sendRequested(m_targetId, m_message, m_toRoom);
-    appendMessage(QString("You"), QString::fromStdString(m_message), false);
+    emit sendRequested(targetId, message, toRoom);
+    appendMessage(QString("You"), QString::fromStdString(message), false);
 }
 
 void MainWindow::on_btnCreateRoom_clicked()

@@ -1,4 +1,4 @@
-#include "server/RoomTextMessCommand.h"
+#include "server/Commands/RoomTextMessCommand.h"
 #include "server/Server.h"
 
 void RoomTextMessCommand::execute(std::shared_ptr<Session> session, const Packet& p, Server& server) {

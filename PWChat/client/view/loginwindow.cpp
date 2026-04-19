@@ -1,9 +1,8 @@
 #include "loginwindow.h"
 #include "ui_loginwindow.h"
 
-LoginWindow::LoginWindow(NetworkManager *manager, QWidget *parent)
-    : m_networkManager(manager)
-    , QMainWindow(parent)
+LoginWindow::LoginWindow(QWidget *parent)
+    : QMainWindow(parent)
     , ui(new Ui::LoginWindow)
 {
     ui->setupUi(this);

@@ -12,6 +12,10 @@ std::string Room::name() {
     return m_name;
 }
 
+uint32_t Room::ownerId() {
+    return m_ownerId;
+}
+
 void Room::addClient(std::shared_ptr<Session> clientToAdd) {
     auto it = std::find(m_clients.begin(), m_clients.end(), clientToAdd);
     std::cout << "trying to add client :" << clientToAdd->userId() << std::endl;

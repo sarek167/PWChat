@@ -5,7 +5,7 @@
 #include <memory>
 #include <map>
 #include "Room.h"
-#include "RoomData.h"
+#include "common/RoomData.h"
 
 class RoomManager {
 public:

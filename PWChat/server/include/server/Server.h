@@ -6,7 +6,7 @@
 #include "Session.h"
 #include "common/Packet.h"
 #include "server/RoomManager.h"
-#include "server/Command.h"
+#include "server/Commands/Command.h"
 #include "server/DBConnector.h"
 
 using asio::ip::tcp;

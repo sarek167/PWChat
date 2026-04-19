@@ -6,6 +6,7 @@
 #include "common/Packet.h"
 #include <QObject>
 #include "common/User.h"
+#include "common/RoomData.h"
 
 using asio::ip::tcp;
 
@@ -31,9 +32,10 @@ private:
     asio::streambuf m_buffer;
 
 signals:
-    void AuthResultReceived(std::string status);
+    void AuthResultReceived(std::string status, const std::vector<RoomData>& rooms);
     void MessageReceived(const QString& senderId, const QString& message);
     void AudioMessageReceived(const QString& senderId, const std::vector<char>& audioMessage);
+    void RoomRequestConfirmation(const RoomData& room);
 };
 
 #endif // NETWORKMANAGER_H

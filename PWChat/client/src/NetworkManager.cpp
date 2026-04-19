@@ -82,8 +82,8 @@ void NetworkManager::readBody(PacketHeader header) {
 
         if (header.type == MessageType::AUTH_RESPONSE) {
             try {
-                std::string status = packet.unpackBody<std::string>();
-                emit AuthResultReceived(status);
+                std::vector<RoomData> rooms = packet.unpackBody<std::vector<RoomData>>();
+                emit AuthResultReceived("success", rooms);
             } catch (...) {
                 std::cerr << "Błąd dekodowania auth" << std::endl;
             }
@@ -101,6 +101,9 @@ void NetworkManager::readBody(PacketHeader header) {
             } catch (...) {
                 std::cerr << "Błąd dekodowania audio" << std::endl;
             }
+        } else if (header.type == MessageType::CREATE_ROOM_COMM || header.type == MessageType::JOIN_ROOM_COMM) {
+            RoomData room = packet.unpackBody<RoomData>();
+            emit RoomRequestConfirmation(room);
         }
         std::cout << "KLIENT DOSTAŁ PAKIET!!!" << std::endl;
         std::cout << packet.header().signature << std::endl;

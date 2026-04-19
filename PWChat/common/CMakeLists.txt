@@ -8,6 +8,7 @@ add_library(common STATIC
     include/common/CreateRoomRequest.h
     include/common/LoginRequest.h
     include/common/JoinRoomRequest.h
+    include/common/RoomData.h
 )
 
 target_include_directories(common PUBLIC

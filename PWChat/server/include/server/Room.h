@@ -16,6 +16,7 @@ public:
 
     uint32_t id();
     std::string name();
+    uint32_t ownerId();
     void addClient(std::shared_ptr<Session> clientToAdd);
     void removeClient(std::shared_ptr<Session> clientToRemove);
     virtual bool canJoin(const std::string& token) = 0;
