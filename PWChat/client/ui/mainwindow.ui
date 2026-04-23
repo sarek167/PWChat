@@ -23,6 +23,11 @@ QWidget[class=&quot;MenuWidget&quot;]{
 	border-radius: 10px;
 }
 
+QWidget[class=&quot;inputWidget&quot;] {
+	background-color: #fff;
+	border-radius: 10px;
+}
+
 QFrame[class=&quot;sideWidget&quot;]{
 	background-color: #fff;
 	border-radius: 10px;
@@ -45,6 +50,10 @@ QLineEdit {
 	padding: 5px 15px;
 }
 
+QLineEdit#editMess {
+  border: 0;
+}
+
 QPushButton {
 	background-color: #212121;
 	color: white;
@@ -56,6 +65,33 @@ QPushButton {
 QPushButton:hover {
 	background-color: #fff;
 	color: #212121
+}
+
+QPushButton#btnRecordAudio {
+	qproperty-icon: url(&quot;:/mic-icon-white.svg&quot;);
+	icon-size: 32px;
+	height: 48px;
+	width: 48px;
+	background-color: #ab1a1a;
+	border: 1px solid #ab1a1a;
+	border-radius: 24px;
+	padding: 0;
+}
+
+
+QPushButton#btnSend {
+	qproperty-icon: url(&quot;:/send-icon-white.svg&quot;);
+	icon-size: 24px;
+	height: 48px;
+	width: 48px;
+	padding: 0;
+	border-radius: 24px
+}
+
+
+QPushButton#btnSend:hover {
+	qproperty-icon: url(&quot;:/send-icon-black.svg&quot;);
+
 }</string>
   </property>
   <widget class="QWidget" name="centralwidget">
@@ -366,13 +402,16 @@ QPushButton#btnTalkToUser {
             <property name="widgetResizable">
              <bool>true</bool>
             </property>
+            <property name="class" stdset="0">
+             <string/>
+            </property>
             <widget class="QWidget" name="MessagesWidget">
              <property name="geometry">
               <rect>
                <x>0</x>
                <y>0</y>
                <width>686</width>
-               <height>323</height>
+               <height>340</height>
               </rect>
              </property>
              <layout class="QVBoxLayout" name="verticalLayoutChat">
@@ -395,42 +434,52 @@ QPushButton#btnTalkToUser {
           </item>
           <item>
            <widget class="QWidget" name="sendConsoleWidget" native="true">
-            <layout class="QVBoxLayout" name="verticalLayout_3">
-             <item>
-              <widget class="QWidget" name="widget_5" native="true">
-               <layout class="QHBoxLayout" name="horizontalLayout_3"/>
-              </widget>
-             </item>
+            <property name="class" stdset="0">
+             <string>inputWidget</string>
+            </property>
+            <layout class="QHBoxLayout" name="horizontalLayout_3">
              <item>
               <widget class="QWidget" name="widget_6" native="true">
                <layout class="QHBoxLayout" name="horizontalLayout_4">
                 <item>
-                 <widget class="QLabel" name="labelMess">
-                  <property name="text">
-                   <string>Message</string>
+                 <widget class="QLineEdit" name="editMess">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignTop</set>
                   </property>
                  </widget>
-                </item>
-                <item>
-                 <widget class="QLineEdit" name="editMess"/>
                 </item>
                </layout>
               </widget>
              </item>
              <item>
               <widget class="QWidget" name="widget_7" native="true">
-               <layout class="QHBoxLayout" name="horizontalLayout_5">
+               <layout class="QVBoxLayout" name="verticalLayout_3">
                 <item>
                  <widget class="QPushButton" name="btnRecordAudio">
                   <property name="text">
-                   <string>Record</string>
+                   <string/>
+                  </property>
+                  <property name="icon">
+                   <iconset theme="QIcon::ThemeIcon::AudioInputMicrophone"/>
+                  </property>
+                  <property name="class" stdset="0">
+                   <string>inputBtn</string>
                   </property>
                  </widget>
                 </item>
                 <item>
                  <widget class="QPushButton" name="btnSend">
                   <property name="text">
-                   <string>Send</string>
+                   <string/>
+                  </property>
+                  <property name="class" stdset="0">
+                   <string>inputBtn</string>
                   </property>
                  </widget>
                 </item>

@@ -2,5 +2,8 @@
     <qresource prefix="/">
         <file>logo.svg</file>
         <file>room-icon.svg</file>
+        <file>mic-icon-white.svg</file>
+        <file>send-icon-black.svg</file>
+        <file>send-icon-white.svg</file>
     </qresource>
 </RCC>

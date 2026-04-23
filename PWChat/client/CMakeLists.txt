@@ -17,6 +17,8 @@ set(CMAKE_AUTORCC ON)
 
 set(CMAKE_AUTOUIC_SEARCH_PATHS "${CMAKE_CURRENT_SOURCE_DIR}/ui")
 
+find_package(Qt6 REQUIRED COMPONENTS Svg)
+
 add_executable(client WIN32
     src/main.cpp
     src/NetworkManager.cpp
@@ -51,4 +53,4 @@ target_include_directories(client PRIVATE
 target_compile_definitions(client PRIVATE ASIO_STANDALONE)
 
 target_include_directories(client PRIVATE include)
-target_link_libraries(client PRIVATE Qt6::Widgets Qt6::Network Qt6::Multimedia opus common)
+target_link_libraries(client PRIVATE Qt6::Widgets Qt6::Network Qt6::Multimedia opus common Qt6::Svg)
