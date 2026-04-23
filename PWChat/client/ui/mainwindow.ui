@@ -92,6 +92,29 @@ QPushButton#btnSend {
 QPushButton#btnSend:hover {
 	qproperty-icon: url(&quot;:/send-icon-black.svg&quot;);
 
+}
+
+QPushButton.RoomCard {
+	min-height: 32px;
+    background-color: white;
+    color: black;
+    border-radius: 10px;
+    padding: 5px;
+    border: none;
+    text-align: left;
+}
+
+QPushButton.RoomCard[active=&quot;true&quot;] {
+    background-color: #212121;
+    color: white;
+}
+
+QPushButton.RoomCard[active=&quot;true&quot;] QLabel {
+    color: white;
+}
+
+QPushButton.RoomCard[active=&quot;false&quot;] QLabel {
+    color: black;
 }</string>
   </property>
   <widget class="QWidget" name="centralwidget">

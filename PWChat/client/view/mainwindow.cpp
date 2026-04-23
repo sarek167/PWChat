@@ -4,6 +4,8 @@
 #include <QTimer>
 #include <QScrollBar>
 #include <iostream>
+#include <QStyle>
+#include <QGraphicsColorizeEffect>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -88,32 +90,36 @@ void MainWindow::appendMessage(const QString& sender, const QString& text, bool 
 
 QPushButton* MainWindow::createUserRoomWidget(const QString& name, bool isRoom) {
     QPushButton* container = new QPushButton();
+    container->setProperty("class", "RoomCard");
+    container->setProperty("active", false);
     QHBoxLayout* layout = new QHBoxLayout(container);
 
     QLabel* iconLabel = new QLabel();
     QIcon icon(":/room-icon.svg");
     QPixmap iconPixmap = icon.pixmap(QSize(24,24));
     iconLabel->setPixmap(iconPixmap);
+    iconLabel->setObjectName("iconLabel");
 
     QLabel* nameLabel = new QLabel(name);
+    nameLabel->setObjectName("nameLabel");
 
     layout->addWidget(iconLabel);
     layout->addWidget(nameLabel);
     layout->addStretch();
 
-    container->setStyleSheet(
-                 "QPushButton { "
-                 "   background-color: white;"
-                 "   border-radius: 10px;"
-                 "   padding: 5px;"
-                 "   min-height: 32px;"
-                 "   border: none;"
-                 "   text-align: left;"
-                 "}"
-                 "QPushButton:hover { "
-                 "   background-color: #f0f0f0;"
-                 "}"
-                 );
+    // container->setStyleSheet(
+    //              "QPushButton { "
+    //              "   background-color: white;"
+    //              "   border-radius: 10px;"
+    //              "   padding: 5px;"
+    //              "   min-height: 32px;"
+    //              "   border: none;"
+    //              "   text-align: left;"
+    //              "}"
+    //              "QPushButton:hover { "
+    //              "   background-color: #f0f0f0;"
+    //              "}"
+    //              );
     container->setCursor(Qt::PointingHandCursor);
     return container;
 }
@@ -121,14 +127,18 @@ QPushButton* MainWindow::createUserRoomWidget(const QString& name, bool isRoom) 
 void MainWindow::appendUserRoomWidget(const uint32_t id, const QString& name, bool isRoom) {
     QPushButton* cardWidget = createUserRoomWidget(name, isRoom);
 
+    cardWidget->setProperty("roomId", id);
+
     if (isRoom) {
         ui->verticalLayoutRooms->insertWidget(0, cardWidget);
-        connect(cardWidget, &QPushButton::clicked, this, [this, id]() {
-            onRoomWidgetClicked(id);
-        });
+
     } else {
         ui->verticalLayoutPeople->insertWidget(0, cardWidget);
     }
+
+    connect(cardWidget, &QPushButton::clicked, this, [this, id]() {
+        onRoomWidgetClicked(id);
+    });
 }
 
 
@@ -168,6 +178,30 @@ void MainWindow::onRoomWidgetClicked(uint32_t roomId) {
 
     m_currentChat = newContext;
     std::cout << "New context with id: " << newContext.id << std::endl;
+
+    auto refreshList = [this](QLayout* layout) {
+        for (int i = 0; i < layout->count(); ++i) {
+            QWidget* widget = layout->itemAt(i)->widget();
+            if (auto* btn = qobject_cast<QPushButton*>(widget)) {
+                bool isActive = (btn->property("roomId").toUInt() == m_currentChat.id);
+                btn->setProperty("active", isActive);
+                btn->style()->unpolish(btn);
+                btn->style()->polish(btn);
+
+                if (auto* iconLabel = btn->findChild<QLabel*>()) {
+                    iconLabel->setGraphicsEffect(isActive ? new QGraphicsColorizeEffect() : nullptr);
+                    if (isActive) static_cast<QGraphicsColorizeEffect*>(iconLabel->graphicsEffect())->setColor(Qt::white);
+                }
+                if (auto* nameLabel = btn->findChild<QLabel*>("nameLabel")) {
+                    nameLabel->setStyleSheet(isActive ? "color: white;" : "color: black;");
+                }
+            }
+        }
+    };
+
+    refreshList(ui->verticalLayoutRooms);
+    refreshList(ui->verticalLayoutPeople);
+
     clearLayout(ui->verticalLayoutChat);
     ui->verticalLayoutChat->addStretch(1);
     // TO DO: load messages
