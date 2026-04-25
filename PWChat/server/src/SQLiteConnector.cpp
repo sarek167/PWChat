@@ -1,4 +1,5 @@
 #include "server/SQLiteConnector.h"
+#include <QCryptographicHash>
 #include <iostream>
 
 bool SQLiteConnector::connect(const std::string& dbPath) {
@@ -154,4 +155,61 @@ bool SQLiteConnector::saveUserRoom(const uint32_t userId, const uint32_t roomId,
     return true;
 
 }
+
+uint32_t SQLiteConnector::registerUser(const std::string& nickname, const std::string& password) {
+    QByteArray hash = QCryptographicHash::hash(
+        QByteArray::fromRawData(password.c_str(), password.size()),
+        QCryptographicHash::Sha3_256);
+    std::string hashPass = hash.toHex().toStdString();
+
+    const char* sql = "INSERT INTO users (nickname, password_hash) VALUES (?, ?)";
+    sqlite3_stmt* stmt = nullptr;
+
+    if (sqlite3_prepare_v2(m_db, sql, -1, &stmt, nullptr) != SQLITE_OK) {
+        std::cerr << "SQL Error: " << sqlite3_errmsg(m_db) << std::endl;
+    }
+
+    sqlite3_bind_text(stmt, 1, nickname.c_str(), -1, SQLITE_STATIC);
+    sqlite3_bind_text(stmt, 2, hashPass.c_str(), -1, SQLITE_STATIC);
+
+    if (sqlite3_step(stmt) == SQLITE_DONE) {
+        uint32_t newId = static_cast<uint32_t>(sqlite3_last_insert_rowid(m_db));
+        sqlite3_finalize(stmt);
+        return newId;
+    }
+
+    sqlite3_finalize(stmt);
+    return 0;
+}
+
+bool SQLiteConnector::loginUser(const std::string& nickname, const std::string& password) {
+    QByteArray hash = QCryptographicHash::hash(
+        QByteArray::fromRawData(password.c_str(), password.size()),
+        QCryptographicHash::Sha3_256);
+    std::string hashPass = hash.toHex().toStdString();
+
+    const char* sql = "SELECT password_hash FROM users WHERE nickname = ?";
+    sqlite3_stmt* stmt = nullptr;
+
+    if (sqlite3_prepare_v2(m_db, sql, -1, &stmt, nullptr) != SQLITE_OK) {
+        std::cerr << "SQL Error: " << sqlite3_errmsg(m_db) << std::endl;
+        return false;
+    }
+
+    sqlite3_bind_text(stmt, 1, nickname.c_str(), -1, SQLITE_STATIC);
+
+    if (sqlite3_step(stmt) == SQLITE_ROW) {
+        const unsigned char* dbHashPtr = sqlite3_column_text(stmt, 0);
+
+        if (dbHashPtr) {
+            std::string dbHash(reinterpret_cast<const char*>(dbHashPtr));
+            return dbHash == hashPass;
+        }
+    }
+
+    sqlite3_finalize(stmt);
+
+    return false;
+}
+
 
