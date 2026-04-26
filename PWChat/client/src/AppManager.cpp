@@ -1,6 +1,7 @@
 #include "client/AppManager.h"
 #include "common/CreateRoomRequest.h"
 #include "common/LoginRequest.h"
+#include "common/RegisterRequest.h"
 
 AppManager::AppManager(QObject *parent)
     : QObject(parent)
@@ -18,20 +19,24 @@ void AppManager::start() {
 
 
 void AppManager::setupConnections() {
-    connect(&m_loginWin, &LoginWindow::loginRequested, this, [this](uint32_t id, std::string nickname){
-        LoginRequest req{id, nickname};
-        Packet loginPacket(MessageType::LOGIN_REQUEST, 0, id, req);
+    connect(&m_loginWin, &LoginWindow::loginRequested, this, [this](std::string nickname, std::string password){
+        LoginRequest req{0, nickname, password};
+        Packet loginPacket(MessageType::LOGIN_REQUEST, 0, 0, req);
         m_networkManager->send(loginPacket);
-        m_networkManager->setUser(std::make_shared<User>(id, nickname));
+        m_networkManager->setUser(std::make_shared<User>(0, nickname));
     });
 
-    connect(m_networkManager, &NetworkManager::AuthResultReceived, this, [this](std::string status, const std::vector<RoomData>& rooms) {
-        if (status == "success") {
-            std::cout << "Logged in successfuly" << std::endl;
-            m_mainWin.afterLoginChanges(m_networkManager->user()->nickname(), rooms);
-            m_loginWin.hide();
-            m_mainWin.show();
-        }
+    connect(&m_loginWin, &LoginWindow::registerRequested, this, [this](std::string nickname, std::string password) {
+        RegisterRequest req{0, nickname, password};
+        Packet registerPacket(MessageType::REGISTER_REQUEST, 0, 0, req);
+        m_networkManager->send(registerPacket);
+    });
+
+    connect(m_networkManager, &NetworkManager::AuthResultReceived, this, [this](uint32_t userId, const std::vector<RoomData>& rooms) {
+        m_networkManager->user()->setId(userId);
+        m_mainWin.afterLoginChanges(m_networkManager->user()->nickname(), rooms);
+        m_loginWin.hide();
+        m_mainWin.show();
     }, Qt::QueuedConnection);
 
     connect(m_networkManager, &NetworkManager::RoomRequestConfirmation, this, [this](const RoomData& room) {
@@ -46,6 +51,12 @@ void AppManager::setupConnections() {
         std::vector<float> decodedAudio = m_audioManager->codec()->decode(audioMessage);
         m_audioManager->playAudio(decodedAudio);
     });
+
+    // connect(m_networkManager, &NetworkManager::RegisterResultReceived, this, [this](const RegisterRequest& req) {
+    //     m_mainWin.afterLoginChanges(m_networkManager->user()->nickname(), rooms);
+    //     m_loginWin.hide();
+    //     m_mainWin.show();
+    // });
 
     connect(&m_mainWin, &MainWindow::sendRequested, this, [this](uint32_t targetId, std::string message, bool toRoom) {
         MessageType messType;

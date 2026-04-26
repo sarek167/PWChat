@@ -22,10 +22,13 @@ private:
     Ui::LoginWindow *ui;
 
 signals:
-    void loginRequested(uint32_t id, std::string nickname);
+    void loginRequested(std::string nickname, std::string password);
+    void registerRequested(std::string nickname, std::string password);
+    void registerError();
 
 private slots:
     void on_btnLogin_clicked();
+    void on_btnRegister_clicked();
 };
 
 #endif // LOGINWINDOW_H

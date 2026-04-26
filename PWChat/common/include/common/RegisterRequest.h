@@ -1,10 +1,10 @@
-#ifndef LOGINREQUEST_H
-#define LOGINREQUEST_H
+#ifndef REGISTERREQUEST_H
+#define REGISTERREQUEST_H
 
 #include <string>
 #include <cereal/types/string.hpp>
 
-struct LoginRequest {
+struct RegisterRequest {
     uint32_t id;
     std::string nickname;
     std::string password;
@@ -15,5 +15,4 @@ struct LoginRequest {
     }
 };
 
-
-#endif // LOGINREQUEST_H
+#endif // REGISTERREQUEST_H

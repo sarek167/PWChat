@@ -31,6 +31,8 @@ add_executable(server
     ${SQLITE_SRC}
     include/server/Commands/UserAudioMessCommand.h
     src/Commands/UserAudioMessCommand.cpp
+    include/server/Commands/RegisterCommand.h
+    src/Commands/RegisterCommand.cpp
 )
 
 

@@ -3,6 +3,7 @@
 #include <iostream>
 #include "server/Commands/LoginCommand.h"
 #include "server/Commands/JoinRoomCommand.h"
+#include "server/Commands/RegisterCommand.h"
 #include "server/Commands/CreateRoomCommand.h"
 #include "server/Commands/RoomTextMessCommand.h"
 #include "server/Commands/UserTextMessCommand.h"
@@ -24,6 +25,7 @@ Server::Server(asio::io_context& io_context, short port)
         loadDataFromDB();
 
         m_commands[MessageType::LOGIN_REQUEST] = std::make_unique<LoginCommand>();
+        m_commands[MessageType::REGISTER_REQUEST] = std::make_unique<RegisterCommand>();
         m_commands[MessageType::JOIN_ROOM_COMM] = std::make_unique<JoinRoomCommand>();
         m_commands[MessageType::CREATE_ROOM_COMM] = std::make_unique<CreateRoomCommand>();
         m_commands[MessageType::TEXT_TO_USER] = std::make_unique<UserTextMessCommand>();

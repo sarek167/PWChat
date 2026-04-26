@@ -84,11 +84,19 @@ void NetworkManager::readBody(PacketHeader header) {
         if (header.type == MessageType::AUTH_RESPONSE) {
             try {
                 std::vector<RoomData> rooms = packet.unpackBody<std::vector<RoomData>>();
-                emit AuthResultReceived("success", rooms);
+                emit AuthResultReceived(packet.header().targetId, rooms);
             } catch (...) {
                 std::cerr << "Błąd dekodowania auth" << std::endl;
             }
 
+        } else if (header.type == MessageType::REGISTER_REQUEST) {
+            try {
+                RegisterRequest req = packet.unpackBody<RegisterRequest>();
+                setUser(std::make_shared<User>(User(req.id, req.nickname)));
+                emit RegisterResultReceived(req);
+            } catch (...) {
+                std::cerr << "Error while decoding body of register request" << std::endl;
+            }
         } else if (header.type == MessageType::TEXT_TO_USER || header.type == MessageType::TEXT_TO_ROOM) {
             try {
                 std::string message = packet.unpackBody<std::string>();

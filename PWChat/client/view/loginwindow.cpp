@@ -15,6 +15,7 @@ LoginWindow::LoginWindow(QWidget *parent)
         ui->stackedWidget->setCurrentIndex(0);
         this->setWindowTitle("Login");
     });
+
 }
 
 LoginWindow::~LoginWindow()
@@ -24,10 +25,26 @@ LoginWindow::~LoginWindow()
 
 
 void LoginWindow::on_btnLogin_clicked() {
-    m_id = ui->editID->text().toUInt();
-    m_nickname = ui->editNick->text().toStdString();
+    std::string nickname = ui->editNick->text().toStdString();
+    std::string password = ui->editPasswordL->text().toStdString();
 
-    emit loginRequested(m_id, m_nickname);
+    emit loginRequested(nickname, password);
     ui->btnLogin->setEnabled(false);
     ui->btnLogin->setText("Logging in...");
+}
+
+
+void LoginWindow::on_btnRegister_clicked() {
+    std::string nick = ui->editNickR->text().toStdString();
+    std::string pass = ui->editPass->text().toStdString();
+    std::string passConf = ui->editConfPass->text().toStdString();
+
+    if (pass != passConf) {
+        emit registerError();
+        return;
+    }
+
+    emit registerRequested(nick, pass);
+    ui->btnRegister->setEnabled(false);
+    ui->btnRegister->setText("Registering...");
 }

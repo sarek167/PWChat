@@ -79,16 +79,16 @@ QPushButton:hover {
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="editID">
+       <widget class="QLineEdit" name="editNick">
         <property name="placeholderText">
-         <string>ID...</string>
+         <string>Nickname</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="editNick">
+       <widget class="QLineEdit" name="editPasswordL">
         <property name="placeholderText">
-         <string>Nickname...</string>
+         <string>Password</string>
         </property>
        </widget>
       </item>
