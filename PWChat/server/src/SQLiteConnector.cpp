@@ -182,34 +182,38 @@ uint32_t SQLiteConnector::registerUser(const std::string& nickname, const std::s
     return 0;
 }
 
-bool SQLiteConnector::loginUser(const std::string& nickname, const std::string& password) {
+uint32_t SQLiteConnector::loginUser(const std::string& nickname, const std::string& password) {
     QByteArray hash = QCryptographicHash::hash(
         QByteArray::fromRawData(password.c_str(), password.size()),
         QCryptographicHash::Sha3_256);
     std::string hashPass = hash.toHex().toStdString();
 
-    const char* sql = "SELECT password_hash FROM users WHERE nickname = ?";
+    const char* sql = "SELECT id, password_hash FROM users WHERE nickname = ?";
     sqlite3_stmt* stmt = nullptr;
 
     if (sqlite3_prepare_v2(m_db, sql, -1, &stmt, nullptr) != SQLITE_OK) {
         std::cerr << "SQL Error: " << sqlite3_errmsg(m_db) << std::endl;
-        return false;
+        return 0;
     }
 
     sqlite3_bind_text(stmt, 1, nickname.c_str(), -1, SQLITE_STATIC);
 
     if (sqlite3_step(stmt) == SQLITE_ROW) {
-        const unsigned char* dbHashPtr = sqlite3_column_text(stmt, 0);
+        const unsigned char* dbHashPtr = sqlite3_column_text(stmt, 1);
 
         if (dbHashPtr) {
             std::string dbHash(reinterpret_cast<const char*>(dbHashPtr));
-            return dbHash == hashPass;
+            if (dbHash == hashPass) {
+                uint32_t userId = static_cast<uint32_t>(sqlite3_column_int(stmt, 0));
+                sqlite3_finalize(stmt);
+                return userId;
+            }
         }
     }
 
     sqlite3_finalize(stmt);
 
-    return false;
+    return 0;
 }
 
 

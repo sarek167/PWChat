@@ -18,12 +18,14 @@ public:
     void setUser(uint32_t id, std::string nickname);
     void doRead();
     void deliver(const Packet& p);
+    bool isAuthenticated() const;
 
 private:
     tcp::socket m_socket;
     asio::streambuf m_buffer;
     Server& m_server;
     std::shared_ptr<User> m_user;
+    bool m_isAuthenticated = false;
     void waitForRequest();
     void readBody(PacketHeader header);
 };

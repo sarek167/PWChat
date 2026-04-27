@@ -17,7 +17,7 @@ public:
     virtual int saveRoom(const std::string& name, const bool isPrivate, const uint32_t ownerId) = 0;
     virtual bool saveUserRoom(const uint32_t userId, const uint32_t roomId, bool isAdmin) = 0;
     virtual uint32_t registerUser(const std::string& nickname, const std::string& password) = 0;
-    virtual bool loginUser(const std::string& nickname, const std::string& password) = 0;
+    virtual uint32_t loginUser(const std::string& nickname, const std::string& password) = 0;
 };
 
 #endif // DBCONNECTOR_H

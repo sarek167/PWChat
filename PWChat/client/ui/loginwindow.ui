@@ -58,7 +58,7 @@ QPushButton:hover {
      </sizepolicy>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="Login">
      <layout class="QVBoxLayout" name="verticalLayout">
@@ -87,6 +87,9 @@ QPushButton:hover {
       </item>
       <item>
        <widget class="QLineEdit" name="editPasswordL">
+        <property name="echoMode">
+         <enum>QLineEdit::EchoMode::Password</enum>
+        </property>
         <property name="placeholderText">
          <string>Password</string>
         </property>
@@ -138,6 +141,9 @@ QPushButton:hover {
       </item>
       <item>
        <widget class="QLineEdit" name="editPass">
+        <property name="echoMode">
+         <enum>QLineEdit::EchoMode::Password</enum>
+        </property>
         <property name="placeholderText">
          <string>Password</string>
         </property>
@@ -145,6 +151,9 @@ QPushButton:hover {
       </item>
       <item>
        <widget class="QLineEdit" name="editConfPass">
+        <property name="echoMode">
+         <enum>QLineEdit::EchoMode::Password</enum>
+        </property>
         <property name="placeholderText">
          <string>Confirm password</string>
         </property>

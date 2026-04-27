@@ -9,7 +9,7 @@ enum class MessageType : uint8_t {
     AUDIO_TO_USER = 2,
     AUDIO_TO_ROOM = 3,
     LOGIN_REQUEST = 4,
-    AUTH_RESPONSE = 5,
+    ERROR_RESPONSE = 5,
     JOIN_ROOM_COMM = 6,
     LEAVE_ROOM_COMM = 7,
     CREATE_ROOM_COMM = 8,

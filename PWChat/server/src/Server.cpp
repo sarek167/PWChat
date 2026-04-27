@@ -38,6 +38,13 @@ Server::Server(asio::io_context& io_context, short port)
 void Server::onPacketReceived(std::shared_ptr<Session> session, const Packet& p) {
     MessageType messType = p.header().type;
 
+    if ((messType != MessageType::LOGIN_REQUEST && messType != MessageType::REGISTER_REQUEST) && !session->isAuthenticated()) {
+        std::string errorMessage = "The session is not authenticated - login first";
+        Packet errorPacket = Packet(MessageType::ERROR_RESPONSE, 0, 0, errorMessage);
+        session->deliver(errorPacket);
+        return;
+    }
+
     auto it = m_commands.find(messType);
     if (it != m_commands.end()) {
         it->second->execute(session, p, *this);

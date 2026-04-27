@@ -81,7 +81,7 @@ void NetworkManager::readBody(PacketHeader header) {
         Packet packet(header, rawBody);
 
 
-        if (header.type == MessageType::AUTH_RESPONSE) {
+        if (header.type == MessageType::LOGIN_REQUEST) {
             try {
                 std::vector<RoomData> rooms = packet.unpackBody<std::vector<RoomData>>();
                 emit AuthResultReceived(packet.header().targetId, rooms);
@@ -113,6 +113,9 @@ void NetworkManager::readBody(PacketHeader header) {
         } else if (header.type == MessageType::CREATE_ROOM_COMM || header.type == MessageType::JOIN_ROOM_COMM) {
             RoomData room = packet.unpackBody<RoomData>();
             emit RoomRequestConfirmation(room);
+        } else if (header.type == MessageType::ERROR_RESPONSE) {
+            std::string message = packet.unpackBody<std::string>();
+            std::cerr << "Error: " << message << std::endl;
         }
         std::cout << "KLIENT DOSTAŁ PAKIET!!!" << std::endl;
         std::cout << packet.header().signature << std::endl;

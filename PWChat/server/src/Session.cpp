@@ -17,6 +17,11 @@ std::shared_ptr<User> Session::user() {
 
 void Session::setUser(uint32_t id, std::string nickname) {
     m_user = std::make_unique<User>(id, nickname);
+    m_isAuthenticated = true;
+}
+
+bool Session::isAuthenticated() const {
+    return m_isAuthenticated;
 }
 
 void Session::doRead() {
