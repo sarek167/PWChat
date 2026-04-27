@@ -36,6 +36,7 @@ void AppManager::setupConnections() {
         m_networkManager->user()->setId(userId);
         m_mainWin.afterLoginChanges(m_networkManager->user()->nickname(), rooms);
         m_loginWin.hide();
+        m_loginWin.resetForms();
         m_mainWin.show();
     }, Qt::QueuedConnection);
 
@@ -52,11 +53,15 @@ void AppManager::setupConnections() {
         m_audioManager->playAudio(decodedAudio);
     });
 
-    // connect(m_networkManager, &NetworkManager::RegisterResultReceived, this, [this](const RegisterRequest& req) {
-    //     m_mainWin.afterLoginChanges(m_networkManager->user()->nickname(), rooms);
-    //     m_loginWin.hide();
-    //     m_mainWin.show();
-    // });
+    connect(m_networkManager, &NetworkManager::LogoutResultReceived, this, [this] {
+        m_networkManager->setUser(nullptr);
+        m_mainWin.hide();
+        m_loginWin.show();
+    });
+
+    connect(m_networkManager, &NetworkManager::RegisterResultReceived, this, [this](const RegisterRequest& req) {
+        m_loginWin.resetForms();
+    });
 
     connect(&m_mainWin, &MainWindow::sendRequested, this, [this](uint32_t targetId, std::string message, bool toRoom) {
         MessageType messType;
@@ -88,6 +93,11 @@ void AppManager::setupConnections() {
 
     connect(&m_mainWin, &MainWindow::audioRecordingStopped, this, [this] {
         m_audioManager->stopRecording();
+    });
+
+    connect(&m_mainWin, &MainWindow::logoutRequested, this, [this] {
+        Packet logoutPacket(MessageType::LOGOUT_REQUEST, 0, m_networkManager->user()->id(), NULL);
+        m_networkManager->send(logoutPacket);
     });
 
     connect(m_audioManager, &AudioManager::audioReadyToSend, this, [this](const std::vector<char>& compressedData) {

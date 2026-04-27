@@ -38,6 +38,7 @@ signals:
     void AudioMessageReceived(const QString& senderId, const std::vector<char>& audioMessage);
     void RoomRequestConfirmation(const RoomData& room);
     void RegisterResultReceived(const RegisterRequest& req);
+    void LogoutResultReceived();
 };
 
 #endif // NETWORKMANAGER_H

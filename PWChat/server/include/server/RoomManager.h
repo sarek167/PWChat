@@ -16,6 +16,7 @@ public:
     void removeRoom(std::string name);
     void initialize(const std::vector<RoomData>& rooms);
     void loginInitialize(const std::vector<RoomData>& rooms, const std::shared_ptr<Session> session);
+    void logoutInitialize(const std::vector<RoomData>& rooms, const std::shared_ptr<Session> session);
 
 private:
     std::map<uint32_t, std::shared_ptr<Room>> m_allRooms;

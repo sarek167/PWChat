@@ -42,6 +42,7 @@ signals:
     void joinRoomRequested(std::string roomName);
     void audioRecordingStarted();
     void audioRecordingStopped();
+    void logoutRequested();
 
 private slots:
     void on_btnSend_clicked();
@@ -49,6 +50,7 @@ private slots:
     void on_btnJoinRoom_clicked();
     void on_btnRecordAudio_pressed();
     void on_btnRecordAudio_released();
+    void on_btnLogout_clicked();
 };
 
 #endif // MAINWINDOW_H

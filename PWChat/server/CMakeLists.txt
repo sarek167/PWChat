@@ -33,6 +33,8 @@ add_executable(server
     src/Commands/UserAudioMessCommand.cpp
     include/server/Commands/RegisterCommand.h
     src/Commands/RegisterCommand.cpp
+    include/server/Commands/LogoutCommand.h
+    src/Commands/LogoutCommand.cpp
 )
 
 

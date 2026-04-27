@@ -246,3 +246,9 @@ void MainWindow::on_btnRecordAudio_released()
     std::cout << "Recording stopped" << std::endl;
 }
 
+
+void MainWindow::on_btnLogout_clicked()
+{
+    emit logoutRequested();
+}
+

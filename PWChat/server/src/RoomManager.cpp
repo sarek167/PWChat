@@ -46,4 +46,12 @@ void RoomManager::loginInitialize(const std::vector<RoomData>& rooms, const std:
     }
 }
 
+void RoomManager::logoutInitialize(const std::vector<RoomData>& rooms, const std::shared_ptr<Session> session) {
+    for (auto& rd : rooms) {
+        std::shared_ptr<Room> room = getRoom(rd.id);
+        room->removeClient(session);
+    }
+}
+
+
 // TO DO: add remove room

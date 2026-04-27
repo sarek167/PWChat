@@ -2,6 +2,7 @@
 #include "server/Session.h"
 #include <iostream>
 #include "server/Commands/LoginCommand.h"
+#include "server/Commands/LogoutCommand.h"
 #include "server/Commands/JoinRoomCommand.h"
 #include "server/Commands/RegisterCommand.h"
 #include "server/Commands/CreateRoomCommand.h"
@@ -25,6 +26,7 @@ Server::Server(asio::io_context& io_context, short port)
         loadDataFromDB();
 
         m_commands[MessageType::LOGIN_REQUEST] = std::make_unique<LoginCommand>();
+        m_commands[MessageType::LOGOUT_REQUEST] = std::make_unique<LogoutCommand>();
         m_commands[MessageType::REGISTER_REQUEST] = std::make_unique<RegisterCommand>();
         m_commands[MessageType::JOIN_ROOM_COMM] = std::make_unique<JoinRoomCommand>();
         m_commands[MessageType::CREATE_ROOM_COMM] = std::make_unique<CreateRoomCommand>();
@@ -90,6 +92,12 @@ void Server::do_accept() {
 void Server::insertClient(std::shared_ptr<Session> session) {
     std::lock_guard<std::mutex> lock(m_clientsMutex);
     m_clients.insert({session->userId(), session});
+}
+
+void Server::removeClient(std::shared_ptr<Session> session) {
+    if (!session) return;
+    std::lock_guard<std::mutex> lock(m_clientsMutex);
+    m_clients.erase(session->userId());
 }
 
 void Server::loadDataFromDB() {

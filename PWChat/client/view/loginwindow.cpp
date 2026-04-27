@@ -23,6 +23,19 @@ LoginWindow::~LoginWindow()
     delete ui;
 }
 
+void LoginWindow::resetForms() {
+    ui->editNick->clear();
+    ui->editPasswordL->clear();
+    ui->btnLogin->setEnabled(true);
+    ui->btnLogin->setText("Login");
+
+    ui->editNickR->clear();
+    ui->editPass->clear();
+    ui->editConfPass->clear();
+    ui->btnRegister->setEnabled(true);
+    ui->btnRegister->setText("Register");
+}
+
 
 void LoginWindow::on_btnLogin_clicked() {
     std::string nickname = ui->editNick->text().toStdString();

@@ -19,6 +19,7 @@ public:
     void doRead();
     void deliver(const Packet& p);
     bool isAuthenticated() const;
+    void logout();
 
 private:
     tcp::socket m_socket;

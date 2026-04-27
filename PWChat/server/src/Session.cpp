@@ -24,6 +24,11 @@ bool Session::isAuthenticated() const {
     return m_isAuthenticated;
 }
 
+void Session::logout() {
+    m_user = nullptr;
+    m_isAuthenticated = false;
+}
+
 void Session::doRead() {
     waitForRequest();
 }

@@ -116,6 +116,8 @@ void NetworkManager::readBody(PacketHeader header) {
         } else if (header.type == MessageType::ERROR_RESPONSE) {
             std::string message = packet.unpackBody<std::string>();
             std::cerr << "Error: " << message << std::endl;
+        } else if (header.type == MessageType::LOGOUT_REQUEST) {
+            emit LogoutResultReceived();
         }
         std::cout << "KLIENT DOSTAŁ PAKIET!!!" << std::endl;
         std::cout << packet.header().signature << std::endl;
