@@ -217,3 +217,32 @@ uint32_t SQLiteConnector::loginUser(const std::string& nickname, const std::stri
 }
 
 
+std::vector<UserData> SQLiteConnector::getRoomUsers(const uint32_t roomId, bool getAdmins) {
+    std::vector<UserData> users;
+    const char* sql =
+        "SELECT u.id, u.nickname "
+        "FROM users u "
+        "JOIN users_rooms ur ON u.id = ur.user_id "
+        "WHERE ur.room_id = ? AND ur.is_admin = ?";
+
+    sqlite3_stmt* stmt = nullptr;
+
+    if (sqlite3_prepare_v2(m_db, sql, -1, &stmt, nullptr) == SQLITE_OK) {
+        sqlite3_bind_int(stmt, 1, static_cast<int>(roomId));
+        sqlite3_bind_int(stmt, 2, getAdmins ? 1 : 0);
+
+        while (sqlite3_step(stmt) == SQLITE_ROW) {
+            UserData user;
+            user.id = static_cast<uint32_t>(sqlite3_column_int(stmt, 0));
+            user.nickname = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 1));
+            users.push_back(user);
+        }
+    } else {
+        std::cerr << "SQL Error: " << sqlite3_errmsg(m_db) << std::endl;
+    }
+
+    sqlite3_finalize(stmt);
+    return users;
+}
+
+

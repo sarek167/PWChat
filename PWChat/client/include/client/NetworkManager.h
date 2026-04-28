@@ -8,6 +8,7 @@
 #include "common/User.h"
 #include "common/RoomData.h"
 #include "common/RegisterRequest.h"
+#include "common/RoomUserData.h"
 
 using asio::ip::tcp;
 
@@ -39,6 +40,7 @@ signals:
     void RoomRequestConfirmation(const RoomData& room);
     void RegisterResultReceived(const RegisterRequest& req);
     void LogoutResultReceived();
+    void RoomInfoReceived(const RoomUserData& roomUserData);
 };
 
 #endif // NETWORKMANAGER_H

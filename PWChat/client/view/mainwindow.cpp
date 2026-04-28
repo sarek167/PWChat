@@ -107,19 +107,6 @@ QPushButton* MainWindow::createUserRoomWidget(const QString& name, bool isRoom) 
     layout->addWidget(nameLabel);
     layout->addStretch();
 
-    // container->setStyleSheet(
-    //              "QPushButton { "
-    //              "   background-color: white;"
-    //              "   border-radius: 10px;"
-    //              "   padding: 5px;"
-    //              "   min-height: 32px;"
-    //              "   border: none;"
-    //              "   text-align: left;"
-    //              "}"
-    //              "QPushButton:hover { "
-    //              "   background-color: #f0f0f0;"
-    //              "}"
-    //              );
     container->setCursor(Qt::PointingHandCursor);
     return container;
 }
@@ -141,6 +128,61 @@ void MainWindow::appendUserRoomWidget(const uint32_t id, const QString& name, bo
     });
 }
 
+QPushButton* MainWindow::createUserWidget(const QString& name) {
+    QPushButton* container = new QPushButton();
+    container->setProperty("class", "UserCard");
+    container->setProperty("active", false);
+    QHBoxLayout* layout = new QHBoxLayout(container);
+
+    QLabel* iconLabel = new QLabel();
+    QIcon icon(":/user-icon-black.svg");
+    QPixmap iconPixmap = icon.pixmap(QSize(24,24));
+    iconLabel->setPixmap(iconPixmap);
+    iconLabel->setObjectName("iconLabel");
+
+    QLabel* nameLabel = new QLabel(name);
+    nameLabel->setObjectName("nameLabel");
+
+    layout->addWidget(iconLabel);
+    layout->addWidget(nameLabel);
+    layout->addStretch();
+
+    return container;
+}
+
+void MainWindow::appendUserWidget(const uint32_t id, const QString& name, bool isAdmin) {
+    QPushButton* userCardWidget = createUserWidget(name);
+
+    userCardWidget->setProperty("userId", id);
+
+    if (isAdmin) {
+        ui->verticalLayoutAdmins->addWidget(userCardWidget);
+
+    } else {
+        ui->verticalLayoutUsers->addWidget(userCardWidget);
+    }
+
+    // connect(cardWidget, &QPushButton::clicked, this, [this, id]() {
+    //     onRoomWidgetClicked(id);
+    // });
+}
+
+
+void MainWindow::displayRoomInfo(bool isPrivate, std::vector<UserData> users, std::vector<UserData> admins) {
+    clearLayout(ui->verticalLayoutUsers);
+    clearLayout(ui->verticalLayoutAdmins);
+
+    for (auto& user : users) {
+        appendUserWidget(user.id, QString::fromStdString(user.nickname));
+    }
+
+    for (auto& admin : admins) {
+        appendUserWidget(admin.id, QString::fromStdString(admin.nickname), true);
+    }
+
+    ui->stackedSideWidget->setCurrentIndex(1);
+
+}
 
 void MainWindow::afterLoginChanges(const std::string& nickname, const std::vector<RoomData> userRooms) {
     ui->labelUsername->setText(QString::fromStdString(nickname));
@@ -148,6 +190,7 @@ void MainWindow::afterLoginChanges(const std::string& nickname, const std::vecto
     for (auto& room : userRooms) {
         appendUserRoomWidget(room.id, QString::fromStdString(room.name), true);
     }
+    ui->stackedSideWidget->setCurrentIndex(0);
 }
 
 void MainWindow::addRoom(const RoomData& room) {
@@ -155,15 +198,16 @@ void MainWindow::addRoom(const RoomData& room) {
     appendUserRoomWidget(room.id, QString::fromStdString(room.name), true);
 }
 
-void MainWindow::clearLayout(QLayout *layout) {
+void MainWindow::clearLayout(QLayout *layout, uint startingIdx) {
     if (!layout) return;
+    if (startingIdx >= layout->count()) return;
 
     QLayoutItem *item;
-    while ((item = layout->takeAt(0)) != nullptr) {
+    while ((item = layout->takeAt(startingIdx)) != nullptr) {
         if (QWidget *widget = item->widget()) {
             widget->deleteLater();
         } else if (QLayout *childLayout = item->layout()) {
-            clearLayout(childLayout);
+            clearLayout(childLayout, startingIdx);
         }
         delete item;
     }
@@ -173,6 +217,7 @@ void MainWindow::onRoomWidgetClicked(uint32_t roomId) {
     ChatContext newContext{roomId, ChatContext::Type::Room};
 
     if (m_currentChat == newContext) {
+        emit roomInfoRequest(roomId);
         return;
     }
 
@@ -250,5 +295,11 @@ void MainWindow::on_btnRecordAudio_released()
 void MainWindow::on_btnLogout_clicked()
 {
     emit logoutRequested();
+}
+
+
+void MainWindow::on_btnExit_clicked()
+{
+    ui->stackedSideWidget->setCurrentIndex(0);
 }
 

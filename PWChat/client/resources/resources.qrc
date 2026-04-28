@@ -5,5 +5,8 @@
         <file>mic-icon-white.svg</file>
         <file>send-icon-black.svg</file>
         <file>send-icon-white.svg</file>
+        <file>close-icon-black.svg</file>
+        <file>close-icon-white.svg</file>
+        <file>user-icon-black.svg</file>
     </qresource>
 </RCC>

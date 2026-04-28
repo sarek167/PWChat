@@ -20,6 +20,7 @@ public:
     bool saveUserRoom(const uint32_t userId, const uint32_t roomId, bool isAdmin) override;
     uint32_t registerUser(const std::string& nickname, const std::string& password) override;
     uint32_t loginUser(const std::string& nickname, const std::string& password) override;
+    std::vector<UserData> getRoomUsers(const uint32_t roomId, bool getAdmins = false) override;
 };
 
 #endif // SQLITECONNECTOR_H

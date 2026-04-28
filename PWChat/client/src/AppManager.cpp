@@ -63,6 +63,10 @@ void AppManager::setupConnections() {
         m_loginWin.resetForms();
     });
 
+    connect(m_networkManager, &NetworkManager::RoomInfoReceived, this, [this](const RoomUserData& roomUserData) {
+        m_mainWin.displayRoomInfo(roomUserData.isPrivate, roomUserData.users, roomUserData.admins);
+    });
+
     connect(&m_mainWin, &MainWindow::sendRequested, this, [this](uint32_t targetId, std::string message, bool toRoom) {
         MessageType messType;
         std::cout << "In sendRequested signal" << std::endl;
@@ -98,6 +102,11 @@ void AppManager::setupConnections() {
     connect(&m_mainWin, &MainWindow::logoutRequested, this, [this] {
         Packet logoutPacket(MessageType::LOGOUT_REQUEST, 0, m_networkManager->user()->id(), NULL);
         m_networkManager->send(logoutPacket);
+    });
+
+    connect(&m_mainWin, &MainWindow::roomInfoRequest, this, [this](const uint32_t roomId) {
+        Packet roomInfoPacket(MessageType::ROOM_INFO_REQUEST, 0, m_networkManager->user()->id(), roomId);
+        m_networkManager->send(roomInfoPacket);
     });
 
     connect(m_audioManager, &AudioManager::audioReadyToSend, this, [this](const std::vector<char>& compressedData) {
