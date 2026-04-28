@@ -278,7 +278,6 @@ void MainWindow::on_btnJoinRoom_clicked()
 
 void MainWindow::on_btnRecordAudio_pressed()
 {
-    ui->btnRecordAudio->setText("Recording...");
     emit audioRecordingStarted();
     std::cout << "Recording started" << std::endl;
 }
@@ -286,7 +285,6 @@ void MainWindow::on_btnRecordAudio_pressed()
 
 void MainWindow::on_btnRecordAudio_released()
 {
-    ui->btnRecordAudio->setText("Record");
     emit audioRecordingStopped();
     std::cout << "Recording stopped" << std::endl;
 }
