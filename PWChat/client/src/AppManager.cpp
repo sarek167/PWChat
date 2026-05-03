@@ -2,6 +2,7 @@
 #include "common/CreateRoomRequest.h"
 #include "common/LoginRequest.h"
 #include "common/RegisterRequest.h"
+#include "common/LeaveRoomRequest.h"
 
 AppManager::AppManager(QObject *parent)
     : QObject(parent)
@@ -67,6 +68,13 @@ void AppManager::setupConnections() {
         m_mainWin.displayRoomInfo(roomUserData.isPrivate, roomUserData.users, roomUserData.admins);
     });
 
+    connect(m_networkManager, &NetworkManager::LeaveResultReceived, this, [this](const uint32_t roomId, const uint32_t userId) {
+        if (m_networkManager->user()->id() == userId) {
+            m_mainWin.leaveRoom(roomId);
+        }
+
+    });
+
     connect(&m_mainWin, &MainWindow::sendRequested, this, [this](uint32_t targetId, std::string message, bool toRoom) {
         MessageType messType;
         std::cout << "In sendRequested signal" << std::endl;
@@ -107,6 +115,14 @@ void AppManager::setupConnections() {
     connect(&m_mainWin, &MainWindow::roomInfoRequest, this, [this](const uint32_t roomId) {
         Packet roomInfoPacket(MessageType::ROOM_INFO_REQUEST, 0, m_networkManager->user()->id(), roomId);
         m_networkManager->send(roomInfoPacket);
+    });
+
+    connect(&m_mainWin, &MainWindow::leaveRoomRequested, this, [this](const uint32_t roomId) {
+        LeaveRoomRequest req;
+        req.roomId = roomId;
+        req.userId = m_networkManager->user()->id();
+        Packet leavePacket(MessageType::LEAVE_ROOM_REQUEST, 0, m_networkManager->user()->id(), req);
+        m_networkManager->send(leavePacket);
     });
 
     connect(m_audioManager, &AudioManager::audioReadyToSend, this, [this](const std::vector<char>& compressedData) {

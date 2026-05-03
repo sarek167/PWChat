@@ -27,6 +27,7 @@ public:
     void addRoom(const RoomData& room);
     void onRoomWidgetClicked(uint32_t roomId);
     void displayRoomInfo(bool isPrivate, std::vector<UserData> users, std::vector<UserData> admins);
+    void leaveRoom(const uint32_t roomId);
 
 private:
     Ui::MainWindow *ui;
@@ -47,6 +48,7 @@ signals:
     void audioRecordingStopped();
     void logoutRequested();
     void roomInfoRequest(const uint32_t roomId);
+    void leaveRoomRequested(const uint32_t roomId);
 
 private slots:
     void on_btnSend_clicked();
@@ -56,6 +58,7 @@ private slots:
     void on_btnRecordAudio_released();
     void on_btnLogout_clicked();
     void on_btnExit_clicked();
+    void on_btnLeave_clicked();
 };
 
 #endif // MAINWINDOW_H

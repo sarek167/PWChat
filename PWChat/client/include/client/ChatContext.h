@@ -4,7 +4,7 @@
 #include <stdint.h>
 
 struct ChatContext {
-    enum class Type {None, Room, Private};
+    enum class Type {None, Room, User};
     uint32_t id;
     Type type = Type::None;
 

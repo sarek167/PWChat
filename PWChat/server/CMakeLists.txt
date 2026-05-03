@@ -37,6 +37,8 @@ add_executable(server
     include/server/Commands/RoomInfoCommand.h
     src/Commands/RoomInfoCommand.cpp
     src/Commands/RegisterCommand.cpp
+    include/server/Commands/LeaveRoomCommand.h
+    src/Commands/LeaveRoomCommand.cpp
 )
 
 

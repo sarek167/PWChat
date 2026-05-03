@@ -41,6 +41,7 @@ signals:
     void RegisterResultReceived(const RegisterRequest& req);
     void LogoutResultReceived();
     void RoomInfoReceived(const RoomUserData& roomUserData);
+    void LeaveResultReceived(const uint32_t roomId, const uint32_t userId);
 };
 
 #endif // NETWORKMANAGER_H

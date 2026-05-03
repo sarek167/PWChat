@@ -18,6 +18,7 @@ public:
     std::vector<RoomData> getUserRooms(const uint32_t userId) override;
     int saveRoom(const std::string& name, const bool isPrivate, const uint32_t ownerId) override;
     bool saveUserRoom(const uint32_t userId, const uint32_t roomId, bool isAdmin) override;
+    bool deleteUserRoom(const uint32_t userId, const uint32_t roomId) override;
     uint32_t registerUser(const std::string& nickname, const std::string& password) override;
     uint32_t loginUser(const std::string& nickname, const std::string& password) override;
     std::vector<UserData> getRoomUsers(const uint32_t roomId, bool getAdmins = false) override;

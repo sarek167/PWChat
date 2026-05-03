@@ -156,6 +156,30 @@ bool SQLiteConnector::saveUserRoom(const uint32_t userId, const uint32_t roomId,
 
 }
 
+bool SQLiteConnector::deleteUserRoom(const uint32_t userId, const uint32_t roomId) {
+    const char* sql = "DELETE FROM users_rooms WHERE user_id = ? AND room_id = ?";
+    sqlite3_stmt* stmt = nullptr;
+
+    if (sqlite3_prepare_v2(m_db, sql, -1, &stmt, nullptr) != SQLITE_OK) {
+        std::cerr << "SQL Error: " << sqlite3_errmsg(m_db) << std::endl;
+        return false;
+    }
+
+    sqlite3_bind_int(stmt, 1, static_cast<int>(userId));
+    sqlite3_bind_int(stmt, 2, static_cast<int>(roomId));
+
+    int rc = sqlite3_step(stmt);
+    bool success = (rc == SQLITE_DONE);
+
+    if (!success) {
+        std::cerr << "SQL Error (Step): " << sqlite3_errmsg(m_db) << std::endl;
+    }
+
+    sqlite3_finalize(stmt);
+    return true;
+}
+
+
 uint32_t SQLiteConnector::registerUser(const std::string& nickname, const std::string& password) {
     QByteArray hash = QCryptographicHash::hash(
         QByteArray::fromRawData(password.c_str(), password.size()),

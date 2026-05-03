@@ -11,7 +11,7 @@ enum class MessageType : uint8_t {
     LOGIN_REQUEST = 4,
     ERROR_RESPONSE = 5,
     JOIN_ROOM_COMM = 6,
-    LEAVE_ROOM_COMM = 7,
+    LEAVE_ROOM_REQUEST = 7,
     CREATE_ROOM_COMM = 8,
     DEL_ROOM_COMM = 9,
     REGISTER_REQUEST = 10,

@@ -8,5 +8,6 @@
         <file>close-icon-black.svg</file>
         <file>close-icon-white.svg</file>
         <file>user-icon-black.svg</file>
+        <file>leave-icon-black.svg</file>
     </qresource>
 </RCC>

@@ -12,6 +12,7 @@ add_library(common STATIC
     include/common/RegisterRequest.h
     include/common/RoomUserData.h
     include/common/UserData.h
+    include/common/LeaveRoomRequest.h
 )
 
 target_include_directories(common PUBLIC

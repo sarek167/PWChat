@@ -252,6 +252,25 @@ void MainWindow::onRoomWidgetClicked(uint32_t roomId) {
     // TO DO: load messages
 }
 
+void MainWindow::leaveRoom(const uint32_t roomId) {
+    m_userRooms.erase(std::remove_if(m_userRooms.begin(), m_userRooms.end(), [roomId](const RoomData& r) {return r.id == roomId;}), m_userRooms.end());
+    for (int i = 0; i < ui->verticalLayoutRooms->count(); ++i) {
+        QWidget* widget = ui->verticalLayoutRooms->itemAt(i)->widget();
+        if (widget && widget->property("roomId").toUInt() == roomId) {
+            ui->verticalLayoutRooms->removeWidget(widget);
+            widget->deleteLater();
+            break;
+        }
+    }
+
+    if (m_currentChat.id == roomId) {
+        m_currentChat = ChatContext{0, ChatContext::Type::User};
+        clearLayout(ui->verticalLayoutChat);
+        ui->verticalLayoutChat->addStretch(1);
+        ui->stackedSideWidget->setCurrentIndex(0);
+    }
+}
+
 void MainWindow::on_btnSend_clicked() {
     uint32_t targetId = m_currentChat.id;
     std::string message = ui->editMess->text().toStdString();
@@ -299,5 +318,11 @@ void MainWindow::on_btnLogout_clicked()
 void MainWindow::on_btnExit_clicked()
 {
     ui->stackedSideWidget->setCurrentIndex(0);
+}
+
+
+void MainWindow::on_btnLeave_clicked()
+{
+    emit leaveRoomRequested(m_currentChat.id);
 }
 

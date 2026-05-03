@@ -95,16 +95,23 @@ QPushButton#btnSend:hover {
 }
 
 QPushButton#btnExit {
-	qproperty-icon: url(&quot;:/close-icon-white.svg&quot;);
-	icon-size: 24px;
-	height: 48px;
-	width: 48px;
+	qproperty-icon: url(&quot;:/close-icon-black.svg&quot;);
+	background-color: white;
+	border: 0;
+	width: 36px;
+	height: 36px;
+	icon-size: 32px;
 	padding: 0;
-	border-radius: 24px
 }
 
-QPushButton#btnExit:hover {
-	qproperty-icon: url(&quot;:/close-icon-black.svg&quot;);
+QPushButton#btnLeave {
+	qproperty-icon: url(&quot;:/leave-icon-black.svg&quot;);
+	background-color: white;
+	border: 0;
+	width: 36px;
+	height: 36px;
+	icon-size: 32px;
+	padding: 0;
 }
 
 QPushButton.RoomCard, QPushButton.UserCard {
@@ -519,7 +526,7 @@ QPushButton#btnTalkToUser {
                     <property name="layoutDirection">
                      <enum>Qt::LayoutDirection::LeftToRight</enum>
                     </property>
-                    <layout class="QVBoxLayout" name="verticalLayout_12">
+                    <layout class="QHBoxLayout" name="horizontalLayout_5">
                      <property name="leftMargin">
                       <number>0</number>
                      </property>
@@ -541,6 +548,29 @@ QPushButton#btnTalkToUser {
                        </property>
                        <property name="text">
                         <string/>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <spacer name="horizontalSpacer_2">
+                       <property name="orientation">
+                        <enum>Qt::Orientation::Horizontal</enum>
+                       </property>
+                       <property name="sizeHint" stdset="0">
+                        <size>
+                         <width>40</width>
+                         <height>20</height>
+                        </size>
+                       </property>
+                      </spacer>
+                     </item>
+                     <item>
+                      <widget class="QPushButton" name="btnLeave">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
                        </property>
                       </widget>
                      </item>

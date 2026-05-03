@@ -1,6 +1,7 @@
 #include "client/NetworkManager.h"
 #include <iostream>
 #include "common/Packet.h"
+#include "common/LeaveRoomRequest.h"
 
 NetworkManager::~NetworkManager() {
     if (m_socket.is_open()) {
@@ -121,6 +122,9 @@ void NetworkManager::readBody(PacketHeader header) {
         } else if (header.type == MessageType::ROOM_INFO_REQUEST) {
             RoomUserData roomUserData = packet.unpackBody<RoomUserData>();
             emit RoomInfoReceived(roomUserData);
+        } else if (header.type == MessageType::LEAVE_ROOM_REQUEST) {
+            LeaveRoomRequest req = packet.unpackBody<LeaveRoomRequest>();
+            emit LeaveResultReceived(req.roomId, req.userId);
         }
         std::cout << "KLIENT DOSTAŁ PAKIET!!!" << std::endl;
         std::cout << packet.header().signature << std::endl;
