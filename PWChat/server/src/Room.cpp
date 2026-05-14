@@ -64,3 +64,13 @@ void Room::removeAdmin(uint32_t adminToRemove) {
         std::cerr << "Error: User " << adminToRemove << " wasn't admin of the room " << m_name << std::endl;
     }
 }
+
+bool Room::checkIfAdmin(const uint32_t userId) {
+    auto it = std::find(m_adminIds.begin(), m_adminIds.end(), userId);
+
+    if (it == m_adminIds.end()) {
+        return false;
+    } else {
+        return true;
+    }
+}

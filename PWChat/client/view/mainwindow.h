@@ -28,6 +28,7 @@ public:
     void onRoomWidgetClicked(uint32_t roomId);
     void displayRoomInfo(bool isPrivate, std::vector<UserData> users, std::vector<UserData> admins);
     void leaveRoom(const uint32_t roomId);
+    void showContextMenu(const QPoint &pos, uint32_t userId);
 
 private:
     Ui::MainWindow *ui;
@@ -48,7 +49,7 @@ signals:
     void audioRecordingStopped();
     void logoutRequested();
     void roomInfoRequest(const uint32_t roomId);
-    void leaveRoomRequested(const uint32_t roomId);
+    void leaveRoomRequested(const uint32_t roomId, const uint32_t userId = 0);
 
 private slots:
     void on_btnSend_clicked();

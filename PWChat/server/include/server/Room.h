@@ -23,6 +23,7 @@ public:
     void broadcast(const Packet& p);
     void addAdmin(uint32_t adminId);
     void removeAdmin(uint32_t adminId);
+    bool checkIfAdmin(const uint32_t userId);
 protected:
     uint32_t m_id;
     std::string m_name;

@@ -117,10 +117,14 @@ void AppManager::setupConnections() {
         m_networkManager->send(roomInfoPacket);
     });
 
-    connect(&m_mainWin, &MainWindow::leaveRoomRequested, this, [this](const uint32_t roomId) {
+    connect(&m_mainWin, &MainWindow::leaveRoomRequested, this, [this](const uint32_t roomId, const uint32_t userId) {
         LeaveRoomRequest req;
         req.roomId = roomId;
-        req.userId = m_networkManager->user()->id();
+        if (!userId) {
+            req.userId = m_networkManager->user()->id();
+        } else {
+            req.userId = userId;
+        }
         Packet leavePacket(MessageType::LEAVE_ROOM_REQUEST, 0, m_networkManager->user()->id(), req);
         m_networkManager->send(leavePacket);
     });

@@ -6,6 +6,7 @@
 #include <iostream>
 #include <QStyle>
 #include <QGraphicsColorizeEffect>
+#include <QMenu>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -126,7 +127,9 @@ void MainWindow::appendUserRoomWidget(const uint32_t id, const QString& name, bo
     connect(cardWidget, &QPushButton::clicked, this, [this, id]() {
         onRoomWidgetClicked(id);
     });
+
 }
+
 
 QPushButton* MainWindow::createUserWidget(const QString& name) {
     QPushButton* container = new QPushButton();
@@ -154,7 +157,7 @@ void MainWindow::appendUserWidget(const uint32_t id, const QString& name, bool i
     QPushButton* userCardWidget = createUserWidget(name);
 
     userCardWidget->setProperty("userId", id);
-
+    userCardWidget->setContextMenuPolicy(Qt::CustomContextMenu);
     if (isAdmin) {
         ui->verticalLayoutAdmins->addWidget(userCardWidget);
 
@@ -162,9 +165,30 @@ void MainWindow::appendUserWidget(const uint32_t id, const QString& name, bool i
         ui->verticalLayoutUsers->addWidget(userCardWidget);
     }
 
+    connect(userCardWidget, &QPushButton::customContextMenuRequested, this, [this, userCardWidget, id](const QPoint &pos) {
+        showContextMenu(userCardWidget->mapToGlobal(pos), id);
+    });
+
     // connect(cardWidget, &QPushButton::clicked, this, [this, id]() {
     //     onRoomWidgetClicked(id);
     // });
+}
+
+void MainWindow::showContextMenu(const QPoint &globalPos, uint32_t userId) {
+    QMenu menu(this);
+
+    QAction *leaveAction = menu.addAction("Remove user from room");
+
+    // QAction *infoAction = menu.addAction("Informacje");
+
+    QAction *selectedAction = menu.exec(globalPos);
+
+    if (selectedAction == leaveAction) {
+        emit leaveRoomRequested(m_currentChat.id, userId);
+    }
+    // } else if (selectedAction == infoAction) {
+    //     emit roomInfoRequest(roomId);
+    // }
 }
 
 
