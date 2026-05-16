@@ -12,7 +12,7 @@ void LeaveRoomCommand::execute(std::shared_ptr<Session> session, const Packet& p
         return;
     }
 
-    bool dbResult = server.db().deleteUserRoom(p.header().senderId, room->id());
+    bool dbResult = server.db().deleteUserRoom(req.userId, req.roomId);
 
     if (dbResult) {
         room->removeClient(session);
