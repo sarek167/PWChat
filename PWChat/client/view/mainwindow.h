@@ -22,11 +22,11 @@ public:
     void onMessageReceived(const uint32_t senderId, const uint32_t targetId, const QString& text, bool toRoom);
     void appendMessage(const QString& sender, const QString& text, bool isFromOthers=true);
     void appendUserRoomWidget(const uint32_t id, const QString& name, bool isRoom = false);
-    void appendUserWidget(const uint32_t id, const QString& name, bool isAdmin = false);
+    void appendUserWidget(const uint32_t id, const QString& name, bool isAdmin = false, bool amIAdmin=false);
     void afterLoginChanges(const std::string& nickname, const std::vector<RoomData> userRooms);
     void addRoom(const RoomData& room);
     void onRoomWidgetClicked(uint32_t roomId);
-    void displayRoomInfo(bool isPrivate, std::vector<UserData> users, std::vector<UserData> admins);
+    void displayRoomInfo(bool isPrivate, std::vector<UserData> users, std::vector<UserData> admins, bool amIAdmin=false);
     void leaveRoom(const uint32_t roomId);
     void showContextMenu(const QPoint &pos, uint32_t userId);
 

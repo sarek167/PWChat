@@ -65,7 +65,11 @@ void AppManager::setupConnections() {
     });
 
     connect(m_networkManager, &NetworkManager::RoomInfoReceived, this, [this](const RoomUserData& roomUserData) {
-        m_mainWin.displayRoomInfo(roomUserData.isPrivate, roomUserData.users, roomUserData.admins);
+        uint32_t currentId = m_networkManager->user()->id();
+        bool amIAdmin = std::any_of(roomUserData.admins.begin(), roomUserData.admins.end(),
+                        [currentId](const UserData& admin) { return admin.id == currentId; });
+
+        m_mainWin.displayRoomInfo(roomUserData.isPrivate, roomUserData.users, roomUserData.admins, amIAdmin);
     });
 
     connect(m_networkManager, &NetworkManager::LeaveResultReceived, this, [this](const uint32_t roomId, const uint32_t userId) {

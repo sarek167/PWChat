@@ -153,21 +153,22 @@ QPushButton* MainWindow::createUserWidget(const QString& name) {
     return container;
 }
 
-void MainWindow::appendUserWidget(const uint32_t id, const QString& name, bool isAdmin) {
+void MainWindow::appendUserWidget(const uint32_t id, const QString& name, bool isAdmin, bool amIAdmin) {
     QPushButton* userCardWidget = createUserWidget(name);
 
     userCardWidget->setProperty("userId", id);
-    userCardWidget->setContextMenuPolicy(Qt::CustomContextMenu);
+
     if (isAdmin) {
         ui->verticalLayoutAdmins->addWidget(userCardWidget);
-
     } else {
+        if (amIAdmin) {
+            userCardWidget->setContextMenuPolicy(Qt::CustomContextMenu);
+            connect(userCardWidget, &QPushButton::customContextMenuRequested, this, [this, userCardWidget, id](const QPoint &pos) {
+                showContextMenu(userCardWidget->mapToGlobal(pos), id);
+            });
+        }
         ui->verticalLayoutUsers->addWidget(userCardWidget);
     }
-
-    connect(userCardWidget, &QPushButton::customContextMenuRequested, this, [this, userCardWidget, id](const QPoint &pos) {
-        showContextMenu(userCardWidget->mapToGlobal(pos), id);
-    });
 
     // connect(cardWidget, &QPushButton::clicked, this, [this, id]() {
     //     onRoomWidgetClicked(id);
@@ -192,16 +193,16 @@ void MainWindow::showContextMenu(const QPoint &globalPos, uint32_t userId) {
 }
 
 
-void MainWindow::displayRoomInfo(bool isPrivate, std::vector<UserData> users, std::vector<UserData> admins) {
+void MainWindow::displayRoomInfo(bool isPrivate, std::vector<UserData> users, std::vector<UserData> admins, bool amIAdmin) {
     clearLayout(ui->verticalLayoutUsers);
     clearLayout(ui->verticalLayoutAdmins);
 
     for (auto& user : users) {
-        appendUserWidget(user.id, QString::fromStdString(user.nickname));
+        appendUserWidget(user.id, QString::fromStdString(user.nickname), false, amIAdmin);
     }
 
     for (auto& admin : admins) {
-        appendUserWidget(admin.id, QString::fromStdString(admin.nickname), true);
+        appendUserWidget(admin.id, QString::fromStdString(admin.nickname), true, false);
     }
 
     ui->stackedSideWidget->setCurrentIndex(1);
