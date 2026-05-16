@@ -17,6 +17,7 @@ enum class MessageType : uint8_t {
     REGISTER_REQUEST = 10,
     LOGOUT_REQUEST = 11,
     ROOM_INFO_REQUEST = 12,
+    ADD_ADMIN_REQUEST = 13,
 };
 
 #endif // MESSAGETYPES_H

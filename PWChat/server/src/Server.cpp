@@ -5,6 +5,7 @@
 #include "server/Commands/LogoutCommand.h"
 #include "server/Commands/JoinRoomCommand.h"
 #include "server/Commands/LeaveRoomCommand.h"
+#include "server/Commands/AddAdminCommand.h"
 #include "server/Commands/RoomInfoCommand.h"
 #include "server/Commands/RegisterCommand.h"
 #include "server/Commands/CreateRoomCommand.h"
@@ -31,6 +32,7 @@ Server::Server(asio::io_context& io_context, short port)
         m_commands[MessageType::LOGOUT_REQUEST] = std::make_unique<LogoutCommand>();
         m_commands[MessageType::REGISTER_REQUEST] = std::make_unique<RegisterCommand>();
         m_commands[MessageType::JOIN_ROOM_COMM] = std::make_unique<JoinRoomCommand>();
+        m_commands[MessageType::ADD_ADMIN_REQUEST] = std::make_unique<AddAdminCommand>();
         m_commands[MessageType::LEAVE_ROOM_REQUEST] = std::make_unique<LeaveRoomCommand>();
         m_commands[MessageType::ROOM_INFO_REQUEST] = std::make_unique<RoomInfoCommand>();
         m_commands[MessageType::CREATE_ROOM_COMM] = std::make_unique<CreateRoomCommand>();

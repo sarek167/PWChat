@@ -269,4 +269,37 @@ std::vector<UserData> SQLiteConnector::getRoomUsers(const uint32_t roomId, bool 
     return users;
 }
 
+bool SQLiteConnector::addAdmin(const uint32_t roomId, const uint32_t userId) {
+    const char* sql =
+        "UPDATE users_rooms "
+        "SET is_admin = 1 "
+        "WHERE room_id = ? AND user_id = ?;";
 
+    sqlite3_stmt* stmt = nullptr;
+
+    if (sqlite3_prepare_v2(m_db, sql, -1, &stmt, nullptr) != SQLITE_OK) {
+        std::cerr << "SQL Prepare Error: " << sqlite3_errmsg(m_db) << std::endl;
+        return false;
+    }
+
+    sqlite3_bind_int(stmt, 1, static_cast<int>(roomId));
+    sqlite3_bind_int(stmt, 2, static_cast<int>(userId));
+
+    int rc = sqlite3_step(stmt);
+    bool success = (rc == SQLITE_DONE);
+
+    if (!success) {
+        std::cerr << "SQL Execution Error: " << sqlite3_errmsg(m_db) << std::endl;
+    } else {
+        if (sqlite3_changes(m_db) == 0) {
+            std::cout << "[DB] Warning: No rows updated. User might not be in this room." << std::endl;
+            success = false;
+        } else {
+            std::cout << "[DB] User " << userId << " is now admin in room " << roomId << std::endl;
+        }
+    }
+
+    sqlite3_finalize(stmt);
+
+    return success;
+}

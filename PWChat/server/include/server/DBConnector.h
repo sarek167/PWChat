@@ -21,6 +21,7 @@ public:
     virtual uint32_t registerUser(const std::string& nickname, const std::string& password) = 0;
     virtual uint32_t loginUser(const std::string& nickname, const std::string& password) = 0;
     virtual std::vector<UserData>getRoomUsers(const uint32_t roomId, bool getAdmins = false) = 0;
+    virtual bool addAdmin(const uint32_t roomId, const uint32_t userId) = 0;
 };
 
 #endif // DBCONNECTOR_H

@@ -39,6 +39,8 @@ add_executable(server
     src/Commands/RegisterCommand.cpp
     include/server/Commands/LeaveRoomCommand.h
     src/Commands/LeaveRoomCommand.cpp
+    src/Commands/AddAdminCommand.cpp
+    include/server/Commands/AddAdminCommand.h
 )
 
 

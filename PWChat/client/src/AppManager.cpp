@@ -3,6 +3,7 @@
 #include "common/LoginRequest.h"
 #include "common/RegisterRequest.h"
 #include "common/LeaveRoomRequest.h"
+#include "common/AddAdminRequest.h"
 
 AppManager::AppManager(QObject *parent)
     : QObject(parent)
@@ -131,6 +132,14 @@ void AppManager::setupConnections() {
         }
         Packet leavePacket(MessageType::LEAVE_ROOM_REQUEST, 0, m_networkManager->user()->id(), req);
         m_networkManager->send(leavePacket);
+    });
+
+    connect(&m_mainWin, &MainWindow::addAdminRequest, this, [this](const uint32_t roomId, const uint32_t userId) {
+        AddAdminRequest req;
+        req.roomId = roomId;
+        req.userId = userId;
+        Packet addAdminPacket(MessageType::ADD_ADMIN_REQUEST, 0, m_networkManager->user()->id(), req);
+        m_networkManager->send(addAdminPacket);
     });
 
     connect(m_audioManager, &AudioManager::audioReadyToSend, this, [this](const std::vector<char>& compressedData) {

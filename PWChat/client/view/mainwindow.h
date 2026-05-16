@@ -50,6 +50,7 @@ signals:
     void logoutRequested();
     void roomInfoRequest(const uint32_t roomId);
     void leaveRoomRequested(const uint32_t roomId, const uint32_t userId = 0);
+    void addAdminRequest(const uint32_t roomId, const uint32_t userId);
 
 private slots:
     void on_btnSend_clicked();

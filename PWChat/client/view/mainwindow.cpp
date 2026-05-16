@@ -180,16 +180,15 @@ void MainWindow::showContextMenu(const QPoint &globalPos, uint32_t userId) {
 
     QAction *leaveAction = menu.addAction("Remove user from room");
 
-    // QAction *infoAction = menu.addAction("Informacje");
+    QAction *addAdminAction = menu.addAction("Add user as admin");
 
     QAction *selectedAction = menu.exec(globalPos);
 
     if (selectedAction == leaveAction) {
         emit leaveRoomRequested(m_currentChat.id, userId);
+    } else if (selectedAction == addAdminAction) {
+        emit addAdminRequest(m_currentChat.id, userId);
     }
-    // } else if (selectedAction == infoAction) {
-    //     emit roomInfoRequest(roomId);
-    // }
 }
 
 
