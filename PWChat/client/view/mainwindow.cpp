@@ -244,7 +244,7 @@ void MainWindow::onRoomWidgetClicked(uint32_t roomId) {
         emit roomInfoRequest(roomId);
         return;
     }
-
+    emit loadMessages(roomId, 0, true);
     m_currentChat = newContext;
     std::cout << "New context with id: " << newContext.id << std::endl;
 

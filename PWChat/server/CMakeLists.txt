@@ -41,6 +41,8 @@ add_executable(server
     src/Commands/LeaveRoomCommand.cpp
     src/Commands/AddAdminCommand.cpp
     include/server/Commands/AddAdminCommand.h
+    include/server/Commands/LoadMessagesCommand.h
+    src/Commands/LoadMessagesCommand.cpp
 )
 
 

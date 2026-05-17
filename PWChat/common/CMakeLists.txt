@@ -14,6 +14,8 @@ add_library(common STATIC
     include/common/UserData.h
     include/common/LeaveRoomRequest.h
     include/common/AddAdminRequest.h
+    include/common/MessageData.h
+    include/common/MessageRequest.h
 )
 
 target_include_directories(common PUBLIC

@@ -303,3 +303,81 @@ bool SQLiteConnector::addAdmin(const uint32_t roomId, const uint32_t userId) {
 
     return success;
 }
+
+bool SQLiteConnector::saveTextMessage(const uint32_t senderId, const uint32_t targetId, const std::string& message, bool toRoom) {
+    const char* sql = "INSERT INTO messages (sender_id, receiver_id, is_receiver_user, content, type) VALUES (?, ?, ?, ?, ?)";
+    sqlite3_stmt* stmt = nullptr;
+
+    if (sqlite3_prepare_v2(m_db, sql, -1, &stmt, nullptr) != SQLITE_OK) {
+        std::cerr << "SQL Error: " << sqlite3_errmsg(m_db) << std::endl;
+        return false;
+    }
+
+    sqlite3_bind_int(stmt, 1, static_cast<int>(senderId));
+    sqlite3_bind_int(stmt, 2, static_cast<int>(targetId));
+    sqlite3_bind_int(stmt, 3, toRoom ? 0 : 1);
+    sqlite3_bind_text(stmt, 4, message.c_str(), -1, SQLITE_STATIC);
+    sqlite3_bind_int(stmt, 5, 0);
+
+    int rc = sqlite3_step(stmt);
+    bool success = (rc == SQLITE_DONE);
+
+    if (!success) {
+        std::cerr << "SQL Error (Step): " << sqlite3_errmsg(m_db) << std::endl;
+    }
+
+    sqlite3_finalize(stmt);
+    return true;
+}
+
+
+std::vector<MessageData> SQLiteConnector::getMessages(const uint32_t targetId, const uint32_t senderId, bool fromRoom, const int limit, const int offset) {
+    std::vector<MessageData> messages;
+    const char* sql = nullptr;
+
+    if (fromRoom) {
+        sql = "SELECT sender_id, receiver_id, content "
+              "FROM messages "
+              "WHERE receiver_id = ? AND is_receiver_user = 0 "
+              "ORDER BY timestamp DESC LIMIT ? OFFSET ?;";
+    } else {
+        sql = "SELECT sender_id, receiver_id, content "
+              "FROM messages "
+              "WHERE is_receiver_user = 1 AND ((receiver_id = ? AND sender_id = ?) "
+              "OR (receiver_id = ? AND sender_id = ?)) "
+              "ORDER BY timestamp DESC LIMIT ? OFFSET ?;";
+    }
+
+    sqlite3_stmt* stmt = nullptr;
+
+    if (sqlite3_prepare_v2(m_db, sql, -1, &stmt, nullptr) == SQLITE_OK) {
+
+        if (fromRoom) {
+            sqlite3_bind_int(stmt, 1, static_cast<int>(targetId));
+            sqlite3_bind_int(stmt, 2, limit);
+            sqlite3_bind_int(stmt, 3, offset);
+        } else {
+            sqlite3_bind_int(stmt, 1, static_cast<int>(targetId));
+            sqlite3_bind_int(stmt, 2, static_cast<int>(senderId));
+            sqlite3_bind_int(stmt, 3, static_cast<int>(senderId));
+            sqlite3_bind_int(stmt, 4, static_cast<int>(targetId));
+            sqlite3_bind_int(stmt, 5, limit);
+            sqlite3_bind_int(stmt, 6, offset);
+        }
+
+        while (sqlite3_step(stmt) == SQLITE_ROW) {
+            MessageData mess;
+            mess.senderId = static_cast<uint32_t>(sqlite3_column_int(stmt, 0));
+            mess.targetId = static_cast<uint32_t>(sqlite3_column_int(stmt, 1));
+
+            const unsigned char* text = sqlite3_column_text(stmt, 2);
+            if (text) mess.message = reinterpret_cast<const char*>(text);
+
+            messages.push_back(mess);
+        }
+    }
+
+    sqlite3_finalize(stmt);
+    std::reverse(messages.begin(), messages.end());
+    return messages;
+}

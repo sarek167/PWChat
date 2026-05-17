@@ -4,6 +4,7 @@
 #include "common/RegisterRequest.h"
 #include "common/LeaveRoomRequest.h"
 #include "common/AddAdminRequest.h"
+#include "common/MessageRequest.h"
 
 AppManager::AppManager(QObject *parent)
     : QObject(parent)
@@ -80,6 +81,12 @@ void AppManager::setupConnections() {
 
     });
 
+    connect(m_networkManager, &NetworkManager::MessagesReceived, this, [this](const std::vector<MessageData>& messages) {
+        for (const MessageData& mess : messages) {
+            m_mainWin.appendMessage(QString::number(mess.senderId), QString::fromStdString(mess.message), mess.senderId!=m_networkManager->user()->id());
+        }
+    });
+
     connect(&m_mainWin, &MainWindow::sendRequested, this, [this](uint32_t targetId, std::string message, bool toRoom) {
         MessageType messType;
         std::cout << "In sendRequested signal" << std::endl;
@@ -140,6 +147,15 @@ void AppManager::setupConnections() {
         req.userId = userId;
         Packet addAdminPacket(MessageType::ADD_ADMIN_REQUEST, 0, m_networkManager->user()->id(), req);
         m_networkManager->send(addAdminPacket);
+    });
+
+    connect(&m_mainWin, &MainWindow::loadMessages, this, [this](const uint32_t targetId, const uint32_t offset, bool fromRoom) {
+        MessageRequest req;
+        req.targetId = targetId;
+        req.fromRoom = fromRoom;
+        req.offset = offset;
+        Packet loadMessPacket(MessageType::LOAD_MESS_REQUEST, 0, m_networkManager->user()->id(), req);
+        m_networkManager->send(loadMessPacket);
     });
 
     connect(m_audioManager, &AudioManager::audioReadyToSend, this, [this](const std::vector<char>& compressedData) {

@@ -125,6 +125,10 @@ void NetworkManager::readBody(PacketHeader header) {
         } else if (header.type == MessageType::LEAVE_ROOM_REQUEST) {
             LeaveRoomRequest req = packet.unpackBody<LeaveRoomRequest>();
             emit LeaveResultReceived(req.roomId, req.userId);
+        } else if (header.type == MessageType::LOAD_MESS_REQUEST) {
+            std::vector<MessageData> messages = packet.unpackBody<std::vector<MessageData>>();
+            emit MessagesReceived(messages);
+            std::cout << "Otrzymano " << messages.size() << " wiadomości" << std::endl;
         }
         std::cout << "KLIENT DOSTAŁ PAKIET!!!" << std::endl;
         std::cout << packet.header().signature << std::endl;

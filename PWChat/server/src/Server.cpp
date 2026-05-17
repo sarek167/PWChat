@@ -12,6 +12,7 @@
 #include "server/Commands/RoomTextMessCommand.h"
 #include "server/Commands/UserTextMessCommand.h"
 #include "server/Commands/UserAudioMessCommand.h"
+#include "server/Commands/LoadMessagesCommand.h"
 #include "server/SQLiteConnector.h"
 using asio::ip::tcp;
 
@@ -39,6 +40,7 @@ Server::Server(asio::io_context& io_context, short port)
         m_commands[MessageType::TEXT_TO_USER] = std::make_unique<UserTextMessCommand>();
         m_commands[MessageType::TEXT_TO_ROOM] = std::make_unique<RoomTextMessCommand>();
         m_commands[MessageType::AUDIO_TO_USER] = std::make_unique<UserAudioMessCommand>();
+        m_commands[MessageType::LOAD_MESS_REQUEST] = std::make_unique<LoadMessagesCommand>();
 
         do_accept();
     }
