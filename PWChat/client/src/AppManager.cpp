@@ -49,6 +49,7 @@ void AppManager::setupConnections() {
 
     connect(m_networkManager, &NetworkManager::MessageReceived, this, [this](const uint32_t senderId, const uint32_t targetId, const QString& message, bool toRoom) {
         m_mainWin.onMessageReceived(senderId, targetId, message, toRoom);
+        m_mainWin.scrollToBottom();
     });
 
     connect(m_networkManager, &NetworkManager::AudioMessageReceived, this, [this](const QString& senderId, const std::vector<char>& audioMessage) {
@@ -82,9 +83,7 @@ void AppManager::setupConnections() {
     });
 
     connect(m_networkManager, &NetworkManager::MessagesReceived, this, [this](const std::vector<MessageData>& messages) {
-        for (const MessageData& mess : messages) {
-            m_mainWin.appendMessage(QString::number(mess.senderId), QString::fromStdString(mess.message), mess.senderId!=m_networkManager->user()->id());
-        }
+        m_mainWin.displayOlderMessages(messages, m_networkManager->user()->id());
     });
 
     connect(&m_mainWin, &MainWindow::sendRequested, this, [this](uint32_t targetId, std::string message, bool toRoom) {

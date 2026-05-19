@@ -14,6 +14,19 @@ MainWindow::MainWindow(QWidget *parent)
     , m_currentChat()
 {
     ui->setupUi(this);
+
+    connect(ui->chatScroll->verticalScrollBar(), &QScrollBar::valueChanged, this, [this](int value) {
+        if (value == ui->chatScroll->verticalScrollBar()->minimum() && !m_isLoadingHistory && m_currentChat.id != 0) {
+            int currentLoadedCount = ui->verticalLayoutChat->count() - 1;
+
+            if (currentLoadedCount > 9) {
+                m_isLoadingHistory = true;
+                bool isRoom = (m_currentChat.type == ChatContext::Type::Room);
+                emit loadMessages(m_currentChat.id, currentLoadedCount, isRoom);
+                std::cout << "Requesting history for ID: " << m_currentChat.id << std::endl;
+            }
+        }
+    });
 }
 
 MainWindow::~MainWindow()
@@ -29,7 +42,7 @@ void MainWindow::scrollToBottom() {
     QScrollBar *vScrollBar = ui->chatScroll->verticalScrollBar();
 
     QTimer::singleShot(50, [vScrollBar]() {
-        vScrollBar->setValue(vScrollBar->minimum());
+        vScrollBar->setValue(vScrollBar->maximum());
     });
 }
 
@@ -39,6 +52,36 @@ void MainWindow::onMessageReceived(const uint32_t senderId, const uint32_t targe
     } else {
         std::cout << "wiadomość z innego chatu" << std::endl;
     }
+}
+
+void MainWindow::displayOlderMessages(const std::vector<MessageData>& messages, const uint32_t userId) {
+    if (messages.empty()) {
+        m_isLoadingHistory = false;
+        return;
+    }
+
+    QScrollBar* vScrollBar = ui->chatScroll->verticalScrollBar();
+
+    int oldScrollPos = vScrollBar->value();
+    int oldMaxScroll = vScrollBar->maximum();
+
+    for (size_t i = 0; i < messages.size(); i++) {
+        appendMessage(
+            QString::number(messages[i].senderId),
+            QString::fromStdString(messages[i].message),
+            messages[i].senderId!=userId,
+            true,
+            static_cast<int>(i));
+    }
+
+    QTimer::singleShot(20, [this, vScrollBar, oldScrollPos, oldMaxScroll]() {
+        int newMaxScroll = vScrollBar->maximum();
+        int deltaScroll = newMaxScroll - oldMaxScroll;
+
+        vScrollBar->setValue(oldScrollPos + deltaScroll);
+        m_isLoadingHistory = false;
+    });
+
 }
 
 QWidget* MainWindow::createMessageWidget(const QString& senderId, const QString& message, bool isFromOthers) {
@@ -69,7 +112,7 @@ QWidget* MainWindow::createMessageWidget(const QString& senderId, const QString&
     return container;
 }
 
-void MainWindow::appendMessage(const QString& sender, const QString& text, bool isFromOthers) {
+void MainWindow::appendMessage(const QString& sender, const QString& text, bool isFromOthers, bool addToTop, uint8_t topIndex) {
     QWidget* msgWidget = createMessageWidget(sender, text, isFromOthers);
 
     QWidget* wrapper = new QWidget();
@@ -83,10 +126,12 @@ void MainWindow::appendMessage(const QString& sender, const QString& text, bool 
         wrapperLayout->addWidget(msgWidget);
     }
 
-    int spacerIdx = ui->verticalLayoutChat->count() - 1;
-    ui->verticalLayoutChat->insertWidget(spacerIdx, wrapper);
-
-    scrollToBottom();
+    if (addToTop) {
+        ui->verticalLayoutChat->insertWidget(topIndex, wrapper);
+    } else {
+        int spacerIdx = ui->verticalLayoutChat->count() - 1;
+        ui->verticalLayoutChat->insertWidget(spacerIdx, wrapper);
+    }
 }
 
 QPushButton* MainWindow::createUserRoomWidget(const QString& name, bool isRoom) {
@@ -244,6 +289,8 @@ void MainWindow::onRoomWidgetClicked(uint32_t roomId) {
         emit roomInfoRequest(roomId);
         return;
     }
+
+    m_isLoadingHistory = false;
     emit loadMessages(roomId, 0, true);
     m_currentChat = newContext;
     std::cout << "New context with id: " << newContext.id << std::endl;

@@ -6,6 +6,7 @@
 #include "common/RoomData.h"
 #include "client/ChatContext.h"
 #include "common/UserData.h"
+#include "common/MessageData.h"
 
 namespace Ui {
 class MainWindow;
@@ -20,7 +21,8 @@ public:
     ~MainWindow();
     ChatContext currentChat();
     void onMessageReceived(const uint32_t senderId, const uint32_t targetId, const QString& text, bool toRoom);
-    void appendMessage(const QString& sender, const QString& text, bool isFromOthers=true);
+    void displayOlderMessages(const std::vector<MessageData>& messages, const uint32_t userId);
+    void appendMessage(const QString& sender, const QString& text, bool isFromOthers=true, bool addToTop = false, uint8_t topIndex = 0);
     void appendUserRoomWidget(const uint32_t id, const QString& name, bool isRoom = false);
     void appendUserWidget(const uint32_t id, const QString& name, bool isAdmin = false, bool amIAdmin=false);
     void afterLoginChanges(const std::string& nickname, const std::vector<RoomData> userRooms);
@@ -29,17 +31,18 @@ public:
     void displayRoomInfo(bool isPrivate, std::vector<UserData> users, std::vector<UserData> admins, bool amIAdmin=false);
     void leaveRoom(const uint32_t roomId);
     void showContextMenu(const QPoint &pos, uint32_t userId);
+    void scrollToBottom();
 
 private:
     Ui::MainWindow *ui;
     std::vector<RoomData> m_userRooms;
     std::vector<UserData> m_recentUsers;
     ChatContext m_currentChat;
-    void scrollToBottom();
     QWidget* createMessageWidget(const QString& senderId, const QString& message, bool isFromOthers=true);
     QPushButton* createUserRoomWidget(const QString& name, bool isRoom = false);
     QPushButton* createUserWidget(const QString& name);
     void clearLayout(QLayout *layout, uint startingIdx=0);
+    bool m_isLoadingHistory = false;
 
 signals:
     void sendRequested(uint32_t targetId, std::string message, bool toRoom);
