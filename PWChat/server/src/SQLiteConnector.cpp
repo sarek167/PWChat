@@ -304,7 +304,7 @@ bool SQLiteConnector::addAdmin(const uint32_t roomId, const uint32_t userId) {
     return success;
 }
 
-bool SQLiteConnector::saveTextMessage(const uint32_t senderId, const uint32_t targetId, const std::string& message, bool toRoom) {
+bool SQLiteConnector::saveMessage(const uint32_t senderId, const uint32_t targetId, const std::string& message, const MessageContentType& type, bool toRoom) {
     const char* sql = "INSERT INTO messages (sender_id, receiver_id, is_receiver_user, content, type) VALUES (?, ?, ?, ?, ?)";
     sqlite3_stmt* stmt = nullptr;
 
@@ -317,7 +317,7 @@ bool SQLiteConnector::saveTextMessage(const uint32_t senderId, const uint32_t ta
     sqlite3_bind_int(stmt, 2, static_cast<int>(targetId));
     sqlite3_bind_int(stmt, 3, toRoom ? 0 : 1);
     sqlite3_bind_text(stmt, 4, message.c_str(), -1, SQLITE_STATIC);
-    sqlite3_bind_int(stmt, 5, 0);
+    sqlite3_bind_int(stmt, 5, static_cast<int>(type));
 
     int rc = sqlite3_step(stmt);
     bool success = (rc == SQLITE_DONE);
@@ -336,12 +336,12 @@ std::vector<MessageData> SQLiteConnector::getMessages(const uint32_t targetId, c
     const char* sql = nullptr;
 
     if (fromRoom) {
-        sql = "SELECT sender_id, receiver_id, content "
+        sql = "SELECT sender_id, receiver_id, content, type "
               "FROM messages "
               "WHERE receiver_id = ? AND is_receiver_user = 0 "
               "ORDER BY timestamp DESC LIMIT ? OFFSET ?;";
     } else {
-        sql = "SELECT sender_id, receiver_id, content "
+        sql = "SELECT sender_id, receiver_id, content, type "
               "FROM messages "
               "WHERE is_receiver_user = 1 AND ((receiver_id = ? AND sender_id = ?) "
               "OR (receiver_id = ? AND sender_id = ?)) "
@@ -372,6 +372,9 @@ std::vector<MessageData> SQLiteConnector::getMessages(const uint32_t targetId, c
 
             const unsigned char* text = sqlite3_column_text(stmt, 2);
             if (text) mess.message = reinterpret_cast<const char*>(text);
+
+            uint8_t dbType = static_cast<uint8_t>(sqlite3_column_int(stmt, 3));
+            mess.messageType = static_cast<MessageContentType>(dbType);
 
             messages.push_back(mess);
         }

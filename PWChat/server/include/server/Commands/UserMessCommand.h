@@ -1,11 +1,11 @@
-#ifndef TEXTMESSCOMMAND_H
-#define TEXTMESSCOMMAND_H
+#ifndef USERMESSCOMMAND_H
+#define USERMESSCOMMAND_H
 
 #include "Command.h"
 
-class UserTextMessCommand : public Command {
+class UserMessCommand : public Command {
 public:
     void execute(std::shared_ptr<Session> session, const Packet& p, Server& server) override;
 };
 
-#endif // TEXTMESSCOMMAND_H
+#endif // USERMESSCOMMAND_H

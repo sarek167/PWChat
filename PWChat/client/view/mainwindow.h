@@ -20,9 +20,9 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     ChatContext currentChat();
-    void onMessageReceived(const uint32_t senderId, const uint32_t targetId, const QString& text, bool toRoom);
+    void onMessageReceived(const uint32_t senderId, const uint32_t targetId, const MessageContentType& msgType, const QString& text, bool toRoom);
     void displayOlderMessages(const std::vector<MessageData>& messages, const uint32_t userId);
-    void appendMessage(const QString& sender, const QString& text, bool isFromOthers=true, bool addToTop = false, uint8_t topIndex = 0);
+    void appendMessage(const QString& sender, const MessageContentType& msgType, const QString& text, bool isFromOthers=true, bool addToTop = false, uint8_t topIndex = 0);
     void appendUserRoomWidget(const uint32_t id, const QString& name, bool isRoom = false);
     void appendUserWidget(const uint32_t id, const QString& name, bool isAdmin = false, bool amIAdmin=false);
     void afterLoginChanges(const std::string& nickname, const std::vector<RoomData> userRooms);
@@ -39,6 +39,7 @@ private:
     std::vector<UserData> m_recentUsers;
     ChatContext m_currentChat;
     QWidget* createMessageWidget(const QString& senderId, const QString& message, bool isFromOthers=true);
+    QWidget* createAudioMessageWidget(const QString& senderId, const QString& message, bool isFromOthers=true);
     QPushButton* createUserRoomWidget(const QString& name, bool isRoom = false);
     QPushButton* createUserWidget(const QString& name);
     void clearLayout(QLayout *layout, uint startingIdx=0);
@@ -55,6 +56,7 @@ signals:
     void leaveRoomRequested(const uint32_t roomId, const uint32_t userId = 0);
     void addAdminRequest(const uint32_t roomId, const uint32_t userId);
     void loadMessages(const uint32_t targetId, const uint32_t offset, bool fromRoom);
+    void voicePlayRequested(const std::string& fileName, QPushButton* clickedButton);
 
 private slots:
     void on_btnSend_clicked();

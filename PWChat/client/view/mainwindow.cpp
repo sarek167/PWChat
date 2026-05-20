@@ -46,9 +46,9 @@ void MainWindow::scrollToBottom() {
     });
 }
 
-void MainWindow::onMessageReceived(const uint32_t senderId, const uint32_t targetId, const QString& text, bool toRoom) {
+void MainWindow::onMessageReceived(const uint32_t senderId, const uint32_t targetId, const MessageContentType& msgType, const QString& text, bool toRoom) {
     if ((m_currentChat.id == senderId && !toRoom) || (m_currentChat.id == targetId && toRoom)) {
-        appendMessage(QString::number(senderId), text);
+        appendMessage(QString::number(senderId), msgType, text);
     } else {
         std::cout << "wiadomość z innego chatu" << std::endl;
     }
@@ -68,6 +68,7 @@ void MainWindow::displayOlderMessages(const std::vector<MessageData>& messages, 
     for (size_t i = 0; i < messages.size(); i++) {
         appendMessage(
             QString::number(messages[i].senderId),
+            messages[i].messageType,
             QString::fromStdString(messages[i].message),
             messages[i].senderId!=userId,
             true,
@@ -112,8 +113,53 @@ QWidget* MainWindow::createMessageWidget(const QString& senderId, const QString&
     return container;
 }
 
-void MainWindow::appendMessage(const QString& sender, const QString& text, bool isFromOthers, bool addToTop, uint8_t topIndex) {
-    QWidget* msgWidget = createMessageWidget(sender, text, isFromOthers);
+QWidget* MainWindow::createAudioMessageWidget(const QString& senderId, const QString& fileName, bool isFromOthers) {
+    QWidget* container = new QWidget();
+    QVBoxLayout* layout = new QVBoxLayout(container);
+
+    QLabel* senderLabel = new QLabel(senderId);
+    senderLabel->setStyleSheet(isFromOthers ? "font-weight: bold; color: #212121;" : "font-weight: bold; color: white;");
+
+    QHBoxLayout* playLayout = new QHBoxLayout();
+    QPushButton* btnPlay = new QPushButton("▶");
+    btnPlay->setFixedSize(30, 30);
+
+    QLabel* durationLabel = new QLabel("Audio message");
+    durationLabel->setStyleSheet(isFromOthers ? "color: #212121;" : "color: white;");
+
+    playLayout->addWidget(btnPlay);
+    playLayout->addWidget(durationLabel);
+    layout->addLayout(playLayout);
+
+    connect(btnPlay, &QPushButton::clicked, this, [this, fileName, btnPlay]() {
+        if (btnPlay->text() == "▶") {
+            btnPlay->setText("⏸");
+            emit voicePlayRequested(fileName.toStdString(), btnPlay);
+        } else {
+            btnPlay->setText("▶");
+        }
+
+    });
+
+    QString bgColor = isFromOthers ? "white" : "#212121";
+    container->setStyleSheet(QString("QWidget { background-color: %1; border-radius: 10px; padding: 5px; }").arg(bgColor));
+
+    return container;
+}
+
+
+void MainWindow::appendMessage(const QString& sender, const MessageContentType& msgType, const QString& text, bool isFromOthers, bool addToTop, uint8_t topIndex) {
+    QWidget* msgWidget = nullptr;
+    if (msgType == MessageContentType::TEXT) {
+        msgWidget = createMessageWidget(sender, text, isFromOthers);
+    } else if (msgType == MessageContentType::AUDIO) {
+        msgWidget = createAudioMessageWidget(sender, text, isFromOthers);
+    }
+
+    if (!msgWidget) {
+        std::cerr << "Warning: Attempted to append message with unknown content type!" << std::endl;
+        return;
+    }
 
     QWidget* wrapper = new QWidget();
     QHBoxLayout* wrapperLayout = new QHBoxLayout(wrapper);
@@ -348,7 +394,7 @@ void MainWindow::on_btnSend_clicked() {
     bool toRoom = m_currentChat.type == ChatContext::Type::Room ? true : false;
 
     emit sendRequested(targetId, message, toRoom);
-    appendMessage(QString("You"), QString::fromStdString(message), false);
+    appendMessage(QString("You"), MessageContentType::TEXT, QString::fromStdString(message), false);
 }
 
 void MainWindow::on_btnCreateRoom_clicked()

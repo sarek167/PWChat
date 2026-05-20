@@ -23,7 +23,7 @@ public:
     virtual uint32_t loginUser(const std::string& nickname, const std::string& password) = 0;
     virtual std::vector<UserData>getRoomUsers(const uint32_t roomId, bool getAdmins = false) = 0;
     virtual bool addAdmin(const uint32_t roomId, const uint32_t userId) = 0;
-    virtual bool saveTextMessage(const uint32_t senderID, const uint32_t targetId, const std::string& message, bool toRoom) = 0;
+    virtual bool saveMessage(const uint32_t senderID, const uint32_t targetId, const std::string& message, const MessageContentType& type, bool toRoom) = 0;
     virtual std::vector<MessageData> getMessages(const uint32_t targetId, const uint32_t senderId, bool fromRoom, const int limit, const int offset) = 0;
 };
 

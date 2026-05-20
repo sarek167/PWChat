@@ -16,6 +16,7 @@ private:
     AudioManager* m_audioManager;
     LoginWindow m_loginWin;
     MainWindow m_mainWin;
+    QPushButton* m_currentPlayingButton = nullptr;
 
     void setupConnections();
 };

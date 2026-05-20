@@ -9,10 +9,10 @@
 #include "server/Commands/RoomInfoCommand.h"
 #include "server/Commands/RegisterCommand.h"
 #include "server/Commands/CreateRoomCommand.h"
-#include "server/Commands/RoomTextMessCommand.h"
-#include "server/Commands/UserTextMessCommand.h"
-#include "server/Commands/UserAudioMessCommand.h"
+#include "server/Commands/RoomMessCommand.h"
+#include "server/Commands/UserMessCommand.h"
 #include "server/Commands/LoadMessagesCommand.h"
+#include "server/Commands/LoadAudioCommand.h"
 #include "server/SQLiteConnector.h"
 using asio::ip::tcp;
 
@@ -37,9 +37,9 @@ Server::Server(asio::io_context& io_context, short port)
         m_commands[MessageType::LEAVE_ROOM_REQUEST] = std::make_unique<LeaveRoomCommand>();
         m_commands[MessageType::ROOM_INFO_REQUEST] = std::make_unique<RoomInfoCommand>();
         m_commands[MessageType::CREATE_ROOM_COMM] = std::make_unique<CreateRoomCommand>();
-        m_commands[MessageType::TEXT_TO_USER] = std::make_unique<UserTextMessCommand>();
-        m_commands[MessageType::TEXT_TO_ROOM] = std::make_unique<RoomTextMessCommand>();
-        m_commands[MessageType::AUDIO_TO_USER] = std::make_unique<UserAudioMessCommand>();
+        m_commands[MessageType::MESS_TO_USER] = std::make_unique<UserMessCommand>();
+        m_commands[MessageType::MESS_TO_ROOM] = std::make_unique<RoomMessCommand>();
+        m_commands[MessageType::LOAD_AUDIO] = std::make_unique<LoadAudioCommand>();
         m_commands[MessageType::LOAD_MESS_REQUEST] = std::make_unique<LoadMessagesCommand>();
 
         do_accept();

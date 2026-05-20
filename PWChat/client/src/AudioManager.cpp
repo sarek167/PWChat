@@ -68,7 +68,7 @@ void AudioManager::stopRecording() {
     emit audioReadyToSend(compressed);
 }
 
-void AudioManager::playAudio(const std::vector<float>& pcmData) {
+void AudioManager::playAudio(const std::vector<float>& pcmData, QPushButton* playButton) {
     if (pcmData.empty()) return;
 
     QAudioFormat format;
@@ -93,8 +93,11 @@ void AudioManager::playAudio(const std::vector<float>& pcmData) {
 
     audioSink->start(buffer);
 
-    connect(audioSink, &QAudioSink::stateChanged, [audioSink, buffer](QAudio::State state) {
+    connect(audioSink, &QAudioSink::stateChanged, this, [this, audioSink, buffer, playButton](QAudio::State state) {
         if (state == QAudio::IdleState || state == QAudio::StoppedState) {
+            if (state == QAudio::IdleState && playButton != nullptr) {
+                emit audioFinishedPlaying(playButton);
+            }
             audioSink->stop();
             audioSink->deleteLater();
             buffer->deleteLater();

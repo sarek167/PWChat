@@ -5,6 +5,7 @@
 #include "common/LeaveRoomRequest.h"
 #include "common/AddAdminRequest.h"
 #include "common/MessageRequest.h"
+#include "common/MessageData.h"
 
 AppManager::AppManager(QObject *parent)
     : QObject(parent)
@@ -47,14 +48,14 @@ void AppManager::setupConnections() {
         m_mainWin.addRoom(room);
     });
 
-    connect(m_networkManager, &NetworkManager::MessageReceived, this, [this](const uint32_t senderId, const uint32_t targetId, const QString& message, bool toRoom) {
-        m_mainWin.onMessageReceived(senderId, targetId, message, toRoom);
+    connect(m_networkManager, &NetworkManager::MessageReceived, this, [this](const uint32_t senderId, const uint32_t targetId, const MessageContentType& msgType, const QString& message, bool toRoom) {
+        m_mainWin.onMessageReceived(senderId, targetId, msgType, message, toRoom);
         m_mainWin.scrollToBottom();
     });
 
     connect(m_networkManager, &NetworkManager::AudioMessageReceived, this, [this](const QString& senderId, const std::vector<char>& audioMessage) {
         std::vector<float> decodedAudio = m_audioManager->codec()->decode(audioMessage);
-        m_audioManager->playAudio(decodedAudio);
+        m_audioManager->playAudio(decodedAudio, m_currentPlayingButton);
     });
 
     connect(m_networkManager, &NetworkManager::LogoutResultReceived, this, [this] {
@@ -90,11 +91,14 @@ void AppManager::setupConnections() {
         MessageType messType;
         std::cout << "In sendRequested signal" << std::endl;
         if (toRoom) {
-            messType = MessageType::TEXT_TO_ROOM;
+            messType = MessageType::MESS_TO_ROOM;
         } else {
-            messType = MessageType::TEXT_TO_USER;
+            messType = MessageType::MESS_TO_USER;
         }
-        Packet sendPacket(messType, targetId, m_networkManager->user()->id(), message);
+        MessageData messData;
+        messData.message = message;
+        messData.messageType = MessageContentType::TEXT;
+        Packet sendPacket(messType, targetId, m_networkManager->user()->id(), messData);
         m_networkManager->send(sendPacket);
     });
 
@@ -157,15 +161,37 @@ void AppManager::setupConnections() {
         m_networkManager->send(loadMessPacket);
     });
 
+    connect(&m_mainWin, &MainWindow::voicePlayRequested, this, [this](const std::string& fileName, QPushButton* clickedButton) {
+        m_currentPlayingButton = clickedButton;
+        Packet loadAudioPacket(MessageType::LOAD_AUDIO, 0, m_networkManager->user()->id(), fileName);
+        m_networkManager->send(loadAudioPacket);
+    });
+
     connect(m_audioManager, &AudioManager::audioReadyToSend, this, [this](const std::vector<char>& compressedData) {
-        PacketHeader header;
-        header.type = MessageType::AUDIO_TO_USER;
-        header.senderId = m_networkManager->user()->id();
-        header.targetId = 101;
-        header.bodySize = static_cast<uint32_t>(compressedData.size());
-        Packet sendPacket(header, compressedData);
+        MessageData message;
+        message.senderId = m_networkManager->user()->id();
+        message.targetId = m_mainWin.currentChat().id;
+        message.messageType = MessageContentType::AUDIO;
+        message.message = std::string(compressedData.data(), compressedData.size());
+
+        MessageType msgType;
+        if (m_mainWin.currentChat().type == ChatContext::Type::Room) {
+            msgType = MessageType::MESS_TO_ROOM;
+        } else if (m_mainWin.currentChat().type == ChatContext::Type::User) {
+            msgType = MessageType::MESS_TO_USER;
+        }
+
+        Packet sendPacket(msgType, message.targetId, message.senderId, message);
         m_networkManager->send(sendPacket);
         std::cout << "Sent package with audio" << std::endl;
+    });
+
+    connect(m_audioManager, &AudioManager::audioFinishedPlaying, this, [this](QPushButton* playButton) {
+        if (playButton) {
+            playButton->setText("▶");
+        }
+
+        m_currentPlayingButton = nullptr;
     });
 
 }

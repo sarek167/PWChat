@@ -98,16 +98,18 @@ void NetworkManager::readBody(PacketHeader header) {
             } catch (...) {
                 std::cerr << "Error while decoding body of register request" << std::endl;
             }
-        } else if (header.type == MessageType::TEXT_TO_USER || header.type == MessageType::TEXT_TO_ROOM) {
+        } else if (header.type == MessageType::MESS_TO_USER || header.type == MessageType::MESS_TO_ROOM) {
             try {
-                std::string message = packet.unpackBody<std::string>();
-                emit MessageReceived(header.senderId, header.targetId, QString::fromStdString(message), header.type == MessageType::TEXT_TO_ROOM);
+                MessageData message = packet.unpackBody<MessageData>();
+                emit MessageReceived(header.senderId, header.targetId, message.messageType, QString::fromStdString(message.message), header.type == MessageType::MESS_TO_ROOM);
             } catch (...) {
                 std::cerr << "Błąd dekodowania message" << std::endl;
             }
-        } else if (header.type == MessageType::AUDIO_TO_USER) {
+        } else if (header.type == MessageType::LOAD_AUDIO) {
             try {
-                emit AudioMessageReceived(QString::number(header.senderId), packet.body());
+                MessageData message = packet.unpackBody<MessageData>();
+                std::vector<char> bytes(message.message.begin(), message.message.end());
+                emit AudioMessageReceived(QString::number(header.senderId), bytes);
             } catch (...) {
                 std::cerr << "Błąd dekodowania audio" << std::endl;
             }

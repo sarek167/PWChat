@@ -20,10 +20,10 @@ add_executable(server
     src/Commands/CreateRoomCommand.cpp
     include/server/Commands/LoginCommand.h
     src/Commands/LoginCommand.cpp
-    include/server/Commands/UserTextMessCommand.h
-    src/Commands/UserTextMessCommand.cpp
-    include/server/Commands/RoomTextMessCommand.h
-    src/Commands/RoomTextMessCommand.cpp
+    include/server/Commands/UserMessCommand.h
+    src/Commands/UserMessCommand.cpp
+    include/server/Commands/RoomMessCommand.h
+    src/Commands/RoomMessCommand.cpp
     include/server/DBConnector.h
     include/server/DBConnector.h
     include/server/SQLiteConnector.h
@@ -43,6 +43,8 @@ add_executable(server
     include/server/Commands/AddAdminCommand.h
     include/server/Commands/LoadMessagesCommand.h
     src/Commands/LoadMessagesCommand.cpp
+    include/server/Commands/LoadAudioCommand.h
+    src/Commands/LoadAudioCommand.cpp
 )
 
 

@@ -4,9 +4,9 @@
 #include <stdint.h>
 
 enum class MessageType : uint8_t {
-    TEXT_TO_USER = 0,
-    TEXT_TO_ROOM = 1,
-    AUDIO_TO_USER = 2,
+    MESS_TO_USER = 0,
+    MESS_TO_ROOM = 1,
+    LOAD_AUDIO = 2,
     AUDIO_TO_ROOM = 3,
     LOGIN_REQUEST = 4,
     ERROR_RESPONSE = 5,

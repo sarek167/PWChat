@@ -4,6 +4,7 @@
 #include <QAudioSource>
 #include <QBuffer>
 #include <QByteArray>
+#include <QPushButton>
 #include <client/AudioCodec.h>
 #include <client/OpusCodec.h>
 
@@ -13,7 +14,7 @@ public:
     AudioManager();
     void startRecording();
     void stopRecording();
-    void playAudio(const std::vector<float>& pcmData);
+    void playAudio(const std::vector<float>& pcmData, QPushButton* playButton = nullptr);
     std::shared_ptr<AudioCodec> codec();
 private:
     QAudioSource* m_audioSource = nullptr;
@@ -23,6 +24,7 @@ private:
 
 signals:
     void audioReadyToSend(const std::vector<char>& compressedData);
+    void audioFinishedPlaying(QPushButton* playButton);
 };
 
 #endif // AUDIOMANAGER_H
