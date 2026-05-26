@@ -38,7 +38,7 @@ void AppManager::setupConnections() {
 
     connect(m_networkManager, &NetworkManager::AuthResultReceived, this, [this](uint32_t userId, const std::vector<RoomData>& rooms) {
         m_networkManager->user()->setId(userId);
-        m_mainWin.afterLoginChanges(m_networkManager->user()->nickname(), rooms);
+        m_mainWin.afterLoginChanges(m_networkManager->user()->id(), m_networkManager->user()->nickname(), rooms);
         m_loginWin.hide();
         m_loginWin.resetForms();
         m_mainWin.show();
@@ -98,6 +98,8 @@ void AppManager::setupConnections() {
         MessageData messData;
         messData.message = message;
         messData.messageType = MessageContentType::TEXT;
+        messData.senderId = m_networkManager->user()->id();
+        messData.targetId = targetId;
         Packet sendPacket(messType, targetId, m_networkManager->user()->id(), messData);
         m_networkManager->send(sendPacket);
     });

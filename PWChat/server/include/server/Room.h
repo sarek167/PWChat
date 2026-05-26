@@ -20,7 +20,7 @@ public:
     void addClient(std::shared_ptr<Session> clientToAdd);
     void removeClient(std::shared_ptr<Session> clientToRemove);
     virtual bool canJoin(const std::string& token) = 0;
-    void broadcast(const Packet& p);
+    void broadcast(const Packet& p, bool skipSender = true);
     void addAdmin(uint32_t adminId);
     void removeAdmin(uint32_t adminId);
     bool checkIfAdmin(const uint32_t userId);

@@ -38,6 +38,10 @@ ChatContext MainWindow::currentChat() {
     return m_currentChat;
 }
 
+std::uint32_t MainWindow::userId() {
+    return m_userId;
+}
+
 void MainWindow::scrollToBottom() {
     QScrollBar *vScrollBar = ui->chatScroll->verticalScrollBar();
 
@@ -47,7 +51,10 @@ void MainWindow::scrollToBottom() {
 }
 
 void MainWindow::onMessageReceived(const uint32_t senderId, const uint32_t targetId, const MessageContentType& msgType, const QString& text, bool toRoom) {
-    if ((m_currentChat.id == senderId && !toRoom) || (m_currentChat.id == targetId && toRoom)) {
+
+    if (m_currentChat.id == targetId && senderId == m_userId && msgType == MessageContentType::AUDIO) {
+        appendMessage(QString::fromStdString("You"), msgType, text, false);
+    } else if (m_currentChat.id == targetId && senderId != m_userId) {
         appendMessage(QString::number(senderId), msgType, text);
     } else {
         std::cout << "wiadomość z innego chatu" << std::endl;
@@ -299,8 +306,9 @@ void MainWindow::displayRoomInfo(bool isPrivate, std::vector<UserData> users, st
 
 }
 
-void MainWindow::afterLoginChanges(const std::string& nickname, const std::vector<RoomData> userRooms) {
+void MainWindow::afterLoginChanges(const std::uint32_t userId, const std::string& nickname, const std::vector<RoomData> userRooms) {
     ui->labelUsername->setText(QString::fromStdString(nickname));
+    m_userId = userId;
     m_userRooms = userRooms;
     for (auto& room : userRooms) {
         appendUserRoomWidget(room.id, QString::fromStdString(room.name), true);
@@ -422,7 +430,7 @@ void MainWindow::on_btnRecordAudio_pressed()
 void MainWindow::on_btnRecordAudio_released()
 {
     emit audioRecordingStopped();
-    std::cout << "Recording stopped" << std::endl;
+    std::cout << "Recording stopped" << std::endl;    
 }
 
 

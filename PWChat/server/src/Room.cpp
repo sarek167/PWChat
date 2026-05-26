@@ -37,9 +37,9 @@ void Room::removeClient(std::shared_ptr<Session> clientToRemove) {
     }
 }
 
-void Room::broadcast(const Packet& p) {
+void Room::broadcast(const Packet& p, bool skipSender) {
     for (auto& client : m_clients) {
-        if (client->userId() != p.header().senderId) {
+        if (!skipSender || client->userId() != p.header().senderId) {
             client->deliver(p);
         }
     }
