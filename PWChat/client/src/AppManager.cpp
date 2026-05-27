@@ -73,7 +73,7 @@ void AppManager::setupConnections() {
         bool amIAdmin = std::any_of(roomUserData.admins.begin(), roomUserData.admins.end(),
                         [currentId](const UserData& admin) { return admin.id == currentId; });
 
-        m_mainWin.displayRoomInfo(roomUserData.isPrivate, roomUserData.users, roomUserData.admins, amIAdmin);
+        m_mainWin.displayRoomInfo(roomUserData.isPrivate, roomUserData.users, roomUserData.admins, amIAdmin, roomUserData.accessCode, !roomUserData.admins.empty());
     });
 
     connect(m_networkManager, &NetworkManager::LeaveResultReceived, this, [this](const uint32_t roomId, const uint32_t userId) {
@@ -85,6 +85,10 @@ void AppManager::setupConnections() {
 
     connect(m_networkManager, &NetworkManager::MessagesReceived, this, [this](const std::vector<MessageData>& messages) {
         m_mainWin.displayOlderMessages(messages, m_networkManager->user()->id());
+    });
+
+    connect(m_networkManager, &NetworkManager::AccessCodeReceived, this, [this](const uint32_t& code) {
+        m_mainWin.displayGeneratedCode(QString::number(code));
     });
 
     connect(&m_mainWin, &MainWindow::sendRequested, this, [this](uint32_t targetId, std::string message, bool toRoom) {
@@ -167,6 +171,11 @@ void AppManager::setupConnections() {
         m_currentPlayingButton = clickedButton;
         Packet loadAudioPacket(MessageType::LOAD_AUDIO, 0, m_networkManager->user()->id(), fileName);
         m_networkManager->send(loadAudioPacket);
+    });
+
+    connect(&m_mainWin, &MainWindow::generateCodeRequested, this, [this](uint32_t roomId) {
+        Packet generateCodePacket(MessageType::GEN_CODE_REQUEST, 0, m_networkManager->user()->id(), roomId);
+        m_networkManager->send(generateCodePacket);
     });
 
     connect(m_audioManager, &AudioManager::audioReadyToSend, this, [this](const std::vector<char>& compressedData) {

@@ -131,6 +131,9 @@ void NetworkManager::readBody(PacketHeader header) {
             std::vector<MessageData> messages = packet.unpackBody<std::vector<MessageData>>();
             emit MessagesReceived(messages);
             std::cout << "Otrzymano " << messages.size() << " wiadomości" << std::endl;
+        } else if (header.type == MessageType::GEN_CODE_REQUEST) {
+            uint32_t code = packet.unpackBody<uint32_t>();
+            emit AccessCodeReceived(code);
         }
         std::cout << "KLIENT DOSTAŁ PAKIET!!!" << std::endl;
         std::cout << packet.header().signature << std::endl;

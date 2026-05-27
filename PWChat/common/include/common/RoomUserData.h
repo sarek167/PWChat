@@ -12,12 +12,13 @@ struct RoomUserData {
     uint32_t id;
     std::string name;
     bool isPrivate;
+    uint32_t accessCode = 0;
     std::vector<UserData> users;
     std::vector<UserData> admins;
 
     template<class Archive>
     void serialize(Archive & archive) {
-        archive(id, name, isPrivate, users, admins);
+        archive(id, name, isPrivate, accessCode, users, admins);
     }
 };
 

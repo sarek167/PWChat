@@ -54,7 +54,8 @@ void SQLiteConnector::initializeSchema() {
         "    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,"
         "    type BOOLEAN DEFAULT 0," // 0: text, 1: audio
         "    FOREIGN KEY (sender_id) REFERENCES USERS(id)"
-        "    );";
+        "    );"
+        "ALTER TABLE rooms ADD COLUMN code_expires_at TEXT;";
     char* errMsg = nullptr;
     sqlite3_exec(m_db, sql, nullptr, nullptr, &errMsg);
 }
@@ -383,4 +384,50 @@ std::vector<MessageData> SQLiteConnector::getMessages(const uint32_t targetId, c
     sqlite3_finalize(stmt);
     std::reverse(messages.begin(), messages.end());
     return messages;
+}
+
+
+bool SQLiteConnector::saveRoomCode(const uint32_t roomId, const uint32_t code) {
+    const char* sql = "UPDATE rooms SET access_code = ?, code_expires_at = datetime('now', '+15 minutes') WHERE id = ?;";
+    sqlite3_stmt* stmt = nullptr;
+
+
+    if (sqlite3_prepare_v2(m_db, sql, -1, &stmt, nullptr) != SQLITE_OK) {
+        std::cerr << "SQL Error: " << sqlite3_errmsg(m_db) << std::endl;
+        return false;
+    }
+
+    sqlite3_bind_text(stmt, 1, std::to_string(code).c_str(), -1, SQLITE_STATIC);
+    sqlite3_bind_int(stmt, 2, static_cast<int>(roomId));
+    int rc = sqlite3_step(stmt);
+    bool success = (rc == SQLITE_DONE);
+
+    if (!success) {
+        std::cerr << "SQL Error (Step): " << sqlite3_errmsg(m_db) << std::endl;
+    }
+
+    sqlite3_finalize(stmt);
+    return true;
+}
+
+uint32_t SQLiteConnector::getRoomCode(const uint32_t roomId) {
+    const char* sql = "SELECT access_code FROM rooms WHERE id = ? AND code_expires_at > datetime('now');";
+    sqlite3_stmt* stmt = nullptr;
+
+
+    if (sqlite3_prepare_v2(m_db, sql, -1, &stmt, nullptr) != SQLITE_OK) {
+        std::cerr << "SQL Error: " << sqlite3_errmsg(m_db) << std::endl;
+        return 0;
+    }
+
+    sqlite3_bind_int(stmt, 1, static_cast<int>(roomId));
+
+    uint32_t code = 0;
+    if (sqlite3_step(stmt) == SQLITE_ROW) {
+        code = static_cast<uint32_t>(sqlite3_column_int(stmt, 0));
+    }
+
+    sqlite3_finalize(stmt);
+
+    return code;
 }

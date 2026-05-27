@@ -29,10 +29,11 @@ public:
     void afterLoginChanges(const std::uint32_t userId, const std::string& nickname, const std::vector<RoomData> userRooms);
     void addRoom(const RoomData& room);
     void onRoomWidgetClicked(uint32_t roomId);
-    void displayRoomInfo(bool isPrivate, std::vector<UserData> users, std::vector<UserData> admins, bool amIAdmin=false);
+    void displayRoomInfo(bool isPrivate, std::vector<UserData> users, std::vector<UserData> admins, bool amIAdmin=false, uint32_t accessCode = 0, bool isAdministered = true);
     void leaveRoom(const uint32_t roomId);
     void showContextMenu(const QPoint &pos, uint32_t userId);
     void scrollToBottom();
+    void displayGeneratedCode(const QString& code);
 
 private:
     Ui::MainWindow *ui;
@@ -59,6 +60,7 @@ signals:
     void addAdminRequest(const uint32_t roomId, const uint32_t userId);
     void loadMessages(const uint32_t targetId, const uint32_t offset, bool fromRoom);
     void voicePlayRequested(const std::string& fileName, QPushButton* clickedButton);
+    void generateCodeRequested(uint32_t roomId);
 
 private slots:
     void on_btnSend_clicked();
@@ -69,6 +71,7 @@ private slots:
     void on_btnLogout_clicked();
     void on_btnExit_clicked();
     void on_btnLeave_clicked();
+    void on_btnGenerateCode_clicked();
 };
 
 #endif // MAINWINDOW_H

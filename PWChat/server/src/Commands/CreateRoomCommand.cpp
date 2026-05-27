@@ -11,17 +11,21 @@ void CreateRoomCommand::execute(std::shared_ptr<Session> session, const Packet& 
     if (roomId) {
         std::shared_ptr<Room> addedRoom = server.roomManager().createRoom(roomId, request.roomName, request.isPrivate, p.header().senderId);
 
-        if (request.isAdmin) {
-            bool dbResult = server.db().saveUserRoom(p.header().senderId, addedRoom->id(), true);
 
-            if (dbResult) {
-                addedRoom->addClient(session);
-                std::cout << "Adding user to room" << std::endl;
-            } else {
-                std::cerr << "Error while adding user room" << std::endl;
+        bool dbResult = server.db().saveUserRoom(p.header().senderId, addedRoom->id(), request.isAdmin);
+
+        if (dbResult) {
+            addedRoom->addClient(session);
+            if (request.isAdmin) {
+                addedRoom->addAdmin(p.header().senderId);
             }
-            addedRoom->addAdmin(p.header().senderId);
+            std::cout << "Adding user to room" << std::endl;
+        } else {
+            std::cerr << "Error while adding user room" << std::endl;
         }
+
+
+
         RoomData roomData;
         roomData.id = roomId;
         roomData.name = request.roomName;

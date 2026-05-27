@@ -512,7 +512,7 @@ QPushButton#btnTalkToUser {
                    <x>0</x>
                    <y>0</y>
                    <width>215</width>
-                   <height>418</height>
+                   <height>426</height>
                   </rect>
                  </property>
                  <property name="styleSheet">
@@ -563,6 +563,14 @@ QPushButton#btnTalkToUser {
                         </size>
                        </property>
                       </spacer>
+                     </item>
+                     <item>
+                      <widget class="QPushButton" name="btnGenerateCode">
+                       <property name="text">
+                        <string>Generate
+Access Code</string>
+                       </property>
+                      </widget>
                      </item>
                      <item>
                       <widget class="QPushButton" name="btnLeave">

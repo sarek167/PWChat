@@ -15,11 +15,14 @@ void RoomInfoCommand::execute(std::shared_ptr<Session> session, const Packet& p,
     roomUserData.name = room->name();
     if (auto privateRoom = std::dynamic_pointer_cast<PrivateRoom>(room)) {
         roomUserData.isPrivate = true;
+        roomUserData.accessCode = server.db().getRoomCode(room->id());
     } else {
         roomUserData.isPrivate = false;
     }
     roomUserData.users = users;
     roomUserData.admins = admins;
+
+    std::cout << "Access code" << roomUserData.accessCode << std::endl;
 
     Packet responsePacket(MessageType::ROOM_INFO_REQUEST, p.header().senderId, 0, roomUserData);
     session->deliver(responsePacket);

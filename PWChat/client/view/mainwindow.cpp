@@ -290,7 +290,7 @@ void MainWindow::showContextMenu(const QPoint &globalPos, uint32_t userId) {
 }
 
 
-void MainWindow::displayRoomInfo(bool isPrivate, std::vector<UserData> users, std::vector<UserData> admins, bool amIAdmin) {
+void MainWindow::displayRoomInfo(bool isPrivate, std::vector<UserData> users, std::vector<UserData> admins, bool amIAdmin, uint32_t accessCode, bool isAdministered) {
     clearLayout(ui->verticalLayoutUsers);
     clearLayout(ui->verticalLayoutAdmins);
 
@@ -302,8 +302,20 @@ void MainWindow::displayRoomInfo(bool isPrivate, std::vector<UserData> users, st
         appendUserWidget(admin.id, QString::fromStdString(admin.nickname), true, false);
     }
 
+    bool shouldShowCodePanel = (isPrivate && amIAdmin) || (isPrivate && !isAdministered);
+    if (accessCode && shouldShowCodePanel) {
+        ui->btnGenerateCode->setText(QString("Access code\n" + QString::number(accessCode)));
+    } else {
+        ui->btnGenerateCode->setText(QString("Generate\naccess code"));
+    }
+    ui->btnGenerateCode->setVisible(shouldShowCodePanel);
+
     ui->stackedSideWidget->setCurrentIndex(1);
 
+}
+
+void MainWindow::displayGeneratedCode(const QString& code) {
+    ui->btnGenerateCode->setText("Access code\n" + code);
 }
 
 void MainWindow::afterLoginChanges(const std::uint32_t userId, const std::string& nickname, const std::vector<RoomData> userRooms) {
@@ -449,5 +461,11 @@ void MainWindow::on_btnExit_clicked()
 void MainWindow::on_btnLeave_clicked()
 {
     emit leaveRoomRequested(m_currentChat.id);
+}
+
+
+void MainWindow::on_btnGenerateCode_clicked()
+{
+    emit generateCodeRequested(m_currentChat.id);
 }
 

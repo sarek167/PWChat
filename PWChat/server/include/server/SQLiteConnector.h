@@ -25,7 +25,8 @@ public:
     bool addAdmin(const uint32_t roomId, const uint32_t userId) override;
     bool saveMessage(const uint32_t senderID, const uint32_t targetId, const std::string& message, const MessageContentType& type, bool toRoom) override;
     std::vector<MessageData> getMessages(const uint32_t targetId, const uint32_t senderId, bool fromRoom, const int limit, const int offset) override;
-
+    bool saveRoomCode(const uint32_t roomId, const uint32_t code) override;
+    uint32_t getRoomCode(const uint32_t roomId) override;
 };
 
 #endif // SQLITECONNECTOR_H

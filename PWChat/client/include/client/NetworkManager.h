@@ -44,6 +44,7 @@ signals:
     void RoomInfoReceived(const RoomUserData& roomUserData);
     void LeaveResultReceived(const uint32_t roomId, const uint32_t userId);
     void MessagesReceived(const std::vector<MessageData>& messages);
+    void AccessCodeReceived(const uint32_t& code);
 };
 
 #endif // NETWORKMANAGER_H
