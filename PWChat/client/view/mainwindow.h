@@ -7,6 +7,7 @@
 #include "client/ChatContext.h"
 #include "common/UserData.h"
 #include "common/MessageData.h"
+#include "common/JoinRoomRequest.h"
 
 namespace Ui {
 class MainWindow;
@@ -34,24 +35,28 @@ public:
     void showContextMenu(const QPoint &pos, uint32_t userId);
     void scrollToBottom();
     void displayGeneratedCode(const QString& code);
+    void requestCode(const std::string roomName);
 
 private:
     Ui::MainWindow *ui;
     std::uint32_t m_userId;
     std::vector<RoomData> m_userRooms;
     std::vector<UserData> m_recentUsers;
+    bool m_isWaitingForCode = false;
+    std::string m_pendingRoomName;
     ChatContext m_currentChat;
     QWidget* createMessageWidget(const QString& senderId, const QString& message, bool isFromOthers=true);
     QWidget* createAudioMessageWidget(const QString& senderId, const QString& message, bool isFromOthers=true);
     QPushButton* createUserRoomWidget(const QString& name, bool isRoom = false);
     QPushButton* createUserWidget(const QString& name);
     void clearLayout(QLayout *layout, uint startingIdx=0);
+    void resetJoinRoom();
     bool m_isLoadingHistory = false;
 
 signals:
     void sendRequested(uint32_t targetId, std::string message, bool toRoom);
     void createRoomRequested(std::string roomName, bool isPrivate, bool isAdmin);
-    void joinRoomRequested(std::string roomName);
+    void joinRoomRequested(std::string roomName, uint32_t code = 0);
     void audioRecordingStarted();
     void audioRecordingStopped();
     void logoutRequested();

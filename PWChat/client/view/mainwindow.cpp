@@ -408,6 +408,27 @@ void MainWindow::leaveRoom(const uint32_t roomId) {
     }
 }
 
+void MainWindow::requestCode(const std::string roomName) {
+    m_isWaitingForCode = true;
+    m_pendingRoomName = roomName;
+
+    ui->searchBar->clear();
+    ui->searchBar->setPlaceholderText("Room is private! Enter access code...");
+    ui->btnJoinRoom->setText("Submit code");
+    ui->searchBar->setStyleSheet("border: 2px solid #FFA000; padding: 5px;");
+}
+
+void MainWindow::resetJoinRoom() {
+    m_isWaitingForCode = false;
+    m_pendingRoomName.clear();
+
+    ui->searchBar->clear();
+    ui->searchBar->setPlaceholderText("Fill in name...");
+    ui->btnJoinRoom->setText("Join room");
+    ui->searchBar->setStyleSheet("");
+
+}
+
 void MainWindow::on_btnSend_clicked() {
     uint32_t targetId = m_currentChat.id;
     std::string message = ui->editMess->text().toStdString();
@@ -427,8 +448,16 @@ void MainWindow::on_btnCreateRoom_clicked()
 
 void MainWindow::on_btnJoinRoom_clicked()
 {
-    std::string roomName = ui->searchBar->text().toStdString();
-    emit joinRoomRequested(roomName);
+    if (!m_isWaitingForCode) {
+        std::string roomName = ui->searchBar->text().toStdString();
+        if (roomName.empty()) return;
+        emit joinRoomRequested(roomName);
+    } else {
+        uint32_t code = ui->searchBar->text().toUInt();
+        emit joinRoomRequested(m_pendingRoomName, code);
+        resetJoinRoom();
+    }
+
 }
 
 

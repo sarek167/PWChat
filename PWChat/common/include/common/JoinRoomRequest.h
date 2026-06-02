@@ -6,7 +6,7 @@
 
 struct JoinRoomRequest {
     std::string name;
-    std::string token = "";
+    uint32_t token = 0;
 
     template<class Archive>
     void serialize(Archive & archive) {

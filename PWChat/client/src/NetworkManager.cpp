@@ -134,6 +134,9 @@ void NetworkManager::readBody(PacketHeader header) {
         } else if (header.type == MessageType::GEN_CODE_REQUEST) {
             uint32_t code = packet.unpackBody<uint32_t>();
             emit AccessCodeReceived(code);
+        } else if (header.type == MessageType::ACCESS_CODE_REQUIRED) {
+            JoinRoomRequest req = packet.unpackBody<JoinRoomRequest>();
+            emit AccessCodeRequired(req);
         }
         std::cout << "KLIENT DOSTAŁ PAKIET!!!" << std::endl;
         std::cout << packet.header().signature << std::endl;

@@ -10,6 +10,7 @@
 #include "common/RegisterRequest.h"
 #include "common/RoomUserData.h"
 #include "common/MessageData.h"
+#include "common/JoinRoomRequest.h"
 
 using asio::ip::tcp;
 
@@ -45,6 +46,7 @@ signals:
     void LeaveResultReceived(const uint32_t roomId, const uint32_t userId);
     void MessagesReceived(const std::vector<MessageData>& messages);
     void AccessCodeReceived(const uint32_t& code);
+    void AccessCodeRequired(JoinRoomRequest req);
 };
 
 #endif // NETWORKMANAGER_H

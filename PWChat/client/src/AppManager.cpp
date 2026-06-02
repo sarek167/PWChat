@@ -91,6 +91,10 @@ void AppManager::setupConnections() {
         m_mainWin.displayGeneratedCode(QString::number(code));
     });
 
+    connect(m_networkManager, &NetworkManager::AccessCodeRequired, this, [this](JoinRoomRequest req) {
+        m_mainWin.requestCode(req.name);
+    });
+
     connect(&m_mainWin, &MainWindow::sendRequested, this, [this](uint32_t targetId, std::string message, bool toRoom) {
         MessageType messType;
         std::cout << "In sendRequested signal" << std::endl;
@@ -115,8 +119,11 @@ void AppManager::setupConnections() {
         m_networkManager->send(sendPacket);
     });
 
-    connect(&m_mainWin, &MainWindow::joinRoomRequested, this, [this](std::string roomName) {
-        Packet sendPacket(MessageType::JOIN_ROOM_COMM, 0, m_networkManager->user()->id(), roomName);
+    connect(&m_mainWin, &MainWindow::joinRoomRequested, this, [this](std::string roomName, uint32_t code) {
+        JoinRoomRequest req;
+        req.name = roomName;
+        req.token = code;
+        Packet sendPacket(MessageType::JOIN_ROOM_COMM, 0, m_networkManager->user()->id(), req);
         m_networkManager->send(sendPacket);
     });
 
