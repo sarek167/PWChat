@@ -22,7 +22,7 @@ public:
     ~MainWindow();
     ChatContext currentChat();
     std::uint32_t userId();
-    void onMessageReceived(const uint32_t senderId, const uint32_t targetId, const MessageContentType& msgType, const QString& text, bool toRoom);
+    void onMessageReceived(const uint32_t senderId, const QString& senderName, const uint32_t targetId, const MessageContentType& msgType, const QString& text, bool toRoom);
     void displayOlderMessages(const std::vector<MessageData>& messages, const uint32_t userId);
     void appendMessage(const QString& sender, const MessageContentType& msgType, const QString& text, bool isFromOthers=true, bool addToTop = false, uint8_t topIndex = 0);
     void appendUserRoomWidget(const uint32_t id, const QString& name, bool isRoom = false);

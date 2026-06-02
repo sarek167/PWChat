@@ -15,6 +15,7 @@ struct MessageData {
 
 
     uint32_t senderId;
+    std::string senderName;
     uint32_t targetId;
     std::string message;
     MessageContentType messageType = MessageContentType::TEXT;
@@ -23,7 +24,7 @@ struct MessageData {
     template<class Archive>
     void serialize(Archive & archive) {
         uint8_t& typeRef = reinterpret_cast<uint8_t&>(messageType);
-        archive(senderId, targetId, message, messageType);
+        archive(senderId, senderName, targetId, message, messageType);
     }
 };
 

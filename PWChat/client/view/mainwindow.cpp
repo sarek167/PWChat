@@ -50,12 +50,11 @@ void MainWindow::scrollToBottom() {
     });
 }
 
-void MainWindow::onMessageReceived(const uint32_t senderId, const uint32_t targetId, const MessageContentType& msgType, const QString& text, bool toRoom) {
-
-    if (m_currentChat.id == targetId && senderId == m_userId && msgType == MessageContentType::AUDIO) {
+void MainWindow::onMessageReceived(const uint32_t senderId, const QString& senderName, const uint32_t targetId, const MessageContentType& msgType, const QString& text, bool toRoom) {
+    if (m_currentChat.id == targetId && senderId == m_userId) {
         appendMessage(QString::fromStdString("You"), msgType, text, false);
     } else if (m_currentChat.id == targetId && senderId != m_userId) {
-        appendMessage(QString::number(senderId), msgType, text);
+        appendMessage(senderName, msgType, text);
     } else {
         std::cout << "wiadomość z innego chatu" << std::endl;
     }
@@ -72,9 +71,16 @@ void MainWindow::displayOlderMessages(const std::vector<MessageData>& messages, 
     int oldScrollPos = vScrollBar->value();
     int oldMaxScroll = vScrollBar->maximum();
 
+
     for (size_t i = 0; i < messages.size(); i++) {
+        QString displayName;
+        if (messages[i].senderId == userId) {
+            displayName = QString("You");
+        } else {
+            displayName = QString::fromStdString(messages[i].senderName);
+        }
         appendMessage(
-            QString::number(messages[i].senderId),
+            displayName,
             messages[i].messageType,
             QString::fromStdString(messages[i].message),
             messages[i].senderId!=userId,

@@ -376,9 +376,11 @@ std::vector<MessageData> SQLiteConnector::getMessages(const uint32_t targetId, c
 
             uint8_t dbType = static_cast<uint8_t>(sqlite3_column_int(stmt, 3));
             mess.messageType = static_cast<MessageContentType>(dbType);
-
+            mess.senderName = this->getUsername(mess.senderId);
             messages.push_back(mess);
         }
+    } else {
+        std::cerr << "SQL Error in getMessages: " << sqlite3_errmsg(m_db) << std::endl;
     }
 
     sqlite3_finalize(stmt);
@@ -430,4 +432,28 @@ uint32_t SQLiteConnector::getRoomCode(const uint32_t roomId) {
     sqlite3_finalize(stmt);
 
     return code;
+}
+
+std::string SQLiteConnector::getUsername(const uint32_t userId) {
+    const char* sql = "SELECT nickname FROM users WHERE id = ?;";
+    sqlite3_stmt* stmt = nullptr;
+
+
+    if (sqlite3_prepare_v2(m_db, sql, -1, &stmt, nullptr) != SQLITE_OK) {
+        std::cerr << "SQL Error: " << sqlite3_errmsg(m_db) << std::endl;
+        return "";
+    }
+
+    sqlite3_bind_int(stmt, 1, static_cast<int>(userId));
+
+    std::string username = "";
+    if (sqlite3_step(stmt) == SQLITE_ROW) {
+        const unsigned char* text = sqlite3_column_text(stmt, 0);
+        if (text) {
+            username = reinterpret_cast<const char*>(text);
+        }
+    }
+
+    sqlite3_finalize(stmt);
+    return username;
 }

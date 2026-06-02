@@ -27,6 +27,7 @@ public:
     std::vector<MessageData> getMessages(const uint32_t targetId, const uint32_t senderId, bool fromRoom, const int limit, const int offset) override;
     bool saveRoomCode(const uint32_t roomId, const uint32_t code) override;
     uint32_t getRoomCode(const uint32_t roomId) override;
+    std::string getUsername(const uint32_t userId) override;
 };
 
 #endif // SQLITECONNECTOR_H

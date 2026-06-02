@@ -101,7 +101,7 @@ void NetworkManager::readBody(PacketHeader header) {
         } else if (header.type == MessageType::MESS_TO_USER || header.type == MessageType::MESS_TO_ROOM) {
             try {
                 MessageData message = packet.unpackBody<MessageData>();
-                emit MessageReceived(message.senderId, message.targetId, message.messageType, QString::fromStdString(message.message), header.type == MessageType::MESS_TO_ROOM);
+                emit MessageReceived(message.senderId, QString::fromStdString(message.senderName), message.targetId, message.messageType, QString::fromStdString(message.message), header.type == MessageType::MESS_TO_ROOM);
             } catch (...) {
                 std::cerr << "Błąd dekodowania message" << std::endl;
             }

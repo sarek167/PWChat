@@ -27,6 +27,7 @@ public:
     virtual std::vector<MessageData> getMessages(const uint32_t targetId, const uint32_t senderId, bool fromRoom, const int limit, const int offset) = 0;
     virtual bool saveRoomCode(const uint32_t roomId, const uint32_t code) = 0;
     virtual uint32_t getRoomCode(const uint32_t roomId) = 0;
+    virtual std::string getUsername(const uint32_t userId) = 0;
 };
 
 #endif // DBCONNECTOR_H

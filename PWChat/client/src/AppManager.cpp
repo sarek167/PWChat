@@ -48,8 +48,8 @@ void AppManager::setupConnections() {
         m_mainWin.addRoom(room);
     });
 
-    connect(m_networkManager, &NetworkManager::MessageReceived, this, [this](const uint32_t senderId, const uint32_t targetId, const MessageContentType& msgType, const QString& message, bool toRoom) {
-        m_mainWin.onMessageReceived(senderId, targetId, msgType, message, toRoom);
+    connect(m_networkManager, &NetworkManager::MessageReceived, this, [this](const uint32_t senderId, const QString& senderName, const uint32_t targetId, const MessageContentType& msgType, const QString& message, bool toRoom) {
+        m_mainWin.onMessageReceived(senderId, senderName, targetId, msgType, message, toRoom);
         m_mainWin.scrollToBottom();
     });
 

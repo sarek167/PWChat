@@ -38,6 +38,8 @@ void RoomMessCommand::execute(std::shared_ptr<Session> session, const Packet& p,
         }
         bool dbResult = server.db().saveMessage(p.header().senderId, targetId, dbContent, message.messageType, true);
         if (dbResult) {
+            message.senderName = server.db().getUsername(p.header().senderId);
+            std::cout << message.senderName << std::endl;
             Packet returnPacket(MessageType::MESS_TO_ROOM, p.header().senderId, 0, message);
             server.roomManager().getRoom(targetId)->broadcast(returnPacket, message.messageType == MessageContentType::TEXT);
         } else {

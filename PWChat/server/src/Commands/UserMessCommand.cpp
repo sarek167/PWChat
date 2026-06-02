@@ -36,6 +36,7 @@ void UserMessCommand::execute(std::shared_ptr<Session> session, const Packet& p,
     }
     bool dbResult = server.db().saveMessage(p.header().senderId, targetId, dbContent, message.messageType, false);
     if (dbResult) {
+        message.senderName = server.db().getUsername(p.header().senderId);
         const std::shared_ptr<Session> targetClient = server.client(targetId);
         Packet returnPacket(MessageType::MESS_TO_USER, p.header().senderId, 0, message);
         targetClient->deliver(returnPacket);
