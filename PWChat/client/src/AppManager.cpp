@@ -6,6 +6,7 @@
 #include "common/AddAdminRequest.h"
 #include "common/MessageRequest.h"
 #include "common/MessageData.h"
+#include "common/AuthResponse.h"
 
 AppManager::AppManager(QObject *parent)
     : QObject(parent)
@@ -36,9 +37,9 @@ void AppManager::setupConnections() {
         m_networkManager->send(registerPacket);
     });
 
-    connect(m_networkManager, &NetworkManager::AuthResultReceived, this, [this](uint32_t userId, const std::vector<RoomData>& rooms) {
-        m_networkManager->user()->setId(userId);
-        m_mainWin.afterLoginChanges(m_networkManager->user()->id(), m_networkManager->user()->nickname(), rooms);
+    connect(m_networkManager, &NetworkManager::AuthResultReceived, this, [this](const AuthResponse& res) {
+        m_networkManager->user()->setId(res.myId);
+        m_mainWin.afterLoginChanges(res);
         m_loginWin.hide();
         m_loginWin.resetForms();
         m_mainWin.show();
@@ -93,6 +94,11 @@ void AppManager::setupConnections() {
 
     connect(m_networkManager, &NetworkManager::AccessCodeRequired, this, [this](JoinRoomRequest req) {
         m_mainWin.requestCode(req.name);
+    });
+
+    connect(m_networkManager, &NetworkManager::UserFoundResult, this, [this](const UserData& foundUser) {
+        m_mainWin.appendUserRoomWidget(foundUser.id, QString::fromStdString(foundUser.nickname), false);
+        m_mainWin.onChatWidgetClicked(foundUser.id, false);
     });
 
     connect(&m_mainWin, &MainWindow::sendRequested, this, [this](uint32_t targetId, std::string message, bool toRoom) {
@@ -183,6 +189,11 @@ void AppManager::setupConnections() {
     connect(&m_mainWin, &MainWindow::generateCodeRequested, this, [this](uint32_t roomId) {
         Packet generateCodePacket(MessageType::GEN_CODE_REQUEST, 0, m_networkManager->user()->id(), roomId);
         m_networkManager->send(generateCodePacket);
+    });
+
+    connect(&m_mainWin, &MainWindow::newPrivChatRequested, this, [this](std::string username) {
+        Packet findUserPacket(MessageType::FIND_USER_REQUEST, 0, m_networkManager->user()->id(), username);
+        m_networkManager->send(findUserPacket);
     });
 
     connect(m_audioManager, &AudioManager::audioReadyToSend, this, [this](const std::vector<char>& compressedData) {

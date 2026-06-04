@@ -11,6 +11,7 @@
 #include "common/RoomUserData.h"
 #include "common/MessageData.h"
 #include "common/JoinRoomRequest.h"
+#include "common/AuthResponse.h"
 
 using asio::ip::tcp;
 
@@ -36,7 +37,7 @@ private:
     asio::streambuf m_buffer;
 
 signals:
-    void AuthResultReceived(uint32_t userId, const std::vector<RoomData>& rooms);
+    void AuthResultReceived(const AuthResponse& res);
     void MessageReceived(const uint32_t senderId, const QString& senderName, const uint32_t targetId, const MessageContentType& msgType, const QString& message, bool toRoom);
     void AudioMessageReceived(const QString& senderId, const std::vector<char>& audioMessage);
     void RoomRequestConfirmation(const RoomData& room);
@@ -47,6 +48,7 @@ signals:
     void MessagesReceived(const std::vector<MessageData>& messages);
     void AccessCodeReceived(const uint32_t& code);
     void AccessCodeRequired(JoinRoomRequest req);
+    void UserFoundResult(const UserData& foundUser);
 };
 
 #endif // NETWORKMANAGER_H

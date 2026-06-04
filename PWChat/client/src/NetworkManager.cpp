@@ -84,8 +84,8 @@ void NetworkManager::readBody(PacketHeader header) {
 
         if (header.type == MessageType::LOGIN_REQUEST) {
             try {
-                std::vector<RoomData> rooms = packet.unpackBody<std::vector<RoomData>>();
-                emit AuthResultReceived(packet.header().targetId, rooms);
+                AuthResponse res = packet.unpackBody<AuthResponse>();
+                emit AuthResultReceived(res);
             } catch (...) {
                 std::cerr << "Błąd dekodowania auth" << std::endl;
             }
@@ -137,6 +137,9 @@ void NetworkManager::readBody(PacketHeader header) {
         } else if (header.type == MessageType::ACCESS_CODE_REQUIRED) {
             JoinRoomRequest req = packet.unpackBody<JoinRoomRequest>();
             emit AccessCodeRequired(req);
+        } else if (header.type == MessageType::FIND_USER_REQUEST) {
+            UserData foundUser = packet.unpackBody<UserData>();
+            emit UserFoundResult(foundUser);
         }
         std::cout << "KLIENT DOSTAŁ PAKIET!!!" << std::endl;
         std::cout << packet.header().signature << std::endl;

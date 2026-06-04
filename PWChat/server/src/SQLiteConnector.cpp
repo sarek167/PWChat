@@ -457,3 +457,54 @@ std::string SQLiteConnector::getUsername(const uint32_t userId) {
     sqlite3_finalize(stmt);
     return username;
 }
+
+std::vector<UserData> SQLiteConnector::getLastUserPrivChats(const uint32_t userId) {
+    std::vector<UserData> partners;
+    const char* sql =
+        "SELECT DISTINCT chat_partner_id FROM ("
+        "  SELECT receiver_id AS chat_partner_id, timestamp FROM messages WHERE sender_id = ? AND is_receiver_user = 1 "
+        "  UNION "
+        "  SELECT sender_id AS chat_partner_id, timestamp FROM messages WHERE receiver_id = ? AND is_receiver_user = 1"
+        ") ORDER BY timestamp DESC;";
+
+    sqlite3_stmt* stmt = nullptr;
+
+    if (sqlite3_prepare_v2(m_db, sql, -1, &stmt, nullptr) == SQLITE_OK) {
+        sqlite3_bind_int(stmt, 1, static_cast<int>(userId));
+        sqlite3_bind_int(stmt, 2, static_cast<int>(userId));
+
+        while (sqlite3_step(stmt) == SQLITE_ROW) {
+            uint32_t partnerId = static_cast<uint32_t>(sqlite3_column_int(stmt, 0));
+
+            std::string nickname = this->getUsername(partnerId);
+
+            UserData u;
+            u.id = partnerId;
+            u.nickname = nickname;
+            partners.push_back(u);
+        }
+    }
+    sqlite3_finalize(stmt);
+    return partners;
+}
+
+uint32_t SQLiteConnector::findUserByNick(const std::string username) {
+    const char* sql = "SELECT id FROM users WHERE nickname = ?;";
+    sqlite3_stmt* stmt = nullptr;
+
+
+    if (sqlite3_prepare_v2(m_db, sql, -1, &stmt, nullptr) != SQLITE_OK) {
+        std::cerr << "SQL Error: " << sqlite3_errmsg(m_db) << std::endl;
+        return 0;
+    }
+
+    sqlite3_bind_text(stmt, 1, username.c_str(), -1, SQLITE_STATIC);
+
+    uint32_t userId = 0;
+    if (sqlite3_step(stmt) == SQLITE_ROW) {
+        userId = static_cast<uint32_t>(sqlite3_column_int(stmt, 0));
+    }
+
+    sqlite3_finalize(stmt);
+    return userId;
+}

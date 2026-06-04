@@ -14,6 +14,7 @@
 #include "server/Commands/LoadMessagesCommand.h"
 #include "server/Commands/LoadAudioCommand.h"
 #include "server/Commands/GenRoomCodeCommand.h"
+#include "server/Commands/FindUserCommand.h"
 #include "server/SQLiteConnector.h"
 using asio::ip::tcp;
 
@@ -43,6 +44,7 @@ Server::Server(asio::io_context& io_context, short port)
         m_commands[MessageType::LOAD_AUDIO] = std::make_unique<LoadAudioCommand>();
         m_commands[MessageType::LOAD_MESS_REQUEST] = std::make_unique<LoadMessagesCommand>();
         m_commands[MessageType::GEN_CODE_REQUEST] = std::make_unique<GenRoomCodeCommand>();
+        m_commands[MessageType::FIND_USER_REQUEST] = std::make_unique<FindUserCommand>();
 
         do_accept();
     }

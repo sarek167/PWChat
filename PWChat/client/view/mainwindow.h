@@ -7,7 +7,7 @@
 #include "client/ChatContext.h"
 #include "common/UserData.h"
 #include "common/MessageData.h"
-#include "common/JoinRoomRequest.h"
+#include "common/AuthResponse.h"
 
 namespace Ui {
 class MainWindow;
@@ -27,9 +27,9 @@ public:
     void appendMessage(const QString& sender, const MessageContentType& msgType, const QString& text, bool isFromOthers=true, bool addToTop = false, uint8_t topIndex = 0);
     void appendUserRoomWidget(const uint32_t id, const QString& name, bool isRoom = false);
     void appendUserWidget(const uint32_t id, const QString& name, bool isAdmin = false, bool amIAdmin=false);
-    void afterLoginChanges(const std::uint32_t userId, const std::string& nickname, const std::vector<RoomData> userRooms);
+    void afterLoginChanges(const AuthResponse& res);
     void addRoom(const RoomData& room);
-    void onRoomWidgetClicked(uint32_t roomId);
+    void onChatWidgetClicked(uint32_t id, bool isRoom);
     void displayRoomInfo(bool isPrivate, std::vector<UserData> users, std::vector<UserData> admins, bool amIAdmin=false, uint32_t accessCode = 0, bool isAdministered = true);
     void leaveRoom(const uint32_t roomId);
     void showContextMenu(const QPoint &pos, uint32_t userId);
@@ -66,6 +66,7 @@ signals:
     void loadMessages(const uint32_t targetId, const uint32_t offset, bool fromRoom);
     void voicePlayRequested(const std::string& fileName, QPushButton* clickedButton);
     void generateCodeRequested(uint32_t roomId);
+    void newPrivChatRequested(std::string username);
 
 private slots:
     void on_btnSend_clicked();
@@ -77,6 +78,7 @@ private slots:
     void on_btnExit_clicked();
     void on_btnLeave_clicked();
     void on_btnGenerateCode_clicked();
+    void on_btnTalkToUser_clicked();
 };
 
 #endif // MAINWINDOW_H

@@ -28,6 +28,8 @@ public:
     bool saveRoomCode(const uint32_t roomId, const uint32_t code) override;
     uint32_t getRoomCode(const uint32_t roomId) override;
     std::string getUsername(const uint32_t userId) override;
+    std::vector<UserData> getLastUserPrivChats(const uint32_t userId) override;
+    uint32_t findUserByNick(const std::string username) override;
 };
 
 #endif // SQLITECONNECTOR_H

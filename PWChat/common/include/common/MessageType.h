@@ -21,6 +21,7 @@ enum class MessageType : uint8_t {
     LOAD_MESS_REQUEST = 14,
     GEN_CODE_REQUEST = 15,
     ACCESS_CODE_REQUIRED = 16,
+    FIND_USER_REQUEST = 17
 };
 
 #endif // MESSAGETYPES_H

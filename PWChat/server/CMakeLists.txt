@@ -47,6 +47,8 @@ add_executable(server
     src/Commands/LoadAudioCommand.cpp
     include/server/Commands/GenRoomCodeCommand.h
     src/Commands/GenRoomCodeCommand.cpp
+    include/server/Commands/FindUserCommand.h
+    src/Commands/FindUserCommand.cpp
 )
 
 

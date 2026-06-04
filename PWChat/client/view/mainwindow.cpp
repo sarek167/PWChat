@@ -228,8 +228,8 @@ void MainWindow::appendUserRoomWidget(const uint32_t id, const QString& name, bo
         ui->verticalLayoutPeople->insertWidget(0, cardWidget);
     }
 
-    connect(cardWidget, &QPushButton::clicked, this, [this, id]() {
-        onRoomWidgetClicked(id);
+    connect(cardWidget, &QPushButton::clicked, this, [this, id, isRoom]() {
+        onChatWidgetClicked(id, isRoom);
     });
 
 }
@@ -275,7 +275,7 @@ void MainWindow::appendUserWidget(const uint32_t id, const QString& name, bool i
     }
 
     // connect(cardWidget, &QPushButton::clicked, this, [this, id]() {
-    //     onRoomWidgetClicked(id);
+    //     onChatWidgetClicked(id);
     // });
 }
 
@@ -324,11 +324,15 @@ void MainWindow::displayGeneratedCode(const QString& code) {
     ui->btnGenerateCode->setText("Access code\n" + code);
 }
 
-void MainWindow::afterLoginChanges(const std::uint32_t userId, const std::string& nickname, const std::vector<RoomData> userRooms) {
-    ui->labelUsername->setText(QString::fromStdString(nickname));
-    m_userId = userId;
-    m_userRooms = userRooms;
-    for (auto& room : userRooms) {
+void MainWindow::afterLoginChanges(const AuthResponse& res) {
+    ui->labelUsername->setText(QString::fromStdString(res.myNickname));
+    m_userId = res.myId;
+    m_userRooms = res.userRooms;
+    m_recentUsers = res.userChats;
+    for (auto& chat : res.userChats) {
+        appendUserRoomWidget(chat.id, QString::fromStdString(chat.nickname));
+    }
+    for (auto& room : res.userRooms) {
         appendUserRoomWidget(room.id, QString::fromStdString(room.name), true);
     }
     ui->stackedSideWidget->setCurrentIndex(0);
@@ -354,16 +358,17 @@ void MainWindow::clearLayout(QLayout *layout, uint startingIdx) {
     }
 }
 
-void MainWindow::onRoomWidgetClicked(uint32_t roomId) {
-    ChatContext newContext{roomId, ChatContext::Type::Room};
+void MainWindow::onChatWidgetClicked(uint32_t id, bool isRoom) {
+    ChatContext::Type chatType = isRoom ? ChatContext::Type::Room : ChatContext::Type::User;
+    ChatContext newContext{id, chatType};
 
     if (m_currentChat == newContext) {
-        emit roomInfoRequest(roomId);
+        emit roomInfoRequest(id);
         return;
     }
 
     m_isLoadingHistory = false;
-    emit loadMessages(roomId, 0, true);
+    emit loadMessages(id, 0, isRoom);
     m_currentChat = newContext;
     std::cout << "New context with id: " << newContext.id << std::endl;
 
@@ -502,5 +507,19 @@ void MainWindow::on_btnLeave_clicked()
 void MainWindow::on_btnGenerateCode_clicked()
 {
     emit generateCodeRequested(m_currentChat.id);
+}
+
+
+void MainWindow::on_btnTalkToUser_clicked()
+{
+    std::string username = ui->searchBar->text().toStdString();
+    if (username.empty()) return;
+    for (auto& user : m_recentUsers) {
+        if (user.nickname == username) {
+            onChatWidgetClicked(user.id, false);
+            return;
+        }
+    }
+    emit newPrivChatRequested(username);
 }
 
