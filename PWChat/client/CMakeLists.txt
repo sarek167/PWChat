@@ -17,10 +17,9 @@ set(CMAKE_AUTORCC ON)
 
 set(CMAKE_AUTOUIC_SEARCH_PATHS "${CMAKE_CURRENT_SOURCE_DIR}/ui")
 
-find_package(Qt6 REQUIRED COMPONENTS Svg)
+find_package(Qt6 REQUIRED COMPONENTS Svg Widgets Network Multimedia)
 
-add_executable(client WIN32
-    src/main.cpp
+add_library(client_lib STATIC
     src/NetworkManager.cpp
     include/client/NetworkManager.h
     ui/LoginWindow.ui
@@ -29,7 +28,6 @@ add_executable(client WIN32
     view/loginwindow.cpp
     view/mainwindow.h
     view/mainwindow.cpp
-
     resources/resources.qrc
     view/createroomdialog.h
     view/createroomdialog.cpp
@@ -44,13 +42,14 @@ add_executable(client WIN32
     include/client/ChatContext.h
 )
 
-target_include_directories(client PRIVATE
+target_include_directories(client_lib PUBLIC
     include
     view
     ${CMAKE_SOURCE_DIR}/libs/asio-1.36.0/include
 )
 
-target_compile_definitions(client PRIVATE ASIO_STANDALONE)
+target_compile_definitions(client_lib PUBLIC ASIO_STANDALONE)
+target_link_libraries(client_lib PUBLIC Qt6::Widgets Qt6::Network Qt6::Multimedia opus common Qt6::Svg)
 
-target_include_directories(client PRIVATE include)
-target_link_libraries(client PRIVATE Qt6::Widgets Qt6::Network Qt6::Multimedia opus common Qt6::Svg)
+add_executable(client WIN32 src/main.cpp)
+target_link_libraries(client PRIVATE client_lib)
