@@ -1,8 +1,10 @@
+cmake_minimum_required(VERSION 3.14)
+project(PWChatServer LANGUAGES CXX C)
+
 set(SQLITE_SRC ${CMAKE_SOURCE_DIR}/libs/SQLite/sqlite3.c)
 set_source_files_properties(${SQLITE_SRC} PROPERTIES LANGUAGE C)
 
-add_executable(server
-    src/main.cpp
+add_library(server_lib STATIC
     src/Server.cpp
     src/Session.cpp
     include/server/Room.h
@@ -25,12 +27,9 @@ add_executable(server
     include/server/Commands/RoomMessCommand.h
     src/Commands/RoomMessCommand.cpp
     include/server/DBConnector.h
-    include/server/DBConnector.h
     include/server/SQLiteConnector.h
     src/SQLiteConnector.cpp
     ${SQLITE_SRC}
-
-
     include/server/Commands/RegisterCommand.h
     include/server/Commands/LogoutCommand.h
     src/Commands/LogoutCommand.cpp
@@ -51,23 +50,25 @@ add_executable(server
     src/Commands/FindUserCommand.cpp
 )
 
-
-set_target_properties(server PROPERTIES WIN32_EXECUTABLE FALSE)
-
-target_include_directories(server PRIVATE
+target_include_directories(server_lib PUBLIC
     include
     ${CMAKE_SOURCE_DIR}/libs/asio-1.36.0/include
     ${CMAKE_SOURCE_DIR}/libs/SQLite
 )
 
-target_compile_definitions(server PRIVATE ASIO_STANDALONE)
+target_compile_definitions(server_lib PUBLIC ASIO_STANDALONE)
 
-target_link_libraries(server PRIVATE Qt6::Core Qt6::Network Qt6::Sql common)
+target_link_libraries(server_lib PUBLIC Qt6::Core Qt6::Sql common)
 
 if(WIN32)
-    target_link_libraries(server PRIVATE ws2_32 mswsock)
-    target_compile_definitions(server PRIVATE _WIN32_WINNT=0x0A00 NOMINMAX)
+    target_link_libraries(server_lib PUBLIC ws2_32 mswsock)
+    target_compile_definitions(server_lib PUBLIC _WIN32_WINNT=0x0A00 NOMINMAX)
 else()
     find_package(Threads REQUIRED)
-    target_link_libraries(server PRIVATE Threads::Threads)
+    target_link_libraries(server_lib PUBLIC Threads::Threads)
 endif()
+
+add_executable(server src/main.cpp)
+target_link_libraries(server PRIVATE server_lib)
+
+set_target_properties(server PROPERTIES WIN32_EXECUTABLE FALSE)
