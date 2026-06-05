@@ -4,6 +4,7 @@
 #include "Command.h"
 
 class AddAdminCommand : public Command {
+public:
     void execute(std::shared_ptr<Session> session, const Packet& p, Server& server) override;
 };
 

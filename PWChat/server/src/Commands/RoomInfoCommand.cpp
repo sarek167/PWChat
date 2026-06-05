@@ -4,8 +4,14 @@
 #include "server/PrivateRoom.h"
 
 void RoomInfoCommand::execute(std::shared_ptr<Session> session, const Packet& p, Server& server) {
-    uint32_t roomId = p.unpackBody<uint32_t>();;
+    uint32_t roomId = p.unpackBody<uint32_t>();
     std::shared_ptr<Room> room = server.roomManager().getRoom(roomId);
+
+    if (!room) {
+        Packet errorPacket(MessageType::ERROR_RESPONSE, p.header().senderId, 0, "Room info requested for non-existent room");
+        session->deliver(errorPacket);
+        return;
+    }
 
     std::vector<UserData> users = server.db().getRoomUsers(room->id());
     std::vector<UserData> admins = server.db().getRoomUsers(room->id(), true);
@@ -22,7 +28,7 @@ void RoomInfoCommand::execute(std::shared_ptr<Session> session, const Packet& p,
     roomUserData.users = users;
     roomUserData.admins = admins;
 
-    std::cout << "Access code" << roomUserData.accessCode << std::endl;
+    std::cout << "Access code: " << roomUserData.accessCode << std::endl;
 
     Packet responsePacket(MessageType::ROOM_INFO_REQUEST, p.header().senderId, 0, roomUserData);
     session->deliver(responsePacket);

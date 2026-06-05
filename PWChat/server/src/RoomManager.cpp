@@ -8,11 +8,19 @@ std::map<uint32_t, std::shared_ptr<Room>> RoomManager::allRooms() {
 
 
 std::shared_ptr<Room> RoomManager::getRoom(uint32_t id) {
-    return m_allRooms[id];
+    auto it = m_allRooms.find(id);
+    if (it != m_allRooms.end()) {
+        return it->second;
+    }
+    return nullptr;
 }
 
 std::shared_ptr<Room> RoomManager::getRoom(std::string name) {
-    return m_allRoomsByName[name];
+    auto it = m_allRoomsByName.find(name);
+    if (it != m_allRoomsByName.end()) {
+        return it->second;
+    }
+    return nullptr;
 }
 
 
@@ -42,16 +50,21 @@ void RoomManager::initialize(const std::vector<RoomData>& rooms) {
 void RoomManager::loginInitialize(const std::vector<RoomData>& rooms, const std::shared_ptr<Session> session) {
     for (auto& rd : rooms) {
         std::shared_ptr<Room> room = getRoom(rd.id);
-        room->addClient(session);
+        if (room) {
+            room->addClient(session);
+        } else {
+            std::cerr << "Error: Room with id " << rd.id << " does not exist during login" << std::endl;
+        }
     }
 }
 
 void RoomManager::logoutInitialize(const std::vector<RoomData>& rooms, const std::shared_ptr<Session> session) {
     for (auto& rd : rooms) {
         std::shared_ptr<Room> room = getRoom(rd.id);
-        room->removeClient(session);
+        if (room) {
+            room->removeClient(session);
+        } else {
+            std::cerr << "Error: Room with id " << rd.id << " does not exist during logout" << std::endl;
+        }
     }
 }
-
-
-// TO DO: add remove room

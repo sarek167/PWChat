@@ -22,6 +22,7 @@ void CreateRoomCommand::execute(std::shared_ptr<Session> session, const Packet& 
             std::cout << "Adding user to room" << std::endl;
         } else {
             std::cerr << "Error while adding user room" << std::endl;
+            return;
         }
 
 

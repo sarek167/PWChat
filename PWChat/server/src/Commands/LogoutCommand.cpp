@@ -11,6 +11,7 @@ void LogoutCommand::execute(std::shared_ptr<Session> session, const Packet& p, S
 
     session->logout();
 
-    Packet responsePacket(MessageType::LOGOUT_REQUEST, p.header().senderId, 0, NULL);
+    std::string logoutConfirmation = "success";
+    Packet responsePacket(MessageType::LOGOUT_REQUEST, p.header().senderId, 0, logoutConfirmation);
     session->deliver(responsePacket);
 }

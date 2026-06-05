@@ -5,7 +5,13 @@
 
 void LeaveRoomCommand::execute(std::shared_ptr<Session> session, const Packet& p, Server& server) {
     LeaveRoomRequest req = p.unpackBody<LeaveRoomRequest>();
+
     std::shared_ptr<Room> room = server.roomManager().getRoom(req.roomId);
+
+    if (!room) {
+        std::cerr << "Room not found" << std::endl;
+        return;
+    }
 
     if (req.userId != session->userId() && !room->checkIfAdmin(session->userId())) {
         std::cerr << "Error - only admins can remove users from rooms." << std::endl;

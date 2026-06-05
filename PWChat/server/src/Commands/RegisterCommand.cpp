@@ -5,7 +5,7 @@
 void RegisterCommand::execute(std::shared_ptr<Session> session, const Packet& p, Server& server) {
     RegisterRequest registerReq = p.unpackBody<RegisterRequest>();
 
-    std::cout << "Registering user " << registerReq.id << " with nickname " << registerReq.nickname << std::endl;
+
     uint32_t id = server.db().registerUser(registerReq.nickname, registerReq.password);
 
     if (!id) {
@@ -19,7 +19,7 @@ void RegisterCommand::execute(std::shared_ptr<Session> session, const Packet& p,
 
     registerReq.id = id;
     registerReq.password = "";
-
+    std::cout << "Registering user " << registerReq.id << " with nickname " << registerReq.nickname << std::endl;
     Packet responsePacket(MessageType::REGISTER_REQUEST, id, 0, registerReq);
     session->deliver(responsePacket);
 

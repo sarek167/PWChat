@@ -1,10 +1,14 @@
 #include "server/Commands/GenRoomCodeCommand.h"
 #include "server/Server.h"
+#include <random>
 
 void GenRoomCodeCommand::execute(std::shared_ptr<Session> session, const Packet& p, Server& server) {
     uint32_t roomId = p.unpackBody<uint32_t>();
 
-    uint32_t code = 10000 + (rand() % (99999 - 10000 + 1));
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<uint32_t> dist(10000, 99999);
+    uint32_t code = dist(gen);
 
     bool dbResult = server.db().saveRoomCode(roomId, code);
 

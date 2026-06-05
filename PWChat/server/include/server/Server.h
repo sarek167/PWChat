@@ -22,13 +22,14 @@ public:
     const std::shared_ptr<Session> client(uint32_t clientId);
     RoomManager& roomManager();
     DBConnector& db();
+protected:
+    RoomManager m_roomManager;
+    std::unique_ptr<DBConnector> m_db;
 private:
     void do_accept();
     tcp::acceptor m_acceptor;
     std::map<uint32_t, std::shared_ptr<Session>> m_clients;
     std::mutex m_clientsMutex;
-    RoomManager m_roomManager;
-    std::unique_ptr<DBConnector> m_db;
     std::map<MessageType, std::unique_ptr<Command>> m_commands;
 };
 

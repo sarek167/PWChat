@@ -6,11 +6,18 @@
 
 OpusCodec::OpusCodec() {
     m_frameSize = 960;
-    int error;
-    m_encoder = opus_encoder_create(48000, 1, OPUS_APPLICATION_VOIP, &error);
-    m_decoder = opus_decoder_create(48000, 1, &error);
-    if (error != OPUS_OK) {
-        std::cerr << "Error while initializing opus encoder and decoder" << std::endl;
+    int encoderError=OPUS_OK;
+    m_encoder = opus_encoder_create(48000, 1, OPUS_APPLICATION_VOIP, &encoderError);
+    if (encoderError != OPUS_OK || !m_encoder) {
+        throw std::runtime_error("Error while initializing opus encoder");
+    }
+
+    int decoderError = OPUS_OK;
+    m_decoder = opus_decoder_create(48000, 1, &decoderError);
+    if (decoderError != OPUS_OK || !m_decoder) {
+        opus_encoder_destroy(m_encoder);
+        m_encoder = nullptr;
+        throw std::runtime_error("Error while initializing opus decoder");
     }
 }
 
@@ -27,6 +34,9 @@ OpusCodec::~OpusCodec() {
 }
 
 std::vector<char> OpusCodec::encode(const std::vector<float>& pcmData) {
+    if (!m_encoder) {
+        throw std::runtime_error("Encoder is not initialized");
+    }
     std::vector<char> totalEncodedData;
     unsigned char outBuf[4000];
 
@@ -36,6 +46,8 @@ std::vector<char> OpusCodec::encode(const std::vector<float>& pcmData) {
             uint16_t size = static_cast<uint16_t>(nBytes);
             totalEncodedData.insert(totalEncodedData.end(), reinterpret_cast<char*>(&size), reinterpret_cast<char*>(&size) + sizeof(size));
             totalEncodedData.insert(totalEncodedData.end(), outBuf, outBuf + nBytes);
+        } else if (nBytes < 0) {
+            throw std::runtime_error("Opus encoding failed");
         }
     }
 
@@ -43,6 +55,10 @@ std::vector<char> OpusCodec::encode(const std::vector<float>& pcmData) {
 }
 
 std::vector<float> OpusCodec::decode(const std::vector<char>& compressedData) {
+    if (!m_decoder) {
+        throw std::runtime_error("Decoder is not initialized");
+    }
+
     std::vector<float> totalDecodedData;
     size_t offset = 0;
     float outputBuffer[960];
@@ -63,6 +79,8 @@ std::vector<float> OpusCodec::decode(const std::vector<char>& compressedData) {
             0);
         if (samplesDecoded > 0) {
             totalDecodedData.insert(totalDecodedData.end(), outputBuffer, outputBuffer + samplesDecoded);
+        } else if (samplesDecoded < 0) {
+            throw std::runtime_error("Opus decoding failed");
         }
 
         offset += frameByteSize;

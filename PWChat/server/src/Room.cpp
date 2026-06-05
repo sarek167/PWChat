@@ -30,8 +30,8 @@ void Room::addClient(std::shared_ptr<Session> clientToAdd) {
 void Room::removeClient(std::shared_ptr<Session> clientToRemove) {
     auto it = std::find(m_clients.begin(), m_clients.end(), clientToRemove);
 
-    if (it!= m_clients.end()) {
-        m_clients.erase(it, m_clients.end());
+    if (it != m_clients.end()) {
+        m_clients.erase(it);
     } else {
         std::cerr << "Error: User " << clientToRemove->userId() << " wasn't part of the room " << m_name << std::endl;
     }
@@ -59,7 +59,7 @@ void Room::removeAdmin(uint32_t adminToRemove) {
     auto it = std::find(m_adminIds.begin(), m_adminIds.end(), adminToRemove);
 
     if (it != m_adminIds.end()) {
-        m_adminIds.erase(it, m_adminIds.end());
+        m_adminIds.erase(it);
     } else {
         std::cerr << "Error: User " << adminToRemove << " wasn't admin of the room " << m_name << std::endl;
     }

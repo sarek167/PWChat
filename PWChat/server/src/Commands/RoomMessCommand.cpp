@@ -39,7 +39,11 @@ void RoomMessCommand::execute(std::shared_ptr<Session> session, const Packet& p,
         bool dbResult = server.db().saveMessage(p.header().senderId, targetId, dbContent, message.messageType, true);
         if (dbResult) {
             message.senderName = server.db().getUsername(p.header().senderId);
-            std::cout << message.senderName << std::endl;
+            auto room = server.roomManager().getRoom(targetId);
+            if (!room) {
+                session->deliver(Packet(MessageType::ERROR_RESPONSE,  p.header().senderId, 0, "Target room not found"));
+                return;
+            }
             Packet returnPacket(MessageType::MESS_TO_ROOM, p.header().senderId, 0, message);
             server.roomManager().getRoom(targetId)->broadcast(returnPacket, message.messageType == MessageContentType::TEXT);
         } else {

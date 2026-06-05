@@ -39,6 +39,10 @@ void LoadAudioCommand::execute(std::shared_ptr<Session> session, const Packet& p
             Packet responsePacket(MessageType::LOAD_AUDIO, senderId, 0, audioMessage);
             session->deliver(responsePacket);
             return;
+        } else {
+            Packet returnPacket(MessageType::ERROR_RESPONSE, senderId, 0, "Error reading audio file");
+            session->deliver(returnPacket);
+            return;
         }
 
         file.close();
