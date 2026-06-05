@@ -29,8 +29,8 @@ add_executable(server
     include/server/SQLiteConnector.h
     src/SQLiteConnector.cpp
     ${SQLITE_SRC}
-    include/server/Commands/UserAudioMessCommand.h
-    src/Commands/UserAudioMessCommand.cpp
+
+
     include/server/Commands/RegisterCommand.h
     include/server/Commands/LogoutCommand.h
     src/Commands/LogoutCommand.cpp

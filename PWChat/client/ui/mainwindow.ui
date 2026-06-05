@@ -262,23 +262,9 @@ QPushButton#btnTalkToUser {
         </spacer>
        </item>
        <item>
-        <widget class="QPushButton" name="btnConsole">
-         <property name="text">
-          <string>Console</string>
-         </property>
-        </widget>
-       </item>
-       <item>
         <widget class="QPushButton" name="btnCreateRoom">
          <property name="text">
           <string>Create room</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="btnProfile">
-         <property name="text">
-          <string>Profile</string>
          </property>
         </widget>
        </item>
@@ -511,8 +497,8 @@ QPushButton#btnTalkToUser {
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>215</width>
-                   <height>426</height>
+                   <width>230</width>
+                   <height>401</height>
                   </rect>
                  </property>
                  <property name="styleSheet">
