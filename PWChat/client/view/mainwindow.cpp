@@ -51,12 +51,27 @@ void MainWindow::scrollToBottom() {
 }
 
 void MainWindow::onMessageReceived(const uint32_t senderId, const QString& senderName, const uint32_t targetId, const MessageContentType& msgType, const QString& text, bool toRoom) {
-    if (m_currentChat.id == targetId && senderId == m_userId) {
-        appendMessage(QString::fromStdString("You"), msgType, text, false);
-    } else if (m_currentChat.id == targetId && senderId != m_userId) {
-        appendMessage(senderName, msgType, text);
+    bool belongsToCurrentChat = false;
+    bool currentIsRoom = (m_currentChat.type == ChatContext::Type::Room);
+    if (toRoom == currentIsRoom) {
+        if (toRoom) {
+            belongsToCurrentChat = (targetId == m_currentChat.id);
+        } else {
+            belongsToCurrentChat = (targetId == m_currentChat.id || senderId == m_currentChat.id);
+        }
+    }
+
+    if (!belongsToCurrentChat) {
+        std::cout << "Message from different chat" << std::endl;
+        return;
+    }
+
+    bool isFromMe = (senderId == m_userId);
+
+    if (isFromMe) {
+        appendMessage(QString("You"), msgType, text, false);
     } else {
-        std::cout << "wiadomość z innego chatu" << std::endl;
+        appendMessage(senderName, msgType, text, true);
     }
 }
 
@@ -142,6 +157,7 @@ QWidget* MainWindow::createAudioMessageWidget(const QString& senderId, const QSt
 
     playLayout->addWidget(btnPlay);
     playLayout->addWidget(durationLabel);
+    layout->addWidget(senderLabel);
     layout->addLayout(playLayout);
 
     connect(btnPlay, &QPushButton::clicked, this, [this, fileName, btnPlay]() {
@@ -219,7 +235,8 @@ QPushButton* MainWindow::createUserRoomWidget(const QString& name, bool isRoom) 
 void MainWindow::appendUserRoomWidget(const uint32_t id, const QString& name, bool isRoom) {
     QPushButton* cardWidget = createUserRoomWidget(name, isRoom);
 
-    cardWidget->setProperty("roomId", id);
+    cardWidget->setProperty("chatId", id);
+    cardWidget->setProperty("isRoom", isRoom);
 
     if (isRoom) {
         ui->verticalLayoutRooms->insertWidget(0, cardWidget);
@@ -330,7 +347,7 @@ void MainWindow::afterLoginChanges(const AuthResponse& res) {
     m_userRooms = res.userRooms;
     m_recentUsers = res.userChats;
     for (auto& chat : res.userChats) {
-        appendUserRoomWidget(chat.id, QString::fromStdString(chat.nickname));
+        appendUserRoomWidget(chat.id, QString::fromStdString(chat.nickname), false);
     }
     for (auto& room : res.userRooms) {
         appendUserRoomWidget(room.id, QString::fromStdString(room.name), true);
@@ -362,7 +379,7 @@ void MainWindow::onChatWidgetClicked(uint32_t id, bool isRoom) {
     ChatContext::Type chatType = isRoom ? ChatContext::Type::Room : ChatContext::Type::User;
     ChatContext newContext{id, chatType};
 
-    if (m_currentChat == newContext) {
+    if (m_currentChat == newContext && chatType == ChatContext::Type::Room) {
         emit roomInfoRequest(id);
         return;
     }
@@ -376,7 +393,9 @@ void MainWindow::onChatWidgetClicked(uint32_t id, bool isRoom) {
         for (int i = 0; i < layout->count(); ++i) {
             QWidget* widget = layout->itemAt(i)->widget();
             if (auto* btn = qobject_cast<QPushButton*>(widget)) {
-                bool isActive = (btn->property("roomId").toUInt() == m_currentChat.id);
+                bool btnIsRoom = btn->property("isRoom").toBool();
+                bool currentIsRoom = (m_currentChat.type == ChatContext::Type::Room);
+                bool isActive = (btn->property("chatId").toUInt() == m_currentChat.id) && (btnIsRoom == currentIsRoom);
                 btn->setProperty("active", isActive);
                 btn->style()->unpolish(btn);
                 btn->style()->polish(btn);
@@ -397,14 +416,13 @@ void MainWindow::onChatWidgetClicked(uint32_t id, bool isRoom) {
 
     clearLayout(ui->verticalLayoutChat);
     ui->verticalLayoutChat->addStretch(1);
-    // TO DO: load messages
 }
 
 void MainWindow::leaveRoom(const uint32_t roomId) {
     m_userRooms.erase(std::remove_if(m_userRooms.begin(), m_userRooms.end(), [roomId](const RoomData& r) {return r.id == roomId;}), m_userRooms.end());
     for (int i = 0; i < ui->verticalLayoutRooms->count(); ++i) {
         QWidget* widget = ui->verticalLayoutRooms->itemAt(i)->widget();
-        if (widget && widget->property("roomId").toUInt() == roomId) {
+        if (widget && widget->property("chatId").toUInt() == roomId) {
             ui->verticalLayoutRooms->removeWidget(widget);
             widget->deleteLater();
             break;

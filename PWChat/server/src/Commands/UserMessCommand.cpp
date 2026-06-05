@@ -39,7 +39,10 @@ void UserMessCommand::execute(std::shared_ptr<Session> session, const Packet& p,
         message.senderName = server.db().getUsername(p.header().senderId);
         const std::shared_ptr<Session> targetClient = server.client(targetId);
         Packet returnPacket(MessageType::MESS_TO_USER, p.header().senderId, 0, message);
-        targetClient->deliver(returnPacket);
+        if (targetClient) {
+            targetClient->deliver(returnPacket);
+        }
+        session->deliver(returnPacket);
     } else {
         Packet returnPacket(MessageType::ERROR_RESPONSE, p.header().senderId, 0, "Error while sending text message");
         session->deliver(returnPacket);
