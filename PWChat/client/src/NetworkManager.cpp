@@ -77,46 +77,50 @@ void NetworkManager::waitForRequest() {
 
 void NetworkManager::dispatchPacket(const Packet& packet) {
     PacketHeader header = packet.header();
-    if (header.type == MessageType::LOGIN_REQUEST) {
-        AuthResponse res = packet.unpackBody<AuthResponse>();
-        emit AuthResultReceived(res);
-    } else if (header.type == MessageType::REGISTER_REQUEST) {
-        RegisterRequest req = packet.unpackBody<RegisterRequest>();
-        setUser(std::make_shared<User>(req.id, req.nickname));
-        emit RegisterResultReceived(req);
-    } else if (header.type == MessageType::MESS_TO_USER || header.type == MessageType::MESS_TO_ROOM) {
-        MessageData message = packet.unpackBody<MessageData>();
-        emit MessageReceived(message.senderId, QString::fromStdString(message.senderName), message.targetId, message.messageType, QString::fromStdString(message.message), header.type == MessageType::MESS_TO_ROOM);
-    } else if (header.type == MessageType::LOAD_AUDIO) {
-        MessageData message = packet.unpackBody<MessageData>();
-        std::vector<char> bytes(message.message.begin(), message.message.end());
-        emit AudioMessageReceived(QString::number(header.senderId), bytes);
-    } else if (header.type == MessageType::CREATE_ROOM_COMM || header.type == MessageType::JOIN_ROOM_COMM) {
-        RoomData room = packet.unpackBody<RoomData>();
-        emit RoomRequestConfirmation(room);
-    } else if (header.type == MessageType::ERROR_RESPONSE) {
-        std::string message = packet.unpackBody<std::string>();
-        std::cerr << "Error response from server: " << message << std::endl;
-    } else if (header.type == MessageType::LOGOUT_REQUEST) {
-        emit LogoutResultReceived();
-    } else if (header.type == MessageType::ROOM_INFO_REQUEST) {
-        RoomUserData roomUserData = packet.unpackBody<RoomUserData>();
-        emit RoomInfoReceived(roomUserData);
-    } else if (header.type == MessageType::LEAVE_ROOM_REQUEST) {
-        LeaveRoomRequest req = packet.unpackBody<LeaveRoomRequest>();
-        emit LeaveResultReceived(req.roomId, req.userId);
-    } else if (header.type == MessageType::LOAD_MESS_REQUEST) {
-        std::vector<MessageData> messages = packet.unpackBody<std::vector<MessageData>>();
-        emit MessagesReceived(messages);
-    } else if (header.type == MessageType::GEN_CODE_REQUEST) {
-        uint32_t code = packet.unpackBody<uint32_t>();
-        emit AccessCodeReceived(code);
-    } else if (header.type == MessageType::ACCESS_CODE_REQUIRED) {
-        JoinRoomRequest req = packet.unpackBody<JoinRoomRequest>();
-        emit AccessCodeRequired(req);
-    } else if (header.type == MessageType::FIND_USER_REQUEST) {
-        UserData foundUser = packet.unpackBody<UserData>();
-        emit UserFoundResult(foundUser);
+    try {
+        if (header.type == MessageType::LOGIN_REQUEST) {
+            AuthResponse res = packet.unpackBody<AuthResponse>();
+            emit AuthResultReceived(res);
+        } else if (header.type == MessageType::REGISTER_REQUEST) {
+            RegisterRequest req = packet.unpackBody<RegisterRequest>();
+            setUser(std::make_shared<User>(req.id, req.nickname));
+            emit RegisterResultReceived(req);
+        } else if (header.type == MessageType::MESS_TO_USER || header.type == MessageType::MESS_TO_ROOM) {
+            MessageData message = packet.unpackBody<MessageData>();
+            emit MessageReceived(message.senderId, QString::fromStdString(message.senderName), message.targetId, message.messageType, QString::fromStdString(message.message), header.type == MessageType::MESS_TO_ROOM);
+        } else if (header.type == MessageType::LOAD_AUDIO) {
+            MessageData message = packet.unpackBody<MessageData>();
+            std::vector<char> bytes(message.message.begin(), message.message.end());
+            emit AudioMessageReceived(QString::number(header.senderId), bytes);
+        } else if (header.type == MessageType::CREATE_ROOM_COMM || header.type == MessageType::JOIN_ROOM_COMM) {
+            RoomData room = packet.unpackBody<RoomData>();
+            emit RoomRequestConfirmation(room);
+        } else if (header.type == MessageType::ERROR_RESPONSE) {
+            std::string message = packet.unpackBody<std::string>();
+            std::cerr << "Error response from server: " << message << std::endl;
+        } else if (header.type == MessageType::LOGOUT_REQUEST) {
+            emit LogoutResultReceived();
+        } else if (header.type == MessageType::ROOM_INFO_REQUEST) {
+            RoomUserData roomUserData = packet.unpackBody<RoomUserData>();
+            emit RoomInfoReceived(roomUserData);
+        } else if (header.type == MessageType::LEAVE_ROOM_REQUEST) {
+            LeaveRoomRequest req = packet.unpackBody<LeaveRoomRequest>();
+            emit LeaveResultReceived(req.roomId, req.userId);
+        } else if (header.type == MessageType::LOAD_MESS_REQUEST) {
+            std::vector<MessageData> messages = packet.unpackBody<std::vector<MessageData>>();
+            emit MessagesReceived(messages);
+        } else if (header.type == MessageType::GEN_CODE_REQUEST) {
+            uint32_t code = packet.unpackBody<uint32_t>();
+            emit AccessCodeReceived(code);
+        } else if (header.type == MessageType::ACCESS_CODE_REQUIRED) {
+            JoinRoomRequest req = packet.unpackBody<JoinRoomRequest>();
+            emit AccessCodeRequired(req);
+        } else if (header.type == MessageType::FIND_USER_REQUEST) {
+            UserData foundUser = packet.unpackBody<UserData>();
+            emit UserFoundResult(foundUser);
+        }
+    } catch (const std::exception& e) {
+        std::cerr << "Error while parsing the packet: " << e.what() << std::endl;
     }
 }
 

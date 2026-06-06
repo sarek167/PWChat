@@ -17,24 +17,25 @@ FetchContent_MakeAvailable(googletest)
 enable_testing()
 
 add_executable(run_unit_tests
-    ${CMAKE_CURRENT_SOURCE_DIR}/common/PacketTest.cpp
+    TestMain.cpp
+    common/PacketTest.cpp
     server/SQLiteConnectorTest.cpp
     server/ServerTest.cpp
     server/RoomManagerTest.cpp
     client/OpusCodecTest.cpp
     client/AudioManagerTest.cpp
     client/NetworkManagerTest.cpp
-
+    client/MainWindowTest.cpp
 )
 
 target_include_directories(run_unit_tests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/..)
 
 target_link_libraries(run_unit_tests PRIVATE
-    gtest_main
     gtest
     gmock
     Qt6::Core
     Qt6::Test
+    Qt6::Widgets
     common
     server_lib
     client_lib

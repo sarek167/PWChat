@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include <QCoreApplication>
+#include <QApplication>
 #include <QSignalSpy>
 #include <memory>
 
@@ -18,14 +18,9 @@
 
 class NetworkManagerTest : public ::testing::Test {
 protected:
-    int argc = 0;
-    QCoreApplication* app = nullptr;
     NetworkManager* nm = nullptr;
 
     void SetUp() override {
-        if (!QCoreApplication::instance()) {
-            app = new QCoreApplication(argc, nullptr);
-        }
         nm = new NetworkManager();
     }
 
@@ -35,7 +30,6 @@ protected:
 
     void dispatchPacket(const Packet& packet) {
         nm->dispatchPacket(packet);
-        QCoreApplication::processEvents();
     }
 };
 
