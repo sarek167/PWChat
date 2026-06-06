@@ -6,6 +6,7 @@
 NetworkManager::~NetworkManager() {
     if (m_socket.is_open()) {
         asio::error_code ec;
+        m_socket.shutdown(asio::ip::tcp::socket::shutdown_both, ec);
         m_socket.close(ec);
     }
     m_io_context.stop();
@@ -26,7 +27,10 @@ void NetworkManager::connect(const std::string& host, const std::string& port) {
             auto work_guard = asio::make_work_guard(m_io_context);
             m_io_context.run();
         }).detach();
-        doRead();
+
+        asio::post(m_io_context, [this]() {
+            doRead();
+        });
 
     } catch (std::exception& e) {
         std::cerr << "Blad podczas testu: " << e.what() << std::endl;
@@ -36,17 +40,17 @@ void NetworkManager::connect(const std::string& host, const std::string& port) {
 
 void NetworkManager::send(const Packet& p) {
     auto toSend = std::make_shared<std::vector<char>>(p.pack());
-    std::cout << p.header().targetId << " " << int(p.header().type) << std::endl;
+
     asio::post(m_io_context, [this, toSend]() {
         asio::async_write(m_socket, asio::buffer(*toSend),
-                [toSend](std::error_code ec, std::size_t bytesTransferred) {
-            if (!ec) {
-                std::cout << "Wysłano pakiet długości " << bytesTransferred << std::endl;
+                          [toSend](std::error_code ec, std::size_t bytesTransferred) {
+                              if (!ec) {
+                                  std::cout << "Wysłano pakiet długości " << bytesTransferred << std::endl;
 
-            } else {
-                std::cerr << "Błąd wysyłania: " << ec.message() << std::endl;
-            }
-        });
+                              } else {
+                                  std::cerr << "Błąd wysyłania: " << ec.message() << std::endl;
+                              }
+                          });
     });
 }
 
@@ -56,100 +60,84 @@ void NetworkManager::doRead() {
 
 void NetworkManager::waitForRequest() {
     asio::async_read(m_socket, m_buffer, asio::transfer_exactly(sizeof(PacketHeader)),
-         [this](std::error_code ec, std::size_t bytesTransferred) {
-             if (!ec) {
-                 PacketHeader header;
-                 asio::buffer_copy(asio::buffer(&header, sizeof(PacketHeader)), m_buffer.data());
-                 m_buffer.consume(bytesTransferred);
+                     [this](std::error_code ec, std::size_t bytesTransferred) {
+                         if (!ec) {
+                             PacketHeader header;
+                             asio::buffer_copy(asio::buffer(&header, sizeof(PacketHeader)), m_buffer.data());
+                             m_buffer.consume(bytesTransferred);
 
 
-                 readBody(header);
+                             readBody(header);
 
-             } else {
-                 std::cout << "error: " << ec << std::endl;
-             }
-         });
+                         } else {
+                             std::cout << "error: " << ec << std::endl;
+                         }
+                     });
 }
+
+void NetworkManager::dispatchPacket(const Packet& packet) {
+    PacketHeader header = packet.header();
+    if (header.type == MessageType::LOGIN_REQUEST) {
+        AuthResponse res = packet.unpackBody<AuthResponse>();
+        emit AuthResultReceived(res);
+    } else if (header.type == MessageType::REGISTER_REQUEST) {
+        RegisterRequest req = packet.unpackBody<RegisterRequest>();
+        setUser(std::make_shared<User>(req.id, req.nickname));
+        emit RegisterResultReceived(req);
+    } else if (header.type == MessageType::MESS_TO_USER || header.type == MessageType::MESS_TO_ROOM) {
+        MessageData message = packet.unpackBody<MessageData>();
+        emit MessageReceived(message.senderId, QString::fromStdString(message.senderName), message.targetId, message.messageType, QString::fromStdString(message.message), header.type == MessageType::MESS_TO_ROOM);
+    } else if (header.type == MessageType::LOAD_AUDIO) {
+        MessageData message = packet.unpackBody<MessageData>();
+        std::vector<char> bytes(message.message.begin(), message.message.end());
+        emit AudioMessageReceived(QString::number(header.senderId), bytes);
+    } else if (header.type == MessageType::CREATE_ROOM_COMM || header.type == MessageType::JOIN_ROOM_COMM) {
+        RoomData room = packet.unpackBody<RoomData>();
+        emit RoomRequestConfirmation(room);
+    } else if (header.type == MessageType::ERROR_RESPONSE) {
+        std::string message = packet.unpackBody<std::string>();
+        std::cerr << "Error response from server: " << message << std::endl;
+    } else if (header.type == MessageType::LOGOUT_REQUEST) {
+        emit LogoutResultReceived();
+    } else if (header.type == MessageType::ROOM_INFO_REQUEST) {
+        RoomUserData roomUserData = packet.unpackBody<RoomUserData>();
+        emit RoomInfoReceived(roomUserData);
+    } else if (header.type == MessageType::LEAVE_ROOM_REQUEST) {
+        LeaveRoomRequest req = packet.unpackBody<LeaveRoomRequest>();
+        emit LeaveResultReceived(req.roomId, req.userId);
+    } else if (header.type == MessageType::LOAD_MESS_REQUEST) {
+        std::vector<MessageData> messages = packet.unpackBody<std::vector<MessageData>>();
+        emit MessagesReceived(messages);
+    } else if (header.type == MessageType::GEN_CODE_REQUEST) {
+        uint32_t code = packet.unpackBody<uint32_t>();
+        emit AccessCodeReceived(code);
+    } else if (header.type == MessageType::ACCESS_CODE_REQUIRED) {
+        JoinRoomRequest req = packet.unpackBody<JoinRoomRequest>();
+        emit AccessCodeRequired(req);
+    } else if (header.type == MessageType::FIND_USER_REQUEST) {
+        UserData foundUser = packet.unpackBody<UserData>();
+        emit UserFoundResult(foundUser);
+    }
+}
+
 
 void NetworkManager::readBody(PacketHeader header) {
     asio::async_read(m_socket, m_buffer, asio::transfer_exactly(header.bodySize),
-     [this,header](std::error_code ec, std::size_t bytesTransferred) {
-        std::vector<char> rawBody(header.bodySize);
-        auto bufs = m_buffer.data();
-        std::copy(asio::buffers_begin(bufs), asio::buffers_begin(bufs)+header.bodySize, rawBody.begin());
-        m_buffer.consume(header.bodySize);
+                     [this,header](std::error_code ec, std::size_t bytesTransferred) {
+                         if (ec) {
+                             std::cerr << "Error while reading packet " << ec.message() << std::endl;
+                             return;
+                         }
 
-        Packet packet(header, rawBody);
-
-
-        if (header.type == MessageType::LOGIN_REQUEST) {
-            try {
-                AuthResponse res = packet.unpackBody<AuthResponse>();
-                emit AuthResultReceived(res);
-            } catch (...) {
-                std::cerr << "Błąd dekodowania auth" << std::endl;
-            }
-
-        } else if (header.type == MessageType::REGISTER_REQUEST) {
-            try {
-                RegisterRequest req = packet.unpackBody<RegisterRequest>();
-                setUser(std::make_shared<User>(User(req.id, req.nickname)));
-                emit RegisterResultReceived(req);
-            } catch (...) {
-                std::cerr << "Error while decoding body of register request" << std::endl;
-            }
-        } else if (header.type == MessageType::MESS_TO_USER || header.type == MessageType::MESS_TO_ROOM) {
-            try {
-                MessageData message = packet.unpackBody<MessageData>();
-                emit MessageReceived(message.senderId, QString::fromStdString(message.senderName), message.targetId, message.messageType, QString::fromStdString(message.message), header.type == MessageType::MESS_TO_ROOM);
-            } catch (...) {
-                std::cerr << "Błąd dekodowania message" << std::endl;
-            }
-        } else if (header.type == MessageType::LOAD_AUDIO) {
-            try {
-                MessageData message = packet.unpackBody<MessageData>();
-                std::vector<char> bytes(message.message.begin(), message.message.end());
-                emit AudioMessageReceived(QString::number(header.senderId), bytes);
-            } catch (...) {
-                std::cerr << "Błąd dekodowania audio" << std::endl;
-            }
-        } else if (header.type == MessageType::CREATE_ROOM_COMM || header.type == MessageType::JOIN_ROOM_COMM) {
-            RoomData room = packet.unpackBody<RoomData>();
-            emit RoomRequestConfirmation(room);
-        } else if (header.type == MessageType::ERROR_RESPONSE) {
-            std::string message = packet.unpackBody<std::string>();
-            std::cerr << "Error: " << message << std::endl;
-        } else if (header.type == MessageType::LOGOUT_REQUEST) {
-            emit LogoutResultReceived();
-        } else if (header.type == MessageType::ROOM_INFO_REQUEST) {
-            RoomUserData roomUserData = packet.unpackBody<RoomUserData>();
-            emit RoomInfoReceived(roomUserData);
-        } else if (header.type == MessageType::LEAVE_ROOM_REQUEST) {
-            LeaveRoomRequest req = packet.unpackBody<LeaveRoomRequest>();
-            emit LeaveResultReceived(req.roomId, req.userId);
-        } else if (header.type == MessageType::LOAD_MESS_REQUEST) {
-            std::vector<MessageData> messages = packet.unpackBody<std::vector<MessageData>>();
-            emit MessagesReceived(messages);
-            std::cout << "Otrzymano " << messages.size() << " wiadomości" << std::endl;
-        } else if (header.type == MessageType::GEN_CODE_REQUEST) {
-            uint32_t code = packet.unpackBody<uint32_t>();
-            emit AccessCodeReceived(code);
-        } else if (header.type == MessageType::ACCESS_CODE_REQUIRED) {
-            JoinRoomRequest req = packet.unpackBody<JoinRoomRequest>();
-            emit AccessCodeRequired(req);
-        } else if (header.type == MessageType::FIND_USER_REQUEST) {
-            UserData foundUser = packet.unpackBody<UserData>();
-            emit UserFoundResult(foundUser);
-        }
-        std::cout << "KLIENT DOSTAŁ PAKIET!!!" << std::endl;
-        std::cout << packet.header().signature << std::endl;
-        std::cout << (int)packet.header().type << std::endl;
-        std::cout << (int)packet.header().bodySize << std::endl;
-        std::string message{packet.body().begin(), packet.body().end()};
-        std::cout << message << std::endl;
+                         std::vector<char> rawBody(header.bodySize);
+                         auto bufs = m_buffer.data();
+                         std::copy(asio::buffers_begin(bufs), asio::buffers_begin(bufs)+header.bodySize, rawBody.begin());
+                         m_buffer.consume(header.bodySize);
 
 
-        waitForRequest();
-     });
+                        Packet packet(header, rawBody);
+                        dispatchPacket(packet);
+                        waitForRequest();
+                     });
 }
 

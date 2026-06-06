@@ -17,6 +17,7 @@ using asio::ip::tcp;
 
 class NetworkManager : public QObject {
     Q_OBJECT
+    friend class NetworkManagerTest;
 public:
     explicit NetworkManager(QObject *parent = nullptr)
         : QObject(parent), m_socket(m_io_context), m_resolver(m_io_context) {}
@@ -29,6 +30,7 @@ public:
 
 private:
     void waitForRequest();
+    void dispatchPacket(const Packet& packet);
     void readBody(PacketHeader header);
     std::shared_ptr<User> m_user;
     asio::io_context m_io_context;

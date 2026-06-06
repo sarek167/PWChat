@@ -7,7 +7,8 @@
 #include <iostream>
 
 AudioManager::AudioManager() {
-    m_codec = std::make_unique<OpusCodec>();
+    m_codec = std::make_shared<OpusCodec>();
+    m_audioSource = nullptr;
 }
 
 std::shared_ptr<AudioCodec> AudioManager::codec() {
@@ -21,14 +22,22 @@ void AudioManager::startRecording() {
     format.setSampleFormat(QAudioFormat::Int16);
 
     m_audioData.clear();
+    m_buffer.setBuffer(&m_audioData);
 
     m_buffer.setBuffer(&m_audioData);
     if (m_audioSource) {
-        m_audioSource->deleteLater();
+        m_audioSource->stop();
+        delete m_audioSource;
+        m_audioSource = nullptr;
     }
 
-    m_audioSource = new QAudioSource(format, this);
+    if (m_buffer.isOpen()) {
+        m_buffer.close();
+    }
+
+
     if (m_buffer.open(QIODevice::ReadWrite | QIODevice::Truncate)) {
+        m_audioSource = new QAudioSource(format, this);
         m_audioSource->start(&m_buffer);
         std::cout << "Recording started in audio manager" << std::endl;
     } else {
@@ -38,17 +47,23 @@ void AudioManager::startRecording() {
 }
 
 void AudioManager::stopRecording() {
+    if (!m_audioSource) {
+        std::cerr << "Audio source is null, cannot stop recording" << std::endl;
+        return;
+    }
+
     m_audioSource->stop();
     m_buffer.close();
+
+    delete m_audioSource;
+    m_audioSource = nullptr;
+
     if (m_audioData.isEmpty()) {
         std::cerr << "No audio data captured!" << std::endl;
         return;
     }
 
     const QByteArray &rawData = m_audioData;
-
-    if (rawData.isEmpty()) return;
-
     int sampleCount = rawData.size() / sizeof(int16_t);
     std::vector<float> pcmData;
     pcmData.reserve(sampleCount);

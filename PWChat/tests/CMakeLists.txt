@@ -4,7 +4,7 @@ project(AppUnitTests LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(Qt6 REQUIRED COMPONENTS Core)
+find_package(Qt6 REQUIRED COMPONENTS Core Test)
 
 include(FetchContent)
 FetchContent_Declare(
@@ -22,6 +22,8 @@ add_executable(run_unit_tests
     server/ServerTest.cpp
     server/RoomManagerTest.cpp
     client/OpusCodecTest.cpp
+    client/AudioManagerTest.cpp
+    client/NetworkManagerTest.cpp
 
 )
 
@@ -32,6 +34,7 @@ target_link_libraries(run_unit_tests PRIVATE
     gtest
     gmock
     Qt6::Core
+    Qt6::Test
     common
     server_lib
     client_lib
