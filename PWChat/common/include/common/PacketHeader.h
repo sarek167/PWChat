@@ -10,16 +10,16 @@ static_assert(true);
 
 /**
  * @struct PacketHeader
- * @brief Fixed-size metadata envelope tracking routing and validation parameters for network packets.
- * * This structure is packed with byte-level alignment (1-byte packing) to ensure seamless,
- * binary-compatible layout transfers over TCP sockets between different CPU architectures.
+ * @brief Fixed-size header placed at the beginning of every network packet.
+ * * It uses 1-byte alignment to make sure the structure looks exactly the same
+ * in memory on both the client and the server when sending data over sockets.
  */
 struct PacketHeader {
-    uint32_t signature = 0x50574348;              /**< Protocol magic bytes identifier used to validate protocol packets (ASCII for 'PWCH'). */
-    MessageType type = MessageType::MESS_TO_USER; /**< Operational protocol opcode specifying the command category layout of the following body. */
-    uint32_t targetId = 0;                         /**< Unique numerical identifier of the destination conversation channel room or peer client user. */
-    uint32_t senderId = 0;                         /**< Unique tracking key identifying the original dispatch source profile instance connection. */
-    uint32_t bodySize = 0;                         /**< Exact length classification in bytes of the serialized payload array attached immediately after this header. */
+    uint32_t signature = 0x50574348;              /**< Magic bytes used to verify that the packet comes from our app (ASCII for 'PWCH'). */
+    MessageType type = MessageType::MESS_TO_USER; /**< Type of the message, telling the server which command should handle this packet. */
+    uint32_t targetId = 0;                         /**< ID of the target room or the user who should receive this packet. */
+    uint32_t senderId = 0;                         /**< ID of the user who sent this packet. */
+    uint32_t bodySize = 0;                         /**< Size of the extra data (the body) attached right after this header, in bytes. */
 };
 #pragma pack(pop)
 #endif // PACKETHEADER_H

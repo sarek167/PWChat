@@ -7,19 +7,19 @@
 
 /**
  * @struct LoginRequest
- * @brief Data transfer object (DTO) struct used for transmitting user login credentials.
- * * This structure carries the primary parameters required by the server backend
- * to verify identity credentials and authorize a client session connection.
+ * @brief Struct used to send user login credentials to the server.
+ * * It packages the nickname and password needed by the server to verify
+ * the user's identity and log them into the application.
  */
 struct LoginRequest {
-    uint32_t id;             /**< Unique numerical identification index tracking key (if known/assigned). */
-    std::string nickname;    /**< The distinct display handle or nickname credentials entered by the user. */
-    std::string password;    /**< The security password string payload required to validate authentication. */
+    uint32_t id;             /**< User ID number (if already known or assigned). */
+    std::string nickname;    /**< The nickname typed in by the user. */
+    std::string password;    /**< The password typed in by the user to log in. */
 
     /**
-     * @brief Template method used by Cereal to pack or unpack data.
-     * @tparam Archive Type of the archive (e.g., binary, XML, JSON).
-     * @param archive Reference to the archive object performing the input or output operation.
+     * @brief Serialization method used by the Cereal library to pack or unpack this struct.
+     * @tparam Archive Type of the data stream (like binary or JSON).
+     * @param archive Reference to the archive object that saves or loads the data fields.
      */
     template<class Archive>
     void serialize(Archive & archive) {

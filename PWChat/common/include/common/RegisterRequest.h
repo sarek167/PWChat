@@ -7,19 +7,19 @@
 
 /**
  * @struct RegisterRequest
- * @brief Data transfer object (DTO) struct used for submitting a new user registration request.
- * * This structure carries the desired credentials required by the server backend
- * to allocate a new identity profile, store it in the database, and assign a unique user ID.
+ * @brief Struct used to send a registration request for a new user account.
+ * * It packages the credentials needed by the server to create a new user profile
+ * and save it in the database.
  */
 struct RegisterRequest {
-    uint32_t id;          /**< Unique numerical identifier tracking key, populated by the server upon successful creation. */
-    std::string nickname; /**< The chosen unique username or display handle handle requested for the new account. */
-    std::string password; /**< The security password string payload chosen to secure the new account profile. */
+    uint32_t id;          /**< ID number assigned and filled in by the server after successful registration. */
+    std::string nickname; /**< The chosen nickname for the new account. */
+    std::string password; /**< The password chosen to secure the new account. */
 
     /**
-     * @brief Template method used by Cereal to pack or unpack data.
-     * @tparam Archive Type of the archive (e.g., binary, XML, JSON).
-     * @param archive Reference to the archive object performing the input or output operation.
+     * @brief Serialization method used by the Cereal library to pack or unpack this struct.
+     * @tparam Archive Type of the data stream (like binary or JSON).
+     * @param archive Reference to the archive object that saves or loads the data fields.
      */
     template<class Archive>
     void serialize(Archive & archive) {

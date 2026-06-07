@@ -8,18 +8,18 @@
 
 /**
  * @struct UserData
- * @brief Data transfer object (DTO) struct containing basic public profile metadata of a user.
- * * This lightweight structure is used across various network packets to exchange minimalist
- * identification parameters (like ID and nickname pairs) without passing sensitive session details.
+ * @brief Simple struct used to hold basic user info like ID and nickname.
+ * * It is used as a lightweight structure to quickly send user details
+ * over the network without mixing in any sensitive session data.
  */
 struct UserData {
-    uint32_t id;             /**< Unique numerical identifier assigned to the user. */
-    std::string nickname;    /**< The distinct public display handle or nickname of the user. */
+    uint32_t id;             /**< Unique ID number assigned to the user. */
+    std::string nickname;    /**< The user's visible nickname or handle. */
 
     /**
-     * @brief Template method used by Cereal to pack or unpack data.
-     * @tparam Archive Type of the archive (e.g., binary, XML, JSON).
-     * @param archive Reference to the archive object performing the input or output operation.
+     * @brief Serialization method used by the Cereal library to pack or unpack this struct.
+     * @tparam Archive Type of the data stream (like binary or JSON).
+     * @param archive Reference to the archive object that saves or loads the data fields.
      */
     template<class Archive>
     void serialize(Archive & archive) {

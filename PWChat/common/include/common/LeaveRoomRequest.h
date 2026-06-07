@@ -5,18 +5,18 @@
 
 /**
  * @struct LeaveRoomRequest
- * @brief Data transfer object (DTO) struct used for requesting to leave a chat room.
- * * This structure carries the necessary context identifiers to disconnect and unregister
- * a specific user session from a given group conversation channel database matrix.
+ * @brief Struct used to send a request to leave a chat room.
+ * * It simply holds the IDs needed by the server to remove a specific user
+ * from the active members list of a given room.
  */
 struct LeaveRoomRequest {
-    uint32_t roomId; /**< Unique identifier of the target chat room to leave. */
-    uint32_t userId; /**< Unique identifier of the user who is departing the room. */
+    uint32_t roomId; /**< ID of the chat room that the user wants to leave. */
+    uint32_t userId; /**< ID of the user who is leaving the room. */
 
     /**
-     * @brief Template method used by Cereal to pack or unpack data.
-     * @tparam Archive Type of the archive (e.g., binary, XML, JSON).
-     * @param archive Reference to the archive object performing the input or output operation.
+     * @brief Serialization method used by the Cereal library to pack or unpack this struct.
+     * @tparam Archive Type of the data stream (like binary or JSON).
+     * @param archive Reference to the archive object that saves or loads the data fields.
      */
     template<class Archive>
     void serialize(Archive & archive) {

@@ -10,22 +10,22 @@
 
 /**
  * @struct RoomUserData
- * @brief Data transfer object (DTO) struct containing detailed room properties and member rosters.
- * * Extends basic room descriptors by carrying active membership collections,
- * administrative operator groupings, and privacy access key codes used during joining rooms.
+ * @brief Struct that holds detailed information about a chat room.
+ * * It packages everything needed to display a room, including its settings,
+ * the list of regular members, and the list of room administrators.
  */
 struct RoomUserData {
-    uint32_t id;                  /**< Unique numerical identifier of the chat room channel. */
-    std::string name;             /**< The display name or title label assigned to the room. */
-    bool isPrivate;               /**< Flag specifying if the room is passcode-protected (true) or open to the public (false). */
-    uint32_t accessCode = 0;      /**< The active numeric pin or verification invitation code required to pass entry blocks. */
-    std::vector<UserData> users;  /**< Vector container storing user profile rows representing the regular room audience roster. */
-    std::vector<UserData> admins; /**< Vector dataset caching user descriptions of moderators holding operator credentials. */
+    uint32_t id;                  /**< Unique ID number of the chat room. */
+    std::string name;             /**< The display name of the room. */
+    bool isPrivate;               /**< Flag showing if the room is private (true) or public (false). */
+    uint32_t accessCode = 0;      /**< The numeric password/pin needed to enter a private room. */
+    std::vector<UserData> users;  /**< List of standard users currently in the room. */
+    std::vector<UserData> admins; /**< List of users who have admin privileges in this room. */
 
     /**
-     * @brief Template method used by Cereal to pack or unpack data.
-     * @tparam Archive Type of the archive (e.g., binary, XML, JSON).
-     * @param archive Reference to the archive object performing the input or output operation.
+     * @brief Serialization method used by the Cereal library to pack or unpack this struct.
+     * @tparam Archive Type of the data stream (like binary or JSON).
+     * @param archive Reference to the archive object that saves or loads the room data fields.
      */
     template<class Archive>
     void serialize(Archive & archive) {

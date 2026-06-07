@@ -19,159 +19,159 @@ using asio::ip::tcp;
 
 /**
  * @class NetworkManager
- * @brief Class responsible for asynchronous network communication with server.
- * * Manages TCP connections, packet reading loop and packaging and sending
- * data structures. Informs the rest of application about received packets via Qt signals.
+ * @brief Class responsible for handling network communication with the server.
+ * * It manages TCP connections, runs the packet reading loop, and sends data.
+ * It uses Qt signals to notify the rest of the application when new packets arrive.
  */
 class NetworkManager : public QObject {
     Q_OBJECT
     friend class NetworkManagerTest;
 public:
     /**
-     * @brief Constructor of NetworkManager class. It assigns m_socket and m_resolver.
+     * @brief Constructor for NetworkManager class. Initializes the socket and resolver.
      * @param parent Pointer to the parent QObject (defaults to nullptr).
      */
     explicit NetworkManager(QObject *parent = nullptr)
         : QObject(parent), m_socket(m_io_context), m_resolver(m_io_context) {}
 
     /**
-     * @brief Destructor of NetworkManager class.
-     * Closes the active socket and stops the internal io_context.
+     * @brief Destructor for NetworkManager class.
+     * Closes the open socket and stops the internal io_context loop.
      */
     ~NetworkManager();
 
     /**
-     * @brief Connects client to the server based on given host and port.
-     * @param host The server hostname or IP address (e.g., "127.0.0.1").
+     * @brief Connects the client to the server using the given host and port.
+     * @param host The server address or hostname (e.g., "127.0.0.1").
      * @param port The server port number as a string (e.g., "12345").
      */
     void connect(const std::string& host, const std::string& port);
 
     /**
-     * @brief Sends asynchronously packet p to the server, where it is routed properly.
-     * @param p The network packet structure to be serialized and sent.
+     * @brief Sends a packet to the server.
+     * @param p The network packet object to be sent.
      */
     void send(const Packet& p);
 
     /**
-     * @brief Method which starts process of listening for received packets.
+     * @brief Starts the background process of listening for incoming packets.
      */
     void doRead();
 
     /**
-     * @brief Getter for user related to the current session.
-     * @return std::shared_ptr<User> Shared pointer to the current User object.
+     * @brief Getter for the user linked to the current session.
+     * @return std::shared_ptr<User> Shared pointer to the current User.
      */
     std::shared_ptr<User> user();
 
     /**
-     * @brief Setter for user related to the current session.
-     * @param userPtr Shared pointer to the new User object to set.
+     * @brief Setter to update the user linked to the current session.
+     * @param userPtr Shared pointer to the new User object.
      */
     void setUser(std::shared_ptr<User> userPtr);
 
 private:
     /**
-     * @brief Asynchronously waits for receiving packet from the server.
-     * When received it consumes bytes of header size from buffer and calls method readBody.
+     * @brief Waits for a new packet header from the server.
+     * Once the header bytes are read, it calls readBody to handle the rest of the packet.
      */
     void waitForRequest();
 
     /**
-     * @brief Receives unpacked packet and performs proper action, depending on the packet message type in header.
-     * @param packet The complete unpacked Packet containing type, header, and raw data payload.
+     * @brief Takes an unpacked packet and triggers the right action based on its message type.
+     * @param packet The full Packet object containing the header and body data.
      */
     void dispatchPacket(const Packet& packet);
 
     /**
-     * @brief Asynchronously reads bytes of packet size (known from passed header) from buffer.
-     * Creates packet and calls method dispatchPacket. Finally, calls waitForRequest to start the process again.
-     * @param header The PacketHeader object containing metadata about incoming payload size and type.
+     * @brief Reads the remaining bytes of the packet body based on the size found in the header.
+     * Reconstructs the packet, calls dispatchPacket, and goes back to waiting for the next header.
+     * @param header The PacketHeader containing details about the incoming data size and type.
      */
     void readBody(PacketHeader header);
 
-    std::shared_ptr<User> m_user;  /**< Pointer to the user related with current session */
-    asio::io_context m_io_context; /**< Asio context of client */
-    tcp::socket m_socket;          /**< Opened socket for the current session */
-    tcp::resolver m_resolver;      /**< Resolver used to resolve server connection request. */
-    asio::streambuf m_buffer;      /**< Asio buffer for transferring bytes between client and server. */
+    std::shared_ptr<User> m_user;  /**< Pointer to the current user of this app session. */
+    asio::io_context m_io_context; /**< Asio context loop for the client. */
+    tcp::socket m_socket;          /**< The open network socket for this session. */
+    tcp::resolver m_resolver;      /**< Resolver used to look up the server address. */
+    asio::streambuf m_buffer;      /**< Internal buffer used to store bytes received from the server. */
 
 signals:
     /**
-     * @brief Emitted when an authentication response is received from the server.
-     * @param res The authentication response object containing user details and rooms.
+     * @brief Emitted when the server responds to a login or registration attempt.
+     * @param res Object containing the user's details, chat lists, and rooms.
      */
     void AuthResultReceived(const AuthResponse& res);
 
     /**
-     * @brief Emitted when a text or system message is received from a chat or a room.
-     * @param senderId Unique identifier of the message sender.
-     * @param senderName Nickname of the message sender.
-     * @param targetId ID of the target user or room receiving the message.
-     * @param msgType The content type of the message (e.g., text, image).
-     * @param message The text content of the received message.
-     * @param toRoom Flag specifying if the message was sent to a room (true) or private chat (false).
+     * @brief Emitted when a new chat message arrives.
+     * @param senderId ID of the user who sent the message.
+     * @param senderName Nickname of the sender.
+     * @param targetId ID of the receiving room or user.
+     * @param msgType The type of message (text or audio).
+     * @param message The actual message text or filename.
+     * @param toRoom True if the message belongs to a room, false if it's a private chat.
      */
     void MessageReceived(const uint32_t senderId, const QString& senderName, const uint32_t targetId, const MessageContentType& msgType, const QString& message, bool toRoom);
 
     /**
-     * @brief Emitted when a voice or audio packet is received from another user.
-     * @param senderId String representation of the sender's unique identifier.
-     * @param audioMessage Vector containing raw compressed Opus audio bytes.
+     * @brief Emitted when raw audio data (voice message) is received.
+     * @param senderId ID of the user who sent the audio.
+     * @param audioMessage Vector containing the raw audio bytes (e.g., Opus data).
      */
     void AudioMessageReceived(const QString& senderId, const std::vector<char>& audioMessage);
 
     /**
-     * @brief Emitted when a room creation or room join request is confirmed by the server.
-     * @param room The structural data of the validated room.
+     * @brief Emitted when the server confirms that a room was successfully created or joined.
+     * @param room Object containing the basic details of the room.
      */
     void RoomRequestConfirmation(const RoomData& room);
 
     /**
-     * @brief Emitted when a registration result packet is received from the server.
-     * @param req The register request object reflecting the outcome of the action.
+     * @brief Emitted when the registration result arrives from the server.
+     * @param req The original registration request info, reflecting the outcome.
      */
     void RegisterResultReceived(const RegisterRequest& req);
 
     /**
-     * @brief Emitted when the user is successfully logged out of the application server.
+     * @brief Emitted when the user is successfully logged out.
      */
     void LogoutResultReceived();
 
     /**
-     * @brief Emitted when specific room information and member list are received.
-     * @param roomUserData Detailed room object containing lists of users and configurations.
+     * @brief Emitted when full details about a room (like its member list) are received.
+     * @param roomUserData Object holding lists of users, admins, and room settings.
      */
     void RoomInfoReceived(const RoomUserData& roomUserData);
 
     /**
-     * @brief Emitted when confirmation of a user leaving a room is received.
-     * @param roomId Unique identifier of the room left.
-     * @param userId Unique identifier of the user who left the room.
+     * @brief Emitted when the server confirms that a user left a room.
+     * @param roomId ID of the room that was left.
+     * @param userId ID of the user who left.
      */
     void LeaveResultReceived(const uint32_t roomId, const uint32_t userId);
 
     /**
-     * @brief Emitted when a requested history batch of older messages is received.
-     * @param messages Vector containing archived data for chat message logs.
+     * @brief Emitted when a requested batch of archived chat history arrives.
+     * @param messages Vector containing the list of past messages.
      */
     void MessagesReceived(const std::vector<MessageData>& messages);
 
     /**
-     * @brief Emitted when a newly generated invite or access code for a private room is received.
-     * @param code The numeric password or access code.
+     * @brief Emitted when a new password/pin code for a private room is received.
+     * @param code The numeric access code.
      */
     void AccessCodeReceived(const uint32_t& code);
 
     /**
-     * @brief Emitted when attempting to join a private room that requires a passcode verification.
-     * @param req The join room request context triggering the pin challenge.
+     * @brief Emitted when trying to enter a private room that requires typing a password/pin.
+     * @param req The join room request that needs verification.
      */
     void AccessCodeRequired(JoinRoomRequest req);
 
     /**
-     * @brief Emitted when the result of a global database user search is received.
-     * @param foundUser Structure containing data profile of the discovered contact.
+     * @brief Emitted when the server returns the result of searching for a user.
+     * @param foundUser Structure containing the basic profile of the found user.
      */
     void UserFoundResult(const UserData& foundUser);
 };

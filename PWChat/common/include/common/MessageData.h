@@ -8,30 +8,30 @@
 
 /**
  * @enum MessageContentType
- * @brief Classification enum defining the actual data payload type inside a message.
+ * @brief Simple enum to check if the message is a text or an audio file.
  */
 enum class MessageContentType : uint8_t {
-    TEXT = 0,  /**< Standard text paragraph message content. */
-    AUDIO = 1  /**< Voice message binary stream payload or asset reference pointer. */
+    TEXT = 0,  /**< Standard text message. */
+    AUDIO = 1  /**< Voice message / audio data. */
 };
 
 /**
  * @struct MessageData
- * @brief Data transfer object (DTO) struct representing a single message instance.
- * * This structure encompasses all necessary identifiers, usernames, text payload data,
- * and structural type specifications required to route and render a message correctly.
+ * @brief Struct that holds all details about a single chat message.
+ * * It stores the sender's info, the target destination, the message content itself,
+ * and its type so the client knows how to display it.
  */
 struct MessageData {
-    uint32_t senderId;              /**< Unique numerical identification index of the message author. */
-    std::string senderName;         /**< Display profile nickname. */
-    uint32_t targetId;              /**< Destination identifier, representing either a recipient user or a chat room ID. */
-    std::string message;            /**< The actual message string contents. */
-    MessageContentType messageType = MessageContentType::TEXT; /**< Format classification indicator of the enclosed payload. */
+    uint32_t senderId;              /**< ID of the user who sent the message. */
+    std::string senderName;         /**< Nickname of the user who sent the message. */
+    uint32_t targetId;              /**< ID of the receiver (either a specific user or a chat room). */
+    std::string message;            /**< The actual content of the message (text or audio filename/data). */
+    MessageContentType messageType = MessageContentType::TEXT; /**< Tells if the message is text or audio. */
 
     /**
-     * @brief Template method used by Cereal to pack or unpack data.
-     * @tparam Archive Type of the archive (e.g., binary, XML, JSON).
-     * @param archive Reference to the archive object performing the input or output operation.
+     * @brief Serialization method used by the Cereal library to pack or unpack this struct.
+     * @tparam Archive Type of the data stream (like binary or JSON).
+     * @param archive Reference to the archive object that saves or loads the data fields.
      */
     template<class Archive>
     void serialize(Archive & archive) {

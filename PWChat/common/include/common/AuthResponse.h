@@ -11,20 +11,20 @@
 
 /**
  * @struct AuthResponse
- * @brief Data transfer object (DTO) struct containing the server's response to an authentication request.
- * * This structure carries the authenticated user's profile metadata, along with vectors of
- * historical private text conversation logs and subscribed group channel definitions.
+ * @brief Struct holding the server's response after a login or registration attempt.
+ * * It sends back the user's own profile info along with lists of their
+ * recent private chats and active chat rooms.
  */
 struct AuthResponse {
-    uint32_t myId;                   /**< Unique numerical identifier assigned to the authenticated user. */
-    std::string myNickname;          /**< The distinct display handle or nickname of the authenticated user. */
-    std::vector<UserData> userChats; /**< Vector containing list entries of recent active direct peer chats. */
-    std::vector<RoomData> userRooms; /**< Vector containing structural metadata profiles of user's active groups. */
+    uint32_t myId;                   /**< The unique ID assigned to the logged-in user. */
+    std::string myNickname;          /**< The nickname of the logged-in user. */
+    std::vector<UserData> userChats; /**< List of users with whom this user has recent private chats. */
+    std::vector<RoomData> userRooms; /**< List of chat rooms that the user belongs to. */
 
     /**
-     * @brief Template method used by Cereal to pack or unpack data.
-     * @tparam Archive Type of the archive (e.g., binary, XML, JSON).
-     * @param archive Reference to the archive object performing the input or output operation.
+     * @brief Serialization method used by the Cereal library to pack or unpack this struct.
+     * @tparam Archive Type of the data stream (like binary or JSON).
+     * @param archive Reference to the archive object that saves or loads the data fields.
      */
     template<class Archive>
     void serialize(Archive & archive) {
