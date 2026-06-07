@@ -3,6 +3,12 @@
 
 #include <stdint.h>
 
+/**
+ * @enum MessageType
+ * @brief Universal application network protocol opcodes (command identifiers).
+ * * Defines the message type byte embedded within the PacketHeader, allowing
+ * both the client and server to correctly deserialize, route, and dispatch incoming network traffic.
+ */
 enum class MessageType : uint8_t {
     MESS_TO_USER = 0,
     MESS_TO_ROOM = 1,
