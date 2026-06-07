@@ -1,0 +1,580 @@
+\doxysection{Main\+Window Class Reference}
+\hypertarget{class_main_window}{}\label{class_main_window}\index{MainWindow@{MainWindow}}
+
+
+The main graphical user interface class of the client application.  
+
+
+
+
+{\ttfamily \+\#include $<$mainwindow.\+h$>$}
+
+
+
+Inheritance diagram for Main\+Window:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=160pt]{class_main_window__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Main\+Window:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=160pt]{class_main_window__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \doxymbox{\hyperlink{class_main_window_af710af05c1452535ec1883d4e054de4b}{send\+Requested}} (uint32\+\_\+t target\+Id, std::\+string message, bool to\+Room)
+\begin{DoxyCompactList}\small\item\em Triggered when the user submits a text message entry to be dispatched to the server. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_main_window_a6894caf8c041f183c83387efe8b49fd8}{create\+Room\+Requested}} (std::\+string room\+Name, bool is\+Private, bool is\+Admin)
+\begin{DoxyCompactList}\small\item\em Outgoing application request asking server instance to validate and allocate a new channel profile identity block. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_main_window_ad222769cfcd6b7bf8afff48a2b494430}{join\+Room\+Requested}} (std::\+string room\+Name, uint32\+\_\+t code=0)
+\begin{DoxyCompactList}\small\item\em Outgoing intent signaling a user attempt to attach active credential descriptors to an existing protected room entry. \end{DoxyCompactList}\item 
+\Hypertarget{class_main_window_ad3e872420f94a957e32598f68f4daf32}\label{class_main_window_ad3e872420f94a957e32598f68f4daf32} 
+void {\bfseries audio\+Recording\+Started} ()
+\begin{DoxyCompactList}\small\item\em Informative notification signaling that hardware micro recording devices has initiated data ingestion capture tracking. \end{DoxyCompactList}\item 
+\Hypertarget{class_main_window_a9fbbd5320501afb5f72bae7d6f934967}\label{class_main_window_a9fbbd5320501afb5f72bae7d6f934967} 
+void {\bfseries audio\+Recording\+Stopped} ()
+\begin{DoxyCompactList}\small\item\em Informative notification signaling completion of data ingestion capture sequence processing pipelines. \end{DoxyCompactList}\item 
+\Hypertarget{class_main_window_a53200b87187ccf1d1f537616bb3109fc}\label{class_main_window_a53200b87187ccf1d1f537616bb3109fc} 
+void {\bfseries logout\+Requested} ()
+\begin{DoxyCompactList}\small\item\em Intention request telling backend infrastructure models to drop validation tokens and sever session associations. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_main_window_af12ad1bb21f08973c5c20da0c19a7ff1}{room\+Info\+Request}} (const uint32\+\_\+t room\+Id)
+\begin{DoxyCompactList}\small\item\em Informative request asking for complete metadata synchronization update concerning a specific active room channel layout profile. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_main_window_a329ca879cc043f8eae451ce2efe083cb}{leave\+Room\+Requested}} (const uint32\+\_\+t room\+Id, const uint32\+\_\+t user\+Id=0)
+\begin{DoxyCompactList}\small\item\em Request to disengage the active local profile identity parameters association mapping from a channel matrix database index. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_main_window_a458311575524b513c9cf9c2c934715fe}{add\+Admin\+Request}} (const uint32\+\_\+t room\+Id, const uint32\+\_\+t user\+Id)
+\begin{DoxyCompactList}\small\item\em Administration request aimed at elevating specific standard user profile credentials onto moderator authority privileges. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_main_window_a082fab5c1b2ec683633551d2e8d2990c}{load\+Messages}} (const uint32\+\_\+t target\+Id, const uint32\+\_\+t offset, bool from\+Room)
+\begin{DoxyCompactList}\small\item\em History request telling database interfaces to pull structured transaction records segment blocks. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_main_window_a1f1b39dd8a8b0ea2b25a075f6692332f}{voice\+Play\+Requested}} (const std::\+string \&file\+Name, QPush\+Button \texorpdfstring{$\ast$}{*}clicked\+Button)
+\begin{DoxyCompactList}\small\item\em Voice play event intent routing serialized raw voice binary arrays data toward localized physical speakers hardware assets. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_main_window_aa3f79ed7ad3d3f7471a679446b06f1d5}{generate\+Code\+Requested}} (uint32\+\_\+t room\+Id)
+\begin{DoxyCompactList}\small\item\em Intention request asking backend logic models to generate and link an access token registration pin value onto a group structure. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_main_window_a1ea5c40a0fea0722f519d342767a6400}{new\+Priv\+Chat\+Requested}} (std::\+string username)
+\begin{DoxyCompactList}\small\item\em Trigger request searching system registers database definitions to initialize a novel standalone direct workspace buddy conversation node. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{class_main_window_a996c5a2b6f77944776856f08ec30858d}{Main\+Window}} (QWidget \texorpdfstring{$\ast$}{*}parent=nullptr)
+\begin{DoxyCompactList}\small\item\em Constructor for the \doxylink{class_main_window}{Main\+Window} class. \end{DoxyCompactList}\item 
+\Hypertarget{class_main_window_ae98d00a93bc118200eeef9f9bba1dba7}\label{class_main_window_ae98d00a93bc118200eeef9f9bba1dba7} 
+{\bfseries \texorpdfstring{$\sim$}{\string~}\+Main\+Window} ()
+\begin{DoxyCompactList}\small\item\em Destructor that ensures proper cleanup of user interface components. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{struct_chat_context}{Chat\+Context}} \doxymbox{\hyperlink{class_main_window_ad85788d83c0d23a9e9419d626c7c1dff}{current\+Chat}} ()
+\begin{DoxyCompactList}\small\item\em Retrieves the context of the currently selected or active chat session. \end{DoxyCompactList}\item 
+std::\+uint32\+\_\+t \doxymbox{\hyperlink{class_main_window_add67ad3259aa219698e0f65b2fc690c6}{user\+Id}} ()
+\begin{DoxyCompactList}\small\item\em Retrieves the unique identifier of the currently logged-\/in user. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_main_window_a8a8ad93101588ec2a0059171acf97621}{on\+Message\+Received}} (const uint32\+\_\+t sender\+Id, const QString \&sender\+Name, const uint32\+\_\+t target\+Id, const Message\+Content\+Type \&msg\+Type, const QString \&text, bool to\+Room)
+\begin{DoxyCompactList}\small\item\em Callback invoked whenever a new text, audio, or system message arrives from the network. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_main_window_a9f3bcf37df175984783542458800f516}{display\+Older\+Messages}} (const std::\+vector$<$ \doxymbox{\hyperlink{struct_message_data}{Message\+Data}} $>$ \&messages, const uint32\+\_\+t user\+Id)
+\begin{DoxyCompactList}\small\item\em Populates the chat view layout with a structured batch of historical text or voice messages. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_main_window_a9c1418bcf85fa4c3544aac2730bcacb0}{append\+Message}} (const QString \&sender, const Message\+Content\+Type \&msg\+Type, const QString \&text, bool is\+From\+Others=true, bool add\+To\+Top=false, uint8\+\_\+t top\+Index=0)
+\begin{DoxyCompactList}\small\item\em Creates and appends a single message item widget to the scrolling chat display board. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_main_window_ab581bf165c3ff9422f1a92f1a655c8e7}{append\+User\+Room\+Widget}} (const uint32\+\_\+t id, const QString \&name, bool is\+Room=false)
+\begin{DoxyCompactList}\small\item\em Instantiates and injects a navigation button selector item into the rooms/\+chats sidebar menu. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_main_window_a9169d64b7290d675df338d565313cea0}{append\+User\+Widget}} (const uint32\+\_\+t id, const QString \&name, bool is\+Admin=false, bool am\+IAdmin=false)
+\begin{DoxyCompactList}\small\item\em Appends a standard user row indicator entry inside the active room profile details sub-\/panel. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_main_window_a36fd186beece925ed09d17bc07989f01}{after\+Login\+Changes}} (const \doxymbox{\hyperlink{struct_auth_response}{Auth\+Response}} \&res)
+\begin{DoxyCompactList}\small\item\em Performs global layout state transformations and side-\/bar rendering upon successful login validation. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_main_window_a3bad909093fe052f3ad68d7ea894d6c6}{add\+Room}} (const \doxymbox{\hyperlink{struct_room_data}{Room\+Data}} \&room)
+\begin{DoxyCompactList}\small\item\em Universally incorporates a new chat channel profile mapping descriptor item into the active UI listing tree. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_main_window_a354ffada86e1f3cfad3dbd43ec675c30}{on\+Chat\+Widget\+Clicked}} (uint32\+\_\+t id, bool is\+Room)
+\begin{DoxyCompactList}\small\item\em Handler triggered when clicking a particular list item inside the sidebar panel tree nodes. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_main_window_aad64c37e78d333170c761ca7c9462698}{display\+Room\+Info}} (bool is\+Private, std::\+vector$<$ \doxymbox{\hyperlink{struct_user_data}{User\+Data}} $>$ users, std::\+vector$<$ \doxymbox{\hyperlink{struct_user_data}{User\+Data}} $>$ admins, bool am\+IAdmin=false, uint32\+\_\+t access\+Code=0, bool is\+Administered=true)
+\begin{DoxyCompactList}\small\item\em populates and formats the metadata information drawer panel regarding room parameters, limits, and moderators. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_main_window_a027f09df4781506f1ae6fe90be5ed9b7}{leave\+Room}} (const uint32\+\_\+t room\+Id)
+\begin{DoxyCompactList}\small\item\em Detaches the current user credentials from a specific channel and updates the application side-\/menu views. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_main_window_ad19372f195f2fc4821eb08fa33fbc027}{show\+Context\+Menu}} (const QPoint \&pos, uint32\+\_\+t user\+Id)
+\begin{DoxyCompactList}\small\item\em Generates and captures an on-\/screen contextual overlay options menu at a coordinate vector anchor position. \end{DoxyCompactList}\item 
+\Hypertarget{class_main_window_a6d349dd10041da3554d4a8a931f98798}\label{class_main_window_a6d349dd10041da3554d4a8a931f98798} 
+void {\bfseries scroll\+To\+Bottom} ()
+\begin{DoxyCompactList}\small\item\em Forces the primary chat scroll area container layout to immediately slide view boundaries to the lowest line. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_main_window_aa40c0f62f8e392dfd69f67417cfe2acb}{display\+Generated\+Code}} (const QString \&code)
+\begin{DoxyCompactList}\small\item\em Updates the user interface view to reveal a newly requested private room entry string token. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_main_window_a7b32166f016c5e607370d31bfe7ff917}{request\+Code}} (const std::\+string room\+Name)
+\begin{DoxyCompactList}\small\item\em Prompts a dialogue or sequence tracking an invite pin passcode restriction check on a protected area. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The main graphical user interface class of the client application. 
+
+
+\begin{DoxyItemize}
+\item This class handles all user interactions, visual component rendering, layout updates, and bridges the user interface layer with the underlying network and media systems through Qt signals and slots. 
+\end{DoxyItemize}
+
+\label{class_main_window_doc-constructors}
+\Hypertarget{class_main_window_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_main_window_a996c5a2b6f77944776856f08ec30858d}\index{MainWindow@{MainWindow}!MainWindow@{MainWindow}}
+\index{MainWindow@{MainWindow}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{MainWindow()}{MainWindow()}}
+{\footnotesize\ttfamily \label{class_main_window_a996c5a2b6f77944776856f08ec30858d} 
+Main\+Window::\+\+Main\+Window (\begin{DoxyParamCaption}\item[{QWidget \texorpdfstring{$\ast$}{*}}]{parent}{ = {\ttfamily nullptr}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Constructor for the \doxylink{class_main_window}{Main\+Window} class. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em parent} & Pointer to the parent widget (defaults to nullptr). \\
+\hline
+\end{DoxyParams}
+
+
+\label{class_main_window_doc-func-members}
+\Hypertarget{class_main_window_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_main_window_a458311575524b513c9cf9c2c934715fe}\index{MainWindow@{MainWindow}!addAdminRequest@{addAdminRequest}}
+\index{addAdminRequest@{addAdminRequest}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{addAdminRequest}{addAdminRequest}}
+{\footnotesize\ttfamily \label{class_main_window_a458311575524b513c9cf9c2c934715fe} 
+void Main\+Window::\+add\+Admin\+Request (\begin{DoxyParamCaption}\item[{const uint32\+\_\+t}]{room\+Id}{, }\item[{const uint32\+\_\+t}]{user\+Id}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+Administration request aimed at elevating specific standard user profile credentials onto moderator authority privileges. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em room\+Id} & Scope limitation context locator key parameter. \\
+\hline
+{\em user\+Id} & Target profile subject entity lookup parameter keys. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_main_window_a3bad909093fe052f3ad68d7ea894d6c6}\index{MainWindow@{MainWindow}!addRoom@{addRoom}}
+\index{addRoom@{addRoom}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{addRoom()}{addRoom()}}
+{\footnotesize\ttfamily \label{class_main_window_a3bad909093fe052f3ad68d7ea894d6c6} 
+void Main\+Window::\+add\+Room (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{struct_room_data}{Room\+Data}} \&}]{room}{}\end{DoxyParamCaption})}
+
+
+
+Universally incorporates a new chat channel profile mapping descriptor item into the active UI listing tree. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em room} & Data structure model mapping properties of the channel configuration. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_main_window_a36fd186beece925ed09d17bc07989f01}\index{MainWindow@{MainWindow}!afterLoginChanges@{afterLoginChanges}}
+\index{afterLoginChanges@{afterLoginChanges}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{afterLoginChanges()}{afterLoginChanges()}}
+{\footnotesize\ttfamily \label{class_main_window_a36fd186beece925ed09d17bc07989f01} 
+void Main\+Window::\+after\+Login\+Changes (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{struct_auth_response}{Auth\+Response}} \&}]{res}{}\end{DoxyParamCaption})}
+
+
+
+Performs global layout state transformations and side-\/bar rendering upon successful login validation. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em res} & The comprehensive payload containing personal credentials, room listings, and chat histories. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_main_window_a9c1418bcf85fa4c3544aac2730bcacb0}\index{MainWindow@{MainWindow}!appendMessage@{appendMessage}}
+\index{appendMessage@{appendMessage}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{appendMessage()}{appendMessage()}}
+{\footnotesize\ttfamily \label{class_main_window_a9c1418bcf85fa4c3544aac2730bcacb0} 
+void Main\+Window::\+append\+Message (\begin{DoxyParamCaption}\item[{const QString \&}]{sender}{, }\item[{const Message\+Content\+Type \&}]{msg\+Type}{, }\item[{const QString \&}]{text}{, }\item[{bool}]{is\+From\+Others}{ = {\ttfamily true}, }\item[{bool}]{add\+To\+Top}{ = {\ttfamily false}, }\item[{uint8\+\_\+t}]{top\+Index}{ = {\ttfamily 0}}\end{DoxyParamCaption})}
+
+
+
+Creates and appends a single message item widget to the scrolling chat display board. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sender} & The display name or identifier of the sender. \\
+\hline
+{\em msg\+Type} & The data layout type of the incoming message chunk. \\
+\hline
+{\em text} & The text body or resource reference identifier. \\
+\hline
+{\em is\+From\+Others} & True if the message originated from a remote user, false if sent by the local client. \\
+\hline
+{\em add\+To\+Top} & True to push the element onto the beginning of the chat layout (for history padding), false to append at the bottom. \\
+\hline
+{\em top\+Index} & Specifies the placement layout grid offset when prepending historical elements. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_main_window_ab581bf165c3ff9422f1a92f1a655c8e7}\index{MainWindow@{MainWindow}!appendUserRoomWidget@{appendUserRoomWidget}}
+\index{appendUserRoomWidget@{appendUserRoomWidget}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{appendUserRoomWidget()}{appendUserRoomWidget()}}
+{\footnotesize\ttfamily \label{class_main_window_ab581bf165c3ff9422f1a92f1a655c8e7} 
+void Main\+Window::\+append\+User\+Room\+Widget (\begin{DoxyParamCaption}\item[{const uint32\+\_\+t}]{id}{, }\item[{const QString \&}]{name}{, }\item[{bool}]{is\+Room}{ = {\ttfamily false}}\end{DoxyParamCaption})}
+
+
+
+Instantiates and injects a navigation button selector item into the rooms/\+chats sidebar menu. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & The logical entity ID associated with the item mapping. \\
+\hline
+{\em name} & The descriptive label displayed on the list panel button. \\
+\hline
+{\em is\+Room} & True to style and categorize it as a room node, false for a direct message buddy. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_main_window_a9169d64b7290d675df338d565313cea0}\index{MainWindow@{MainWindow}!appendUserWidget@{appendUserWidget}}
+\index{appendUserWidget@{appendUserWidget}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{appendUserWidget()}{appendUserWidget()}}
+{\footnotesize\ttfamily \label{class_main_window_a9169d64b7290d675df338d565313cea0} 
+void Main\+Window::\+append\+User\+Widget (\begin{DoxyParamCaption}\item[{const uint32\+\_\+t}]{id}{, }\item[{const QString \&}]{name}{, }\item[{bool}]{is\+Admin}{ = {\ttfamily false}, }\item[{bool}]{am\+IAdmin}{ = {\ttfamily false}}\end{DoxyParamCaption})}
+
+
+
+Appends a standard user row indicator entry inside the active room profile details sub-\/panel. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & Unique identification key of the subject member profile. \\
+\hline
+{\em name} & Text profile display name. \\
+\hline
+{\em is\+Admin} & True if the subject member holds administrative permissions within this channel. \\
+\hline
+{\em am\+IAdmin} & True if the local client executing this session has operator/\+admin rights in this context. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_main_window_a6894caf8c041f183c83387efe8b49fd8}\index{MainWindow@{MainWindow}!createRoomRequested@{createRoomRequested}}
+\index{createRoomRequested@{createRoomRequested}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{createRoomRequested}{createRoomRequested}}
+{\footnotesize\ttfamily \label{class_main_window_a6894caf8c041f183c83387efe8b49fd8} 
+void Main\+Window::\+create\+Room\+Requested (\begin{DoxyParamCaption}\item[{std::\+string}]{room\+Name}{, }\item[{bool}]{is\+Private}{, }\item[{bool}]{is\+Admin}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+Outgoing application request asking server instance to validate and allocate a new channel profile identity block. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em room\+Name} & Descriptive literal text title label mapping parameters. \\
+\hline
+{\em is\+Private} & Boolean privacy flag parameter toggling token verification challenges requirements. \\
+\hline
+{\em is\+Admin} & Administration credential assignment tracking flag parameters. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_main_window_ad85788d83c0d23a9e9419d626c7c1dff}\index{MainWindow@{MainWindow}!currentChat@{currentChat}}
+\index{currentChat@{currentChat}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{currentChat()}{currentChat()}}
+{\footnotesize\ttfamily \label{class_main_window_ad85788d83c0d23a9e9419d626c7c1dff} 
+\doxymbox{\hyperlink{struct_chat_context}{Chat\+Context}} Main\+Window::\+current\+Chat (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Retrieves the context of the currently selected or active chat session. 
+
+\begin{DoxyReturn}{Returns}
+\doxylink{struct_chat_context}{Chat\+Context} object representing the active room or private conversation. 
+\end{DoxyReturn}
+\Hypertarget{class_main_window_aa40c0f62f8e392dfd69f67417cfe2acb}\index{MainWindow@{MainWindow}!displayGeneratedCode@{displayGeneratedCode}}
+\index{displayGeneratedCode@{displayGeneratedCode}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{displayGeneratedCode()}{displayGeneratedCode()}}
+{\footnotesize\ttfamily \label{class_main_window_aa40c0f62f8e392dfd69f67417cfe2acb} 
+void Main\+Window::\+display\+Generated\+Code (\begin{DoxyParamCaption}\item[{const QString \&}]{code}{}\end{DoxyParamCaption})}
+
+
+
+Updates the user interface view to reveal a newly requested private room entry string token. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em code} & Text string containing the numeric access password verification data. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_main_window_a9f3bcf37df175984783542458800f516}\index{MainWindow@{MainWindow}!displayOlderMessages@{displayOlderMessages}}
+\index{displayOlderMessages@{displayOlderMessages}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{displayOlderMessages()}{displayOlderMessages()}}
+{\footnotesize\ttfamily \label{class_main_window_a9f3bcf37df175984783542458800f516} 
+void Main\+Window::\+display\+Older\+Messages (\begin{DoxyParamCaption}\item[{const std::\+vector$<$ \doxymbox{\hyperlink{struct_message_data}{Message\+Data}} $>$ \&}]{messages}{, }\item[{const uint32\+\_\+t}]{user\+Id}{}\end{DoxyParamCaption})}
+
+
+
+Populates the chat view layout with a structured batch of historical text or voice messages. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em messages} & Vector container containing archived historical message structures. \\
+\hline
+{\em user\+Id} & The ID of the local user requesting history, used to determine message orientation (left/\+right). \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_main_window_aad64c37e78d333170c761ca7c9462698}\index{MainWindow@{MainWindow}!displayRoomInfo@{displayRoomInfo}}
+\index{displayRoomInfo@{displayRoomInfo}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{displayRoomInfo()}{displayRoomInfo()}}
+{\footnotesize\ttfamily \label{class_main_window_aad64c37e78d333170c761ca7c9462698} 
+void Main\+Window::\+display\+Room\+Info (\begin{DoxyParamCaption}\item[{bool}]{is\+Private}{, }\item[{std::\+vector$<$ \doxymbox{\hyperlink{struct_user_data}{User\+Data}} $>$}]{users}{, }\item[{std::\+vector$<$ \doxymbox{\hyperlink{struct_user_data}{User\+Data}} $>$}]{admins}{, }\item[{bool}]{am\+IAdmin}{ = {\ttfamily false}, }\item[{uint32\+\_\+t}]{access\+Code}{ = {\ttfamily 0}, }\item[{bool}]{is\+Administered}{ = {\ttfamily true}}\end{DoxyParamCaption})}
+
+
+
+populates and formats the metadata information drawer panel regarding room parameters, limits, and moderators. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em is\+Private} & True if the target group context represents an encrypted or hidden room namespace challenge. \\
+\hline
+{\em users} & Vector dataset representing the standard subscribed group membership roster. \\
+\hline
+{\em admins} & Vector dataset containing user descriptions of moderators holding operator credentials. \\
+\hline
+{\em am\+IAdmin} & True if the current identity credentials allow layout modification commands. \\
+\hline
+{\em access\+Code} & The current validation invitation numeric token string value. \\
+\hline
+{\em is\+Administered} & Flag defining structural visibility limits regarding configuration options. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_main_window_aa3f79ed7ad3d3f7471a679446b06f1d5}\index{MainWindow@{MainWindow}!generateCodeRequested@{generateCodeRequested}}
+\index{generateCodeRequested@{generateCodeRequested}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{generateCodeRequested}{generateCodeRequested}}
+{\footnotesize\ttfamily \label{class_main_window_aa3f79ed7ad3d3f7471a679446b06f1d5} 
+void Main\+Window::\+generate\+Code\+Requested (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{room\+Id}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+Intention request asking backend logic models to generate and link an access token registration pin value onto a group structure. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em room\+Id} & Structural entity scope limiter context tracking indexes keys. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_main_window_ad222769cfcd6b7bf8afff48a2b494430}\index{MainWindow@{MainWindow}!joinRoomRequested@{joinRoomRequested}}
+\index{joinRoomRequested@{joinRoomRequested}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{joinRoomRequested}{joinRoomRequested}}
+{\footnotesize\ttfamily \label{class_main_window_ad222769cfcd6b7bf8afff48a2b494430} 
+void Main\+Window::\+join\+Room\+Requested (\begin{DoxyParamCaption}\item[{std::\+string}]{room\+Name}{, }\item[{uint32\+\_\+t}]{code}{ = {\ttfamily 0}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+Outgoing intent signaling a user attempt to attach active credential descriptors to an existing protected room entry. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em room\+Name} & Unique literal descriptive mapping tracking title keys. \\
+\hline
+{\em code} & Numeric challenge validation token value (defaults to 0 for open channels). \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_main_window_a027f09df4781506f1ae6fe90be5ed9b7}\index{MainWindow@{MainWindow}!leaveRoom@{leaveRoom}}
+\index{leaveRoom@{leaveRoom}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{leaveRoom()}{leaveRoom()}}
+{\footnotesize\ttfamily \label{class_main_window_a027f09df4781506f1ae6fe90be5ed9b7} 
+void Main\+Window::\+leave\+Room (\begin{DoxyParamCaption}\item[{const uint32\+\_\+t}]{room\+Id}{}\end{DoxyParamCaption})}
+
+
+
+Detaches the current user credentials from a specific channel and updates the application side-\/menu views. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em room\+Id} & Unique identification index parameter mapping of the objective workspace to depart. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_main_window_a329ca879cc043f8eae451ce2efe083cb}\index{MainWindow@{MainWindow}!leaveRoomRequested@{leaveRoomRequested}}
+\index{leaveRoomRequested@{leaveRoomRequested}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{leaveRoomRequested}{leaveRoomRequested}}
+{\footnotesize\ttfamily \label{class_main_window_a329ca879cc043f8eae451ce2efe083cb} 
+void Main\+Window::\+leave\+Room\+Requested (\begin{DoxyParamCaption}\item[{const uint32\+\_\+t}]{room\+Id}{, }\item[{const uint32\+\_\+t}]{user\+Id}{ = {\ttfamily 0}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+Request to disengage the active local profile identity parameters association mapping from a channel matrix database index. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em room\+Id} & Unique identification database structural search parameters. \\
+\hline
+{\em user\+Id} & The identification token key of target entity mapping (defaults to local context if 0). \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_main_window_a082fab5c1b2ec683633551d2e8d2990c}\index{MainWindow@{MainWindow}!loadMessages@{loadMessages}}
+\index{loadMessages@{loadMessages}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{loadMessages}{loadMessages}}
+{\footnotesize\ttfamily \label{class_main_window_a082fab5c1b2ec683633551d2e8d2990c} 
+void Main\+Window::\+load\+Messages (\begin{DoxyParamCaption}\item[{const uint32\+\_\+t}]{target\+Id}{, }\item[{const uint32\+\_\+t}]{offset}{, }\item[{bool}]{from\+Room}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+History request telling database interfaces to pull structured transaction records segment blocks. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em target\+Id} & Channel identity locator query identifier parameters. \\
+\hline
+{\em offset} & Transaction matrix sequence list paging displacement tracking boundaries. \\
+\hline
+{\em from\+Room} & Destination structural lookup type classifier settings markers. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_main_window_a1ea5c40a0fea0722f519d342767a6400}\index{MainWindow@{MainWindow}!newPrivChatRequested@{newPrivChatRequested}}
+\index{newPrivChatRequested@{newPrivChatRequested}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{newPrivChatRequested}{newPrivChatRequested}}
+{\footnotesize\ttfamily \label{class_main_window_a1ea5c40a0fea0722f519d342767a6400} 
+void Main\+Window::\+new\+Priv\+Chat\+Requested (\begin{DoxyParamCaption}\item[{std::\+string}]{username}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+Trigger request searching system registers database definitions to initialize a novel standalone direct workspace buddy conversation node. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em username} & String literal contact nickname handle query target. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_main_window_a354ffada86e1f3cfad3dbd43ec675c30}\index{MainWindow@{MainWindow}!onChatWidgetClicked@{onChatWidgetClicked}}
+\index{onChatWidgetClicked@{onChatWidgetClicked}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{onChatWidgetClicked()}{onChatWidgetClicked()}}
+{\footnotesize\ttfamily \label{class_main_window_a354ffada86e1f3cfad3dbd43ec675c30} 
+void Main\+Window::\+on\+Chat\+Widget\+Clicked (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{id}{, }\item[{bool}]{is\+Room}{}\end{DoxyParamCaption})}
+
+
+
+Handler triggered when clicking a particular list item inside the sidebar panel tree nodes. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & Logical target identity index parameter mapping. \\
+\hline
+{\em is\+Room} & Flag indicating if the chosen sidebar item element is a group room channel or a direct peer chat. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_main_window_a8a8ad93101588ec2a0059171acf97621}\index{MainWindow@{MainWindow}!onMessageReceived@{onMessageReceived}}
+\index{onMessageReceived@{onMessageReceived}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{onMessageReceived()}{onMessageReceived()}}
+{\footnotesize\ttfamily \label{class_main_window_a8a8ad93101588ec2a0059171acf97621} 
+void Main\+Window::\+on\+Message\+Received (\begin{DoxyParamCaption}\item[{const uint32\+\_\+t}]{sender\+Id}{, }\item[{const QString \&}]{sender\+Name}{, }\item[{const uint32\+\_\+t}]{target\+Id}{, }\item[{const Message\+Content\+Type \&}]{msg\+Type}{, }\item[{const QString \&}]{text}{, }\item[{bool}]{to\+Room}{}\end{DoxyParamCaption})}
+
+
+
+Callback invoked whenever a new text, audio, or system message arrives from the network. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sender\+Id} & Unique ID of the user who sent the message. \\
+\hline
+{\em sender\+Name} & Nickname of the message sender. \\
+\hline
+{\em target\+Id} & Destination ID, which could be either a user ID or a room ID. \\
+\hline
+{\em msg\+Type} & The content type classification of the message payload. \\
+\hline
+{\em text} & The textual representation or content reference of the payload. \\
+\hline
+{\em to\+Room} & Boolean flag specifying if the message belongs to a room (true) or a private chat (false). \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_main_window_a7b32166f016c5e607370d31bfe7ff917}\index{MainWindow@{MainWindow}!requestCode@{requestCode}}
+\index{requestCode@{requestCode}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{requestCode()}{requestCode()}}
+{\footnotesize\ttfamily \label{class_main_window_a7b32166f016c5e607370d31bfe7ff917} 
+void Main\+Window::\+request\+Code (\begin{DoxyParamCaption}\item[{const std::\+string}]{room\+Name}{}\end{DoxyParamCaption})}
+
+
+
+Prompts a dialogue or sequence tracking an invite pin passcode restriction check on a protected area. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em room\+Name} & Text tracking string label indicating target parameter bounds. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_main_window_af12ad1bb21f08973c5c20da0c19a7ff1}\index{MainWindow@{MainWindow}!roomInfoRequest@{roomInfoRequest}}
+\index{roomInfoRequest@{roomInfoRequest}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{roomInfoRequest}{roomInfoRequest}}
+{\footnotesize\ttfamily \label{class_main_window_af12ad1bb21f08973c5c20da0c19a7ff1} 
+void Main\+Window::\+room\+Info\+Request (\begin{DoxyParamCaption}\item[{const uint32\+\_\+t}]{room\+Id}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+Informative request asking for complete metadata synchronization update concerning a specific active room channel layout profile. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em room\+Id} & Target numerical identification key database query locator parameters. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_main_window_af710af05c1452535ec1883d4e054de4b}\index{MainWindow@{MainWindow}!sendRequested@{sendRequested}}
+\index{sendRequested@{sendRequested}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{sendRequested}{sendRequested}}
+{\footnotesize\ttfamily \label{class_main_window_af710af05c1452535ec1883d4e054de4b} 
+void Main\+Window::\+send\+Requested (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{target\+Id}{, }\item[{std::\+string}]{message}{, }\item[{bool}]{to\+Room}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+Triggered when the user submits a text message entry to be dispatched to the server. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em target\+Id} & Target recipient entity identifier (user or room ID). \\
+\hline
+{\em message} & Text paragraph payload. \\
+\hline
+{\em to\+Room} & Classification type specifying channel destination context traits. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_main_window_ad19372f195f2fc4821eb08fa33fbc027}\index{MainWindow@{MainWindow}!showContextMenu@{showContextMenu}}
+\index{showContextMenu@{showContextMenu}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{showContextMenu()}{showContextMenu()}}
+{\footnotesize\ttfamily \label{class_main_window_ad19372f195f2fc4821eb08fa33fbc027} 
+void Main\+Window::\+show\+Context\+Menu (\begin{DoxyParamCaption}\item[{const QPoint \&}]{pos}{, }\item[{uint32\+\_\+t}]{user\+Id}{}\end{DoxyParamCaption})}
+
+
+
+Generates and captures an on-\/screen contextual overlay options menu at a coordinate vector anchor position. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pos} & Physical display screen space pixel coordinates pointing location metrics. \\
+\hline
+{\em user\+Id} & The specific target profile member identity binding target key context. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_main_window_add67ad3259aa219698e0f65b2fc690c6}\index{MainWindow@{MainWindow}!userId@{userId}}
+\index{userId@{userId}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{userId()}{userId()}}
+{\footnotesize\ttfamily \label{class_main_window_add67ad3259aa219698e0f65b2fc690c6} 
+std::\+uint32\+\_\+t Main\+Window::\+user\+Id (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Retrieves the unique identifier of the currently logged-\/in user. 
+
+\begin{DoxyReturn}{Returns}
+std::\+uint32\+\_\+t representing the authenticated user\textquotesingle{}s ID. 
+\end{DoxyReturn}
+\Hypertarget{class_main_window_a1f1b39dd8a8b0ea2b25a075f6692332f}\index{MainWindow@{MainWindow}!voicePlayRequested@{voicePlayRequested}}
+\index{voicePlayRequested@{voicePlayRequested}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{voicePlayRequested}{voicePlayRequested}}
+{\footnotesize\ttfamily \label{class_main_window_a1f1b39dd8a8b0ea2b25a075f6692332f} 
+void Main\+Window::\+voice\+Play\+Requested (\begin{DoxyParamCaption}\item[{const std::\+string \&}]{file\+Name}{, }\item[{QPush\+Button \texorpdfstring{$\ast$}{*}}]{clicked\+Button}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+Voice play event intent routing serialized raw voice binary arrays data toward localized physical speakers hardware assets. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em file\+Name} & Storage location lookup identifier query key string. \\
+\hline
+{\em clicked\+Button} & Control visual node trigger emitting contextual event state changes parameters tracking references. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files:\+\begin{DoxyCompactItemize}
+\item 
+client/\+view/\+mainwindow.\+h\item 
+client/\+view/\+mainwindow.\+cpp\end{DoxyCompactItemize}

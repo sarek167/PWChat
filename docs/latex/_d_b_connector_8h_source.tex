@@ -1,0 +1,60 @@
+\doxysection{DBConnector.\+h}
+\hypertarget{_d_b_connector_8h_source}{}\label{_d_b_connector_8h_source}\index{server/include/server/DBConnector.h@{server/include/server/DBConnector.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ DBCONNECTOR\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ DBCONNECTOR\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}common/RoomData.h"{}}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}common/UserData.h"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}common/MessageData.h"{}}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00017\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_d_b_connector}{DBConnector}}\ \{}
+\DoxyCodeLine{00018\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keyword}{virtual}\ \doxymbox{\hyperlink{class_d_b_connector_af750c8b000669cef5327c9143f5c6d99}{\string~DBConnector}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{class_d_b_connector_a314ae907c83ae7a52f5313e036b723ae}{connect}}(\textcolor{keyword}{const}\ std::string\&\ dbPath)\ =\ 0;}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_d_b_connector_a88ebe69c38938f036c3bf493f876abe9}{disconnect}}()\ =\ 0;}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_d_b_connector_a57558eb88fc5b7c4a168bac0421a2e93}{initializeSchema}}()\ =\ 0;}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keyword}{virtual}\ std::vector<RoomData>\ \doxymbox{\hyperlink{class_d_b_connector_a6c4f73bd894556bc3706fdc702730b82}{getAllRooms}}()\ =\ 0;}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keyword}{virtual}\ std::vector<RoomData>\ \doxymbox{\hyperlink{class_d_b_connector_aef7a50c5f0019255296de8c52c046a2b}{getUserRooms}}(\textcolor{keyword}{const}\ uint32\_t\ userId)\ =\ 0;}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{class_d_b_connector_a4ba2fba02a2a28eafd440d5f57417942}{saveRoom}}(\textcolor{keyword}{const}\ std::string\&\ name,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ isPrivate,\ \textcolor{keyword}{const}\ uint32\_t\ ownerId)\ =\ 0;}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{class_d_b_connector_a0a2277a9c920d4d5413be7b5b5806031}{saveUserRoom}}(\textcolor{keyword}{const}\ uint32\_t\ userId,\ \textcolor{keyword}{const}\ uint32\_t\ roomId,\ \textcolor{keywordtype}{bool}\ isAdmin)\ =\ 0;}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{class_d_b_connector_af5a85ae36900fe19e6c093ced7888407}{deleteUserRoom}}(\textcolor{keyword}{const}\ uint32\_t\ userId,\ \textcolor{keyword}{const}\ uint32\_t\ roomId)\ =\ 0;}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keyword}{virtual}\ uint32\_t\ \doxymbox{\hyperlink{class_d_b_connector_ab542843823009c78c4b660f6ef999b11}{registerUser}}(\textcolor{keyword}{const}\ std::string\&\ nickname,\ \textcolor{keyword}{const}\ std::string\&\ password)\ =\ 0;}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00094\ \ \ \ \ \textcolor{keyword}{virtual}\ uint32\_t\ \doxymbox{\hyperlink{class_d_b_connector_a017c485c624dd930470fa0e48b13982c}{loginUser}}(\textcolor{keyword}{const}\ std::string\&\ nickname,\ \textcolor{keyword}{const}\ std::string\&\ password)\ =\ 0;}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00102\ \ \ \ \ \textcolor{keyword}{virtual}\ std::vector<UserData>\ \doxymbox{\hyperlink{class_d_b_connector_ace6400427e917c0d46d442ee0ea52b98}{getRoomUsers}}(\textcolor{keyword}{const}\ uint32\_t\ roomId,\ \textcolor{keywordtype}{bool}\ getAdmins\ =\ \textcolor{keyword}{false})\ =\ 0;}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00110\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{class_d_b_connector_a59c17a564acba554e551498fedd38d30}{addAdmin}}(\textcolor{keyword}{const}\ uint32\_t\ roomId,\ \textcolor{keyword}{const}\ uint32\_t\ userId)\ =\ 0;}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00121\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{class_d_b_connector_a3daf3374ef4fa2fd09b87a82a4510992}{saveMessage}}(\textcolor{keyword}{const}\ uint32\_t\ senderID,\ \textcolor{keyword}{const}\ uint32\_t\ targetId,\ \textcolor{keyword}{const}\ std::string\&\ message,\ \textcolor{keyword}{const}\ MessageContentType\&\ type,\ \textcolor{keywordtype}{bool}\ toRoom)\ =\ 0;}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00132\ \ \ \ \ \textcolor{keyword}{virtual}\ std::vector<MessageData>\ \doxymbox{\hyperlink{class_d_b_connector_a4fd174cf3843792a996c748138abbbe6}{getMessages}}(\textcolor{keyword}{const}\ uint32\_t\ targetId,\ \textcolor{keyword}{const}\ uint32\_t\ senderId,\ \textcolor{keywordtype}{bool}\ fromRoom,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ limit,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ offset)\ =\ 0;}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00140\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{class_d_b_connector_a8f21ffec806ca782f58b527ac7e13660}{saveRoomCode}}(\textcolor{keyword}{const}\ uint32\_t\ roomId,\ \textcolor{keyword}{const}\ uint32\_t\ code)\ =\ 0;}
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00147\ \ \ \ \ \textcolor{keyword}{virtual}\ uint32\_t\ \doxymbox{\hyperlink{class_d_b_connector_a208ec2c8797660dfd3699ce7a256f689}{getRoomCode}}(\textcolor{keyword}{const}\ uint32\_t\ roomId)\ =\ 0;}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00154\ \ \ \ \ \textcolor{keyword}{virtual}\ std::string\ \doxymbox{\hyperlink{class_d_b_connector_a83cc1eb7c435484684907725325fe446}{getUsername}}(\textcolor{keyword}{const}\ uint32\_t\ userId)\ =\ 0;}
+\DoxyCodeLine{00155\ }
+\DoxyCodeLine{00161\ \ \ \ \ \textcolor{keyword}{virtual}\ std::vector<UserData>\ \doxymbox{\hyperlink{class_d_b_connector_ad19f57f214ded160a6c4c79e800f6755}{getLastUserPrivChats}}(\textcolor{keyword}{const}\ uint32\_t\ userId)\ =\ 0;}
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00168\ \ \ \ \ \textcolor{keyword}{virtual}\ uint32\_t\ \doxymbox{\hyperlink{class_d_b_connector_ae1aaf1d9b2a8abcf4eca4793b44cff91}{findUserByNick}}(\textcolor{keyword}{const}\ std::string\ username)\ =\ 0;}
+\DoxyCodeLine{00169\ \};}
+\DoxyCodeLine{00170\ }
+\DoxyCodeLine{00171\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ DBCONNECTOR\_H}}
+
+\end{DoxyCode}

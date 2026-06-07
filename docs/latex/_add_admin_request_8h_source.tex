@@ -1,0 +1,22 @@
+\doxysection{Add\+Admin\+Request.\+h}
+\hypertarget{_add_admin_request_8h_source}{}\label{_add_admin_request_8h_source}\index{common/include/common/AddAdminRequest.h@{common/include/common/AddAdminRequest.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ ADDADMINREQUEST\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ ADDADMINREQUEST\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00012\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{struct_add_admin_request}{AddAdminRequest}}\ \{}
+\DoxyCodeLine{00013\ \ \ \ \ uint32\_t\ \doxymbox{\hyperlink{struct_add_admin_request_afdabbb0ffc5e74cfe83f2de5ff553574}{roomId}};\ }
+\DoxyCodeLine{00014\ \ \ \ \ uint32\_t\ \doxymbox{\hyperlink{struct_add_admin_request_a4b6664aac1d7e8d30e8d15969de01a00}{userId}};\ }
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ Archive>}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{struct_add_admin_request_ab53fbf6db726e2c9d3a09035f0235f06}{serialize}}(Archive\ \&\ archive)\ \{}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ archive(\doxymbox{\hyperlink{struct_add_admin_request_afdabbb0ffc5e74cfe83f2de5ff553574}{roomId}},\ \doxymbox{\hyperlink{struct_add_admin_request_a4b6664aac1d7e8d30e8d15969de01a00}{userId}});}
+\DoxyCodeLine{00024\ \ \ \ \ \}}
+\DoxyCodeLine{00025\ \};}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ ADDADMINREQUEST\_H}}
+
+\end{DoxyCode}

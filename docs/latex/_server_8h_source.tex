@@ -1,0 +1,58 @@
+\doxysection{Server.\+h}
+\hypertarget{_server_8h_source}{}\label{_server_8h_source}\index{server/include/server/Server.h@{server/include/server/Server.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ SERVER\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ SERVER\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <asio.hpp>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <map>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <mutex>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}Session.h"{}}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}common/Packet.h"{}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}server/RoomManager.h"{}}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}server/Commands/Command.h"{}}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}server/DBConnector.h"{}}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{using\ }asio::ip::tcp;}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00023\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_server_a8166bc7b2decc154ecf2333120019a44}{Server}}\ \{}
+\DoxyCodeLine{00024\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00031\ \ \ \ \ \doxymbox{\hyperlink{class_server_a8166bc7b2decc154ecf2333120019a44}{Server}}(asio::io\_context\&\ io\_context,\ \textcolor{keywordtype}{short}\ port);}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00036\ \ \ \ \ \doxymbox{\hyperlink{class_server_ac0c2f1f04de64bd49ef343ca283e71ed}{\string~Server}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_server_a2ade0c7f68a40be01be01a6a724fac89}{onPacketReceived}}(std::shared\_ptr<Session>\ session,\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{class_packet}{Packet}}\&\ p);}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_server_a021f6a4ce04c1b621e2fbe81adf1bd46}{routePacket}}(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{class_packet}{Packet}}\&\ p);}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_server_aa60aa04101c845ccadbcb85b303c0018}{insertClient}}(std::shared\_ptr<Session>\ session);}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_server_af8bcba672999dc804e7b84349078e1fc}{removeClient}}(std::shared\_ptr<Session>\ session);}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_server_adc189d3baa049beed9eb76b786fc6e6f}{loadDataFromDB}}();}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keyword}{const}\ std::shared\_ptr<Session>\ \doxymbox{\hyperlink{class_server_abf7252dbf4df305d76baa6d59e261e82}{client}}(uint32\_t\ clientId);}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00081\ \ \ \ \ \doxymbox{\hyperlink{class_room_manager}{RoomManager}}\&\ \doxymbox{\hyperlink{class_server_a35a6dd57890892281a245df93c836286}{roomManager}}();}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00087\ \ \ \ \ \doxymbox{\hyperlink{class_d_b_connector}{DBConnector}}\&\ \doxymbox{\hyperlink{class_server_a2d4139523a3094585747754f5bf1d40e}{db}}();}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00090\ \ \ \ \ \doxymbox{\hyperlink{class_room_manager}{RoomManager}}\ \doxymbox{\hyperlink{class_server_a6a00e5aa71ca5935b3e4d2c09238f0db}{m\_roomManager}};\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00091\ \ \ \ \ std::unique\_ptr<DBConnector>\ \doxymbox{\hyperlink{class_server_adc4b467277b914029cd836536de85bce}{m\_db}};\ }
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00097\ \ \ \ \ \textcolor{keywordtype}{void}\ do\_accept();}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \ \ \ \ tcp::acceptor\ m\_acceptor;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00100\ \ \ \ \ std::map<uint32\_t,\ std::shared\_ptr<Session>>\ m\_clients;\ }
+\DoxyCodeLine{00101\ \ \ \ \ std::mutex\ m\_clientsMutex;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00102\ \ \ \ \ std::map<MessageType,\ std::unique\_ptr<Command>>\ m\_commands;\ }
+\DoxyCodeLine{00103\ \};}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ SERVER\_H}}
+
+\end{DoxyCode}

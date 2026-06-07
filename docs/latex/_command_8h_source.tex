@@ -1,0 +1,20 @@
+\doxysection{Command.\+h}
+\hypertarget{_command_8h_source}{}\label{_command_8h_source}\index{server/include/server/Commands/Command.h@{server/include/server/Commands/Command.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ COMMAND\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ COMMAND\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}server/Session.h"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}common/Packet.h"{}}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00013\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_command}{Command}}\ \{}
+\DoxyCodeLine{00014\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keyword}{virtual}\ \doxymbox{\hyperlink{class_command_aa545a53d35818f9efb936daf3fa16c61}{\string~Command}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_command_aa65874a3f62c1237796da1feb04a5f1d}{execute}}(std::shared\_ptr<Session>\ session,\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{class_packet}{Packet}}\&\ p,\ \doxymbox{\hyperlink{class_server}{Server}}\&\ server)\ =\ 0;}
+\DoxyCodeLine{00028\ \};}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ COMMAND\_H}}
+
+\end{DoxyCode}

@@ -1,0 +1,27 @@
+var searchData=
+[
+  ['registercommand_0',['RegisterCommand',['../class_register_command.html',1,'']]],
+  ['registererror_1',['registerError',['../class_login_window.html#aee6b0334bcc238a8990aee0132957001',1,'LoginWindow']]],
+  ['registerrequest_2',['RegisterRequest',['../struct_register_request.html',1,'']]],
+  ['registerrequested_3',['registerRequested',['../class_login_window.html#a673692c8271a4f1761fa2bf865845869',1,'LoginWindow']]],
+  ['registerresultreceived_4',['RegisterResultReceived',['../class_network_manager.html#a74b0e186519595532f28e9dbf66099f9',1,'NetworkManager']]],
+  ['registeruser_5',['registerUser',['../class_d_b_connector.html#ab542843823009c78c4b660f6ef999b11',1,'DBConnector::registerUser()'],['../class_s_q_lite_connector.html#a23e4a8e1d178fff0868561668bd1375e',1,'SQLiteConnector::registerUser()']]],
+  ['removeadmin_6',['removeAdmin',['../class_room.html#a734c4cd4b1c7d22c654c183fa988d7ef',1,'Room']]],
+  ['removeclient_7',['removeClient',['../class_room.html#a9bb93017b88f5d230672b1c79f38c501',1,'Room::removeClient()'],['../class_server.html#af8bcba672999dc804e7b84349078e1fc',1,'Server::removeClient()']]],
+  ['removeroom_8',['removeRoom',['../class_room_manager.html#a30f1a095a4e371bf2b05e5bf1dd22caf',1,'RoomManager']]],
+  ['requestcode_9',['requestCode',['../class_main_window.html#a7b32166f016c5e607370d31bfe7ff917',1,'MainWindow']]],
+  ['resetforms_10',['resetForms',['../class_login_window.html#aa86e90e9308e3297a8952c66394c923e',1,'LoginWindow']]],
+  ['room_11',['Room',['../class_room.html',1,'Room'],['../class_room.html#a4a1bc911e10ab6af877c82674031eb65',1,'Room::Room()'],['../struct_chat_context.html#a4f99c6867baf75a0ca1140fc1edb4a0facc3abcf4426bff80257d22999d0eda8f',1,'ChatContext::Room']]],
+  ['roomdata_12',['RoomData',['../struct_room_data.html',1,'']]],
+  ['roomid_13',['roomId',['../struct_add_admin_request.html#afdabbb0ffc5e74cfe83f2de5ff553574',1,'AddAdminRequest::roomId'],['../struct_leave_room_request.html#a30bb2ba07773ad1dce1de3f7857c89f5',1,'LeaveRoomRequest::roomId']]],
+  ['roominfocommand_14',['RoomInfoCommand',['../class_room_info_command.html',1,'']]],
+  ['roominforeceived_15',['RoomInfoReceived',['../class_network_manager.html#a778dbb401e2f176bdda08a302dfa49d8',1,'NetworkManager']]],
+  ['roominforequest_16',['roomInfoRequest',['../class_main_window.html#af12ad1bb21f08973c5c20da0c19a7ff1',1,'MainWindow']]],
+  ['roommanager_17',['RoomManager',['../class_room_manager.html',1,'']]],
+  ['roommanager_18',['roomManager',['../class_server.html#a35a6dd57890892281a245df93c836286',1,'Server']]],
+  ['roommesscommand_19',['RoomMessCommand',['../class_room_mess_command.html',1,'']]],
+  ['roomname_20',['roomName',['../struct_create_room_request.html#a7843cab29ed4464039f054b6944626c6',1,'CreateRoomRequest']]],
+  ['roomrequestconfirmation_21',['RoomRequestConfirmation',['../class_network_manager.html#ad6438d48eaa70c91f86a3901e19b84fa',1,'NetworkManager']]],
+  ['roomuserdata_22',['RoomUserData',['../struct_room_user_data.html',1,'']]],
+  ['routepacket_23',['routePacket',['../class_server.html#a021f6a4ce04c1b621e2fbe81adf1bd46',1,'Server']]]
+];

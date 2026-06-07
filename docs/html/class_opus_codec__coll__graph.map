@@ -1,0 +1,5 @@
+<map id="OpusCodec" name="OpusCodec">
+<area shape="rect" id="Node000001" title="Subclass of AudioCodec using specifically Opus library. It is responsible for encoding pcm data to tr..." alt="" coords="6,80,97,107"/>
+<area shape="rect" id="Node000002" href="$class_audio_codec.html" title="Abstract base class (interface) representing all audio codecs in the system. It defines the pure virt..." alt="" coords="5,5,98,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="53,46,54,80,49,79,50,50"/>
+</map>

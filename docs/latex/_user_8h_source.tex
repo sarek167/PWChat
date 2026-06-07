@@ -1,0 +1,32 @@
+\doxysection{User.\+h}
+\hypertarget{_user_8h_source}{}\label{_user_8h_source}\index{common/include/common/User.h@{common/include/common/User.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ USER\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ USER\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00013\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_user_af6801c1197ff85e492a75fcbfe52f5d1}{User}}\ \{}
+\DoxyCodeLine{00014\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00020\ \ \ \ \ \doxymbox{\hyperlink{class_user_af6801c1197ff85e492a75fcbfe52f5d1}{User}}(uint32\_t\ \textcolor{keywordtype}{id},\ std::string\ \doxymbox{\hyperlink{class_user_a5853f3b9870d17eda0598baf035a4e13}{nickname}});}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00025\ \ \ \ \ \doxymbox{\hyperlink{class_user_aaaa11924d837d07cbf5deb2cb71b83c1}{\string~User}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keyword}{const}\ uint32\_t\ \doxymbox{\hyperlink{class_user_af6d7fa507d0c32871ec9c739cc19a646}{id}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keyword}{const}\ std::string\ \doxymbox{\hyperlink{class_user_a5853f3b9870d17eda0598baf035a4e13}{nickname}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_user_a7a4d83bbf24b084b3bf72acaa8d59c90}{setId}}(uint32\_t\ \textcolor{keywordtype}{id});}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_user_a403f2f88ba2dbef58663e76e1a412ee7}{setNickname}}(std::string\ nick);}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00052\ \ \ \ \ uint32\_t\ m\_id;\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00053\ \ \ \ \ std::string\ m\_nickname;\ \ \ }
+\DoxyCodeLine{00054\ \};}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ USER\_H}}
+
+\end{DoxyCode}

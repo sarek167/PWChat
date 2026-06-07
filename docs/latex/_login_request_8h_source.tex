@@ -1,0 +1,25 @@
+\doxysection{Login\+Request.\+h}
+\hypertarget{_login_request_8h_source}{}\label{_login_request_8h_source}\index{common/include/common/LoginRequest.h@{common/include/common/LoginRequest.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ LOGINREQUEST\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ LOGINREQUEST\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <cereal/types/string.hpp>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <cstdint>}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00014\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{struct_login_request}{LoginRequest}}\ \{}
+\DoxyCodeLine{00015\ \ \ \ \ uint32\_t\ \doxymbox{\hyperlink{struct_login_request_ace538fec08195e8839f4a95a40dc40c1}{id}};\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00016\ \ \ \ \ std::string\ \doxymbox{\hyperlink{struct_login_request_ab93ed3d7907913d78874cfdea166f14e}{nickname}};\ \ \ \ }
+\DoxyCodeLine{00017\ \ \ \ \ std::string\ \doxymbox{\hyperlink{struct_login_request_ae4764de80a90ea41998c7d9e4ef55d56}{password}};\ \ \ \ }
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ Archive>}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{struct_login_request_aae08688a0e6bdb7ae98a28048a61d76c}{serialize}}(Archive\ \&\ archive)\ \{}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ archive(\textcolor{keywordtype}{id},\ \doxymbox{\hyperlink{struct_login_request_ab93ed3d7907913d78874cfdea166f14e}{nickname}},\ \doxymbox{\hyperlink{struct_login_request_ae4764de80a90ea41998c7d9e4ef55d56}{password}});}
+\DoxyCodeLine{00027\ \ \ \ \ \}}
+\DoxyCodeLine{00028\ \};}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ LOGINREQUEST\_H}}
+
+\end{DoxyCode}

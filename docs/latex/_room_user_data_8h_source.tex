@@ -1,0 +1,31 @@
+\doxysection{Room\+User\+Data.\+h}
+\hypertarget{_room_user_data_8h_source}{}\label{_room_user_data_8h_source}\index{common/include/common/RoomUserData.h@{common/include/common/RoomUserData.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ ROOMUSERDATA\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ ROOMUSERDATA\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}common/UserData.h"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <cereal/archives/binary.hpp>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <cereal/types/vector.hpp>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <cereal/types/string.hpp>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00017\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{struct_room_user_data}{RoomUserData}}\ \{}
+\DoxyCodeLine{00018\ \ \ \ \ uint32\_t\ \doxymbox{\hyperlink{struct_room_user_data_a69f56b0df606bda6eb9aaf0c6517f48d}{id}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00019\ \ \ \ \ std::string\ \doxymbox{\hyperlink{struct_room_user_data_a9cab21a37a4f334b76931c7ccf298d74}{name}};\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{struct_room_user_data_a23dcd7ca66060d7bba3e4d8dc0a654a9}{isPrivate}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00021\ \ \ \ \ uint32\_t\ \doxymbox{\hyperlink{struct_room_user_data_a687d0091b58e0726fe39332e1bd26fd0}{accessCode}}\ =\ 0;\ \ \ \ \ \ }
+\DoxyCodeLine{00022\ \ \ \ \ std::vector<UserData>\ \doxymbox{\hyperlink{struct_room_user_data_ab7c2a53121209d6d9b08588a71eb665c}{users}};\ \ }
+\DoxyCodeLine{00023\ \ \ \ \ std::vector<UserData>\ \doxymbox{\hyperlink{struct_room_user_data_aa77f51322f4a72eb2ed41fe8ef0f1346}{admins}};\ }
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ Archive>}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{struct_room_user_data_a8c0e001ef74842ad63c219c77c8ce1a1}{serialize}}(Archive\ \&\ archive)\ \{}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ archive(\textcolor{keywordtype}{id},\ \doxymbox{\hyperlink{struct_room_user_data_a9cab21a37a4f334b76931c7ccf298d74}{name}},\ \doxymbox{\hyperlink{struct_room_user_data_a23dcd7ca66060d7bba3e4d8dc0a654a9}{isPrivate}},\ \doxymbox{\hyperlink{struct_room_user_data_a687d0091b58e0726fe39332e1bd26fd0}{accessCode}},\ \doxymbox{\hyperlink{struct_room_user_data_ab7c2a53121209d6d9b08588a71eb665c}{users}},\ \doxymbox{\hyperlink{struct_room_user_data_aa77f51322f4a72eb2ed41fe8ef0f1346}{admins}});}
+\DoxyCodeLine{00033\ \ \ \ \ \}}
+\DoxyCodeLine{00034\ \};}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ ROOMUSERDATA\_H}}
+
+\end{DoxyCode}

@@ -1,0 +1,194 @@
+\doxysection{Packet Class Reference}
+\hypertarget{class_packet}{}\label{class_packet}\index{Packet@{Packet}}
+
+
+Class representing a full network packet that holds both a header and data (body).  
+
+
+
+
+{\ttfamily \+\#include $<$Packet.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_packet_ab1ec7232eac75450a4392bb9c10921fb}\label{class_packet_ab1ec7232eac75450a4392bb9c10921fb} 
+{\bfseries Packet} ()=default
+\begin{DoxyCompactList}\small\item\em Default constructor for \doxylink{class_packet}{Packet} class creating an empty packet. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{class_packet_ae8ce51680585daaf6517816c6322db02}{Packet}} (const \doxymbox{\hyperlink{struct_packet_header}{Packet\+Header}} \&header, const std::\+vector$<$ char $>$ \&body)
+\begin{DoxyCompactList}\small\item\em Constructor that creates a packet from an existing header and a ready, raw binary body. \end{DoxyCompactList}\item 
+std::\+vector$<$ char $>$ \doxymbox{\hyperlink{class_packet_aeefbd760718b9fe237359a088094c196}{pack}} () const
+\begin{DoxyCompactList}\small\item\em Merges the header and the body into one flat byte array, ready to be sent via TCP socket. \end{DoxyCompactList}\item 
+const \doxymbox{\hyperlink{struct_packet_header}{Packet\+Header}} \& \doxymbox{\hyperlink{class_packet_a06981f802585bcbf7405f84af9058cd6}{header}} () const
+\begin{DoxyCompactList}\small\item\em Getter for the packet header. \end{DoxyCompactList}\item 
+const std::\+vector$<$ char $>$ \& \doxymbox{\hyperlink{class_packet_af67f45d2f1c3c226a3e8f120d0ff4aca}{body}} () const
+\begin{DoxyCompactList}\small\item\em Getter for the raw body bytes. \end{DoxyCompactList}\item 
+{\footnotesize template$<$class Archive$>$ }\\void \doxymbox{\hyperlink{class_packet_a072cc445645c460434c557051ead1cd4}{serialize}} (Archive \&archive)
+\begin{DoxyCompactList}\small\item\em Serialization method used by Cereal to pack or unpack the packet fields. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T$>$ }\\T \doxymbox{\hyperlink{class_packet_a6270ea18d3ccce3344cb48bbc1703b5a}{unpack\+Body}} () const
+\begin{DoxyCompactList}\small\item\em Helper method that converts the raw body bytes back into a real C++ object/\+struct. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T$>$ }\\\doxymbox{\hyperlink{class_packet_a8de7adc57aac11cb83792902542192f9}{Packet}} (Message\+Type type, uint32\+\_\+t target\+Id, uint32\+\_\+t sender\+Id, const T \&data)
+\begin{DoxyCompactList}\small\item\em Template constructor that automatically creates the header and converts any given struct into the body buffer. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+class \doxymbox{\hyperlink{class_packet_ab2f44cbb59a08132f4c843e5225bba0e}{cereal::\+access}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Class representing a full network packet that holds both a header and data (body). 
+
+
+\begin{DoxyItemize}
+\item It uses the Cereal library to easily change structures/\+objects into raw bytes ready to send over the network, and vice versa. 
+\end{DoxyItemize}
+
+\label{class_packet_doc-constructors}
+\Hypertarget{class_packet_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_packet_ae8ce51680585daaf6517816c6322db02}\index{Packet@{Packet}!Packet@{Packet}}
+\index{Packet@{Packet}!Packet@{Packet}}
+\doxysubsubsection{\texorpdfstring{Packet()}{Packet()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_packet_ae8ce51680585daaf6517816c6322db02} 
+Packet::\+\+Packet (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{struct_packet_header}{Packet\+Header}} \&}]{header}{, }\item[{const std::\+vector$<$ char $>$ \&}]{body}{}\end{DoxyParamCaption})}
+
+
+
+Constructor that creates a packet from an existing header and a ready, raw binary body. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em header} & The \doxylink{struct_packet_header}{Packet\+Header} object with packet details. \\
+\hline
+{\em body} & Vector containing the raw bytes of the body. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_packet_a8de7adc57aac11cb83792902542192f9}\index{Packet@{Packet}!Packet@{Packet}}
+\index{Packet@{Packet}!Packet@{Packet}}
+\doxysubsubsection{\texorpdfstring{Packet()}{Packet()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_packet_a8de7adc57aac11cb83792902542192f9} 
+template$<$typename T$>$ \\
+Packet::\+\+Packet (\begin{DoxyParamCaption}\item[{Message\+Type}]{type}{, }\item[{uint32\+\_\+t}]{target\+Id}{, }\item[{uint32\+\_\+t}]{sender\+Id}{, }\item[{const T \&}]{data}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Template constructor that automatically creates the header and converts any given struct into the body buffer. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & The type of the data structure being sent. \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em type} & The type/\+opcode of the message. \\
+\hline
+{\em target\+Id} & ID of the destination room or user. \\
+\hline
+{\em sender\+Id} & ID of the user sending this packet. \\
+\hline
+{\em data} & The actual struct/\+object data we want to serialize and send. \\
+\hline
+\end{DoxyParams}
+
+
+\label{class_packet_doc-func-members}
+\Hypertarget{class_packet_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_packet_af67f45d2f1c3c226a3e8f120d0ff4aca}\index{Packet@{Packet}!body@{body}}
+\index{body@{body}!Packet@{Packet}}
+\doxysubsubsection{\texorpdfstring{body()}{body()}}
+{\footnotesize\ttfamily \label{class_packet_af67f45d2f1c3c226a3e8f120d0ff4aca} 
+const std::\+vector$<$ char $>$ \& Packet::\+body (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+
+
+Getter for the raw body bytes. 
+
+\begin{DoxyReturn}{Returns}
+const std::\+vector$<$char$>$\& Reference to the vector holding the body data. 
+\end{DoxyReturn}
+\Hypertarget{class_packet_a06981f802585bcbf7405f84af9058cd6}\index{Packet@{Packet}!header@{header}}
+\index{header@{header}!Packet@{Packet}}
+\doxysubsubsection{\texorpdfstring{header()}{header()}}
+{\footnotesize\ttfamily \label{class_packet_a06981f802585bcbf7405f84af9058cd6} 
+const \doxymbox{\hyperlink{struct_packet_header}{Packet\+Header}} \& Packet::\+header (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+
+
+Getter for the packet header. 
+
+\begin{DoxyReturn}{Returns}
+const \doxylink{struct_packet_header}{Packet\+Header}\& Reference to the packet\textquotesingle{}s header structure. 
+\end{DoxyReturn}
+\Hypertarget{class_packet_aeefbd760718b9fe237359a088094c196}\index{Packet@{Packet}!pack@{pack}}
+\index{pack@{pack}!Packet@{Packet}}
+\doxysubsubsection{\texorpdfstring{pack()}{pack()}}
+{\footnotesize\ttfamily \label{class_packet_aeefbd760718b9fe237359a088094c196} 
+std::\+vector$<$ char $>$ Packet::\+pack (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+
+
+Merges the header and the body into one flat byte array, ready to be sent via TCP socket. 
+
+\begin{DoxyReturn}{Returns}
+std::\+vector$<$char$>$ A buffer where the header bytes are followed right away by the body bytes. 
+\end{DoxyReturn}
+\Hypertarget{class_packet_a072cc445645c460434c557051ead1cd4}\index{Packet@{Packet}!serialize@{serialize}}
+\index{serialize@{serialize}!Packet@{Packet}}
+\doxysubsubsection{\texorpdfstring{serialize()}{serialize()}}
+{\footnotesize\ttfamily \label{class_packet_a072cc445645c460434c557051ead1cd4} 
+template$<$class Archive$>$ \\
+void Packet::\+serialize (\begin{DoxyParamCaption}\item[{Archive \&}]{archive}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Serialization method used by Cereal to pack or unpack the packet fields. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Archive} & Type of the data stream (like binary or JSON). \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em archive} & Reference to the archive object doing the saving or loading. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_packet_a6270ea18d3ccce3344cb48bbc1703b5a}\index{Packet@{Packet}!unpackBody@{unpackBody}}
+\index{unpackBody@{unpackBody}!Packet@{Packet}}
+\doxysubsubsection{\texorpdfstring{unpackBody()}{unpackBody()}}
+{\footnotesize\ttfamily \label{class_packet_a6270ea18d3ccce3344cb48bbc1703b5a} 
+template$<$typename T$>$ \\
+T Packet::\+unpack\+Body (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Helper method that converts the raw body bytes back into a real C++ object/\+struct. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & The target struct or class type we want to unpack the data into. \\
+\hline
+\end{DoxyTemplParams}
+\begin{DoxyReturn}{Returns}
+T The fully reconstructed data object. 
+\end{DoxyReturn}
+
+
+\label{class_packet_doc-related-members}
+\Hypertarget{class_packet_doc-related-members}
+\doxysubsection{Friends And Related Symbol Documentation}
+\Hypertarget{class_packet_ab2f44cbb59a08132f4c843e5225bba0e}\index{Packet@{Packet}!cereal::access@{cereal::access}}
+\index{cereal::access@{cereal::access}!Packet@{Packet}}
+\doxysubsubsection{\texorpdfstring{cereal::access}{cereal::access}}
+{\footnotesize\ttfamily \label{class_packet_ab2f44cbb59a08132f4c843e5225bba0e} 
+friend class cereal::\+access\hspace{0.3cm}{\ttfamily [friend]}}
+
+Gives the Cereal library access to private fields so it can serialize them. 
+
+The documentation for this class was generated from the following files:\+\begin{DoxyCompactItemize}
+\item 
+common/\+include/\+common/\+Packet.\+h\item 
+common/\+src/\+Packet.\+cpp\end{DoxyCompactItemize}

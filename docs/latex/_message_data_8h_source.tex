@@ -1,0 +1,33 @@
+\doxysection{Message\+Data.\+h}
+\hypertarget{_message_data_8h_source}{}\label{_message_data_8h_source}\index{common/include/common/MessageData.h@{common/include/common/MessageData.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ MESSAGEDATA\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ MESSAGEDATA\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <cereal/archives/binary.hpp>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <cereal/types/string.hpp>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00013\ \textcolor{keyword}{enum\ class}\ MessageContentType\ :\ uint8\_t\ \{}
+\DoxyCodeLine{00014\ \ \ \ \ TEXT\ =\ 0,\ \ }
+\DoxyCodeLine{00015\ \ \ \ \ AUDIO\ =\ 1\ \ }
+\DoxyCodeLine{00016\ \};}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00024\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{struct_message_data}{MessageData}}\ \{}
+\DoxyCodeLine{00025\ \ \ \ \ uint32\_t\ \doxymbox{\hyperlink{struct_message_data_a70fc9bb13a645d77a7a950038197ae07}{senderId}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00026\ \ \ \ \ std::string\ \doxymbox{\hyperlink{struct_message_data_a7689a4ba68084c2787d6cd6e977f85b6}{senderName}};\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00027\ \ \ \ \ uint32\_t\ \doxymbox{\hyperlink{struct_message_data_ab286866a8d94c1632a967dfc6e2b2283}{targetId}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00028\ \ \ \ \ std::string\ \doxymbox{\hyperlink{struct_message_data_ad7226721d7b426ec05e59b1eb3221086}{message}};\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00029\ \ \ \ \ MessageContentType\ \doxymbox{\hyperlink{struct_message_data_aeb30ebbdca30b63e15b8b97b0bd81fce}{messageType}}\ =\ MessageContentType::TEXT;\ }
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ Archive>}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{struct_message_data_a50964bc085f8042c7f1298494190bf66}{serialize}}(Archive\ \&\ archive)\ \{}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ archive(\doxymbox{\hyperlink{struct_message_data_a70fc9bb13a645d77a7a950038197ae07}{senderId}},\ \doxymbox{\hyperlink{struct_message_data_a7689a4ba68084c2787d6cd6e977f85b6}{senderName}},\ \doxymbox{\hyperlink{struct_message_data_ab286866a8d94c1632a967dfc6e2b2283}{targetId}},\ \doxymbox{\hyperlink{struct_message_data_ad7226721d7b426ec05e59b1eb3221086}{message}},\ \doxymbox{\hyperlink{struct_message_data_aeb30ebbdca30b63e15b8b97b0bd81fce}{messageType}});}
+\DoxyCodeLine{00039\ \ \ \ \ \}}
+\DoxyCodeLine{00040\ \};}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ MESSAGEDATA\_H}}
+
+\end{DoxyCode}

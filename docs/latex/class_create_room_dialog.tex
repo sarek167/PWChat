@@ -1,0 +1,97 @@
+\doxysection{Create\+Room\+Dialog Class Reference}
+\hypertarget{class_create_room_dialog}{}\label{class_create_room_dialog}\index{CreateRoomDialog@{CreateRoomDialog}}
+
+
+Class representing widget for creating room.  
+
+
+
+
+{\ttfamily \+\#include $<$createroomdialog.\+h$>$}
+
+
+
+Inheritance diagram for Create\+Room\+Dialog:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=179pt]{class_create_room_dialog__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Create\+Room\+Dialog:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=179pt]{class_create_room_dialog__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \doxymbox{\hyperlink{class_create_room_dialog_abf338e0c3c984e3028b6a2c8b2f6c3a0}{create\+Room\+Requested}} (std::\+string room\+Name, bool is\+Private, bool is\+Admin)
+\begin{DoxyCompactList}\small\item\em Signal which is sent when user filled in all information and clicks submit button. It is forwarded to \doxylink{class_network_manager}{Network\+Manager} to send to server. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{class_create_room_dialog_aa046f0e154552ba2668014a07518e38d}{Create\+Room\+Dialog}} (QWidget \texorpdfstring{$\ast$}{*}parent=nullptr)
+\begin{DoxyCompactList}\small\item\em Constructor for class \doxylink{class_create_room_dialog}{Create\+Room\+Dialog}. \end{DoxyCompactList}\item 
+\Hypertarget{class_create_room_dialog_ae38abb6984ebad2968a51c973f7d49f6}\label{class_create_room_dialog_ae38abb6984ebad2968a51c973f7d49f6} 
+{\bfseries \texorpdfstring{$\sim$}{\string~}\+Create\+Room\+Dialog} ()
+\begin{DoxyCompactList}\small\item\em Destructor for class \doxylink{class_create_room_dialog}{Create\+Room\+Dialog}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Class representing widget for creating room. 
+
+\label{class_create_room_dialog_doc-constructors}
+\Hypertarget{class_create_room_dialog_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_create_room_dialog_aa046f0e154552ba2668014a07518e38d}\index{CreateRoomDialog@{CreateRoomDialog}!CreateRoomDialog@{CreateRoomDialog}}
+\index{CreateRoomDialog@{CreateRoomDialog}!CreateRoomDialog@{CreateRoomDialog}}
+\doxysubsubsection{\texorpdfstring{CreateRoomDialog()}{CreateRoomDialog()}}
+{\footnotesize\ttfamily \label{class_create_room_dialog_aa046f0e154552ba2668014a07518e38d} 
+Create\+Room\+Dialog::\+\+Create\+Room\+Dialog (\begin{DoxyParamCaption}\item[{QWidget \texorpdfstring{$\ast$}{*}}]{parent}{ = {\ttfamily nullptr}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Constructor for class \doxylink{class_create_room_dialog}{Create\+Room\+Dialog}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em parent} & Pointer to the parent widget (defaults to nullptr). \\
+\hline
+\end{DoxyParams}
+
+
+\label{class_create_room_dialog_doc-func-members}
+\Hypertarget{class_create_room_dialog_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_create_room_dialog_abf338e0c3c984e3028b6a2c8b2f6c3a0}\index{CreateRoomDialog@{CreateRoomDialog}!createRoomRequested@{createRoomRequested}}
+\index{createRoomRequested@{createRoomRequested}!CreateRoomDialog@{CreateRoomDialog}}
+\doxysubsubsection{\texorpdfstring{createRoomRequested}{createRoomRequested}}
+{\footnotesize\ttfamily \label{class_create_room_dialog_abf338e0c3c984e3028b6a2c8b2f6c3a0} 
+void Create\+Room\+Dialog::\+create\+Room\+Requested (\begin{DoxyParamCaption}\item[{std::\+string}]{room\+Name}{, }\item[{bool}]{is\+Private}{, }\item[{bool}]{is\+Admin}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+Signal which is sent when user filled in all information and clicks submit button. It is forwarded to \doxylink{class_network_manager}{Network\+Manager} to send to server. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em room\+Name} & The unique textual name or title designed for the new room channel. \\
+\hline
+{\em is\+Private} & Boolean flag specifying if the channel requires an access code verification (true) or is public (false). \\
+\hline
+{\em is\+Admin} & Boolean flag defining if the room creator should be assigned administrative operator rights. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files:\+\begin{DoxyCompactItemize}
+\item 
+client/\+view/\+createroomdialog.\+h\item 
+client/\+view/\+createroomdialog.\+cpp\end{DoxyCompactItemize}

@@ -1,0 +1,7 @@
+<map id="Room" name="Room">
+<area shape="rect" id="Node000001" title="Base class representing a general chat room on the server." alt="" coords="84,5,141,32"/>
+<area shape="rect" id="Node000002" href="$class_private_room.html" title="Represents a private chat room that requires an access code to join." alt="" coords="5,80,103,107"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="95,44,66,81,62,78,90,45"/>
+<area shape="rect" id="Node000003" href="$class_public_room.html" title="Represents a public chat room that anyone can join." alt="" coords="126,80,219,107"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="134,42,165,80,160,79,131,46"/>
+</map>

@@ -1,0 +1,145 @@
+\doxysection{Private\+Room Class Reference}
+\hypertarget{class_private_room}{}\label{class_private_room}\index{PrivateRoom@{PrivateRoom}}
+
+
+Represents a private chat room that requires an access code to join.  
+
+
+
+
+{\ttfamily \+\#include $<$Private\+Room.\+h$>$}
+
+
+
+Inheritance diagram for Private\+Room:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=153pt]{class_private_room__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Private\+Room:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=153pt]{class_private_room__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{class_private_room_a75248cf2619f9fb33eec0b93a92c3ab0}{Private\+Room}} (uint32\+\_\+t id, std::\+string name, uint32\+\_\+t owner\+Id)
+\begin{DoxyCompactList}\small\item\em Constructor for \doxylink{class_private_room}{Private\+Room} class. Passes fundamental room parameters straight to the base \doxylink{class_room}{Room} constructor. \end{DoxyCompactList}\item 
+\Hypertarget{class_private_room_acb91c15e3f14b1169e155db570d09fa0}\label{class_private_room_acb91c15e3f14b1169e155db570d09fa0} 
+virtual {\bfseries \texorpdfstring{$\sim$}{\string~}\+Private\+Room} ()=default
+\begin{DoxyCompactList}\small\item\em Destructor for \doxylink{class_private_room}{Private\+Room} class. \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{class_private_room_ac6d2b1bbbaa6f75e102f32072c1febaf}{can\+Join}} (const std::\+string \&token) override
+\begin{DoxyCompactList}\small\item\em Checks if the provided code matches the room\textquotesingle{}s access code. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \doxymbox{\hyperlink{class_room}{Room}}}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{class_room_a4a1bc911e10ab6af877c82674031eb65}{Room}} (uint32\+\_\+t id, std::\+string name, uint32\+\_\+t owner\+Id)
+\begin{DoxyCompactList}\small\item\em Constructor for \doxylink{class_room}{Room} class. \end{DoxyCompactList}\item 
+virtual {\bfseries \texorpdfstring{$\sim$}{\string~}\+Room} ()=default
+\begin{DoxyCompactList}\small\item\em Virtual destructor to ensure proper cleanup in derived room classes. \end{DoxyCompactList}\item 
+uint32\+\_\+t \doxymbox{\hyperlink{class_room_a5e0f1f91d9daa18d216c032b8bcfaad6}{id}} ()
+\begin{DoxyCompactList}\small\item\em Getter for the room\textquotesingle{}s unique ID. \end{DoxyCompactList}\item 
+std::\+string \doxymbox{\hyperlink{class_room_a6e03eeada32ee3d353ac57888cd4a6d6}{name}} ()
+\begin{DoxyCompactList}\small\item\em Getter for the room\textquotesingle{}s name. \end{DoxyCompactList}\item 
+uint32\+\_\+t \doxymbox{\hyperlink{class_room_a7916ace444c80da62290307304197541}{owner\+Id}} ()
+\begin{DoxyCompactList}\small\item\em Getter for the room owner\textquotesingle{}s user ID. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_room_a014a1a9dfcd8937bc328d0bb7e8f3434}{add\+Client}} (std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_session}{Session}} $>$ client\+To\+Add)
+\begin{DoxyCompactList}\small\item\em Adds a new client session to this room (user enters the room). \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_room_a9bb93017b88f5d230672b1c79f38c501}{remove\+Client}} (std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_session}{Session}} $>$ client\+To\+Remove)
+\begin{DoxyCompactList}\small\item\em Removes a client session from this room (user leaves the room). \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_room_ade38a686346eab346f01fe80168e7978}{broadcast}} (const \doxymbox{\hyperlink{class_packet}{Packet}} \&p, bool skip\+Sender=true)
+\begin{DoxyCompactList}\small\item\em Sends a network packet to everyone currently present in this room. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_room_ad8b3731f984186ebdf82ee88252f74df}{add\+Admin}} (uint32\+\_\+t admin\+Id)
+\begin{DoxyCompactList}\small\item\em Adds a user to the room\textquotesingle{}s administrator list. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_room_a734c4cd4b1c7d22c654c183fa988d7ef}{remove\+Admin}} (uint32\+\_\+t admin\+Id)
+\begin{DoxyCompactList}\small\item\em Removes a user from the room\textquotesingle{}s administrator list. \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{class_room_ac01a59b7b3fb37f89e5839af4e99fa5d}{check\+If\+Admin}} (const uint32\+\_\+t user\+Id)
+\begin{DoxyCompactList}\small\item\em Checks if a specific user has administrator rights in this room. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Attributes inherited from \doxymbox{\hyperlink{class_room}{Room}}}
+\begin{DoxyCompactItemize}
+\item 
+uint32\+\_\+t \doxymbox{\hyperlink{class_room_a8dc0a04730be0ce195014b6bafd6ab24}{m\+\_\+id}}
+\item 
+std::\+string \doxymbox{\hyperlink{class_room_a311fb025c8d96f8fa9fc27e4cb77d45a}{m\+\_\+name}}
+\item 
+uint32\+\_\+t \doxymbox{\hyperlink{class_room_a041a2ad8faf8a8bcde482d06cf175953}{m\+\_\+owner\+Id}}
+\item 
+std::\+vector$<$ std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_session}{Session}} $>$ $>$ \doxymbox{\hyperlink{class_room_a999193d767b54251ac09585dddaf0e80}{m\+\_\+clients}}
+\item 
+std::\+vector$<$ uint32\+\_\+t $>$ \doxymbox{\hyperlink{class_room_a4d9a137783431bf8a29382d64d745d9b}{m\+\_\+admin\+Ids}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Represents a private chat room that requires an access code to join. 
+
+
+\begin{DoxyItemize}
+\item It inherits from the base \doxylink{class_room}{Room} class and adds a password/\+pin protection system. 
+\end{DoxyItemize}
+
+\label{class_private_room_doc-constructors}
+\Hypertarget{class_private_room_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_private_room_a75248cf2619f9fb33eec0b93a92c3ab0}\index{PrivateRoom@{PrivateRoom}!PrivateRoom@{PrivateRoom}}
+\index{PrivateRoom@{PrivateRoom}!PrivateRoom@{PrivateRoom}}
+\doxysubsubsection{\texorpdfstring{PrivateRoom()}{PrivateRoom()}}
+{\footnotesize\ttfamily \label{class_private_room_a75248cf2619f9fb33eec0b93a92c3ab0} 
+Private\+Room::\+\+Private\+Room (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{id}{, }\item[{std::\+string}]{name}{, }\item[{uint32\+\_\+t}]{owner\+Id}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Constructor for \doxylink{class_private_room}{Private\+Room} class. Passes fundamental room parameters straight to the base \doxylink{class_room}{Room} constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & Unique ID of the room. \\
+\hline
+{\em name} & Name of the room. \\
+\hline
+{\em owner\+Id} & ID of the user who created this room. \\
+\hline
+\end{DoxyParams}
+
+
+\label{class_private_room_doc-func-members}
+\Hypertarget{class_private_room_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_private_room_ac6d2b1bbbaa6f75e102f32072c1febaf}\index{PrivateRoom@{PrivateRoom}!canJoin@{canJoin}}
+\index{canJoin@{canJoin}!PrivateRoom@{PrivateRoom}}
+\doxysubsubsection{\texorpdfstring{canJoin()}{canJoin()}}
+{\footnotesize\ttfamily \label{class_private_room_ac6d2b1bbbaa6f75e102f32072c1febaf} 
+bool Private\+Room::\+can\+Join (\begin{DoxyParamCaption}\item[{const std::\+string \&}]{token}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Checks if the provided code matches the room\textquotesingle{}s access code. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em token} & The password/\+pin entered by the user. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the code is correct and user can join, false otherwise. 
+\end{DoxyReturn}
+
+
+Implements \doxymbox{\hyperlink{class_room_aa5886aa2a5c7b70f13d21fdb0b1f6f19}{Room}}.
+
+
+
+The documentation for this class was generated from the following files:\+\begin{DoxyCompactItemize}
+\item 
+server/\+include/\+server/\+Private\+Room.\+h\item 
+server/\+src/\+Private\+Room.\+cpp\end{DoxyCompactItemize}

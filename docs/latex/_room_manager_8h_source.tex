@@ -1,0 +1,43 @@
+\doxysection{Room\+Manager.\+h}
+\hypertarget{_room_manager_8h_source}{}\label{_room_manager_8h_source}\index{server/include/server/RoomManager.h@{server/include/server/RoomManager.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ ROOMMANAGER\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ ROOMMANAGER\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <map>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}Room.h"{}}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}common/RoomData.h"{}}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_session}{Session}};}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00020\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_room_manager}{RoomManager}}\ \{}
+\DoxyCodeLine{00021\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00026\ \ \ \ \ std::map<uint32\_t,\ std::shared\_ptr<Room>>\ \doxymbox{\hyperlink{class_room_manager_ae511957b700c8a05d714907a55f55956}{allRooms}}();}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00033\ \ \ \ \ std::shared\_ptr<Room>\ \doxymbox{\hyperlink{class_room_manager_a9c5130f4d3021a8514c5cc6902aa3566}{getRoom}}(uint32\_t\ \textcolor{keywordtype}{id});}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00040\ \ \ \ \ std::shared\_ptr<Room>\ \doxymbox{\hyperlink{class_room_manager_a9c5130f4d3021a8514c5cc6902aa3566}{getRoom}}(std::string\ name);}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00050\ \ \ \ \ std::shared\_ptr<Room>\ \doxymbox{\hyperlink{class_room_manager_ae4fbe0d4c4a4ae340329f5628bfc8e43}{createRoom}}(uint32\_t\ roomId,\ std::string\ name,\ \textcolor{keywordtype}{bool}\ isPrivate,\ uint32\_t\ ownerId);}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_room_manager_a30f1a095a4e371bf2b05e5bf1dd22caf}{removeRoom}}(std::string\ name);}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_room_manager_ac0dc5ec305be28ef6ccb662a9079c591}{initialize}}(\textcolor{keyword}{const}\ std::vector<RoomData>\&\ rooms);}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_room_manager_ac0f708a1101e4af00b3a51f043cdc946}{loginInitialize}}(\textcolor{keyword}{const}\ std::vector<RoomData>\&\ rooms,\ \textcolor{keyword}{const}\ std::shared\_ptr<Session>\ session);}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_room_manager_a0ccecd39c3796fdfdc37b8b03968676a}{logoutInitialize}}(\textcolor{keyword}{const}\ std::vector<RoomData>\&\ rooms,\ \textcolor{keyword}{const}\ std::shared\_ptr<Session>\ session);}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00079\ \ \ \ \ std::map<uint32\_t,\ std::shared\_ptr<Room>>\ m\_allRooms;\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00080\ \ \ \ \ std::map<std::string,\ std::shared\_ptr<Room>>\ m\_allRoomsByName;\ }
+\DoxyCodeLine{00081\ \};}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ ROOMMANAGER\_H}}
+
+\end{DoxyCode}

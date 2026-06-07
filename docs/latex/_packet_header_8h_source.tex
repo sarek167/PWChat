@@ -1,0 +1,25 @@
+\doxysection{Packet\+Header.\+h}
+\hypertarget{_packet_header_8h_source}{}\label{_packet_header_8h_source}\index{common/include/common/PacketHeader.h@{common/include/common/PacketHeader.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ PACKETHEADER\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ PACKETHEADER\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}MessageType.h"{}}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{keyword}{static\_assert}(\textcolor{keyword}{true});}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#pragma\ pack(push)}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#pragma\ pack(1)}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00017\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{struct_packet_header}{PacketHeader}}\ \{}
+\DoxyCodeLine{00018\ \ \ \ \ uint32\_t\ \doxymbox{\hyperlink{struct_packet_header_ab55678218ace339b58952401080584e6}{signature}}\ =\ 0x50574348;\ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00019\ \ \ \ \ MessageType\ \doxymbox{\hyperlink{struct_packet_header_abb0a126609d6c38b3dcfc0e1e7e7dd69}{type}}\ =\ MessageType::MESS\_TO\_USER;\ }
+\DoxyCodeLine{00020\ \ \ \ \ uint32\_t\ \doxymbox{\hyperlink{struct_packet_header_a9043a51061baf8f4bd3b93fef947c358}{targetId}}\ =\ 0;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00021\ \ \ \ \ uint32\_t\ \doxymbox{\hyperlink{struct_packet_header_a1694c313216a29d0460532fc1fdf9e57}{senderId}}\ =\ 0;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00022\ \ \ \ \ uint32\_t\ \doxymbox{\hyperlink{struct_packet_header_a25b576696717bc1b25bc8a7f2d1fdf39}{bodySize}}\ =\ 0;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00023\ \};}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#pragma\ pack(pop)}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ PACKETHEADER\_H}}
+
+\end{DoxyCode}

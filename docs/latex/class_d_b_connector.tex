@@ -1,0 +1,516 @@
+\doxysection{DBConnector Class Reference}
+\hypertarget{class_d_b_connector}{}\label{class_d_b_connector}\index{DBConnector@{DBConnector}}
+
+
+Abstract interface for handling database operations.  
+
+
+
+
+{\ttfamily \+\#include $<$DBConnector.\+h$>$}
+
+
+
+Inheritance diagram for DBConnector:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=171pt]{class_d_b_connector__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_d_b_connector_af750c8b000669cef5327c9143f5c6d99}\label{class_d_b_connector_af750c8b000669cef5327c9143f5c6d99} 
+virtual {\bfseries \texorpdfstring{$\sim$}{\string~}\+DBConnector} ()=default
+\begin{DoxyCompactList}\small\item\em Virtual destructor to ensure proper cleanup in derived classes. \end{DoxyCompactList}\item 
+virtual bool \doxymbox{\hyperlink{class_d_b_connector_a314ae907c83ae7a52f5313e036b723ae}{connect}} (const std::\+string \&db\+Path)=0
+\begin{DoxyCompactList}\small\item\em Opens a connection to the database file. \end{DoxyCompactList}\item 
+virtual void \doxymbox{\hyperlink{class_d_b_connector_a88ebe69c38938f036c3bf493f876abe9}{disconnect}} ()=0
+\begin{DoxyCompactList}\small\item\em Closes the active database connection. \end{DoxyCompactList}\item 
+virtual void \doxymbox{\hyperlink{class_d_b_connector_a57558eb88fc5b7c4a168bac0421a2e93}{initialize\+Schema}} ()=0
+\begin{DoxyCompactList}\small\item\em Creates necessary tables in the database if they don\textquotesingle{}t exist yet. \end{DoxyCompactList}\item 
+virtual std::\+vector$<$ \doxymbox{\hyperlink{struct_room_data}{Room\+Data}} $>$ \doxymbox{\hyperlink{class_d_b_connector_a6c4f73bd894556bc3706fdc702730b82}{get\+All\+Rooms}} ()=0
+\begin{DoxyCompactList}\small\item\em Fetches all available chat rooms from the database. \end{DoxyCompactList}\item 
+virtual std::\+vector$<$ \doxymbox{\hyperlink{struct_room_data}{Room\+Data}} $>$ \doxymbox{\hyperlink{class_d_b_connector_aef7a50c5f0019255296de8c52c046a2b}{get\+User\+Rooms}} (const uint32\+\_\+t user\+Id)=0
+\begin{DoxyCompactList}\small\item\em Fetches all rooms that a specific user has joined. \end{DoxyCompactList}\item 
+virtual int \doxymbox{\hyperlink{class_d_b_connector_a4ba2fba02a2a28eafd440d5f57417942}{save\+Room}} (const std::\+string \&name, const bool is\+Private, const uint32\+\_\+t owner\+Id)=0
+\begin{DoxyCompactList}\small\item\em Saves a newly created room to the database. \end{DoxyCompactList}\item 
+virtual bool \doxymbox{\hyperlink{class_d_b_connector_a0a2277a9c920d4d5413be7b5b5806031}{save\+User\+Room}} (const uint32\+\_\+t user\+Id, const uint32\+\_\+t room\+Id, bool is\+Admin)=0
+\begin{DoxyCompactList}\small\item\em Adds a user to a specific room (links them together). \end{DoxyCompactList}\item 
+virtual bool \doxymbox{\hyperlink{class_d_b_connector_af5a85ae36900fe19e6c093ced7888407}{delete\+User\+Room}} (const uint32\+\_\+t user\+Id, const uint32\+\_\+t room\+Id)=0
+\begin{DoxyCompactList}\small\item\em Removes a user from a specific room (e.\+g., when they leave). \end{DoxyCompactList}\item 
+virtual uint32\+\_\+t \doxymbox{\hyperlink{class_d_b_connector_ab542843823009c78c4b660f6ef999b11}{register\+User}} (const std::\+string \&nickname, const std::\+string \&password)=0
+\begin{DoxyCompactList}\small\item\em Registers a new user account. \end{DoxyCompactList}\item 
+virtual uint32\+\_\+t \doxymbox{\hyperlink{class_d_b_connector_a017c485c624dd930470fa0e48b13982c}{login\+User}} (const std::\+string \&nickname, const std::\+string \&password)=0
+\begin{DoxyCompactList}\small\item\em Checks user credentials during login. \end{DoxyCompactList}\item 
+virtual std::\+vector$<$ \doxymbox{\hyperlink{struct_user_data}{User\+Data}} $>$ \doxymbox{\hyperlink{class_d_b_connector_ace6400427e917c0d46d442ee0ea52b98}{get\+Room\+Users}} (const uint32\+\_\+t room\+Id, bool get\+Admins=false)=0
+\begin{DoxyCompactList}\small\item\em Gets a list of members belonging to a specific room. \end{DoxyCompactList}\item 
+virtual bool \doxymbox{\hyperlink{class_d_b_connector_a59c17a564acba554e551498fedd38d30}{add\+Admin}} (const uint32\+\_\+t room\+Id, const uint32\+\_\+t user\+Id)=0
+\begin{DoxyCompactList}\small\item\em Promotes a standard user to an admin in a specific room. \end{DoxyCompactList}\item 
+virtual bool \doxymbox{\hyperlink{class_d_b_connector_a3daf3374ef4fa2fd09b87a82a4510992}{save\+Message}} (const uint32\+\_\+t sender\+ID, const uint32\+\_\+t target\+Id, const std::\+string \&message, const Message\+Content\+Type \&type, bool to\+Room)=0
+\begin{DoxyCompactList}\small\item\em Saves a sent message (text or audio) to the history log. \end{DoxyCompactList}\item 
+virtual std::\+vector$<$ \doxymbox{\hyperlink{struct_message_data}{Message\+Data}} $>$ \doxymbox{\hyperlink{class_d_b_connector_a4fd174cf3843792a996c748138abbbe6}{get\+Messages}} (const uint32\+\_\+t target\+Id, const uint32\+\_\+t sender\+Id, bool from\+Room, const int limit, const int offset)=0
+\begin{DoxyCompactList}\small\item\em Loads a limited batch of archived messages for a chat history window. \end{DoxyCompactList}\item 
+virtual bool \doxymbox{\hyperlink{class_d_b_connector_a8f21ffec806ca782f58b527ac7e13660}{save\+Room\+Code}} (const uint32\+\_\+t room\+Id, const uint32\+\_\+t code)=0
+\begin{DoxyCompactList}\small\item\em Saves an invitation/\+entry pin code for a private room. \end{DoxyCompactList}\item 
+virtual uint32\+\_\+t \doxymbox{\hyperlink{class_d_b_connector_a208ec2c8797660dfd3699ce7a256f689}{get\+Room\+Code}} (const uint32\+\_\+t room\+Id)=0
+\begin{DoxyCompactList}\small\item\em Fetches the invitation pin code assigned to a private room. \end{DoxyCompactList}\item 
+virtual std::\+string \doxymbox{\hyperlink{class_d_b_connector_a83cc1eb7c435484684907725325fe446}{get\+Username}} (const uint32\+\_\+t user\+Id)=0
+\begin{DoxyCompactList}\small\item\em Looks up a user\textquotesingle{}s nickname using their unique ID. \end{DoxyCompactList}\item 
+virtual std::\+vector$<$ \doxymbox{\hyperlink{struct_user_data}{User\+Data}} $>$ \doxymbox{\hyperlink{class_d_b_connector_ad19f57f214ded160a6c4c79e800f6755}{get\+Last\+User\+Priv\+Chats}} (const uint32\+\_\+t user\+Id)=0
+\begin{DoxyCompactList}\small\item\em Gets a list of users with whom the current user had recent private chats. \end{DoxyCompactList}\item 
+virtual uint32\+\_\+t \doxymbox{\hyperlink{class_d_b_connector_ae1aaf1d9b2a8abcf4eca4793b44cff91}{find\+User\+By\+Nick}} (const std::\+string username)=0
+\begin{DoxyCompactList}\small\item\em Searches for a user in the database by their exact username. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Abstract interface for handling database operations. 
+
+
+\begin{DoxyItemize}
+\item Defines all the methods needed to save and load application data like users, rooms, and chat messages. 
+\end{DoxyItemize}
+
+\label{class_d_b_connector_doc-func-members}
+\Hypertarget{class_d_b_connector_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_d_b_connector_a59c17a564acba554e551498fedd38d30}\index{DBConnector@{DBConnector}!addAdmin@{addAdmin}}
+\index{addAdmin@{addAdmin}!DBConnector@{DBConnector}}
+\doxysubsubsection{\texorpdfstring{addAdmin()}{addAdmin()}}
+{\footnotesize\ttfamily \label{class_d_b_connector_a59c17a564acba554e551498fedd38d30} 
+virtual bool DBConnector::\+add\+Admin (\begin{DoxyParamCaption}\item[{const uint32\+\_\+t}]{room\+Id}{, }\item[{const uint32\+\_\+t}]{user\+Id}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Promotes a standard user to an admin in a specific room. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em room\+Id} & ID of the room. \\
+\hline
+{\em user\+Id} & ID of the user to promote. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if successful, false otherwise. 
+\end{DoxyReturn}
+
+
+Implemented in \doxymbox{\hyperlink{class_s_q_lite_connector_a0b349ab6373c2a55e61207fc16fc2e01}{SQLite\+Connector}}.
+
+\Hypertarget{class_d_b_connector_a314ae907c83ae7a52f5313e036b723ae}\index{DBConnector@{DBConnector}!connect@{connect}}
+\index{connect@{connect}!DBConnector@{DBConnector}}
+\doxysubsubsection{\texorpdfstring{connect()}{connect()}}
+{\footnotesize\ttfamily \label{class_d_b_connector_a314ae907c83ae7a52f5313e036b723ae} 
+virtual bool DBConnector::\+connect (\begin{DoxyParamCaption}\item[{const std::\+string \&}]{db\+Path}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Opens a connection to the database file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em db\+Path} & Path to the database file (e.\+g., "{}database.\+db"{}). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if connected successfully, false otherwise. 
+\end{DoxyReturn}
+
+
+Implemented in \doxymbox{\hyperlink{class_s_q_lite_connector_a9cfaf453d63ce2b11501cd2e6daf0124}{SQLite\+Connector}}.
+
+\Hypertarget{class_d_b_connector_af5a85ae36900fe19e6c093ced7888407}\index{DBConnector@{DBConnector}!deleteUserRoom@{deleteUserRoom}}
+\index{deleteUserRoom@{deleteUserRoom}!DBConnector@{DBConnector}}
+\doxysubsubsection{\texorpdfstring{deleteUserRoom()}{deleteUserRoom()}}
+{\footnotesize\ttfamily \label{class_d_b_connector_af5a85ae36900fe19e6c093ced7888407} 
+virtual bool DBConnector::\+delete\+User\+Room (\begin{DoxyParamCaption}\item[{const uint32\+\_\+t}]{user\+Id}{, }\item[{const uint32\+\_\+t}]{room\+Id}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Removes a user from a specific room (e.\+g., when they leave). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em user\+Id} & ID of the user. \\
+\hline
+{\em room\+Id} & ID of the room. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if removed successfully, false otherwise. 
+\end{DoxyReturn}
+
+
+Implemented in \doxymbox{\hyperlink{class_s_q_lite_connector_a3c5f061cb46f99802d672f8c57863038}{SQLite\+Connector}}.
+
+\Hypertarget{class_d_b_connector_a88ebe69c38938f036c3bf493f876abe9}\index{DBConnector@{DBConnector}!disconnect@{disconnect}}
+\index{disconnect@{disconnect}!DBConnector@{DBConnector}}
+\doxysubsubsection{\texorpdfstring{disconnect()}{disconnect()}}
+{\footnotesize\ttfamily \label{class_d_b_connector_a88ebe69c38938f036c3bf493f876abe9} 
+virtual void DBConnector::\+disconnect (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Closes the active database connection. 
+
+
+
+Implemented in \doxymbox{\hyperlink{class_s_q_lite_connector_aec93b021f7765614323d6befe546afa2}{SQLite\+Connector}}.
+
+\Hypertarget{class_d_b_connector_ae1aaf1d9b2a8abcf4eca4793b44cff91}\index{DBConnector@{DBConnector}!findUserByNick@{findUserByNick}}
+\index{findUserByNick@{findUserByNick}!DBConnector@{DBConnector}}
+\doxysubsubsection{\texorpdfstring{findUserByNick()}{findUserByNick()}}
+{\footnotesize\ttfamily \label{class_d_b_connector_ae1aaf1d9b2a8abcf4eca4793b44cff91} 
+virtual uint32\+\_\+t DBConnector::\+find\+User\+By\+Nick (\begin{DoxyParamCaption}\item[{const std::\+string}]{username}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Searches for a user in the database by their exact username. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em username} & The nickname to look for. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The user\textquotesingle{}s ID if found, 0 otherwise. 
+\end{DoxyReturn}
+
+
+Implemented in \doxymbox{\hyperlink{class_s_q_lite_connector_a0d200a48eb9155729688cab8f8eef3d5}{SQLite\+Connector}}.
+
+\Hypertarget{class_d_b_connector_a6c4f73bd894556bc3706fdc702730b82}\index{DBConnector@{DBConnector}!getAllRooms@{getAllRooms}}
+\index{getAllRooms@{getAllRooms}!DBConnector@{DBConnector}}
+\doxysubsubsection{\texorpdfstring{getAllRooms()}{getAllRooms()}}
+{\footnotesize\ttfamily \label{class_d_b_connector_a6c4f73bd894556bc3706fdc702730b82} 
+virtual std::\+vector$<$ \doxymbox{\hyperlink{struct_room_data}{Room\+Data}} $>$ DBConnector::\+get\+All\+Rooms (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Fetches all available chat rooms from the database. 
+
+\begin{DoxyReturn}{Returns}
+A vector containing data of all rooms. 
+\end{DoxyReturn}
+
+
+Implemented in \doxymbox{\hyperlink{class_s_q_lite_connector_a2e37ea304710be1451919549455079b9}{SQLite\+Connector}}.
+
+\Hypertarget{class_d_b_connector_ad19f57f214ded160a6c4c79e800f6755}\index{DBConnector@{DBConnector}!getLastUserPrivChats@{getLastUserPrivChats}}
+\index{getLastUserPrivChats@{getLastUserPrivChats}!DBConnector@{DBConnector}}
+\doxysubsubsection{\texorpdfstring{getLastUserPrivChats()}{getLastUserPrivChats()}}
+{\footnotesize\ttfamily \label{class_d_b_connector_ad19f57f214ded160a6c4c79e800f6755} 
+virtual std::\+vector$<$ \doxymbox{\hyperlink{struct_user_data}{User\+Data}} $>$ DBConnector::\+get\+Last\+User\+Priv\+Chats (\begin{DoxyParamCaption}\item[{const uint32\+\_\+t}]{user\+Id}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Gets a list of users with whom the current user had recent private chats. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em user\+Id} & ID of the current user. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A vector of users representing recent direct conversations. 
+\end{DoxyReturn}
+
+
+Implemented in \doxymbox{\hyperlink{class_s_q_lite_connector_a0001037cb64eb73ee45e933922ca77f9}{SQLite\+Connector}}.
+
+\Hypertarget{class_d_b_connector_a4fd174cf3843792a996c748138abbbe6}\index{DBConnector@{DBConnector}!getMessages@{getMessages}}
+\index{getMessages@{getMessages}!DBConnector@{DBConnector}}
+\doxysubsubsection{\texorpdfstring{getMessages()}{getMessages()}}
+{\footnotesize\ttfamily \label{class_d_b_connector_a4fd174cf3843792a996c748138abbbe6} 
+virtual std::\+vector$<$ \doxymbox{\hyperlink{struct_message_data}{Message\+Data}} $>$ DBConnector::\+get\+Messages (\begin{DoxyParamCaption}\item[{const uint32\+\_\+t}]{target\+Id}{, }\item[{const uint32\+\_\+t}]{sender\+Id}{, }\item[{bool}]{from\+Room}{, }\item[{const int}]{limit}{, }\item[{const int}]{offset}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Loads a limited batch of archived messages for a chat history window. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em target\+Id} & ID of the room or the other user. \\
+\hline
+{\em sender\+Id} & ID of the current user asking for history. \\
+\hline
+{\em from\+Room} & True if loading from a room, false if from private chat. \\
+\hline
+{\em limit} & How many messages to load at once (pagination). \\
+\hline
+{\em offset} & How many messages to skip (for scrolling up). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A vector of found messages. 
+\end{DoxyReturn}
+
+
+Implemented in \doxymbox{\hyperlink{class_s_q_lite_connector_a69aa6aabe5b2a33358a983e1ed90e5d0}{SQLite\+Connector}}.
+
+\Hypertarget{class_d_b_connector_a208ec2c8797660dfd3699ce7a256f689}\index{DBConnector@{DBConnector}!getRoomCode@{getRoomCode}}
+\index{getRoomCode@{getRoomCode}!DBConnector@{DBConnector}}
+\doxysubsubsection{\texorpdfstring{getRoomCode()}{getRoomCode()}}
+{\footnotesize\ttfamily \label{class_d_b_connector_a208ec2c8797660dfd3699ce7a256f689} 
+virtual uint32\+\_\+t DBConnector::\+get\+Room\+Code (\begin{DoxyParamCaption}\item[{const uint32\+\_\+t}]{room\+Id}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Fetches the invitation pin code assigned to a private room. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em room\+Id} & ID of the room. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The numeric code, or 0 if room has no code or is public. 
+\end{DoxyReturn}
+
+
+Implemented in \doxymbox{\hyperlink{class_s_q_lite_connector_a57c7721d41d8e36e22e26a15a75cb9c5}{SQLite\+Connector}}.
+
+\Hypertarget{class_d_b_connector_ace6400427e917c0d46d442ee0ea52b98}\index{DBConnector@{DBConnector}!getRoomUsers@{getRoomUsers}}
+\index{getRoomUsers@{getRoomUsers}!DBConnector@{DBConnector}}
+\doxysubsubsection{\texorpdfstring{getRoomUsers()}{getRoomUsers()}}
+{\footnotesize\ttfamily \label{class_d_b_connector_ace6400427e917c0d46d442ee0ea52b98} 
+virtual std::\+vector$<$ \doxymbox{\hyperlink{struct_user_data}{User\+Data}} $>$ DBConnector::\+get\+Room\+Users (\begin{DoxyParamCaption}\item[{const uint32\+\_\+t}]{room\+Id}{, }\item[{bool}]{get\+Admins}{ = {\ttfamily false}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Gets a list of members belonging to a specific room. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em room\+Id} & ID of the room. \\
+\hline
+{\em get\+Admins} & If true, fetches only room administrators; otherwise fetches regular users. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A vector of users in the room. 
+\end{DoxyReturn}
+
+
+Implemented in \doxymbox{\hyperlink{class_s_q_lite_connector_a965f7c064557b191aeef2bebbdc408cf}{SQLite\+Connector}}.
+
+\Hypertarget{class_d_b_connector_a83cc1eb7c435484684907725325fe446}\index{DBConnector@{DBConnector}!getUsername@{getUsername}}
+\index{getUsername@{getUsername}!DBConnector@{DBConnector}}
+\doxysubsubsection{\texorpdfstring{getUsername()}{getUsername()}}
+{\footnotesize\ttfamily \label{class_d_b_connector_a83cc1eb7c435484684907725325fe446} 
+virtual std::\+string DBConnector::\+get\+Username (\begin{DoxyParamCaption}\item[{const uint32\+\_\+t}]{user\+Id}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Looks up a user\textquotesingle{}s nickname using their unique ID. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em user\+Id} & ID of the user. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The nickname string, or empty string if not found. 
+\end{DoxyReturn}
+
+
+Implemented in \doxymbox{\hyperlink{class_s_q_lite_connector_a11b6f6125ab803d53ad5e51d8a3ca08f}{SQLite\+Connector}}.
+
+\Hypertarget{class_d_b_connector_aef7a50c5f0019255296de8c52c046a2b}\index{DBConnector@{DBConnector}!getUserRooms@{getUserRooms}}
+\index{getUserRooms@{getUserRooms}!DBConnector@{DBConnector}}
+\doxysubsubsection{\texorpdfstring{getUserRooms()}{getUserRooms()}}
+{\footnotesize\ttfamily \label{class_d_b_connector_aef7a50c5f0019255296de8c52c046a2b} 
+virtual std::\+vector$<$ \doxymbox{\hyperlink{struct_room_data}{Room\+Data}} $>$ DBConnector::\+get\+User\+Rooms (\begin{DoxyParamCaption}\item[{const uint32\+\_\+t}]{user\+Id}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Fetches all rooms that a specific user has joined. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em user\+Id} & ID of the user. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A vector of rooms the user belongs to. 
+\end{DoxyReturn}
+
+
+Implemented in \doxymbox{\hyperlink{class_s_q_lite_connector_afba5b83fbdf24a0845273f4b291bf92c}{SQLite\+Connector}}.
+
+\Hypertarget{class_d_b_connector_a57558eb88fc5b7c4a168bac0421a2e93}\index{DBConnector@{DBConnector}!initializeSchema@{initializeSchema}}
+\index{initializeSchema@{initializeSchema}!DBConnector@{DBConnector}}
+\doxysubsubsection{\texorpdfstring{initializeSchema()}{initializeSchema()}}
+{\footnotesize\ttfamily \label{class_d_b_connector_a57558eb88fc5b7c4a168bac0421a2e93} 
+virtual void DBConnector::\+initialize\+Schema (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Creates necessary tables in the database if they don\textquotesingle{}t exist yet. 
+
+
+
+Implemented in \doxymbox{\hyperlink{class_s_q_lite_connector_afc90e6656611716b9811d4c3ba8cc883}{SQLite\+Connector}}.
+
+\Hypertarget{class_d_b_connector_a017c485c624dd930470fa0e48b13982c}\index{DBConnector@{DBConnector}!loginUser@{loginUser}}
+\index{loginUser@{loginUser}!DBConnector@{DBConnector}}
+\doxysubsubsection{\texorpdfstring{loginUser()}{loginUser()}}
+{\footnotesize\ttfamily \label{class_d_b_connector_a017c485c624dd930470fa0e48b13982c} 
+virtual uint32\+\_\+t DBConnector::\+login\+User (\begin{DoxyParamCaption}\item[{const std::\+string \&}]{nickname}{, }\item[{const std::\+string \&}]{password}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Checks user credentials during login. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em nickname} & Entered username. \\
+\hline
+{\em password} & Entered password. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The user ID if credentials are correct, 0 otherwise. 
+\end{DoxyReturn}
+
+
+Implemented in \doxymbox{\hyperlink{class_s_q_lite_connector_aa5b25d7c988beec9e7aefbd45185755a}{SQLite\+Connector}}.
+
+\Hypertarget{class_d_b_connector_ab542843823009c78c4b660f6ef999b11}\index{DBConnector@{DBConnector}!registerUser@{registerUser}}
+\index{registerUser@{registerUser}!DBConnector@{DBConnector}}
+\doxysubsubsection{\texorpdfstring{registerUser()}{registerUser()}}
+{\footnotesize\ttfamily \label{class_d_b_connector_ab542843823009c78c4b660f6ef999b11} 
+virtual uint32\+\_\+t DBConnector::\+register\+User (\begin{DoxyParamCaption}\item[{const std::\+string \&}]{nickname}{, }\item[{const std::\+string \&}]{password}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Registers a new user account. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em nickname} & Chosen username. \\
+\hline
+{\em password} & Chosen password (preferably hashed). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The newly generated user ID, or 0 if failed (e.\+g., nickname taken). 
+\end{DoxyReturn}
+
+
+Implemented in \doxymbox{\hyperlink{class_s_q_lite_connector_a23e4a8e1d178fff0868561668bd1375e}{SQLite\+Connector}}.
+
+\Hypertarget{class_d_b_connector_a3daf3374ef4fa2fd09b87a82a4510992}\index{DBConnector@{DBConnector}!saveMessage@{saveMessage}}
+\index{saveMessage@{saveMessage}!DBConnector@{DBConnector}}
+\doxysubsubsection{\texorpdfstring{saveMessage()}{saveMessage()}}
+{\footnotesize\ttfamily \label{class_d_b_connector_a3daf3374ef4fa2fd09b87a82a4510992} 
+virtual bool DBConnector::\+save\+Message (\begin{DoxyParamCaption}\item[{const uint32\+\_\+t}]{sender\+ID}{, }\item[{const uint32\+\_\+t}]{target\+Id}{, }\item[{const std::\+string \&}]{message}{, }\item[{const Message\+Content\+Type \&}]{type}{, }\item[{bool}]{to\+Room}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Saves a sent message (text or audio) to the history log. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sender\+ID} & ID of the user who sent it. \\
+\hline
+{\em target\+Id} & ID of the receiver (either room ID or another user\textquotesingle{}s ID). \\
+\hline
+{\em message} & Text content of the message or file path for audio data. \\
+\hline
+{\em type} & Type of content (TEXT or AUDIO). \\
+\hline
+{\em to\+Room} & True if sent to a group room, false if it\textquotesingle{}s a private message. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if message was saved, false otherwise. 
+\end{DoxyReturn}
+
+
+Implemented in \doxymbox{\hyperlink{class_s_q_lite_connector_ab03ad6a91b17cb720d175ac4c79b8882}{SQLite\+Connector}}.
+
+\Hypertarget{class_d_b_connector_a4ba2fba02a2a28eafd440d5f57417942}\index{DBConnector@{DBConnector}!saveRoom@{saveRoom}}
+\index{saveRoom@{saveRoom}!DBConnector@{DBConnector}}
+\doxysubsubsection{\texorpdfstring{saveRoom()}{saveRoom()}}
+{\footnotesize\ttfamily \label{class_d_b_connector_a4ba2fba02a2a28eafd440d5f57417942} 
+virtual int DBConnector::\+save\+Room (\begin{DoxyParamCaption}\item[{const std::\+string \&}]{name}{, }\item[{const bool}]{is\+Private}{, }\item[{const uint32\+\_\+t}]{owner\+Id}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Saves a newly created room to the database. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & Name of the room. \\
+\hline
+{\em is\+Private} & True if the room requires an access code. \\
+\hline
+{\em owner\+Id} & ID of the user who created the room. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The ID of the newly created room, or -\/1 if failed. 
+\end{DoxyReturn}
+
+
+Implemented in \doxymbox{\hyperlink{class_s_q_lite_connector_a013860e5e46400c289f96bff7cbedb3f}{SQLite\+Connector}}.
+
+\Hypertarget{class_d_b_connector_a8f21ffec806ca782f58b527ac7e13660}\index{DBConnector@{DBConnector}!saveRoomCode@{saveRoomCode}}
+\index{saveRoomCode@{saveRoomCode}!DBConnector@{DBConnector}}
+\doxysubsubsection{\texorpdfstring{saveRoomCode()}{saveRoomCode()}}
+{\footnotesize\ttfamily \label{class_d_b_connector_a8f21ffec806ca782f58b527ac7e13660} 
+virtual bool DBConnector::\+save\+Room\+Code (\begin{DoxyParamCaption}\item[{const uint32\+\_\+t}]{room\+Id}{, }\item[{const uint32\+\_\+t}]{code}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Saves an invitation/\+entry pin code for a private room. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em room\+Id} & ID of the room. \\
+\hline
+{\em code} & The numeric password. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if saved successfully, false otherwise. 
+\end{DoxyReturn}
+
+
+Implemented in \doxymbox{\hyperlink{class_s_q_lite_connector_a19b4dbe0bc81b64d18ea2064f3d7f1f3}{SQLite\+Connector}}.
+
+\Hypertarget{class_d_b_connector_a0a2277a9c920d4d5413be7b5b5806031}\index{DBConnector@{DBConnector}!saveUserRoom@{saveUserRoom}}
+\index{saveUserRoom@{saveUserRoom}!DBConnector@{DBConnector}}
+\doxysubsubsection{\texorpdfstring{saveUserRoom()}{saveUserRoom()}}
+{\footnotesize\ttfamily \label{class_d_b_connector_a0a2277a9c920d4d5413be7b5b5806031} 
+virtual bool DBConnector::\+save\+User\+Room (\begin{DoxyParamCaption}\item[{const uint32\+\_\+t}]{user\+Id}{, }\item[{const uint32\+\_\+t}]{room\+Id}{, }\item[{bool}]{is\+Admin}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Adds a user to a specific room (links them together). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em user\+Id} & ID of the user. \\
+\hline
+{\em room\+Id} & ID of the room. \\
+\hline
+{\em is\+Admin} & True if the user should have admin rights in this room. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if saved successfully, false otherwise. 
+\end{DoxyReturn}
+
+
+Implemented in \doxymbox{\hyperlink{class_s_q_lite_connector_a0203669dbf8f6f38119b21261134c202}{SQLite\+Connector}}.
+
+
+
+The documentation for this class was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+server/\+include/\+server/\+DBConnector.\+h\end{DoxyCompactItemize}

@@ -1,0 +1,131 @@
+\doxysection{Audio\+Manager Class Reference}
+\hypertarget{class_audio_manager}{}\label{class_audio_manager}\index{AudioManager@{AudioManager}}
+
+
+Class responsible for IO management of audio. It handles raw audio capturing from the microphone, interacts with the audio codec for compression, and manages audio playback pipelines.  
+
+
+
+
+{\ttfamily \+\#include $<$Audio\+Manager.\+h$>$}
+
+
+
+Inheritance diagram for Audio\+Manager:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=158pt]{class_audio_manager__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Audio\+Manager:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=158pt]{class_audio_manager__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \doxymbox{\hyperlink{class_audio_manager_aa349c77601f5f4f547feaf98bcaf19df}{audio\+Ready\+To\+Send}} (const std::\+vector$<$ char $>$ \&compressed\+Data)
+\begin{DoxyCompactList}\small\item\em Audio is finished collecting and compressed, signal for packet sending to server. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_audio_manager_abd11609856200f80abcc3734b6e024f0}{audio\+Finished\+Playing}} (QPush\+Button \texorpdfstring{$\ast$}{*}play\+Button)
+\begin{DoxyCompactList}\small\item\em Signal for changing icon on message when audio is finished playing. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_audio_manager_ae59d8605c1d706e7bab47d4e8f900d09}\label{class_audio_manager_ae59d8605c1d706e7bab47d4e8f900d09} 
+{\bfseries Audio\+Manager} ()
+\begin{DoxyCompactList}\small\item\em Constructor for class \doxylink{class_audio_manager}{Audio\+Manager}. Initializes the audio format and sets up the default audio codec. \end{DoxyCompactList}\item 
+\Hypertarget{class_audio_manager_a690a54f7b1608d6d01b6d2aec8754a15}\label{class_audio_manager_a690a54f7b1608d6d01b6d2aec8754a15} 
+{\bfseries \texorpdfstring{$\sim$}{\string~}\+Audio\+Manager} ()=default
+\begin{DoxyCompactList}\small\item\em Destructor for class \doxylink{class_audio_manager}{Audio\+Manager}. Cleans up allocated audio resources. \end{DoxyCompactList}\item 
+\Hypertarget{class_audio_manager_a886f3128cf0c2d0d7094a662416eb3da}\label{class_audio_manager_a886f3128cf0c2d0d7094a662416eb3da} 
+void {\bfseries start\+Recording} ()
+\begin{DoxyCompactList}\small\item\em Responsible for starting capturing pcm data from microphone and saving it to the buffer. \end{DoxyCompactList}\item 
+\Hypertarget{class_audio_manager_ad01567fc165c88e198966967e4571618}\label{class_audio_manager_ad01567fc165c88e198966967e4571618} 
+void {\bfseries stop\+Recording} ()
+\begin{DoxyCompactList}\small\item\em Responsible for stopping capturing data and compressing it using codec. Then it emits signal that data is ready to be sent to server. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_audio_manager_aa046b2ba26f3e63fbad5c2dffa96313e}{play\+Audio}} (const std::\+vector$<$ float $>$ \&pcm\+Data, QPush\+Button \texorpdfstring{$\ast$}{*}play\+Button=nullptr)
+\begin{DoxyCompactList}\small\item\em Plays audio back to the user. \end{DoxyCompactList}\item 
+std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_audio_codec}{Audio\+Codec}} $>$ \doxymbox{\hyperlink{class_audio_manager_ada13ed318de2776eed095d664c92cca6}{codec}} ()
+\begin{DoxyCompactList}\small\item\em Getter for codec pointer. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Class responsible for IO management of audio. It handles raw audio capturing from the microphone, interacts with the audio codec for compression, and manages audio playback pipelines. 
+
+\label{class_audio_manager_doc-func-members}
+\Hypertarget{class_audio_manager_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_audio_manager_abd11609856200f80abcc3734b6e024f0}\index{AudioManager@{AudioManager}!audioFinishedPlaying@{audioFinishedPlaying}}
+\index{audioFinishedPlaying@{audioFinishedPlaying}!AudioManager@{AudioManager}}
+\doxysubsubsection{\texorpdfstring{audioFinishedPlaying}{audioFinishedPlaying}}
+{\footnotesize\ttfamily \label{class_audio_manager_abd11609856200f80abcc3734b6e024f0} 
+void Audio\+Manager::\+audio\+Finished\+Playing (\begin{DoxyParamCaption}\item[{QPush\+Button \texorpdfstring{$\ast$}{*}}]{play\+Button}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+Signal for changing icon on message when audio is finished playing. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em play\+Button} & Pointer to the UI button that needs its icon or state reset. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_audio_manager_aa349c77601f5f4f547feaf98bcaf19df}\index{AudioManager@{AudioManager}!audioReadyToSend@{audioReadyToSend}}
+\index{audioReadyToSend@{audioReadyToSend}!AudioManager@{AudioManager}}
+\doxysubsubsection{\texorpdfstring{audioReadyToSend}{audioReadyToSend}}
+{\footnotesize\ttfamily \label{class_audio_manager_aa349c77601f5f4f547feaf98bcaf19df} 
+void Audio\+Manager::\+audio\+Ready\+To\+Send (\begin{DoxyParamCaption}\item[{const std::\+vector$<$ char $>$ \&}]{compressed\+Data}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+Audio is finished collecting and compressed, signal for packet sending to server. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em compressed\+Data} & Vector containing the compressed Opus audio payload ready for transmission. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_audio_manager_ada13ed318de2776eed095d664c92cca6}\index{AudioManager@{AudioManager}!codec@{codec}}
+\index{codec@{codec}!AudioManager@{AudioManager}}
+\doxysubsubsection{\texorpdfstring{codec()}{codec()}}
+{\footnotesize\ttfamily \label{class_audio_manager_ada13ed318de2776eed095d664c92cca6} 
+std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_audio_codec}{Audio\+Codec}} $>$ Audio\+Manager::\+codec (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Getter for codec pointer. 
+
+\begin{DoxyReturn}{Returns}
+std::\+shared\+\_\+ptr$<$\+Audio\+Codec$>$ Shared pointer to the currently utilized audio codec. 
+\end{DoxyReturn}
+\Hypertarget{class_audio_manager_aa046b2ba26f3e63fbad5c2dffa96313e}\index{AudioManager@{AudioManager}!playAudio@{playAudio}}
+\index{playAudio@{playAudio}!AudioManager@{AudioManager}}
+\doxysubsubsection{\texorpdfstring{playAudio()}{playAudio()}}
+{\footnotesize\ttfamily \label{class_audio_manager_aa046b2ba26f3e63fbad5c2dffa96313e} 
+void Audio\+Manager::\+play\+Audio (\begin{DoxyParamCaption}\item[{const std::\+vector$<$ float $>$ \&}]{pcm\+Data}{, }\item[{QPush\+Button \texorpdfstring{$\ast$}{*}}]{play\+Button}{ = {\ttfamily nullptr}}\end{DoxyParamCaption})}
+
+
+
+Plays audio back to the user. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pcm\+Data} & Input vector containing raw float PCM audio samples to be played. \\
+\hline
+{\em play\+Button} & Optional pointer to the UI button that triggered the playback, used to track visual state. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files:\+\begin{DoxyCompactItemize}
+\item 
+client/\+include/\+client/\+Audio\+Manager.\+h\item 
+client/\+src/\+Audio\+Manager.\+cpp\end{DoxyCompactItemize}

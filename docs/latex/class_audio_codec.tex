@@ -1,0 +1,88 @@
+\doxysection{Audio\+Codec Class Reference}
+\hypertarget{class_audio_codec}{}\label{class_audio_codec}\index{AudioCodec@{AudioCodec}}
+
+
+Abstract base class (interface) representing all audio codecs in the system. It defines the pure virtual contract for encoding raw PCM audio data into compressed formats and decoding them back for playback.  
+
+
+
+
+{\ttfamily \+\#include $<$Audio\+Codec.\+h$>$}
+
+
+
+Inheritance diagram for Audio\+Codec:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=149pt]{class_audio_codec__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_audio_codec_ad1bdab8d51adc21868c70806847737eb}\label{class_audio_codec_ad1bdab8d51adc21868c70806847737eb} 
+virtual {\bfseries \texorpdfstring{$\sim$}{\string~}\+Audio\+Codec} ()=default
+\begin{DoxyCompactList}\small\item\em Virtual destructor for \doxylink{class_audio_codec}{Audio\+Codec} class. Ensures proper cleanup of derived codec resources. \end{DoxyCompactList}\item 
+virtual std::\+vector$<$ char $>$ \doxymbox{\hyperlink{class_audio_codec_ad50bffaa2c6f191a1acb3c81855ee810}{encode}} (const std::\+vector$<$ float $>$ \&pcm\+Data)=0
+\begin{DoxyCompactList}\small\item\em Pure virtual method which takes pcm data captured by microphone and compresses it to transferable format. \end{DoxyCompactList}\item 
+virtual std::\+vector$<$ float $>$ \doxymbox{\hyperlink{class_audio_codec_a470e85c8351c522fef134a706afea04a}{decode}} (const std::\+vector$<$ char $>$ \&compressed\+Data)=0
+\begin{DoxyCompactList}\small\item\em Pure virtual method which takes compressed data (received from server) and decodes it to pcm data to be able to play it to user. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Abstract base class (interface) representing all audio codecs in the system. It defines the pure virtual contract for encoding raw PCM audio data into compressed formats and decoding them back for playback. 
+
+\label{class_audio_codec_doc-func-members}
+\Hypertarget{class_audio_codec_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_audio_codec_a470e85c8351c522fef134a706afea04a}\index{AudioCodec@{AudioCodec}!decode@{decode}}
+\index{decode@{decode}!AudioCodec@{AudioCodec}}
+\doxysubsubsection{\texorpdfstring{decode()}{decode()}}
+{\footnotesize\ttfamily \label{class_audio_codec_a470e85c8351c522fef134a706afea04a} 
+virtual std::\+vector$<$ float $>$ Audio\+Codec::\+decode (\begin{DoxyParamCaption}\item[{const std::\+vector$<$ char $>$ \&}]{compressed\+Data}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Pure virtual method which takes compressed data (received from server) and decodes it to pcm data to be able to play it to user. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em compressed\+Data} & Input vector containing raw compressed bytes received from the network. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+std::\+vector$<$float$>$ Output vector containing decoded float PCM samples ready for playback. 
+\end{DoxyReturn}
+
+
+Implemented in \doxymbox{\hyperlink{class_opus_codec_a955c1e9c06e41b2bc013a1210844a09c}{Opus\+Codec}}.
+
+\Hypertarget{class_audio_codec_ad50bffaa2c6f191a1acb3c81855ee810}\index{AudioCodec@{AudioCodec}!encode@{encode}}
+\index{encode@{encode}!AudioCodec@{AudioCodec}}
+\doxysubsubsection{\texorpdfstring{encode()}{encode()}}
+{\footnotesize\ttfamily \label{class_audio_codec_ad50bffaa2c6f191a1acb3c81855ee810} 
+virtual std::\+vector$<$ char $>$ Audio\+Codec::\+encode (\begin{DoxyParamCaption}\item[{const std::\+vector$<$ float $>$ \&}]{pcm\+Data}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Pure virtual method which takes pcm data captured by microphone and compresses it to transferable format. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pcm\+Data} & Input vector containing raw float PCM audio samples to be compressed. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+std::\+vector$<$char$>$ Output vector containing the compressed audio bytes. 
+\end{DoxyReturn}
+
+
+Implemented in \doxymbox{\hyperlink{class_opus_codec_a145eaf84527c2401e4522e8f8f9c195e}{Opus\+Codec}}.
+
+
+
+The documentation for this class was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+client/\+include/\+client/\+Audio\+Codec.\+h\end{DoxyCompactItemize}

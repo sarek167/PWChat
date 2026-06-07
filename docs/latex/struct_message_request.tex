@@ -1,0 +1,87 @@
+\doxysection{Message\+Request Struct Reference}
+\hypertarget{struct_message_request}{}\label{struct_message_request}\index{MessageRequest@{MessageRequest}}
+
+
+Struct used to ask the server for older chat messages.  
+
+
+
+
+{\ttfamily \+\#include $<$Message\+Request.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class Archive$>$ }\\void \doxymbox{\hyperlink{struct_message_request_a027bef1c8b8a5f9cd3ff7ecf1d5e33fe}{serialize}} (Archive \&archive)
+\begin{DoxyCompactList}\small\item\em Serialization method used by the Cereal library to pack or unpack this struct. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+uint32\+\_\+t \doxymbox{\hyperlink{struct_message_request_a35221772ccb55f6cee7cd6fd8b292b93}{target\+Id}}
+\item 
+uint32\+\_\+t \doxymbox{\hyperlink{struct_message_request_a507a8a6bc7a95ba151103ddde2cee108}{offset}}
+\item 
+bool \doxymbox{\hyperlink{struct_message_request_ae6438a9877431b9c5fe857dd93da189b}{from\+Room}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Struct used to ask the server for older chat messages. 
+
+
+\begin{DoxyItemize}
+\item It contains the information needed to load a specific batch of past messages (pagination) for either a private chat or a room. 
+\end{DoxyItemize}
+
+\label{struct_message_request_doc-func-members}
+\Hypertarget{struct_message_request_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{struct_message_request_a027bef1c8b8a5f9cd3ff7ecf1d5e33fe}\index{MessageRequest@{MessageRequest}!serialize@{serialize}}
+\index{serialize@{serialize}!MessageRequest@{MessageRequest}}
+\doxysubsubsection{\texorpdfstring{serialize()}{serialize()}}
+{\footnotesize\ttfamily \label{struct_message_request_a027bef1c8b8a5f9cd3ff7ecf1d5e33fe} 
+template$<$class Archive$>$ \\
+void Message\+Request::\+serialize (\begin{DoxyParamCaption}\item[{Archive \&}]{archive}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Serialization method used by the Cereal library to pack or unpack this struct. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Archive} & Type of the data stream (like binary or JSON). \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em archive} & Reference to the archive object that saves or loads the data fields. \\
+\hline
+\end{DoxyParams}
+
+
+\label{struct_message_request_doc-variable-members}
+\Hypertarget{struct_message_request_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{struct_message_request_ae6438a9877431b9c5fe857dd93da189b}\index{MessageRequest@{MessageRequest}!fromRoom@{fromRoom}}
+\index{fromRoom@{fromRoom}!MessageRequest@{MessageRequest}}
+\doxysubsubsection{\texorpdfstring{fromRoom}{fromRoom}}
+{\footnotesize\ttfamily \label{struct_message_request_ae6438a9877431b9c5fe857dd93da189b} 
+bool Message\+Request::\+from\+Room}
+
+Flag showing if we are loading messages from a room (true) or a private chat (false). \Hypertarget{struct_message_request_a507a8a6bc7a95ba151103ddde2cee108}\index{MessageRequest@{MessageRequest}!offset@{offset}}
+\index{offset@{offset}!MessageRequest@{MessageRequest}}
+\doxysubsubsection{\texorpdfstring{offset}{offset}}
+{\footnotesize\ttfamily \label{struct_message_request_a507a8a6bc7a95ba151103ddde2cee108} 
+uint32\+\_\+t Message\+Request::\+offset}
+
+The number of messages to skip (offset) to load the next older batch. \Hypertarget{struct_message_request_a35221772ccb55f6cee7cd6fd8b292b93}\index{MessageRequest@{MessageRequest}!targetId@{targetId}}
+\index{targetId@{targetId}!MessageRequest@{MessageRequest}}
+\doxysubsubsection{\texorpdfstring{targetId}{targetId}}
+{\footnotesize\ttfamily \label{struct_message_request_a35221772ccb55f6cee7cd6fd8b292b93} 
+uint32\+\_\+t Message\+Request::\+target\+Id}
+
+ID of the room or user whose chat history we want to load. 
+
+The documentation for this struct was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+common/\+include/\+common/\+Message\+Request.\+h\end{DoxyCompactItemize}

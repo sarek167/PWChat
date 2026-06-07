@@ -1,0 +1,120 @@
+\doxysection{Login\+Window Class Reference}
+\hypertarget{class_login_window}{}\label{class_login_window}\index{LoginWindow@{LoginWindow}}
+
+
+Class representing window for login.  
+
+
+
+
+{\ttfamily \+\#include $<$loginwindow.\+h$>$}
+
+
+
+Inheritance diagram for Login\+Window:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=160pt]{class_login_window__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Login\+Window:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=160pt]{class_login_window__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \doxymbox{\hyperlink{class_login_window_aa55b237254e4e7f8d2ecd83fd47eed2d}{login\+Requested}} (std::\+string nickname, std::\+string password)
+\begin{DoxyCompactList}\small\item\em Signal sent after login form submit. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_login_window_a673692c8271a4f1761fa2bf865845869}{register\+Requested}} (std::\+string nickname, std::\+string password)
+\begin{DoxyCompactList}\small\item\em Signal sent after register form submit. \end{DoxyCompactList}\item 
+\Hypertarget{class_login_window_aee6b0334bcc238a8990aee0132957001}\label{class_login_window_aee6b0334bcc238a8990aee0132957001} 
+void {\bfseries register\+Error} ()
+\begin{DoxyCompactList}\small\item\em Signal sent when register form has errors -\/ e.\+g. password and its confirmation do not match. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{class_login_window_aa4c04d26b299de00156bbf3c32b2a082}{Login\+Window}} (QWidget \texorpdfstring{$\ast$}{*}parent=nullptr)
+\begin{DoxyCompactList}\small\item\em Constructor for \doxylink{class_login_window}{Login\+Window} class. \end{DoxyCompactList}\item 
+\Hypertarget{class_login_window_a0c49fe788dcce29aa50e7d974e1ad158}\label{class_login_window_a0c49fe788dcce29aa50e7d974e1ad158} 
+{\bfseries \texorpdfstring{$\sim$}{\string~}\+Login\+Window} ()
+\begin{DoxyCompactList}\small\item\em Destructor for \doxylink{class_login_window}{Login\+Window} class. \end{DoxyCompactList}\item 
+\Hypertarget{class_login_window_aa86e90e9308e3297a8952c66394c923e}\label{class_login_window_aa86e90e9308e3297a8952c66394c923e} 
+void {\bfseries reset\+Forms} ()
+\begin{DoxyCompactList}\small\item\em Responsible for resetting all forms located in the window. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Class representing window for login. 
+
+\label{class_login_window_doc-constructors}
+\Hypertarget{class_login_window_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_login_window_aa4c04d26b299de00156bbf3c32b2a082}\index{LoginWindow@{LoginWindow}!LoginWindow@{LoginWindow}}
+\index{LoginWindow@{LoginWindow}!LoginWindow@{LoginWindow}}
+\doxysubsubsection{\texorpdfstring{LoginWindow()}{LoginWindow()}}
+{\footnotesize\ttfamily \label{class_login_window_aa4c04d26b299de00156bbf3c32b2a082} 
+Login\+Window::\+\+Login\+Window (\begin{DoxyParamCaption}\item[{QWidget \texorpdfstring{$\ast$}{*}}]{parent}{ = {\ttfamily nullptr}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Constructor for \doxylink{class_login_window}{Login\+Window} class. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em parent} & Pointer to the parent widget (defaults to nullptr). \\
+\hline
+\end{DoxyParams}
+
+
+\label{class_login_window_doc-func-members}
+\Hypertarget{class_login_window_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_login_window_aa55b237254e4e7f8d2ecd83fd47eed2d}\index{LoginWindow@{LoginWindow}!loginRequested@{loginRequested}}
+\index{loginRequested@{loginRequested}!LoginWindow@{LoginWindow}}
+\doxysubsubsection{\texorpdfstring{loginRequested}{loginRequested}}
+{\footnotesize\ttfamily \label{class_login_window_aa55b237254e4e7f8d2ecd83fd47eed2d} 
+void Login\+Window::\+login\+Requested (\begin{DoxyParamCaption}\item[{std::\+string}]{nickname}{, }\item[{std::\+string}]{password}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+Signal sent after login form submit. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em nickname} & The username or unique handle entered by the user. \\
+\hline
+{\em password} & The plaintext account password credentials entered by the user. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_login_window_a673692c8271a4f1761fa2bf865845869}\index{LoginWindow@{LoginWindow}!registerRequested@{registerRequested}}
+\index{registerRequested@{registerRequested}!LoginWindow@{LoginWindow}}
+\doxysubsubsection{\texorpdfstring{registerRequested}{registerRequested}}
+{\footnotesize\ttfamily \label{class_login_window_a673692c8271a4f1761fa2bf865845869} 
+void Login\+Window::\+register\+Requested (\begin{DoxyParamCaption}\item[{std::\+string}]{nickname}{, }\item[{std::\+string}]{password}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+Signal sent after register form submit. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em nickname} & The desired username or nickname handle chosen for registration. \\
+\hline
+{\em password} & The baseline security password chosen for the new account profile. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files:\+\begin{DoxyCompactItemize}
+\item 
+client/\+view/\+loginwindow.\+h\item 
+client/\+view/\+loginwindow.\+cpp\end{DoxyCompactItemize}

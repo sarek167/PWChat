@@ -1,0 +1,296 @@
+\doxysection{Room Class Reference}
+\hypertarget{class_room}{}\label{class_room}\index{Room@{Room}}
+
+
+Base class representing a general chat room on the server.  
+
+
+
+
+{\ttfamily \+\#include $<$Room.\+h$>$}
+
+
+
+Inheritance diagram for Room:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=240pt]{class_room__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{class_room_a4a1bc911e10ab6af877c82674031eb65}{Room}} (uint32\+\_\+t id, std::\+string name, uint32\+\_\+t owner\+Id)
+\begin{DoxyCompactList}\small\item\em Constructor for \doxylink{class_room}{Room} class. \end{DoxyCompactList}\item 
+\Hypertarget{class_room_a508697104b1bdce37058c029ea5d7b2b}\label{class_room_a508697104b1bdce37058c029ea5d7b2b} 
+virtual {\bfseries \texorpdfstring{$\sim$}{\string~}\+Room} ()=default
+\begin{DoxyCompactList}\small\item\em Virtual destructor to ensure proper cleanup in derived room classes. \end{DoxyCompactList}\item 
+uint32\+\_\+t \doxymbox{\hyperlink{class_room_a5e0f1f91d9daa18d216c032b8bcfaad6}{id}} ()
+\begin{DoxyCompactList}\small\item\em Getter for the room\textquotesingle{}s unique ID. \end{DoxyCompactList}\item 
+std::\+string \doxymbox{\hyperlink{class_room_a6e03eeada32ee3d353ac57888cd4a6d6}{name}} ()
+\begin{DoxyCompactList}\small\item\em Getter for the room\textquotesingle{}s name. \end{DoxyCompactList}\item 
+uint32\+\_\+t \doxymbox{\hyperlink{class_room_a7916ace444c80da62290307304197541}{owner\+Id}} ()
+\begin{DoxyCompactList}\small\item\em Getter for the room owner\textquotesingle{}s user ID. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_room_a014a1a9dfcd8937bc328d0bb7e8f3434}{add\+Client}} (std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_session}{Session}} $>$ client\+To\+Add)
+\begin{DoxyCompactList}\small\item\em Adds a new client session to this room (user enters the room). \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_room_a9bb93017b88f5d230672b1c79f38c501}{remove\+Client}} (std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_session}{Session}} $>$ client\+To\+Remove)
+\begin{DoxyCompactList}\small\item\em Removes a client session from this room (user leaves the room). \end{DoxyCompactList}\item 
+virtual bool \doxymbox{\hyperlink{class_room_aa5886aa2a5c7b70f13d21fdb0b1f6f19}{can\+Join}} (const std::\+string \&token)=0
+\begin{DoxyCompactList}\small\item\em Pure virtual method to check if a user is allowed to join this room. Must be implemented by \doxylink{class_public_room}{Public\+Room} and \doxylink{class_private_room}{Private\+Room} classes. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_room_ade38a686346eab346f01fe80168e7978}{broadcast}} (const \doxymbox{\hyperlink{class_packet}{Packet}} \&p, bool skip\+Sender=true)
+\begin{DoxyCompactList}\small\item\em Sends a network packet to everyone currently present in this room. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_room_ad8b3731f984186ebdf82ee88252f74df}{add\+Admin}} (uint32\+\_\+t admin\+Id)
+\begin{DoxyCompactList}\small\item\em Adds a user to the room\textquotesingle{}s administrator list. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_room_a734c4cd4b1c7d22c654c183fa988d7ef}{remove\+Admin}} (uint32\+\_\+t admin\+Id)
+\begin{DoxyCompactList}\small\item\em Removes a user from the room\textquotesingle{}s administrator list. \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{class_room_ac01a59b7b3fb37f89e5839af4e99fa5d}{check\+If\+Admin}} (const uint32\+\_\+t user\+Id)
+\begin{DoxyCompactList}\small\item\em Checks if a specific user has administrator rights in this room. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+uint32\+\_\+t \doxymbox{\hyperlink{class_room_a8dc0a04730be0ce195014b6bafd6ab24}{m\+\_\+id}}
+\item 
+std::\+string \doxymbox{\hyperlink{class_room_a311fb025c8d96f8fa9fc27e4cb77d45a}{m\+\_\+name}}
+\item 
+uint32\+\_\+t \doxymbox{\hyperlink{class_room_a041a2ad8faf8a8bcde482d06cf175953}{m\+\_\+owner\+Id}}
+\item 
+std::\+vector$<$ std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_session}{Session}} $>$ $>$ \doxymbox{\hyperlink{class_room_a999193d767b54251ac09585dddaf0e80}{m\+\_\+clients}}
+\item 
+std::\+vector$<$ uint32\+\_\+t $>$ \doxymbox{\hyperlink{class_room_a4d9a137783431bf8a29382d64d745d9b}{m\+\_\+admin\+Ids}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Base class representing a general chat room on the server. 
+
+
+\begin{DoxyItemize}
+\item It manages the list of connected clients, chat room details, and administrators. This class is abstract, meaning specific room types (like Public or Private) must inherit from it. 
+\end{DoxyItemize}
+
+\label{class_room_doc-constructors}
+\Hypertarget{class_room_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_room_a4a1bc911e10ab6af877c82674031eb65}\index{Room@{Room}!Room@{Room}}
+\index{Room@{Room}!Room@{Room}}
+\doxysubsubsection{\texorpdfstring{Room()}{Room()}}
+{\footnotesize\ttfamily \label{class_room_a4a1bc911e10ab6af877c82674031eb65} 
+Room::\+\+Room (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{id}{, }\item[{std::\+string}]{name}{, }\item[{uint32\+\_\+t}]{owner\+Id}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Constructor for \doxylink{class_room}{Room} class. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & Unique ID of the room. \\
+\hline
+{\em name} & Name of the room. \\
+\hline
+{\em owner\+Id} & ID of the user who created this room. \\
+\hline
+\end{DoxyParams}
+
+
+\label{class_room_doc-func-members}
+\Hypertarget{class_room_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_room_ad8b3731f984186ebdf82ee88252f74df}\index{Room@{Room}!addAdmin@{addAdmin}}
+\index{addAdmin@{addAdmin}!Room@{Room}}
+\doxysubsubsection{\texorpdfstring{addAdmin()}{addAdmin()}}
+{\footnotesize\ttfamily \label{class_room_ad8b3731f984186ebdf82ee88252f74df} 
+void Room::\+add\+Admin (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{admin\+Id}{}\end{DoxyParamCaption})}
+
+
+
+Adds a user to the room\textquotesingle{}s administrator list. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em admin\+Id} & ID of the user to promote. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_room_a014a1a9dfcd8937bc328d0bb7e8f3434}\index{Room@{Room}!addClient@{addClient}}
+\index{addClient@{addClient}!Room@{Room}}
+\doxysubsubsection{\texorpdfstring{addClient()}{addClient()}}
+{\footnotesize\ttfamily \label{class_room_a014a1a9dfcd8937bc328d0bb7e8f3434} 
+void Room::\+add\+Client (\begin{DoxyParamCaption}\item[{std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_session}{Session}} $>$}]{client\+To\+Add}{}\end{DoxyParamCaption})}
+
+
+
+Adds a new client session to this room (user enters the room). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em client\+To\+Add} & Shared pointer to the user\textquotesingle{}s active connection session. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_room_ade38a686346eab346f01fe80168e7978}\index{Room@{Room}!broadcast@{broadcast}}
+\index{broadcast@{broadcast}!Room@{Room}}
+\doxysubsubsection{\texorpdfstring{broadcast()}{broadcast()}}
+{\footnotesize\ttfamily \label{class_room_ade38a686346eab346f01fe80168e7978} 
+void Room::\+broadcast (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{class_packet}{Packet}} \&}]{p}{, }\item[{bool}]{skip\+Sender}{ = {\ttfamily true}}\end{DoxyParamCaption})}
+
+
+
+Sends a network packet to everyone currently present in this room. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & The packet data structure to send (e.\+g., a new chat message). \\
+\hline
+{\em skip\+Sender} & If true, the packet won\textquotesingle{}t be sent back to the person who triggered it. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_room_aa5886aa2a5c7b70f13d21fdb0b1f6f19}\index{Room@{Room}!canJoin@{canJoin}}
+\index{canJoin@{canJoin}!Room@{Room}}
+\doxysubsubsection{\texorpdfstring{canJoin()}{canJoin()}}
+{\footnotesize\ttfamily \label{class_room_aa5886aa2a5c7b70f13d21fdb0b1f6f19} 
+virtual bool Room::\+can\+Join (\begin{DoxyParamCaption}\item[{const std::\+string \&}]{token}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Pure virtual method to check if a user is allowed to join this room. Must be implemented by \doxylink{class_public_room}{Public\+Room} and \doxylink{class_private_room}{Private\+Room} classes. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em token} & Password token or pin code needed for entry validation. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if access is granted, false otherwise. 
+\end{DoxyReturn}
+
+
+Implemented in \doxymbox{\hyperlink{class_private_room_ac6d2b1bbbaa6f75e102f32072c1febaf}{Private\+Room}}, and \doxymbox{\hyperlink{class_public_room_a4271d7d9705c8a173fd20357116b6c1c}{Public\+Room}}.
+
+\Hypertarget{class_room_ac01a59b7b3fb37f89e5839af4e99fa5d}\index{Room@{Room}!checkIfAdmin@{checkIfAdmin}}
+\index{checkIfAdmin@{checkIfAdmin}!Room@{Room}}
+\doxysubsubsection{\texorpdfstring{checkIfAdmin()}{checkIfAdmin()}}
+{\footnotesize\ttfamily \label{class_room_ac01a59b7b3fb37f89e5839af4e99fa5d} 
+bool Room::\+check\+If\+Admin (\begin{DoxyParamCaption}\item[{const uint32\+\_\+t}]{user\+Id}{}\end{DoxyParamCaption})}
+
+
+
+Checks if a specific user has administrator rights in this room. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em user\+Id} & ID of the user to check. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the user is an admin, false otherwise. 
+\end{DoxyReturn}
+\Hypertarget{class_room_a5e0f1f91d9daa18d216c032b8bcfaad6}\index{Room@{Room}!id@{id}}
+\index{id@{id}!Room@{Room}}
+\doxysubsubsection{\texorpdfstring{id()}{id()}}
+{\footnotesize\ttfamily \label{class_room_a5e0f1f91d9daa18d216c032b8bcfaad6} 
+uint32\+\_\+t Room::\+id (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Getter for the room\textquotesingle{}s unique ID. 
+
+\begin{DoxyReturn}{Returns}
+The numerical ID of the room. 
+\end{DoxyReturn}
+\Hypertarget{class_room_a6e03eeada32ee3d353ac57888cd4a6d6}\index{Room@{Room}!name@{name}}
+\index{name@{name}!Room@{Room}}
+\doxysubsubsection{\texorpdfstring{name()}{name()}}
+{\footnotesize\ttfamily \label{class_room_a6e03eeada32ee3d353ac57888cd4a6d6} 
+std::\+string Room::\+name (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Getter for the room\textquotesingle{}s name. 
+
+\begin{DoxyReturn}{Returns}
+The name string of the room. 
+\end{DoxyReturn}
+\Hypertarget{class_room_a7916ace444c80da62290307304197541}\index{Room@{Room}!ownerId@{ownerId}}
+\index{ownerId@{ownerId}!Room@{Room}}
+\doxysubsubsection{\texorpdfstring{ownerId()}{ownerId()}}
+{\footnotesize\ttfamily \label{class_room_a7916ace444c80da62290307304197541} 
+uint32\+\_\+t Room::\+owner\+Id (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Getter for the room owner\textquotesingle{}s user ID. 
+
+\begin{DoxyReturn}{Returns}
+ID of the room creator/\+owner. 
+\end{DoxyReturn}
+\Hypertarget{class_room_a734c4cd4b1c7d22c654c183fa988d7ef}\index{Room@{Room}!removeAdmin@{removeAdmin}}
+\index{removeAdmin@{removeAdmin}!Room@{Room}}
+\doxysubsubsection{\texorpdfstring{removeAdmin()}{removeAdmin()}}
+{\footnotesize\ttfamily \label{class_room_a734c4cd4b1c7d22c654c183fa988d7ef} 
+void Room::\+remove\+Admin (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{admin\+Id}{}\end{DoxyParamCaption})}
+
+
+
+Removes a user from the room\textquotesingle{}s administrator list. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em admin\+Id} & ID of the user to demote. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_room_a9bb93017b88f5d230672b1c79f38c501}\index{Room@{Room}!removeClient@{removeClient}}
+\index{removeClient@{removeClient}!Room@{Room}}
+\doxysubsubsection{\texorpdfstring{removeClient()}{removeClient()}}
+{\footnotesize\ttfamily \label{class_room_a9bb93017b88f5d230672b1c79f38c501} 
+void Room::\+remove\+Client (\begin{DoxyParamCaption}\item[{std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_session}{Session}} $>$}]{client\+To\+Remove}{}\end{DoxyParamCaption})}
+
+
+
+Removes a client session from this room (user leaves the room). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em client\+To\+Remove} & Shared pointer to the connection session that should be removed. \\
+\hline
+\end{DoxyParams}
+
+
+\label{class_room_doc-variable-members}
+\Hypertarget{class_room_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_room_a4d9a137783431bf8a29382d64d745d9b}\index{Room@{Room}!m\_adminIds@{m\_adminIds}}
+\index{m\_adminIds@{m\_adminIds}!Room@{Room}}
+\doxysubsubsection{\texorpdfstring{m\_adminIds}{m\_adminIds}}
+{\footnotesize\ttfamily \label{class_room_a4d9a137783431bf8a29382d64d745d9b} 
+std::\+vector$<$uint32\+\_\+t$>$ Room::\+m\+\_\+admin\+Ids\hspace{0.3cm}{\ttfamily [protected]}}
+
+List of user IDs that have moderator/\+admin privileges here. \Hypertarget{class_room_a999193d767b54251ac09585dddaf0e80}\index{Room@{Room}!m\_clients@{m\_clients}}
+\index{m\_clients@{m\_clients}!Room@{Room}}
+\doxysubsubsection{\texorpdfstring{m\_clients}{m\_clients}}
+{\footnotesize\ttfamily \label{class_room_a999193d767b54251ac09585dddaf0e80} 
+std::\+vector$<$std::\+shared\+\_\+ptr$<$\doxymbox{\hyperlink{class_session}{Session}}$>$ $>$ Room::\+m\+\_\+clients\hspace{0.3cm}{\ttfamily [protected]}}
+
+List of all user sessions currently active inside this room. \Hypertarget{class_room_a8dc0a04730be0ce195014b6bafd6ab24}\index{Room@{Room}!m\_id@{m\_id}}
+\index{m\_id@{m\_id}!Room@{Room}}
+\doxysubsubsection{\texorpdfstring{m\_id}{m\_id}}
+{\footnotesize\ttfamily \label{class_room_a8dc0a04730be0ce195014b6bafd6ab24} 
+uint32\+\_\+t Room::\+m\+\_\+id\hspace{0.3cm}{\ttfamily [protected]}}
+
+Unique numerical identifier of the room. \Hypertarget{class_room_a311fb025c8d96f8fa9fc27e4cb77d45a}\index{Room@{Room}!m\_name@{m\_name}}
+\index{m\_name@{m\_name}!Room@{Room}}
+\doxysubsubsection{\texorpdfstring{m\_name}{m\_name}}
+{\footnotesize\ttfamily \label{class_room_a311fb025c8d96f8fa9fc27e4cb77d45a} 
+std::\+string Room::\+m\+\_\+name\hspace{0.3cm}{\ttfamily [protected]}}
+
+Display name or title of the room channel. \Hypertarget{class_room_a041a2ad8faf8a8bcde482d06cf175953}\index{Room@{Room}!m\_ownerId@{m\_ownerId}}
+\index{m\_ownerId@{m\_ownerId}!Room@{Room}}
+\doxysubsubsection{\texorpdfstring{m\_ownerId}{m\_ownerId}}
+{\footnotesize\ttfamily \label{class_room_a041a2ad8faf8a8bcde482d06cf175953} 
+uint32\+\_\+t Room::\+m\+\_\+owner\+Id\hspace{0.3cm}{\ttfamily [protected]}}
+
+\doxylink{class_user}{User} ID of the primary owner of this room. 
+
+The documentation for this class was generated from the following files:\+\begin{DoxyCompactItemize}
+\item 
+server/\+include/\+server/\+Room.\+h\item 
+server/\+src/\+Room.\+cpp\end{DoxyCompactItemize}

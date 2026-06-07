@@ -1,0 +1,83 @@
+\doxysection{Register\+Command Class Reference}
+\hypertarget{class_register_command}{}\label{class_register_command}\index{RegisterCommand@{RegisterCommand}}
+
+
+\doxylink{class_command}{Command} handler used when a new user wants to create an account.  
+
+
+
+
+{\ttfamily \+\#include $<$Register\+Command.\+h$>$}
+
+
+
+Inheritance diagram for Register\+Command:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=178pt]{class_register_command__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Register\+Command:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=178pt]{class_register_command__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \doxymbox{\hyperlink{class_register_command_a009435bb48a6e4b165e36b1d00854b31}{execute}} (std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_session}{Session}} $>$ session, const \doxymbox{\hyperlink{class_packet}{Packet}} \&p, \doxymbox{\hyperlink{class_server}{Server}} \&server) override
+\begin{DoxyCompactList}\small\item\em Executes the user registration logic. Extracts the new nickname and password from the packet, checks if the username is already taken, saves the new user credentials into the database, and returns the result. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \doxymbox{\hyperlink{class_command}{Command}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual {\bfseries \texorpdfstring{$\sim$}{\string~}\+Command} ()=default
+\begin{DoxyCompactList}\small\item\em Virtual destructor to ensure proper cleanup of derived command objects. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\doxylink{class_command}{Command} handler used when a new user wants to create an account. 
+
+
+\begin{DoxyItemize}
+\item It inherits from the base \doxylink{class_command}{Command} class and overrides the execute method to handle new user registration. 
+\end{DoxyItemize}
+
+\label{class_register_command_doc-func-members}
+\Hypertarget{class_register_command_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_register_command_a009435bb48a6e4b165e36b1d00854b31}\index{RegisterCommand@{RegisterCommand}!execute@{execute}}
+\index{execute@{execute}!RegisterCommand@{RegisterCommand}}
+\doxysubsubsection{\texorpdfstring{execute()}{execute()}}
+{\footnotesize\ttfamily \label{class_register_command_a009435bb48a6e4b165e36b1d00854b31} 
+void Register\+Command::\+execute (\begin{DoxyParamCaption}\item[{std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_session}{Session}} $>$}]{session}{, }\item[{const \doxymbox{\hyperlink{class_packet}{Packet}} \&}]{p}{, }\item[{\doxymbox{\hyperlink{class_server}{Server}} \&}]{server}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Executes the user registration logic. Extracts the new nickname and password from the packet, checks if the username is already taken, saves the new user credentials into the database, and returns the result. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em session} & Shared pointer to the network session of the client trying to register. \\
+\hline
+{\em p} & The incoming \doxylink{class_packet}{Packet} containing the desired nickname and password. \\
+\hline
+{\em server} & Reference to the main \doxylink{class_server}{Server} instance to access the database. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \doxymbox{\hyperlink{class_command_aa65874a3f62c1237796da1feb04a5f1d}{Command}}.
+
+
+
+The documentation for this class was generated from the following files:\+\begin{DoxyCompactItemize}
+\item 
+server/\+include/\+server/\+\+Commands/\+Register\+Command.\+h\item 
+server/\+src/\+\+Commands/\+Register\+Command.\+cpp\end{DoxyCompactItemize}

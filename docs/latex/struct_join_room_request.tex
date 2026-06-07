@@ -1,0 +1,79 @@
+\doxysection{Join\+Room\+Request Struct Reference}
+\hypertarget{struct_join_room_request}{}\label{struct_join_room_request}\index{JoinRoomRequest@{JoinRoomRequest}}
+
+
+Data transfer object (DTO) struct used for requesting to join an existing chat room.  
+
+
+
+
+{\ttfamily \+\#include $<$Join\+Room\+Request.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class Archive$>$ }\\void \doxymbox{\hyperlink{struct_join_room_request_a24064c9136e726b7c927bb5ce4004abd}{serialize}} (Archive \&archive)
+\begin{DoxyCompactList}\small\item\em Template method used by Cereal to pack or unpack data. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std::\+string \doxymbox{\hyperlink{struct_join_room_request_a3ffa0e33f5502a072d0b51bd48a1d19b}{name}}
+\item 
+uint32\+\_\+t \doxymbox{\hyperlink{struct_join_room_request_a34ef34ef2f73548c6d0f2acfc5e11bf2}{token}} = 0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Data transfer object (DTO) struct used for requesting to join an existing chat room. 
+
+
+\begin{DoxyItemize}
+\item It carries the name of the target room channel and an optional invitation passcode token required to pass the security verification challenge for private spaces. 
+\end{DoxyItemize}
+
+\label{struct_join_room_request_doc-func-members}
+\Hypertarget{struct_join_room_request_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{struct_join_room_request_a24064c9136e726b7c927bb5ce4004abd}\index{JoinRoomRequest@{JoinRoomRequest}!serialize@{serialize}}
+\index{serialize@{serialize}!JoinRoomRequest@{JoinRoomRequest}}
+\doxysubsubsection{\texorpdfstring{serialize()}{serialize()}}
+{\footnotesize\ttfamily \label{struct_join_room_request_a24064c9136e726b7c927bb5ce4004abd} 
+template$<$class Archive$>$ \\
+void Join\+Room\+Request::\+serialize (\begin{DoxyParamCaption}\item[{Archive \&}]{archive}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Template method used by Cereal to pack or unpack data. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Archive} & Type of the archive (e.\+g., binary, XML, JSON). \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em archive} & Reference to the archive object performing the input or output operation. \\
+\hline
+\end{DoxyParams}
+
+
+\label{struct_join_room_request_doc-variable-members}
+\Hypertarget{struct_join_room_request_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{struct_join_room_request_a3ffa0e33f5502a072d0b51bd48a1d19b}\index{JoinRoomRequest@{JoinRoomRequest}!name@{name}}
+\index{name@{name}!JoinRoomRequest@{JoinRoomRequest}}
+\doxysubsubsection{\texorpdfstring{name}{name}}
+{\footnotesize\ttfamily \label{struct_join_room_request_a3ffa0e33f5502a072d0b51bd48a1d19b} 
+std::\+string Join\+Room\+Request::\+name}
+
+The literal text name or unique title identifier of the target room. \Hypertarget{struct_join_room_request_a34ef34ef2f73548c6d0f2acfc5e11bf2}\index{JoinRoomRequest@{JoinRoomRequest}!token@{token}}
+\index{token@{token}!JoinRoomRequest@{JoinRoomRequest}}
+\doxysubsubsection{\texorpdfstring{token}{token}}
+{\footnotesize\ttfamily \label{struct_join_room_request_a34ef34ef2f73548c6d0f2acfc5e11bf2} 
+uint32\+\_\+t Join\+Room\+Request::\+token = 0}
+
+The numeric passcode or invitation token value required for private rooms. 
+
+The documentation for this struct was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+common/\+include/\+common/\+Join\+Room\+Request.\+h\end{DoxyCompactItemize}

@@ -1,0 +1,42 @@
+\doxysection{loginwindow.\+h}
+\hypertarget{loginwindow_8h_source}{}\label{loginwindow_8h_source}\index{client/view/loginwindow.h@{client/view/loginwindow.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ LOGINWINDOW\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ LOGINWINDOW\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <QMainWindow>}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{keyword}{namespace\ }Ui\ \{}
+\DoxyCodeLine{00007\ \textcolor{keyword}{class\ }LoginWindow;}
+\DoxyCodeLine{00008\ \}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00014\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_login_window_aa4c04d26b299de00156bbf3c32b2a082}{LoginWindow}}\ :\ \textcolor{keyword}{public}\ QMainWindow}
+\DoxyCodeLine{00015\ \{}
+\DoxyCodeLine{00016\ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keyword}{explicit}\ \doxymbox{\hyperlink{class_login_window_aa4c04d26b299de00156bbf3c32b2a082}{LoginWindow}}(QWidget\ *parent\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00028\ \ \ \ \ \doxymbox{\hyperlink{class_login_window_a0c49fe788dcce29aa50e7d974e1ad158}{\string~LoginWindow}}();}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_login_window_aa86e90e9308e3297a8952c66394c923e}{resetForms}}();}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00036\ \ \ \ \ Ui::LoginWindow\ *ui;\ }
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ signals:}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_login_window_aa55b237254e4e7f8d2ecd83fd47eed2d}{loginRequested}}(std::string\ nickname,\ std::string\ password);}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_login_window_a673692c8271a4f1761fa2bf865845869}{registerRequested}}(std::string\ nickname,\ std::string\ password);}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_login_window_aee6b0334bcc238a8990aee0132957001}{registerError}}();}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \textcolor{keyword}{private}\ slots:}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_btnLogin\_clicked();}
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_btnRegister\_clicked();}
+\DoxyCodeLine{00061\ \};}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ LOGINWINDOW\_H}}
+
+\end{DoxyCode}

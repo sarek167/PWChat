@@ -1,0 +1,87 @@
+\doxysection{Login\+Request Struct Reference}
+\hypertarget{struct_login_request}{}\label{struct_login_request}\index{LoginRequest@{LoginRequest}}
+
+
+Struct used to send user login credentials to the server.  
+
+
+
+
+{\ttfamily \+\#include $<$Login\+Request.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class Archive$>$ }\\void \doxymbox{\hyperlink{struct_login_request_aae08688a0e6bdb7ae98a28048a61d76c}{serialize}} (Archive \&archive)
+\begin{DoxyCompactList}\small\item\em Serialization method used by the Cereal library to pack or unpack this struct. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+uint32\+\_\+t \doxymbox{\hyperlink{struct_login_request_ace538fec08195e8839f4a95a40dc40c1}{id}}
+\item 
+std::\+string \doxymbox{\hyperlink{struct_login_request_ab93ed3d7907913d78874cfdea166f14e}{nickname}}
+\item 
+std::\+string \doxymbox{\hyperlink{struct_login_request_ae4764de80a90ea41998c7d9e4ef55d56}{password}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Struct used to send user login credentials to the server. 
+
+
+\begin{DoxyItemize}
+\item It packages the nickname and password needed by the server to verify the user\textquotesingle{}s identity and log them into the application. 
+\end{DoxyItemize}
+
+\label{struct_login_request_doc-func-members}
+\Hypertarget{struct_login_request_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{struct_login_request_aae08688a0e6bdb7ae98a28048a61d76c}\index{LoginRequest@{LoginRequest}!serialize@{serialize}}
+\index{serialize@{serialize}!LoginRequest@{LoginRequest}}
+\doxysubsubsection{\texorpdfstring{serialize()}{serialize()}}
+{\footnotesize\ttfamily \label{struct_login_request_aae08688a0e6bdb7ae98a28048a61d76c} 
+template$<$class Archive$>$ \\
+void Login\+Request::\+serialize (\begin{DoxyParamCaption}\item[{Archive \&}]{archive}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Serialization method used by the Cereal library to pack or unpack this struct. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Archive} & Type of the data stream (like binary or JSON). \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em archive} & Reference to the archive object that saves or loads the data fields. \\
+\hline
+\end{DoxyParams}
+
+
+\label{struct_login_request_doc-variable-members}
+\Hypertarget{struct_login_request_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{struct_login_request_ace538fec08195e8839f4a95a40dc40c1}\index{LoginRequest@{LoginRequest}!id@{id}}
+\index{id@{id}!LoginRequest@{LoginRequest}}
+\doxysubsubsection{\texorpdfstring{id}{id}}
+{\footnotesize\ttfamily \label{struct_login_request_ace538fec08195e8839f4a95a40dc40c1} 
+uint32\+\_\+t Login\+Request::\+id}
+
+\doxylink{class_user}{User} ID number (if already known or assigned). \Hypertarget{struct_login_request_ab93ed3d7907913d78874cfdea166f14e}\index{LoginRequest@{LoginRequest}!nickname@{nickname}}
+\index{nickname@{nickname}!LoginRequest@{LoginRequest}}
+\doxysubsubsection{\texorpdfstring{nickname}{nickname}}
+{\footnotesize\ttfamily \label{struct_login_request_ab93ed3d7907913d78874cfdea166f14e} 
+std::\+string Login\+Request::\+nickname}
+
+The nickname typed in by the user. \Hypertarget{struct_login_request_ae4764de80a90ea41998c7d9e4ef55d56}\index{LoginRequest@{LoginRequest}!password@{password}}
+\index{password@{password}!LoginRequest@{LoginRequest}}
+\doxysubsubsection{\texorpdfstring{password}{password}}
+{\footnotesize\ttfamily \label{struct_login_request_ae4764de80a90ea41998c7d9e4ef55d56} 
+std::\+string Login\+Request::\+password}
+
+The password typed in by the user to log in. 
+
+The documentation for this struct was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+common/\+include/\+common/\+Login\+Request.\+h\end{DoxyCompactItemize}

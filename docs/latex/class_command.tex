@@ -1,0 +1,70 @@
+\doxysection{Command Class Reference}
+\hypertarget{class_command}{}\label{class_command}\index{Command@{Command}}
+
+
+Base interface for the \doxylink{class_command}{Command} pattern used to handle incoming packets.  
+
+
+
+
+{\ttfamily \+\#include $<$Command.\+h$>$}
+
+
+
+Inheritance diagram for Command:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{class_command__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_command_aa545a53d35818f9efb936daf3fa16c61}\label{class_command_aa545a53d35818f9efb936daf3fa16c61} 
+virtual {\bfseries \texorpdfstring{$\sim$}{\string~}\+Command} ()=default
+\begin{DoxyCompactList}\small\item\em Virtual destructor to ensure proper cleanup of derived command objects. \end{DoxyCompactList}\item 
+virtual void \doxymbox{\hyperlink{class_command_aa65874a3f62c1237796da1feb04a5f1d}{execute}} (std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_session}{Session}} $>$ session, const \doxymbox{\hyperlink{class_packet}{Packet}} \&p, \doxymbox{\hyperlink{class_server}{Server}} \&server)=0
+\begin{DoxyCompactList}\small\item\em Pure virtual method that executes the logic for a specific packet type. Must be implemented by all derived command classes. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Base interface for the \doxylink{class_command}{Command} pattern used to handle incoming packets. 
+
+
+\begin{DoxyItemize}
+\item Every specific action (like logging in, joining a room, or sending a message) inherits from this class and implements its own execute method. 
+\end{DoxyItemize}
+
+\label{class_command_doc-func-members}
+\Hypertarget{class_command_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_command_aa65874a3f62c1237796da1feb04a5f1d}\index{Command@{Command}!execute@{execute}}
+\index{execute@{execute}!Command@{Command}}
+\doxysubsubsection{\texorpdfstring{execute()}{execute()}}
+{\footnotesize\ttfamily \label{class_command_aa65874a3f62c1237796da1feb04a5f1d} 
+virtual void Command::\+execute (\begin{DoxyParamCaption}\item[{std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_session}{Session}} $>$}]{session}{, }\item[{const \doxymbox{\hyperlink{class_packet}{Packet}} \&}]{p}{, }\item[{\doxymbox{\hyperlink{class_server}{Server}} \&}]{server}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Pure virtual method that executes the logic for a specific packet type. Must be implemented by all derived command classes. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em session} & Shared pointer to the session of the client who sent the request. \\
+\hline
+{\em p} & The incoming \doxylink{class_packet}{Packet} data. \\
+\hline
+{\em server} & Reference to the main \doxylink{class_server}{Server} instance to access subsystems. \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \doxymbox{\hyperlink{class_add_admin_command_ab5b7f4b29421721924ae8d46fcf7c1cf}{Add\+Admin\+Command}}, \doxymbox{\hyperlink{class_create_room_command_adc292b163e3d2702a4209fc0556b4adb}{Create\+Room\+Command}}, \doxymbox{\hyperlink{class_find_user_command_a5f6ddd9330b1dc63c94787c6736bbd68}{Find\+User\+Command}}, \doxymbox{\hyperlink{class_gen_room_code_command_af4a39c86561576d23de0b77ab85c02b0}{Gen\+Room\+Code\+Command}}, \doxymbox{\hyperlink{class_join_room_command_a0fdf0c02b938997bb435880660817761}{Join\+Room\+Command}}, \doxymbox{\hyperlink{class_leave_room_command_a27cb06ae80251649cd8524f7d0341e0b}{Leave\+Room\+Command}}, \doxymbox{\hyperlink{class_load_audio_command_ae882bfc4f1c03e3205f3aee534511e1a}{Load\+Audio\+Command}}, \doxymbox{\hyperlink{class_load_messages_command_af6824aa5748b986df54e3a3b414919e2}{Load\+Messages\+Command}}, \doxymbox{\hyperlink{class_login_command_a81091dcaecec5cf371b347b99981b225}{Login\+Command}}, \doxymbox{\hyperlink{class_logout_command_a7854aaa522f7e5da002a8ba23f32d70d}{Logout\+Command}}, \doxymbox{\hyperlink{class_register_command_a009435bb48a6e4b165e36b1d00854b31}{Register\+Command}}, \doxymbox{\hyperlink{class_room_info_command_ae91656f487b08b6417699058bfd44b27}{Room\+Info\+Command}}, \doxymbox{\hyperlink{class_room_mess_command_ad504d3dbda8cd5d3d20fd1ee1f8de17f}{Room\+Mess\+Command}}, and \doxymbox{\hyperlink{class_user_mess_command_a72c2a8a6d7f4f4325ba73d7ccec3afa1}{User\+Mess\+Command}}.
+
+
+
+The documentation for this class was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+server/\+include/\+server/\+\+Commands/\+Command.\+h\end{DoxyCompactItemize}

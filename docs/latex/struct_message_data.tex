@@ -1,0 +1,103 @@
+\doxysection{Message\+Data Struct Reference}
+\hypertarget{struct_message_data}{}\label{struct_message_data}\index{MessageData@{MessageData}}
+
+
+Struct that holds all details about a single chat message.  
+
+
+
+
+{\ttfamily \+\#include $<$Message\+Data.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class Archive$>$ }\\void \doxymbox{\hyperlink{struct_message_data_a50964bc085f8042c7f1298494190bf66}{serialize}} (Archive \&archive)
+\begin{DoxyCompactList}\small\item\em Serialization method used by the Cereal library to pack or unpack this struct. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+uint32\+\_\+t \doxymbox{\hyperlink{struct_message_data_a70fc9bb13a645d77a7a950038197ae07}{sender\+Id}}
+\item 
+std::\+string \doxymbox{\hyperlink{struct_message_data_a7689a4ba68084c2787d6cd6e977f85b6}{sender\+Name}}
+\item 
+uint32\+\_\+t \doxymbox{\hyperlink{struct_message_data_ab286866a8d94c1632a967dfc6e2b2283}{target\+Id}}
+\item 
+std::\+string \doxymbox{\hyperlink{struct_message_data_ad7226721d7b426ec05e59b1eb3221086}{message}}
+\item 
+Message\+Content\+Type \doxymbox{\hyperlink{struct_message_data_aeb30ebbdca30b63e15b8b97b0bd81fce}{message\+Type}} = Message\+Content\+Type::\+\+TEXT
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Struct that holds all details about a single chat message. 
+
+
+\begin{DoxyItemize}
+\item It stores the sender\textquotesingle{}s info, the target destination, the message content itself, and its type so the client knows how to display it. 
+\end{DoxyItemize}
+
+\label{struct_message_data_doc-func-members}
+\Hypertarget{struct_message_data_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{struct_message_data_a50964bc085f8042c7f1298494190bf66}\index{MessageData@{MessageData}!serialize@{serialize}}
+\index{serialize@{serialize}!MessageData@{MessageData}}
+\doxysubsubsection{\texorpdfstring{serialize()}{serialize()}}
+{\footnotesize\ttfamily \label{struct_message_data_a50964bc085f8042c7f1298494190bf66} 
+template$<$class Archive$>$ \\
+void Message\+Data::\+serialize (\begin{DoxyParamCaption}\item[{Archive \&}]{archive}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Serialization method used by the Cereal library to pack or unpack this struct. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Archive} & Type of the data stream (like binary or JSON). \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em archive} & Reference to the archive object that saves or loads the data fields. \\
+\hline
+\end{DoxyParams}
+
+
+\label{struct_message_data_doc-variable-members}
+\Hypertarget{struct_message_data_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{struct_message_data_ad7226721d7b426ec05e59b1eb3221086}\index{MessageData@{MessageData}!message@{message}}
+\index{message@{message}!MessageData@{MessageData}}
+\doxysubsubsection{\texorpdfstring{message}{message}}
+{\footnotesize\ttfamily \label{struct_message_data_ad7226721d7b426ec05e59b1eb3221086} 
+std::\+string Message\+Data::\+message}
+
+The actual content of the message (text or audio filename/\+data). \Hypertarget{struct_message_data_aeb30ebbdca30b63e15b8b97b0bd81fce}\index{MessageData@{MessageData}!messageType@{messageType}}
+\index{messageType@{messageType}!MessageData@{MessageData}}
+\doxysubsubsection{\texorpdfstring{messageType}{messageType}}
+{\footnotesize\ttfamily \label{struct_message_data_aeb30ebbdca30b63e15b8b97b0bd81fce} 
+Message\+Content\+Type Message\+Data::\+message\+Type = Message\+Content\+Type::\+\+TEXT}
+
+Tells if the message is text or audio. \Hypertarget{struct_message_data_a70fc9bb13a645d77a7a950038197ae07}\index{MessageData@{MessageData}!senderId@{senderId}}
+\index{senderId@{senderId}!MessageData@{MessageData}}
+\doxysubsubsection{\texorpdfstring{senderId}{senderId}}
+{\footnotesize\ttfamily \label{struct_message_data_a70fc9bb13a645d77a7a950038197ae07} 
+uint32\+\_\+t Message\+Data::\+sender\+Id}
+
+ID of the user who sent the message. \Hypertarget{struct_message_data_a7689a4ba68084c2787d6cd6e977f85b6}\index{MessageData@{MessageData}!senderName@{senderName}}
+\index{senderName@{senderName}!MessageData@{MessageData}}
+\doxysubsubsection{\texorpdfstring{senderName}{senderName}}
+{\footnotesize\ttfamily \label{struct_message_data_a7689a4ba68084c2787d6cd6e977f85b6} 
+std::\+string Message\+Data::\+sender\+Name}
+
+Nickname of the user who sent the message. \Hypertarget{struct_message_data_ab286866a8d94c1632a967dfc6e2b2283}\index{MessageData@{MessageData}!targetId@{targetId}}
+\index{targetId@{targetId}!MessageData@{MessageData}}
+\doxysubsubsection{\texorpdfstring{targetId}{targetId}}
+{\footnotesize\ttfamily \label{struct_message_data_ab286866a8d94c1632a967dfc6e2b2283} 
+uint32\+\_\+t Message\+Data::\+target\+Id}
+
+ID of the receiver (either a specific user or a chat room). 
+
+The documentation for this struct was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+common/\+include/\+common/\+Message\+Data.\+h\end{DoxyCompactItemize}

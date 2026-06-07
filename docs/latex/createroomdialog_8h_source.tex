@@ -1,0 +1,35 @@
+\doxysection{createroomdialog.\+h}
+\hypertarget{createroomdialog_8h_source}{}\label{createroomdialog_8h_source}\index{client/view/createroomdialog.h@{client/view/createroomdialog.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ CREATEROOMDIALOG\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ CREATEROOMDIALOG\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <QDialog>}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{keyword}{namespace\ }Ui\ \{}
+\DoxyCodeLine{00007\ \textcolor{keyword}{class\ }CreateRoomDialog;}
+\DoxyCodeLine{00008\ \}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00014\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_create_room_dialog_aa046f0e154552ba2668014a07518e38d}{CreateRoomDialog}}\ :\ \textcolor{keyword}{public}\ QDialog}
+\DoxyCodeLine{00015\ \{}
+\DoxyCodeLine{00016\ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keyword}{explicit}\ \doxymbox{\hyperlink{class_create_room_dialog_aa046f0e154552ba2668014a07518e38d}{CreateRoomDialog}}(QWidget\ *parent\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00028\ \ \ \ \ \doxymbox{\hyperlink{class_create_room_dialog_ae38abb6984ebad2968a51c973f7d49f6}{\string~CreateRoomDialog}}();}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ signals:}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_create_room_dialog_abf338e0c3c984e3028b6a2c8b2f6c3a0}{createRoomRequested}}(std::string\ roomName,\ \textcolor{keywordtype}{bool}\ isPrivate,\ \textcolor{keywordtype}{bool}\ isAdmin);}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{keyword}{private}\ slots:}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_buttonBox\_accepted();}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00044\ \ \ \ \ Ui::CreateRoomDialog\ *ui;\ }
+\DoxyCodeLine{00045\ \};}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ CREATEROOMDIALOG\_H}}
+
+\end{DoxyCode}

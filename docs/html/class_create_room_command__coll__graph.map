@@ -1,0 +1,5 @@
+<map id="CreateRoomCommand" name="CreateRoomCommand">
+<area shape="rect" id="Node000001" title="Command handler used when a user requests to create a new chat room." alt="" coords="5,80,161,107"/>
+<area shape="rect" id="Node000002" href="$class_command.html" title="Base interface for the Command pattern used to handle incoming packets." alt="" coords="42,5,124,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="85,46,86,81,80,79,81,50"/>
+</map>

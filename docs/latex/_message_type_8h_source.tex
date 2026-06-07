@@ -1,0 +1,33 @@
+\doxysection{Message\+Type.\+h}
+\hypertarget{_message_type_8h_source}{}\label{_message_type_8h_source}\index{common/include/common/MessageType.h@{common/include/common/MessageType.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ MESSAGETYPES\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ MESSAGETYPES\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00012\ \textcolor{keyword}{enum\ class}\ MessageType\ :\ uint8\_t\ \{}
+\DoxyCodeLine{00013\ \ \ \ \ MESS\_TO\_USER\ =\ 0,}
+\DoxyCodeLine{00014\ \ \ \ \ MESS\_TO\_ROOM\ =\ 1,}
+\DoxyCodeLine{00015\ \ \ \ \ LOAD\_AUDIO\ =\ 2,}
+\DoxyCodeLine{00016\ \ \ \ \ AUDIO\_TO\_ROOM\ =\ 3,}
+\DoxyCodeLine{00017\ \ \ \ \ LOGIN\_REQUEST\ =\ 4,}
+\DoxyCodeLine{00018\ \ \ \ \ ERROR\_RESPONSE\ =\ 5,}
+\DoxyCodeLine{00019\ \ \ \ \ JOIN\_ROOM\_COMM\ =\ 6,}
+\DoxyCodeLine{00020\ \ \ \ \ LEAVE\_ROOM\_REQUEST\ =\ 7,}
+\DoxyCodeLine{00021\ \ \ \ \ CREATE\_ROOM\_COMM\ =\ 8,}
+\DoxyCodeLine{00022\ \ \ \ \ DEL\_ROOM\_COMM\ =\ 9,}
+\DoxyCodeLine{00023\ \ \ \ \ REGISTER\_REQUEST\ =\ 10,}
+\DoxyCodeLine{00024\ \ \ \ \ LOGOUT\_REQUEST\ =\ 11,}
+\DoxyCodeLine{00025\ \ \ \ \ ROOM\_INFO\_REQUEST\ =\ 12,}
+\DoxyCodeLine{00026\ \ \ \ \ ADD\_ADMIN\_REQUEST\ =\ 13,}
+\DoxyCodeLine{00027\ \ \ \ \ LOAD\_MESS\_REQUEST\ =\ 14,}
+\DoxyCodeLine{00028\ \ \ \ \ GEN\_CODE\_REQUEST\ =\ 15,}
+\DoxyCodeLine{00029\ \ \ \ \ ACCESS\_CODE\_REQUIRED\ =\ 16,}
+\DoxyCodeLine{00030\ \ \ \ \ FIND\_USER\_REQUEST\ =\ 17}
+\DoxyCodeLine{00031\ \};}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ MESSAGETYPES\_H}}
+
+\end{DoxyCode}

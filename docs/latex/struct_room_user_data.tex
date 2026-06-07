@@ -1,0 +1,111 @@
+\doxysection{Room\+User\+Data Struct Reference}
+\hypertarget{struct_room_user_data}{}\label{struct_room_user_data}\index{RoomUserData@{RoomUserData}}
+
+
+Struct that holds detailed information about a chat room.  
+
+
+
+
+{\ttfamily \+\#include $<$Room\+User\+Data.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class Archive$>$ }\\void \doxymbox{\hyperlink{struct_room_user_data_a8c0e001ef74842ad63c219c77c8ce1a1}{serialize}} (Archive \&archive)
+\begin{DoxyCompactList}\small\item\em Serialization method used by the Cereal library to pack or unpack this struct. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+uint32\+\_\+t \doxymbox{\hyperlink{struct_room_user_data_a69f56b0df606bda6eb9aaf0c6517f48d}{id}}
+\item 
+std::\+string \doxymbox{\hyperlink{struct_room_user_data_a9cab21a37a4f334b76931c7ccf298d74}{name}}
+\item 
+bool \doxymbox{\hyperlink{struct_room_user_data_a23dcd7ca66060d7bba3e4d8dc0a654a9}{is\+Private}}
+\item 
+uint32\+\_\+t \doxymbox{\hyperlink{struct_room_user_data_a687d0091b58e0726fe39332e1bd26fd0}{access\+Code}} = 0
+\item 
+std::\+vector$<$ \doxymbox{\hyperlink{struct_user_data}{User\+Data}} $>$ \doxymbox{\hyperlink{struct_room_user_data_ab7c2a53121209d6d9b08588a71eb665c}{users}}
+\item 
+std::\+vector$<$ \doxymbox{\hyperlink{struct_user_data}{User\+Data}} $>$ \doxymbox{\hyperlink{struct_room_user_data_aa77f51322f4a72eb2ed41fe8ef0f1346}{admins}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Struct that holds detailed information about a chat room. 
+
+
+\begin{DoxyItemize}
+\item It packages everything needed to display a room, including its settings, the list of regular members, and the list of room administrators. 
+\end{DoxyItemize}
+
+\label{struct_room_user_data_doc-func-members}
+\Hypertarget{struct_room_user_data_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{struct_room_user_data_a8c0e001ef74842ad63c219c77c8ce1a1}\index{RoomUserData@{RoomUserData}!serialize@{serialize}}
+\index{serialize@{serialize}!RoomUserData@{RoomUserData}}
+\doxysubsubsection{\texorpdfstring{serialize()}{serialize()}}
+{\footnotesize\ttfamily \label{struct_room_user_data_a8c0e001ef74842ad63c219c77c8ce1a1} 
+template$<$class Archive$>$ \\
+void Room\+User\+Data::\+serialize (\begin{DoxyParamCaption}\item[{Archive \&}]{archive}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Serialization method used by the Cereal library to pack or unpack this struct. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Archive} & Type of the data stream (like binary or JSON). \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em archive} & Reference to the archive object that saves or loads the room data fields. \\
+\hline
+\end{DoxyParams}
+
+
+\label{struct_room_user_data_doc-variable-members}
+\Hypertarget{struct_room_user_data_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{struct_room_user_data_a687d0091b58e0726fe39332e1bd26fd0}\index{RoomUserData@{RoomUserData}!accessCode@{accessCode}}
+\index{accessCode@{accessCode}!RoomUserData@{RoomUserData}}
+\doxysubsubsection{\texorpdfstring{accessCode}{accessCode}}
+{\footnotesize\ttfamily \label{struct_room_user_data_a687d0091b58e0726fe39332e1bd26fd0} 
+uint32\+\_\+t Room\+User\+Data::\+access\+Code = 0}
+
+The numeric password/\+pin needed to enter a private room. \Hypertarget{struct_room_user_data_aa77f51322f4a72eb2ed41fe8ef0f1346}\index{RoomUserData@{RoomUserData}!admins@{admins}}
+\index{admins@{admins}!RoomUserData@{RoomUserData}}
+\doxysubsubsection{\texorpdfstring{admins}{admins}}
+{\footnotesize\ttfamily \label{struct_room_user_data_aa77f51322f4a72eb2ed41fe8ef0f1346} 
+std::\+vector$<$\doxymbox{\hyperlink{struct_user_data}{User\+Data}}$>$ Room\+User\+Data::\+admins}
+
+List of users who have admin privileges in this room. \Hypertarget{struct_room_user_data_a69f56b0df606bda6eb9aaf0c6517f48d}\index{RoomUserData@{RoomUserData}!id@{id}}
+\index{id@{id}!RoomUserData@{RoomUserData}}
+\doxysubsubsection{\texorpdfstring{id}{id}}
+{\footnotesize\ttfamily \label{struct_room_user_data_a69f56b0df606bda6eb9aaf0c6517f48d} 
+uint32\+\_\+t Room\+User\+Data::\+id}
+
+Unique ID number of the chat room. \Hypertarget{struct_room_user_data_a23dcd7ca66060d7bba3e4d8dc0a654a9}\index{RoomUserData@{RoomUserData}!isPrivate@{isPrivate}}
+\index{isPrivate@{isPrivate}!RoomUserData@{RoomUserData}}
+\doxysubsubsection{\texorpdfstring{isPrivate}{isPrivate}}
+{\footnotesize\ttfamily \label{struct_room_user_data_a23dcd7ca66060d7bba3e4d8dc0a654a9} 
+bool Room\+User\+Data::\+is\+Private}
+
+Flag showing if the room is private (true) or public (false). \Hypertarget{struct_room_user_data_a9cab21a37a4f334b76931c7ccf298d74}\index{RoomUserData@{RoomUserData}!name@{name}}
+\index{name@{name}!RoomUserData@{RoomUserData}}
+\doxysubsubsection{\texorpdfstring{name}{name}}
+{\footnotesize\ttfamily \label{struct_room_user_data_a9cab21a37a4f334b76931c7ccf298d74} 
+std::\+string Room\+User\+Data::\+name}
+
+The display name of the room. \Hypertarget{struct_room_user_data_ab7c2a53121209d6d9b08588a71eb665c}\index{RoomUserData@{RoomUserData}!users@{users}}
+\index{users@{users}!RoomUserData@{RoomUserData}}
+\doxysubsubsection{\texorpdfstring{users}{users}}
+{\footnotesize\ttfamily \label{struct_room_user_data_ab7c2a53121209d6d9b08588a71eb665c} 
+std::\+vector$<$\doxymbox{\hyperlink{struct_user_data}{User\+Data}}$>$ Room\+User\+Data::\+users}
+
+List of standard users currently in the room. 
+
+The documentation for this struct was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+common/\+include/\+common/\+Room\+User\+Data.\+h\end{DoxyCompactItemize}

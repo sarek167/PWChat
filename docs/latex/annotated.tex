@@ -1,0 +1,50 @@
+\doxysection{Class List}
+Here are the classes, structs, unions and interfaces with brief descriptions:\+\begin{DoxyCompactList}
+\item\contentsline{section}{\doxymbox{\hyperlink{class_add_admin_command}{Add\+Admin\+Command}} \\*\doxylink{class_command}{Command} handler used when a room owner wants to promote another user to admin }{\pageref{class_add_admin_command}}{}
+\item\contentsline{section}{\doxymbox{\hyperlink{struct_add_admin_request}{Add\+Admin\+Request}} \\*Struct used to send a request to promote a user to a room administrator }{\pageref{struct_add_admin_request}}{}
+\item\contentsline{section}{\doxymbox{\hyperlink{class_app_manager}{App\+Manager}} \\*Class responsible for client side connection between all app segments while keeping them separate }{\pageref{class_app_manager}}{}
+\item\contentsline{section}{\doxymbox{\hyperlink{class_audio_codec}{Audio\+Codec}} \\*Abstract base class (interface) representing all audio codecs in the system. It defines the pure virtual contract for encoding raw PCM audio data into compressed formats and decoding them back for playback }{\pageref{class_audio_codec}}{}
+\item\contentsline{section}{\doxymbox{\hyperlink{class_audio_manager}{Audio\+Manager}} \\*Class responsible for IO management of audio. It handles raw audio capturing from the microphone, interacts with the audio codec for compression, and manages audio playback pipelines }{\pageref{class_audio_manager}}{}
+\item\contentsline{section}{\doxymbox{\hyperlink{struct_auth_response}{Auth\+Response}} \\*Struct holding the server\textquotesingle{}s response after a login or registration attempt }{\pageref{struct_auth_response}}{}
+\item\contentsline{section}{\doxymbox{\hyperlink{struct_chat_context}{Chat\+Context}} \\*Struct used for storing context of currently opened chat }{\pageref{struct_chat_context}}{}
+\item\contentsline{section}{\doxymbox{\hyperlink{class_command}{Command}} \\*Base interface for the \doxylink{class_command}{Command} pattern used to handle incoming packets }{\pageref{class_command}}{}
+\item\contentsline{section}{\doxymbox{\hyperlink{class_create_room_command}{Create\+Room\+Command}} \\*\doxylink{class_command}{Command} handler used when a user requests to create a new chat room }{\pageref{class_create_room_command}}{}
+\item\contentsline{section}{\doxymbox{\hyperlink{class_create_room_dialog}{Create\+Room\+Dialog}} \\*Class representing widget for creating room }{\pageref{class_create_room_dialog}}{}
+\item\contentsline{section}{\doxymbox{\hyperlink{struct_create_room_request}{Create\+Room\+Request}} \\*Struct used to send a request to create a new chat room }{\pageref{struct_create_room_request}}{}
+\item\contentsline{section}{\doxymbox{\hyperlink{class_d_b_connector}{DBConnector}} \\*Abstract interface for handling database operations }{\pageref{class_d_b_connector}}{}
+\item\contentsline{section}{\doxymbox{\hyperlink{class_find_user_command}{Find\+User\+Command}} \\*\doxylink{class_command}{Command} handler used when a user wants to search for another user by their nickname }{\pageref{class_find_user_command}}{}
+\item\contentsline{section}{\doxymbox{\hyperlink{class_gen_room_code_command}{Gen\+Room\+Code\+Command}} \\*\doxylink{class_command}{Command} handler used when an admin or owner wants to generate a new entry code for a private room }{\pageref{class_gen_room_code_command}}{}
+\item\contentsline{section}{\doxymbox{\hyperlink{class_join_room_command}{Join\+Room\+Command}} \\*\doxylink{class_command}{Command} handler used when a user wants to join an existing chat room }{\pageref{class_join_room_command}}{}
+\item\contentsline{section}{\doxymbox{\hyperlink{struct_join_room_request}{Join\+Room\+Request}} \\*Data transfer object (DTO) struct used for requesting to join an existing chat room }{\pageref{struct_join_room_request}}{}
+\item\contentsline{section}{\doxymbox{\hyperlink{class_leave_room_command}{Leave\+Room\+Command}} \\*\doxylink{class_command}{Command} handler used when a user wants to leave a chat room }{\pageref{class_leave_room_command}}{}
+\item\contentsline{section}{\doxymbox{\hyperlink{struct_leave_room_request}{Leave\+Room\+Request}} \\*Struct used to send a request to leave a chat room }{\pageref{struct_leave_room_request}}{}
+\item\contentsline{section}{\doxymbox{\hyperlink{class_load_audio_command}{Load\+Audio\+Command}} \\*\doxylink{class_command}{Command} handler used when a client requests to download or load a recorded audio message }{\pageref{class_load_audio_command}}{}
+\item\contentsline{section}{\doxymbox{\hyperlink{class_load_messages_command}{Load\+Messages\+Command}} \\*\doxylink{class_command}{Command} handler used when a client requests to load chat history }{\pageref{class_load_messages_command}}{}
+\item\contentsline{section}{\doxymbox{\hyperlink{class_login_command}{Login\+Command}} \\*\doxylink{class_command}{Command} handler used when a user tries to log into the application }{\pageref{class_login_command}}{}
+\item\contentsline{section}{\doxymbox{\hyperlink{struct_login_request}{Login\+Request}} \\*Struct used to send user login credentials to the server }{\pageref{struct_login_request}}{}
+\item\contentsline{section}{\doxymbox{\hyperlink{class_login_window}{Login\+Window}} \\*Class representing window for login }{\pageref{class_login_window}}{}
+\item\contentsline{section}{\doxymbox{\hyperlink{class_logout_command}{Logout\+Command}} \\*\doxylink{class_command}{Command} handler used when a user wants to log out of the server }{\pageref{class_logout_command}}{}
+\item\contentsline{section}{\doxymbox{\hyperlink{class_main_window}{Main\+Window}} \\*The main graphical user interface class of the client application }{\pageref{class_main_window}}{}
+\item\contentsline{section}{\doxymbox{\hyperlink{struct_message_data}{Message\+Data}} \\*Struct that holds all details about a single chat message }{\pageref{struct_message_data}}{}
+\item\contentsline{section}{\doxymbox{\hyperlink{struct_message_request}{Message\+Request}} \\*Struct used to ask the server for older chat messages }{\pageref{struct_message_request}}{}
+\item\contentsline{section}{\doxymbox{\hyperlink{class_network_manager}{Network\+Manager}} \\*Class responsible for handling network communication with the server }{\pageref{class_network_manager}}{}
+\item\contentsline{section}{\doxymbox{\hyperlink{class_opus_codec}{Opus\+Codec}} \\*Subclass of \doxylink{class_audio_codec}{Audio\+Codec} using specifically Opus library. It is responsible for encoding pcm data to transferable vector of chars and decode chars to pcm }{\pageref{class_opus_codec}}{}
+\item\contentsline{section}{\doxymbox{\hyperlink{class_packet}{Packet}} \\*Class representing a full network packet that holds both a header and data (body) }{\pageref{class_packet}}{}
+\item\contentsline{section}{\doxymbox{\hyperlink{struct_packet_header}{Packet\+Header}} \\*Fixed-\/size header placed at the beginning of every network packet }{\pageref{struct_packet_header}}{}
+\item\contentsline{section}{\doxymbox{\hyperlink{class_private_room}{Private\+Room}} \\*Represents a private chat room that requires an access code to join }{\pageref{class_private_room}}{}
+\item\contentsline{section}{\doxymbox{\hyperlink{class_public_room}{Public\+Room}} \\*Represents a public chat room that anyone can join }{\pageref{class_public_room}}{}
+\item\contentsline{section}{\doxymbox{\hyperlink{class_register_command}{Register\+Command}} \\*\doxylink{class_command}{Command} handler used when a new user wants to create an account }{\pageref{class_register_command}}{}
+\item\contentsline{section}{\doxymbox{\hyperlink{struct_register_request}{Register\+Request}} \\*Struct used to send a registration request for a new user account }{\pageref{struct_register_request}}{}
+\item\contentsline{section}{\doxymbox{\hyperlink{class_room}{Room}} \\*Base class representing a general chat room on the server }{\pageref{class_room}}{}
+\item\contentsline{section}{\doxymbox{\hyperlink{struct_room_data}{Room\+Data}} \\*Simple struct used to hold basic chat room information }{\pageref{struct_room_data}}{}
+\item\contentsline{section}{\doxymbox{\hyperlink{class_room_info_command}{Room\+Info\+Command}} \\*\doxylink{class_command}{Command} handler used when a client requests details about a specific chat room }{\pageref{class_room_info_command}}{}
+\item\contentsline{section}{\doxymbox{\hyperlink{class_room_manager}{Room\+Manager}} \\*Class that manages all chat rooms on the server }{\pageref{class_room_manager}}{}
+\item\contentsline{section}{\doxymbox{\hyperlink{class_room_mess_command}{Room\+Mess\+Command}} \\*\doxylink{class_command}{Command} handler used when a user sends a message to a chat room }{\pageref{class_room_mess_command}}{}
+\item\contentsline{section}{\doxymbox{\hyperlink{struct_room_user_data}{Room\+User\+Data}} \\*Struct that holds detailed information about a chat room }{\pageref{struct_room_user_data}}{}
+\item\contentsline{section}{\doxymbox{\hyperlink{class_server}{Server}} \\*The main class of the server core application }{\pageref{class_server}}{}
+\item\contentsline{section}{\doxymbox{\hyperlink{class_session}{Session}} \\*Represents a single active client connection on the server }{\pageref{class_session}}{}
+\item\contentsline{section}{\doxymbox{\hyperlink{class_s_q_lite_connector}{SQLite\+Connector}} \\*Specific implementation of \doxylink{class_d_b_connector}{DBConnector} using the SQLite3 library }{\pageref{class_s_q_lite_connector}}{}
+\item\contentsline{section}{\doxymbox{\hyperlink{class_user}{User}} \\*Class that represents a user object in the application }{\pageref{class_user}}{}
+\item\contentsline{section}{\doxymbox{\hyperlink{struct_user_data}{User\+Data}} \\*Simple struct used to hold basic user info like ID and nickname }{\pageref{struct_user_data}}{}
+\item\contentsline{section}{\doxymbox{\hyperlink{class_user_mess_command}{User\+Mess\+Command}} \\*\doxylink{class_command}{Command} handler used when a user sends a private, direct message to another user }{\pageref{class_user_mess_command}}{}
+\end{DoxyCompactList}

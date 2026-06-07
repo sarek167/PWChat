@@ -1,0 +1,87 @@
+\doxysection{Register\+Request Struct Reference}
+\hypertarget{struct_register_request}{}\label{struct_register_request}\index{RegisterRequest@{RegisterRequest}}
+
+
+Struct used to send a registration request for a new user account.  
+
+
+
+
+{\ttfamily \+\#include $<$Register\+Request.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class Archive$>$ }\\void \doxymbox{\hyperlink{struct_register_request_a85dc8e99cc1fba7bc8a4c45d3a15df39}{serialize}} (Archive \&archive)
+\begin{DoxyCompactList}\small\item\em Serialization method used by the Cereal library to pack or unpack this struct. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+uint32\+\_\+t \doxymbox{\hyperlink{struct_register_request_a01fb8b1293fe9b4ef44f49b242be2e04}{id}}
+\item 
+std::\+string \doxymbox{\hyperlink{struct_register_request_a27e035473f0cad6d4a062c64435c3ecc}{nickname}}
+\item 
+std::\+string \doxymbox{\hyperlink{struct_register_request_aade9e90e5fd873888f01fec9ed1d5b6d}{password}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Struct used to send a registration request for a new user account. 
+
+
+\begin{DoxyItemize}
+\item It packages the credentials needed by the server to create a new user profile and save it in the database. 
+\end{DoxyItemize}
+
+\label{struct_register_request_doc-func-members}
+\Hypertarget{struct_register_request_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{struct_register_request_a85dc8e99cc1fba7bc8a4c45d3a15df39}\index{RegisterRequest@{RegisterRequest}!serialize@{serialize}}
+\index{serialize@{serialize}!RegisterRequest@{RegisterRequest}}
+\doxysubsubsection{\texorpdfstring{serialize()}{serialize()}}
+{\footnotesize\ttfamily \label{struct_register_request_a85dc8e99cc1fba7bc8a4c45d3a15df39} 
+template$<$class Archive$>$ \\
+void Register\+Request::\+serialize (\begin{DoxyParamCaption}\item[{Archive \&}]{archive}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Serialization method used by the Cereal library to pack or unpack this struct. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Archive} & Type of the data stream (like binary or JSON). \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em archive} & Reference to the archive object that saves or loads the data fields. \\
+\hline
+\end{DoxyParams}
+
+
+\label{struct_register_request_doc-variable-members}
+\Hypertarget{struct_register_request_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{struct_register_request_a01fb8b1293fe9b4ef44f49b242be2e04}\index{RegisterRequest@{RegisterRequest}!id@{id}}
+\index{id@{id}!RegisterRequest@{RegisterRequest}}
+\doxysubsubsection{\texorpdfstring{id}{id}}
+{\footnotesize\ttfamily \label{struct_register_request_a01fb8b1293fe9b4ef44f49b242be2e04} 
+uint32\+\_\+t Register\+Request::\+id}
+
+ID number assigned and filled in by the server after successful registration. \Hypertarget{struct_register_request_a27e035473f0cad6d4a062c64435c3ecc}\index{RegisterRequest@{RegisterRequest}!nickname@{nickname}}
+\index{nickname@{nickname}!RegisterRequest@{RegisterRequest}}
+\doxysubsubsection{\texorpdfstring{nickname}{nickname}}
+{\footnotesize\ttfamily \label{struct_register_request_a27e035473f0cad6d4a062c64435c3ecc} 
+std::\+string Register\+Request::\+nickname}
+
+The chosen nickname for the new account. \Hypertarget{struct_register_request_aade9e90e5fd873888f01fec9ed1d5b6d}\index{RegisterRequest@{RegisterRequest}!password@{password}}
+\index{password@{password}!RegisterRequest@{RegisterRequest}}
+\doxysubsubsection{\texorpdfstring{password}{password}}
+{\footnotesize\ttfamily \label{struct_register_request_aade9e90e5fd873888f01fec9ed1d5b6d} 
+std::\+string Register\+Request::\+password}
+
+The password chosen to secure the new account. 
+
+The documentation for this struct was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+common/\+include/\+common/\+Register\+Request.\+h\end{DoxyCompactItemize}

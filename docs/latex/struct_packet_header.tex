@@ -1,0 +1,72 @@
+\doxysection{Packet\+Header Struct Reference}
+\hypertarget{struct_packet_header}{}\label{struct_packet_header}\index{PacketHeader@{PacketHeader}}
+
+
+Fixed-\/size header placed at the beginning of every network packet.  
+
+
+
+
+{\ttfamily \+\#include $<$Packet\+Header.\+h$>$}
+
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+uint32\+\_\+t \doxymbox{\hyperlink{struct_packet_header_ab55678218ace339b58952401080584e6}{signature}} = 0x50574348
+\item 
+Message\+Type \doxymbox{\hyperlink{struct_packet_header_abb0a126609d6c38b3dcfc0e1e7e7dd69}{type}} = Message\+Type::\+\+MESS\+\_\+\+TO\+\_\+\+USER
+\item 
+uint32\+\_\+t \doxymbox{\hyperlink{struct_packet_header_a9043a51061baf8f4bd3b93fef947c358}{target\+Id}} = 0
+\item 
+uint32\+\_\+t \doxymbox{\hyperlink{struct_packet_header_a1694c313216a29d0460532fc1fdf9e57}{sender\+Id}} = 0
+\item 
+uint32\+\_\+t \doxymbox{\hyperlink{struct_packet_header_a25b576696717bc1b25bc8a7f2d1fdf39}{body\+Size}} = 0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Fixed-\/size header placed at the beginning of every network packet. 
+
+
+\begin{DoxyItemize}
+\item It uses 1-\/byte alignment to make sure the structure looks exactly the same in memory on both the client and the server when sending data over sockets. 
+\end{DoxyItemize}
+
+\label{struct_packet_header_doc-variable-members}
+\Hypertarget{struct_packet_header_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{struct_packet_header_a25b576696717bc1b25bc8a7f2d1fdf39}\index{PacketHeader@{PacketHeader}!bodySize@{bodySize}}
+\index{bodySize@{bodySize}!PacketHeader@{PacketHeader}}
+\doxysubsubsection{\texorpdfstring{bodySize}{bodySize}}
+{\footnotesize\ttfamily \label{struct_packet_header_a25b576696717bc1b25bc8a7f2d1fdf39} 
+uint32\+\_\+t Packet\+Header::\+body\+Size = 0}
+
+Size of the extra data (the body) attached right after this header, in bytes. \Hypertarget{struct_packet_header_a1694c313216a29d0460532fc1fdf9e57}\index{PacketHeader@{PacketHeader}!senderId@{senderId}}
+\index{senderId@{senderId}!PacketHeader@{PacketHeader}}
+\doxysubsubsection{\texorpdfstring{senderId}{senderId}}
+{\footnotesize\ttfamily \label{struct_packet_header_a1694c313216a29d0460532fc1fdf9e57} 
+uint32\+\_\+t Packet\+Header::\+sender\+Id = 0}
+
+ID of the user who sent this packet. \Hypertarget{struct_packet_header_ab55678218ace339b58952401080584e6}\index{PacketHeader@{PacketHeader}!signature@{signature}}
+\index{signature@{signature}!PacketHeader@{PacketHeader}}
+\doxysubsubsection{\texorpdfstring{signature}{signature}}
+{\footnotesize\ttfamily \label{struct_packet_header_ab55678218ace339b58952401080584e6} 
+uint32\+\_\+t Packet\+Header::\+signature = 0x50574348}
+
+Magic bytes used to verify that the packet comes from our app (ASCII for \textquotesingle{}PWCH\textquotesingle{}). \Hypertarget{struct_packet_header_a9043a51061baf8f4bd3b93fef947c358}\index{PacketHeader@{PacketHeader}!targetId@{targetId}}
+\index{targetId@{targetId}!PacketHeader@{PacketHeader}}
+\doxysubsubsection{\texorpdfstring{targetId}{targetId}}
+{\footnotesize\ttfamily \label{struct_packet_header_a9043a51061baf8f4bd3b93fef947c358} 
+uint32\+\_\+t Packet\+Header::\+target\+Id = 0}
+
+ID of the target room or the user who should receive this packet. \Hypertarget{struct_packet_header_abb0a126609d6c38b3dcfc0e1e7e7dd69}\index{PacketHeader@{PacketHeader}!type@{type}}
+\index{type@{type}!PacketHeader@{PacketHeader}}
+\doxysubsubsection{\texorpdfstring{type}{type}}
+{\footnotesize\ttfamily \label{struct_packet_header_abb0a126609d6c38b3dcfc0e1e7e7dd69} 
+Message\+Type Packet\+Header::\+type = Message\+Type::\+\+MESS\+\_\+\+TO\+\_\+\+USER}
+
+Type of the message, telling the server which command should handle this packet. 
+
+The documentation for this struct was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+common/\+include/\+common/\+Packet\+Header.\+h\end{DoxyCompactItemize}

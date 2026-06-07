@@ -1,0 +1,79 @@
+\doxysection{User\+Data Struct Reference}
+\hypertarget{struct_user_data}{}\label{struct_user_data}\index{UserData@{UserData}}
+
+
+Simple struct used to hold basic user info like ID and nickname.  
+
+
+
+
+{\ttfamily \+\#include $<$User\+Data.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class Archive$>$ }\\void \doxymbox{\hyperlink{struct_user_data_a7b4dc3de8f24eed0c783c49cb0817d21}{serialize}} (Archive \&archive)
+\begin{DoxyCompactList}\small\item\em Serialization method used by the Cereal library to pack or unpack this struct. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+uint32\+\_\+t \doxymbox{\hyperlink{struct_user_data_a8b0b3b230fa9fdc08c6fa143756bc6fa}{id}}
+\item 
+std::\+string \doxymbox{\hyperlink{struct_user_data_aafb56eff10b2fd4ed3eed1fb5cbeb02a}{nickname}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Simple struct used to hold basic user info like ID and nickname. 
+
+
+\begin{DoxyItemize}
+\item It is used as a lightweight structure to quickly send user details over the network without mixing in any sensitive session data. 
+\end{DoxyItemize}
+
+\label{struct_user_data_doc-func-members}
+\Hypertarget{struct_user_data_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{struct_user_data_a7b4dc3de8f24eed0c783c49cb0817d21}\index{UserData@{UserData}!serialize@{serialize}}
+\index{serialize@{serialize}!UserData@{UserData}}
+\doxysubsubsection{\texorpdfstring{serialize()}{serialize()}}
+{\footnotesize\ttfamily \label{struct_user_data_a7b4dc3de8f24eed0c783c49cb0817d21} 
+template$<$class Archive$>$ \\
+void User\+Data::\+serialize (\begin{DoxyParamCaption}\item[{Archive \&}]{archive}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Serialization method used by the Cereal library to pack or unpack this struct. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Archive} & Type of the data stream (like binary or JSON). \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em archive} & Reference to the archive object that saves or loads the data fields. \\
+\hline
+\end{DoxyParams}
+
+
+\label{struct_user_data_doc-variable-members}
+\Hypertarget{struct_user_data_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{struct_user_data_a8b0b3b230fa9fdc08c6fa143756bc6fa}\index{UserData@{UserData}!id@{id}}
+\index{id@{id}!UserData@{UserData}}
+\doxysubsubsection{\texorpdfstring{id}{id}}
+{\footnotesize\ttfamily \label{struct_user_data_a8b0b3b230fa9fdc08c6fa143756bc6fa} 
+uint32\+\_\+t User\+Data::\+id}
+
+Unique ID number assigned to the user. \Hypertarget{struct_user_data_aafb56eff10b2fd4ed3eed1fb5cbeb02a}\index{UserData@{UserData}!nickname@{nickname}}
+\index{nickname@{nickname}!UserData@{UserData}}
+\doxysubsubsection{\texorpdfstring{nickname}{nickname}}
+{\footnotesize\ttfamily \label{struct_user_data_aafb56eff10b2fd4ed3eed1fb5cbeb02a} 
+std::\+string User\+Data::\+nickname}
+
+The user\textquotesingle{}s visible nickname or handle. 
+
+The documentation for this struct was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+common/\+include/\+common/\+User\+Data.\+h\end{DoxyCompactItemize}

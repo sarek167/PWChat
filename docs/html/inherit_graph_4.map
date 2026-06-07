@@ -1,0 +1,31 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="Node000000" href="$class_command.html" title="Base interface for the Command pattern used to handle incoming packets." alt="" coords="5,335,87,361"/>
+<area shape="rect" id="Node000001" href="$class_add_admin_command.html" title="Command handler used when a room owner wants to promote another user to admin." alt="" coords="150,5,291,32"/>
+<area shape="poly" id="edge2_Node000000_Node000001" title=" " alt="" coords="44,319,48,261,60,187,71,148,87,110,107,74,133,42,152,30,149,35,137,46,111,77,91,112,76,150,65,188,53,262,50,319"/>
+<area shape="rect" id="Node000002" href="$class_create_room_command.html" title="Command handler used when a user requests to create a new chat room." alt="" coords="143,56,298,83"/>
+<area shape="poly" id="edge3_Node000000_Node000002" title=" " alt="" coords="46,319,53,270,67,210,93,147,111,118,133,93,152,81,149,86,136,97,115,121,97,150,72,211,58,271,52,319"/>
+<area shape="rect" id="Node000003" href="$class_find_user_command.html" title="Command handler used when a user wants to search for another user by their nickname." alt="" coords="153,107,288,133"/>
+<area shape="poly" id="edge4_Node000000_Node000003" title=" " alt="" coords="49,319,58,280,74,233,99,185,133,143,154,131,151,136,136,147,103,188,79,235,63,281,54,320"/>
+<area shape="rect" id="Node000004" href="$class_gen_room_code_command.html" title="Command handler used when an admin or owner wants to generate a new entry code for a private room." alt="" coords="135,157,306,184"/>
+<area shape="poly" id="edge5_Node000000_Node000004" title=" " alt="" coords="54,319,82,256,105,223,133,194,155,182,152,187,136,198,109,226,87,259,59,321"/>
+<area shape="rect" id="Node000005" href="$class_join_room_command.html" title="Command handler used when a user wants to join an existing chat room." alt="" coords="150,208,290,235"/>
+<area shape="poly" id="edge6_Node000000_Node000005" title=" " alt="" coords="61,321,92,281,111,261,133,244,159,233,156,237,136,249,115,265,96,285,66,323"/>
+<area shape="rect" id="Node000006" href="$class_leave_room_command.html" title="Command handler used when a user wants to leave a chat room." alt="" coords="145,259,296,285"/>
+<area shape="poly" id="edge7_Node000000_Node000006" title=" " alt="" coords="79,324,134,295,167,284,164,288,136,300,83,328"/>
+<area shape="rect" id="Node000007" href="$class_load_audio_command.html" title="Command handler used when a client requests to download or load a recorded audio message." alt="" coords="149,309,292,336"/>
+<area shape="poly" id="edge8_Node000000_Node000007" title=" " alt="" coords="100,338,151,331,147,335,104,342"/>
+<area shape="rect" id="Node000008" href="$class_load_messages_command.html" title="Command handler used when a client requests to load chat history." alt="" coords="136,360,305,387"/>
+<area shape="poly" id="edge9_Node000000_Node000008" title=" " alt="" coords="101,354,137,359,133,362,103,358"/>
+<area shape="rect" id="Node000009" href="$class_login_command.html" title="Command handler used when a user tries to log into the application." alt="" coords="164,411,276,437"/>
+<area shape="poly" id="edge10_Node000000_Node000009" title=" " alt="" coords="80,367,136,396,168,409,163,411,134,401,82,373"/>
+<area shape="rect" id="Node000010" href="$class_logout_command.html" title="Command handler used when a user wants to log out of the server." alt="" coords="160,461,280,488"/>
+<area shape="poly" id="edge11_Node000000_Node000010" title=" " alt="" coords="63,371,96,411,115,431,136,447,162,461,157,463,133,452,111,435,92,415,64,377"/>
+<area shape="rect" id="Node000011" href="$class_register_command.html" title="Command handler used when a new user wants to create an account." alt="" coords="155,512,286,539"/>
+<area shape="poly" id="edge12_Node000000_Node000011" title=" " alt="" coords="56,373,87,437,109,470,136,498,157,511,152,512,133,502,105,473,82,440,56,379"/>
+<area shape="rect" id="Node000012" href="$class_room_info_command.html" title="Command handler used when a client requests details about a specific chat room." alt="" coords="151,563,290,589"/>
+<area shape="poly" id="edge13_Node000000_Node000012" title=" " alt="" coords="52,374,63,415,79,461,103,508,136,549,155,562,149,563,133,553,99,511,74,463,58,416,52,379"/>
+<area shape="rect" id="Node000013" href="$class_room_mess_command.html" title="Command handler used when a user sends a message to a chat room." alt="" coords="146,613,294,640"/>
+<area shape="poly" id="edge14_Node000000_Node000013" title=" " alt="" coords="49,374,58,425,72,485,97,546,115,575,136,599,154,613,148,613,133,603,111,578,93,549,67,486,53,426,49,380"/>
+<area shape="rect" id="Node000014" href="$class_user_mess_command.html" title="Command handler used when a user sends a private, direct message to another user." alt="" coords="150,664,291,691"/>
+<area shape="poly" id="edge15_Node000000_Node000014" title=" " alt="" coords="47,374,53,434,65,508,76,546,91,584,111,619,137,650,153,664,148,663,133,654,107,622,87,586,71,548,60,509,48,435,47,380"/>
+</map>

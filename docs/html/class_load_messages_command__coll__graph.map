@@ -1,0 +1,5 @@
+<map id="LoadMessagesCommand" name="LoadMessagesCommand">
+<area shape="rect" id="Node000001" title="Command handler used when a client requests to load chat history." alt="" coords="5,80,175,107"/>
+<area shape="rect" id="Node000002" href="$class_command.html" title="Base interface for the Command pattern used to handle incoming packets." alt="" coords="49,5,131,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="92,46,92,81,88,79,88,50"/>
+</map>

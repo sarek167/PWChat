@@ -1,0 +1,5 @@
+<map id="Server" name="Server">
+<area shape="rect" id="Node000001" title="The main class of the server core application." alt="" coords="29,104,88,131"/>
+<area shape="rect" id="Node000002" href="$class_room_manager.html" title="Class that manages all chat rooms on the server." alt="" coords="5,5,112,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="61,46,61,104,56,103,56,49"/>
+</map>

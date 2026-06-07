@@ -1,0 +1,535 @@
+\doxysection{SQLite\+Connector Class Reference}
+\hypertarget{class_s_q_lite_connector}{}\label{class_s_q_lite_connector}\index{SQLiteConnector@{SQLiteConnector}}
+
+
+Specific implementation of \doxylink{class_d_b_connector}{DBConnector} using the SQLite3 library.  
+
+
+
+
+{\ttfamily \+\#include $<$SQLite\+Connector.\+h$>$}
+
+
+
+Inheritance diagram for SQLite\+Connector:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=171pt]{class_s_q_lite_connector__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for SQLite\+Connector:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=171pt]{class_s_q_lite_connector__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_s_q_lite_connector_a9afb7d142346b839b72c537503ac0989}\label{class_s_q_lite_connector_a9afb7d142346b839b72c537503ac0989} 
+{\bfseries SQLite\+Connector} ()=default
+\begin{DoxyCompactList}\small\item\em Default constructor for \doxylink{class_s_q_lite_connector}{SQLite\+Connector}. \end{DoxyCompactList}\item 
+\Hypertarget{class_s_q_lite_connector_aa214a88ed705942ceed8858a4adb6211}\label{class_s_q_lite_connector_aa214a88ed705942ceed8858a4adb6211} 
+{\bfseries \texorpdfstring{$\sim$}{\string~}\+SQLite\+Connector} () override=default
+\begin{DoxyCompactList}\small\item\em Destructor that ensures the database connection is closed. \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{class_s_q_lite_connector_a9cfaf453d63ce2b11501cd2e6daf0124}{connect}} (const std::\+string \&db\+Path) override
+\begin{DoxyCompactList}\small\item\em Opens a connection to the local SQLite database file. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_s_q_lite_connector_aec93b021f7765614323d6befe546afa2}{disconnect}} () override
+\begin{DoxyCompactList}\small\item\em Closes the active SQLite database connection. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_s_q_lite_connector_afc90e6656611716b9811d4c3ba8cc883}{initialize\+Schema}} () override
+\begin{DoxyCompactList}\small\item\em Creates tables (users, rooms, messages, etc.) using SQL statements if they don\textquotesingle{}t exist. \end{DoxyCompactList}\item 
+std::\+vector$<$ \doxymbox{\hyperlink{struct_room_data}{Room\+Data}} $>$ \doxymbox{\hyperlink{class_s_q_lite_connector_a2e37ea304710be1451919549455079b9}{get\+All\+Rooms}} () override
+\begin{DoxyCompactList}\small\item\em Executes a SELECT query to fetch all rooms from the database. \end{DoxyCompactList}\item 
+std::\+vector$<$ \doxymbox{\hyperlink{struct_room_data}{Room\+Data}} $>$ \doxymbox{\hyperlink{class_s_q_lite_connector_afba5b83fbdf24a0845273f4b291bf92c}{get\+User\+Rooms}} (const uint32\+\_\+t user\+Id) override
+\begin{DoxyCompactList}\small\item\em Fetches rooms that a specific user has joined by querying the relation table. \end{DoxyCompactList}\item 
+int \doxymbox{\hyperlink{class_s_q_lite_connector_a013860e5e46400c289f96bff7cbedb3f}{save\+Room}} (const std::\+string \&name, const bool is\+Private, const uint32\+\_\+t owner\+Id) override
+\begin{DoxyCompactList}\small\item\em Inserts a new row into the rooms table. \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{class_s_q_lite_connector_a0203669dbf8f6f38119b21261134c202}{save\+User\+Room}} (const uint32\+\_\+t user\+Id, const uint32\+\_\+t room\+Id, bool is\+Admin) override
+\begin{DoxyCompactList}\small\item\em Links a user to a room in the junction/\+relation table. \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{class_s_q_lite_connector_a3c5f061cb46f99802d672f8c57863038}{delete\+User\+Room}} (const uint32\+\_\+t user\+Id, const uint32\+\_\+t room\+Id) override
+\begin{DoxyCompactList}\small\item\em Deletes a row linking a user to a room (user leaves the room). \end{DoxyCompactList}\item 
+uint32\+\_\+t \doxymbox{\hyperlink{class_s_q_lite_connector_a23e4a8e1d178fff0868561668bd1375e}{register\+User}} (const std::\+string \&nickname, const std::\+string \&password) override
+\begin{DoxyCompactList}\small\item\em Inserts a new user row into the users table. \end{DoxyCompactList}\item 
+uint32\+\_\+t \doxymbox{\hyperlink{class_s_q_lite_connector_aa5b25d7c988beec9e7aefbd45185755a}{login\+User}} (const std::\+string \&nickname, const std::\+string \&password) override
+\begin{DoxyCompactList}\small\item\em Selects a user row matching both the nickname and password. \end{DoxyCompactList}\item 
+std::\+vector$<$ \doxymbox{\hyperlink{struct_user_data}{User\+Data}} $>$ \doxymbox{\hyperlink{class_s_q_lite_connector_a965f7c064557b191aeef2bebbdc408cf}{get\+Room\+Users}} (const uint32\+\_\+t room\+Id, bool get\+Admins=false) override
+\begin{DoxyCompactList}\small\item\em Fetches users belonging to a room, filtering by their admin status if requested. \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{class_s_q_lite_connector_a0b349ab6373c2a55e61207fc16fc2e01}{add\+Admin}} (const uint32\+\_\+t room\+Id, const uint32\+\_\+t user\+Id) override
+\begin{DoxyCompactList}\small\item\em Updates a user\textquotesingle{}s role to admin for a specific room row. \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{class_s_q_lite_connector_ab03ad6a91b17cb720d175ac4c79b8882}{save\+Message}} (const uint32\+\_\+t sender\+ID, const uint32\+\_\+t target\+Id, const std::\+string \&message, const Message\+Content\+Type \&type, bool to\+Room) override
+\begin{DoxyCompactList}\small\item\em Inserts a new message entry into the messages table. \end{DoxyCompactList}\item 
+std::\+vector$<$ \doxymbox{\hyperlink{struct_message_data}{Message\+Data}} $>$ \doxymbox{\hyperlink{class_s_q_lite_connector_a69aa6aabe5b2a33358a983e1ed90e5d0}{get\+Messages}} (const uint32\+\_\+t target\+Id, const uint32\+\_\+t sender\+Id, bool from\+Room, const int limit, const int offset) override
+\begin{DoxyCompactList}\small\item\em Selects a limited batch of historical messages using LIMIT and OFFSET clauses. \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{class_s_q_lite_connector_a19b4dbe0bc81b64d18ea2064f3d7f1f3}{save\+Room\+Code}} (const uint32\+\_\+t room\+Id, const uint32\+\_\+t code) override
+\begin{DoxyCompactList}\small\item\em Stores an entry pin code for a private room in the database. \end{DoxyCompactList}\item 
+uint32\+\_\+t \doxymbox{\hyperlink{class_s_q_lite_connector_a57c7721d41d8e36e22e26a15a75cb9c5}{get\+Room\+Code}} (const uint32\+\_\+t room\+Id) override
+\begin{DoxyCompactList}\small\item\em Selects the access code value linked to a specific private room. \end{DoxyCompactList}\item 
+std::\+string \doxymbox{\hyperlink{class_s_q_lite_connector_a11b6f6125ab803d53ad5e51d8a3ca08f}{get\+Username}} (const uint32\+\_\+t user\+Id) override
+\begin{DoxyCompactList}\small\item\em Looks up a user\textquotesingle{}s nickname handle string using their unique ID row. \end{DoxyCompactList}\item 
+std::\+vector$<$ \doxymbox{\hyperlink{struct_user_data}{User\+Data}} $>$ \doxymbox{\hyperlink{class_s_q_lite_connector_a0001037cb64eb73ee45e933922ca77f9}{get\+Last\+User\+Priv\+Chats}} (const uint32\+\_\+t user\+Id) override
+\begin{DoxyCompactList}\small\item\em Fetches a list of users that the current user has sent/\+received private messages from recently. \end{DoxyCompactList}\item 
+uint32\+\_\+t \doxymbox{\hyperlink{class_s_q_lite_connector_a0d200a48eb9155729688cab8f8eef3d5}{find\+User\+By\+Nick}} (const std::\+string username) override
+\begin{DoxyCompactList}\small\item\em Searches for a user row by their exact username string. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \doxymbox{\hyperlink{class_d_b_connector}{DBConnector}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual {\bfseries \texorpdfstring{$\sim$}{\string~}\+DBConnector} ()=default
+\begin{DoxyCompactList}\small\item\em Virtual destructor to ensure proper cleanup in derived classes. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Specific implementation of \doxylink{class_d_b_connector}{DBConnector} using the SQLite3 library. 
+
+
+\begin{DoxyItemize}
+\item This class handles the actual SQL queries to read and write data into a local SQLite database file. 
+\end{DoxyItemize}
+
+\label{class_s_q_lite_connector_doc-func-members}
+\Hypertarget{class_s_q_lite_connector_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_s_q_lite_connector_a0b349ab6373c2a55e61207fc16fc2e01}\index{SQLiteConnector@{SQLiteConnector}!addAdmin@{addAdmin}}
+\index{addAdmin@{addAdmin}!SQLiteConnector@{SQLiteConnector}}
+\doxysubsubsection{\texorpdfstring{addAdmin()}{addAdmin()}}
+{\footnotesize\ttfamily \label{class_s_q_lite_connector_a0b349ab6373c2a55e61207fc16fc2e01} 
+bool SQLite\+Connector::\+add\+Admin (\begin{DoxyParamCaption}\item[{const uint32\+\_\+t}]{room\+Id}{, }\item[{const uint32\+\_\+t}]{user\+Id}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Updates a user\textquotesingle{}s role to admin for a specific room row. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em room\+Id} & ID of the room. \\
+\hline
+{\em user\+Id} & ID of the user to promote. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the row was updated, false otherwise. 
+\end{DoxyReturn}
+
+
+Implements \doxymbox{\hyperlink{class_d_b_connector_a59c17a564acba554e551498fedd38d30}{DBConnector}}.
+
+\Hypertarget{class_s_q_lite_connector_a9cfaf453d63ce2b11501cd2e6daf0124}\index{SQLiteConnector@{SQLiteConnector}!connect@{connect}}
+\index{connect@{connect}!SQLiteConnector@{SQLiteConnector}}
+\doxysubsubsection{\texorpdfstring{connect()}{connect()}}
+{\footnotesize\ttfamily \label{class_s_q_lite_connector_a9cfaf453d63ce2b11501cd2e6daf0124} 
+bool SQLite\+Connector::\+connect (\begin{DoxyParamCaption}\item[{const std::\+string \&}]{db\+Path}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Opens a connection to the local SQLite database file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em db\+Path} & Path to the .db file. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if opened successfully, false otherwise. 
+\end{DoxyReturn}
+
+
+Implements \doxymbox{\hyperlink{class_d_b_connector_a314ae907c83ae7a52f5313e036b723ae}{DBConnector}}.
+
+\Hypertarget{class_s_q_lite_connector_a3c5f061cb46f99802d672f8c57863038}\index{SQLiteConnector@{SQLiteConnector}!deleteUserRoom@{deleteUserRoom}}
+\index{deleteUserRoom@{deleteUserRoom}!SQLiteConnector@{SQLiteConnector}}
+\doxysubsubsection{\texorpdfstring{deleteUserRoom()}{deleteUserRoom()}}
+{\footnotesize\ttfamily \label{class_s_q_lite_connector_a3c5f061cb46f99802d672f8c57863038} 
+bool SQLite\+Connector::\+delete\+User\+Room (\begin{DoxyParamCaption}\item[{const uint32\+\_\+t}]{user\+Id}{, }\item[{const uint32\+\_\+t}]{room\+Id}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Deletes a row linking a user to a room (user leaves the room). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em user\+Id} & ID of the user. \\
+\hline
+{\em room\+Id} & ID of the room. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if successfully deleted, false otherwise. 
+\end{DoxyReturn}
+
+
+Implements \doxymbox{\hyperlink{class_d_b_connector_af5a85ae36900fe19e6c093ced7888407}{DBConnector}}.
+
+\Hypertarget{class_s_q_lite_connector_aec93b021f7765614323d6befe546afa2}\index{SQLiteConnector@{SQLiteConnector}!disconnect@{disconnect}}
+\index{disconnect@{disconnect}!SQLiteConnector@{SQLiteConnector}}
+\doxysubsubsection{\texorpdfstring{disconnect()}{disconnect()}}
+{\footnotesize\ttfamily \label{class_s_q_lite_connector_aec93b021f7765614323d6befe546afa2} 
+void SQLite\+Connector::\+disconnect (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Closes the active SQLite database connection. 
+
+
+
+Implements \doxymbox{\hyperlink{class_d_b_connector_a88ebe69c38938f036c3bf493f876abe9}{DBConnector}}.
+
+\Hypertarget{class_s_q_lite_connector_a0d200a48eb9155729688cab8f8eef3d5}\index{SQLiteConnector@{SQLiteConnector}!findUserByNick@{findUserByNick}}
+\index{findUserByNick@{findUserByNick}!SQLiteConnector@{SQLiteConnector}}
+\doxysubsubsection{\texorpdfstring{findUserByNick()}{findUserByNick()}}
+{\footnotesize\ttfamily \label{class_s_q_lite_connector_a0d200a48eb9155729688cab8f8eef3d5} 
+uint32\+\_\+t SQLite\+Connector::\+find\+User\+By\+Nick (\begin{DoxyParamCaption}\item[{const std::\+string}]{username}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Searches for a user row by their exact username string. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em username} & The nickname handle to look up. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The user\textquotesingle{}s numerical ID if found, 0 otherwise. 
+\end{DoxyReturn}
+
+
+Implements \doxymbox{\hyperlink{class_d_b_connector_ae1aaf1d9b2a8abcf4eca4793b44cff91}{DBConnector}}.
+
+\Hypertarget{class_s_q_lite_connector_a2e37ea304710be1451919549455079b9}\index{SQLiteConnector@{SQLiteConnector}!getAllRooms@{getAllRooms}}
+\index{getAllRooms@{getAllRooms}!SQLiteConnector@{SQLiteConnector}}
+\doxysubsubsection{\texorpdfstring{getAllRooms()}{getAllRooms()}}
+{\footnotesize\ttfamily \label{class_s_q_lite_connector_a2e37ea304710be1451919549455079b9} 
+std::\+vector$<$ \doxymbox{\hyperlink{struct_room_data}{Room\+Data}} $>$ SQLite\+Connector::\+get\+All\+Rooms (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Executes a SELECT query to fetch all rooms from the database. 
+
+\begin{DoxyReturn}{Returns}
+Vector with data of all existing rooms. 
+\end{DoxyReturn}
+
+
+Implements \doxymbox{\hyperlink{class_d_b_connector_a6c4f73bd894556bc3706fdc702730b82}{DBConnector}}.
+
+\Hypertarget{class_s_q_lite_connector_a0001037cb64eb73ee45e933922ca77f9}\index{SQLiteConnector@{SQLiteConnector}!getLastUserPrivChats@{getLastUserPrivChats}}
+\index{getLastUserPrivChats@{getLastUserPrivChats}!SQLiteConnector@{SQLiteConnector}}
+\doxysubsubsection{\texorpdfstring{getLastUserPrivChats()}{getLastUserPrivChats()}}
+{\footnotesize\ttfamily \label{class_s_q_lite_connector_a0001037cb64eb73ee45e933922ca77f9} 
+std::\+vector$<$ \doxymbox{\hyperlink{struct_user_data}{User\+Data}} $>$ SQLite\+Connector::\+get\+Last\+User\+Priv\+Chats (\begin{DoxyParamCaption}\item[{const uint32\+\_\+t}]{user\+Id}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Fetches a list of users that the current user has sent/\+received private messages from recently. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em user\+Id} & ID of the active user. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Vector of users representing recent chat partners. 
+\end{DoxyReturn}
+
+
+Implements \doxymbox{\hyperlink{class_d_b_connector_ad19f57f214ded160a6c4c79e800f6755}{DBConnector}}.
+
+\Hypertarget{class_s_q_lite_connector_a69aa6aabe5b2a33358a983e1ed90e5d0}\index{SQLiteConnector@{SQLiteConnector}!getMessages@{getMessages}}
+\index{getMessages@{getMessages}!SQLiteConnector@{SQLiteConnector}}
+\doxysubsubsection{\texorpdfstring{getMessages()}{getMessages()}}
+{\footnotesize\ttfamily \label{class_s_q_lite_connector_a69aa6aabe5b2a33358a983e1ed90e5d0} 
+std::\+vector$<$ \doxymbox{\hyperlink{struct_message_data}{Message\+Data}} $>$ SQLite\+Connector::\+get\+Messages (\begin{DoxyParamCaption}\item[{const uint32\+\_\+t}]{target\+Id}{, }\item[{const uint32\+\_\+t}]{sender\+Id}{, }\item[{bool}]{from\+Room}{, }\item[{const int}]{limit}{, }\item[{const int}]{offset}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Selects a limited batch of historical messages using LIMIT and OFFSET clauses. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em target\+Id} & ID of the room or the other user. \\
+\hline
+{\em sender\+Id} & ID of the user requesting history. \\
+\hline
+{\em from\+Room} & True if loading from a room, false if from private chat. \\
+\hline
+{\em limit} & Maximum number of rows to return. \\
+\hline
+{\em offset} & Number of rows to skip. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Vector of historical messages found. 
+\end{DoxyReturn}
+
+
+Implements \doxymbox{\hyperlink{class_d_b_connector_a4fd174cf3843792a996c748138abbbe6}{DBConnector}}.
+
+\Hypertarget{class_s_q_lite_connector_a57c7721d41d8e36e22e26a15a75cb9c5}\index{SQLiteConnector@{SQLiteConnector}!getRoomCode@{getRoomCode}}
+\index{getRoomCode@{getRoomCode}!SQLiteConnector@{SQLiteConnector}}
+\doxysubsubsection{\texorpdfstring{getRoomCode()}{getRoomCode()}}
+{\footnotesize\ttfamily \label{class_s_q_lite_connector_a57c7721d41d8e36e22e26a15a75cb9c5} 
+uint32\+\_\+t SQLite\+Connector::\+get\+Room\+Code (\begin{DoxyParamCaption}\item[{const uint32\+\_\+t}]{room\+Id}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Selects the access code value linked to a specific private room. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em room\+Id} & ID of the room. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The numeric code, or 0 if it doesn\textquotesingle{}t exist. 
+\end{DoxyReturn}
+
+
+Implements \doxymbox{\hyperlink{class_d_b_connector_a208ec2c8797660dfd3699ce7a256f689}{DBConnector}}.
+
+\Hypertarget{class_s_q_lite_connector_a965f7c064557b191aeef2bebbdc408cf}\index{SQLiteConnector@{SQLiteConnector}!getRoomUsers@{getRoomUsers}}
+\index{getRoomUsers@{getRoomUsers}!SQLiteConnector@{SQLiteConnector}}
+\doxysubsubsection{\texorpdfstring{getRoomUsers()}{getRoomUsers()}}
+{\footnotesize\ttfamily \label{class_s_q_lite_connector_a965f7c064557b191aeef2bebbdc408cf} 
+std::\+vector$<$ \doxymbox{\hyperlink{struct_user_data}{User\+Data}} $>$ SQLite\+Connector::\+get\+Room\+Users (\begin{DoxyParamCaption}\item[{const uint32\+\_\+t}]{room\+Id}{, }\item[{bool}]{get\+Admins}{ = {\ttfamily false}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Fetches users belonging to a room, filtering by their admin status if requested. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em room\+Id} & ID of the target room. \\
+\hline
+{\em get\+Admins} & If true, returns only the admins of the room. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Vector of matching users. 
+\end{DoxyReturn}
+
+
+Implements \doxymbox{\hyperlink{class_d_b_connector_ace6400427e917c0d46d442ee0ea52b98}{DBConnector}}.
+
+\Hypertarget{class_s_q_lite_connector_a11b6f6125ab803d53ad5e51d8a3ca08f}\index{SQLiteConnector@{SQLiteConnector}!getUsername@{getUsername}}
+\index{getUsername@{getUsername}!SQLiteConnector@{SQLiteConnector}}
+\doxysubsubsection{\texorpdfstring{getUsername()}{getUsername()}}
+{\footnotesize\ttfamily \label{class_s_q_lite_connector_a11b6f6125ab803d53ad5e51d8a3ca08f} 
+std::\+string SQLite\+Connector::\+get\+Username (\begin{DoxyParamCaption}\item[{const uint32\+\_\+t}]{user\+Id}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Looks up a user\textquotesingle{}s nickname handle string using their unique ID row. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em user\+Id} & ID of the user. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The nickname string, or an empty string if not found. 
+\end{DoxyReturn}
+
+
+Implements \doxymbox{\hyperlink{class_d_b_connector_a83cc1eb7c435484684907725325fe446}{DBConnector}}.
+
+\Hypertarget{class_s_q_lite_connector_afba5b83fbdf24a0845273f4b291bf92c}\index{SQLiteConnector@{SQLiteConnector}!getUserRooms@{getUserRooms}}
+\index{getUserRooms@{getUserRooms}!SQLiteConnector@{SQLiteConnector}}
+\doxysubsubsection{\texorpdfstring{getUserRooms()}{getUserRooms()}}
+{\footnotesize\ttfamily \label{class_s_q_lite_connector_afba5b83fbdf24a0845273f4b291bf92c} 
+std::\+vector$<$ \doxymbox{\hyperlink{struct_room_data}{Room\+Data}} $>$ SQLite\+Connector::\+get\+User\+Rooms (\begin{DoxyParamCaption}\item[{const uint32\+\_\+t}]{user\+Id}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Fetches rooms that a specific user has joined by querying the relation table. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em user\+Id} & ID of the user. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Vector of rooms the user belongs to. 
+\end{DoxyReturn}
+
+
+Implements \doxymbox{\hyperlink{class_d_b_connector_aef7a50c5f0019255296de8c52c046a2b}{DBConnector}}.
+
+\Hypertarget{class_s_q_lite_connector_afc90e6656611716b9811d4c3ba8cc883}\index{SQLiteConnector@{SQLiteConnector}!initializeSchema@{initializeSchema}}
+\index{initializeSchema@{initializeSchema}!SQLiteConnector@{SQLiteConnector}}
+\doxysubsubsection{\texorpdfstring{initializeSchema()}{initializeSchema()}}
+{\footnotesize\ttfamily \label{class_s_q_lite_connector_afc90e6656611716b9811d4c3ba8cc883} 
+void SQLite\+Connector::\+initialize\+Schema (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Creates tables (users, rooms, messages, etc.) using SQL statements if they don\textquotesingle{}t exist. 
+
+
+
+Implements \doxymbox{\hyperlink{class_d_b_connector_a57558eb88fc5b7c4a168bac0421a2e93}{DBConnector}}.
+
+\Hypertarget{class_s_q_lite_connector_aa5b25d7c988beec9e7aefbd45185755a}\index{SQLiteConnector@{SQLiteConnector}!loginUser@{loginUser}}
+\index{loginUser@{loginUser}!SQLiteConnector@{SQLiteConnector}}
+\doxysubsubsection{\texorpdfstring{loginUser()}{loginUser()}}
+{\footnotesize\ttfamily \label{class_s_q_lite_connector_aa5b25d7c988beec9e7aefbd45185755a} 
+uint32\+\_\+t SQLite\+Connector::\+login\+User (\begin{DoxyParamCaption}\item[{const std::\+string \&}]{nickname}{, }\item[{const std::\+string \&}]{password}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Selects a user row matching both the nickname and password. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em nickname} & Entered username. \\
+\hline
+{\em password} & Entered password. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The user\textquotesingle{}s ID if credentials match, 0 otherwise. 
+\end{DoxyReturn}
+
+
+Implements \doxymbox{\hyperlink{class_d_b_connector_a017c485c624dd930470fa0e48b13982c}{DBConnector}}.
+
+\Hypertarget{class_s_q_lite_connector_a23e4a8e1d178fff0868561668bd1375e}\index{SQLiteConnector@{SQLiteConnector}!registerUser@{registerUser}}
+\index{registerUser@{registerUser}!SQLiteConnector@{SQLiteConnector}}
+\doxysubsubsection{\texorpdfstring{registerUser()}{registerUser()}}
+{\footnotesize\ttfamily \label{class_s_q_lite_connector_a23e4a8e1d178fff0868561668bd1375e} 
+uint32\+\_\+t SQLite\+Connector::\+register\+User (\begin{DoxyParamCaption}\item[{const std::\+string \&}]{nickname}{, }\item[{const std::\+string \&}]{password}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Inserts a new user row into the users table. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em nickname} & Chosen username. \\
+\hline
+{\em password} & Chosen password string. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The newly generated user ID row, or 0 if nickname already exists. 
+\end{DoxyReturn}
+
+
+Implements \doxymbox{\hyperlink{class_d_b_connector_ab542843823009c78c4b660f6ef999b11}{DBConnector}}.
+
+\Hypertarget{class_s_q_lite_connector_ab03ad6a91b17cb720d175ac4c79b8882}\index{SQLiteConnector@{SQLiteConnector}!saveMessage@{saveMessage}}
+\index{saveMessage@{saveMessage}!SQLiteConnector@{SQLiteConnector}}
+\doxysubsubsection{\texorpdfstring{saveMessage()}{saveMessage()}}
+{\footnotesize\ttfamily \label{class_s_q_lite_connector_ab03ad6a91b17cb720d175ac4c79b8882} 
+bool SQLite\+Connector::\+save\+Message (\begin{DoxyParamCaption}\item[{const uint32\+\_\+t}]{sender\+ID}{, }\item[{const uint32\+\_\+t}]{target\+Id}{, }\item[{const std::\+string \&}]{message}{, }\item[{const Message\+Content\+Type \&}]{type}{, }\item[{bool}]{to\+Room}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Inserts a new message entry into the messages table. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sender\+ID} & ID of the author. \\
+\hline
+{\em target\+Id} & ID of the recipient room or recipient user. \\
+\hline
+{\em message} & Text payload or audio resource reference. \\
+\hline
+{\em type} & Content type flag (TEXT or AUDIO). \\
+\hline
+{\em to\+Room} & True if message target is a room, false if it\textquotesingle{}s a direct message. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if successfully saved, false otherwise. 
+\end{DoxyReturn}
+
+
+Implements \doxymbox{\hyperlink{class_d_b_connector_a3daf3374ef4fa2fd09b87a82a4510992}{DBConnector}}.
+
+\Hypertarget{class_s_q_lite_connector_a013860e5e46400c289f96bff7cbedb3f}\index{SQLiteConnector@{SQLiteConnector}!saveRoom@{saveRoom}}
+\index{saveRoom@{saveRoom}!SQLiteConnector@{SQLiteConnector}}
+\doxysubsubsection{\texorpdfstring{saveRoom()}{saveRoom()}}
+{\footnotesize\ttfamily \label{class_s_q_lite_connector_a013860e5e46400c289f96bff7cbedb3f} 
+int SQLite\+Connector::\+save\+Room (\begin{DoxyParamCaption}\item[{const std::\+string \&}]{name}{, }\item[{const bool}]{is\+Private}{, }\item[{const uint32\+\_\+t}]{owner\+Id}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Inserts a new row into the rooms table. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & Name of the room. \\
+\hline
+{\em is\+Private} & Privacy flag (0 or 1 in SQLite). \\
+\hline
+{\em owner\+Id} & Creator\textquotesingle{}s user ID. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The auto-\/incremented ID of the new room row, or -\/1 if failed. 
+\end{DoxyReturn}
+
+
+Implements \doxymbox{\hyperlink{class_d_b_connector_a4ba2fba02a2a28eafd440d5f57417942}{DBConnector}}.
+
+\Hypertarget{class_s_q_lite_connector_a19b4dbe0bc81b64d18ea2064f3d7f1f3}\index{SQLiteConnector@{SQLiteConnector}!saveRoomCode@{saveRoomCode}}
+\index{saveRoomCode@{saveRoomCode}!SQLiteConnector@{SQLiteConnector}}
+\doxysubsubsection{\texorpdfstring{saveRoomCode()}{saveRoomCode()}}
+{\footnotesize\ttfamily \label{class_s_q_lite_connector_a19b4dbe0bc81b64d18ea2064f3d7f1f3} 
+bool SQLite\+Connector::\+save\+Room\+Code (\begin{DoxyParamCaption}\item[{const uint32\+\_\+t}]{room\+Id}{, }\item[{const uint32\+\_\+t}]{code}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Stores an entry pin code for a private room in the database. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em room\+Id} & ID of the room. \\
+\hline
+{\em code} & The numeric password code. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if updated/\+saved successfully, false otherwise. 
+\end{DoxyReturn}
+
+
+Implements \doxymbox{\hyperlink{class_d_b_connector_a8f21ffec806ca782f58b527ac7e13660}{DBConnector}}.
+
+\Hypertarget{class_s_q_lite_connector_a0203669dbf8f6f38119b21261134c202}\index{SQLiteConnector@{SQLiteConnector}!saveUserRoom@{saveUserRoom}}
+\index{saveUserRoom@{saveUserRoom}!SQLiteConnector@{SQLiteConnector}}
+\doxysubsubsection{\texorpdfstring{saveUserRoom()}{saveUserRoom()}}
+{\footnotesize\ttfamily \label{class_s_q_lite_connector_a0203669dbf8f6f38119b21261134c202} 
+bool SQLite\+Connector::\+save\+User\+Room (\begin{DoxyParamCaption}\item[{const uint32\+\_\+t}]{user\+Id}{, }\item[{const uint32\+\_\+t}]{room\+Id}{, }\item[{bool}]{is\+Admin}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Links a user to a room in the junction/\+relation table. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em user\+Id} & ID of the user. \\
+\hline
+{\em room\+Id} & ID of the room. \\
+\hline
+{\em is\+Admin} & True if the user should be a room administrator. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the row was inserted, false otherwise. 
+\end{DoxyReturn}
+
+
+Implements \doxymbox{\hyperlink{class_d_b_connector_a0a2277a9c920d4d5413be7b5b5806031}{DBConnector}}.
+
+
+
+The documentation for this class was generated from the following files:\+\begin{DoxyCompactItemize}
+\item 
+server/\+include/\+server/\+SQLite\+Connector.\+h\item 
+server/\+src/\+SQLite\+Connector.\+cpp\end{DoxyCompactItemize}

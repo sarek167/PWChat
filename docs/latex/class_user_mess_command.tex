@@ -1,0 +1,83 @@
+\doxysection{User\+Mess\+Command Class Reference}
+\hypertarget{class_user_mess_command}{}\label{class_user_mess_command}\index{UserMessCommand@{UserMessCommand}}
+
+
+\doxylink{class_command}{Command} handler used when a user sends a private, direct message to another user.  
+
+
+
+
+{\ttfamily \+\#include $<$User\+Mess\+Command.\+h$>$}
+
+
+
+Inheritance diagram for User\+Mess\+Command:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=186pt]{class_user_mess_command__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for User\+Mess\+Command:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=186pt]{class_user_mess_command__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \doxymbox{\hyperlink{class_user_mess_command_a72c2a8a6d7f4f4325ba73d7ccec3afa1}{execute}} (std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_session}{Session}} $>$ session, const \doxymbox{\hyperlink{class_packet}{Packet}} \&p, \doxymbox{\hyperlink{class_server}{Server}} \&server) override
+\begin{DoxyCompactList}\small\item\em Executes the private message processing logic. Extracts the recipient\textquotesingle{}s user ID and message content from the packet, saves the message to the database history, and routes it directly to the recipient if they are currently online. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \doxymbox{\hyperlink{class_command}{Command}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual {\bfseries \texorpdfstring{$\sim$}{\string~}\+Command} ()=default
+\begin{DoxyCompactList}\small\item\em Virtual destructor to ensure proper cleanup of derived command objects. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\doxylink{class_command}{Command} handler used when a user sends a private, direct message to another user. 
+
+
+\begin{DoxyItemize}
+\item It inherits from the base \doxylink{class_command}{Command} class and overrides the execute method to handle private text or audio chat messages between two clients. 
+\end{DoxyItemize}
+
+\label{class_user_mess_command_doc-func-members}
+\Hypertarget{class_user_mess_command_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_user_mess_command_a72c2a8a6d7f4f4325ba73d7ccec3afa1}\index{UserMessCommand@{UserMessCommand}!execute@{execute}}
+\index{execute@{execute}!UserMessCommand@{UserMessCommand}}
+\doxysubsubsection{\texorpdfstring{execute()}{execute()}}
+{\footnotesize\ttfamily \label{class_user_mess_command_a72c2a8a6d7f4f4325ba73d7ccec3afa1} 
+void User\+Mess\+Command::\+execute (\begin{DoxyParamCaption}\item[{std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_session}{Session}} $>$}]{session}{, }\item[{const \doxymbox{\hyperlink{class_packet}{Packet}} \&}]{p}{, }\item[{\doxymbox{\hyperlink{class_server}{Server}} \&}]{server}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Executes the private message processing logic. Extracts the recipient\textquotesingle{}s user ID and message content from the packet, saves the message to the database history, and routes it directly to the recipient if they are currently online. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em session} & Shared pointer to the network session of the user who sent the private message. \\
+\hline
+{\em p} & The incoming \doxylink{class_packet}{Packet} containing the target user ID and the message text or audio data. \\
+\hline
+{\em server} & Reference to the main \doxylink{class_server}{Server} instance to access the database and client routing. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \doxymbox{\hyperlink{class_command_aa65874a3f62c1237796da1feb04a5f1d}{Command}}.
+
+
+
+The documentation for this class was generated from the following files:\+\begin{DoxyCompactItemize}
+\item 
+server/\+include/\+server/\+\+Commands/\+User\+Mess\+Command.\+h\item 
+server/\+src/\+\+Commands/\+User\+Mess\+Command.\+cpp\end{DoxyCompactItemize}

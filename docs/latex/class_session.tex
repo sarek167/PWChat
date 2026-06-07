@@ -1,0 +1,167 @@
+\doxysection{Session Class Reference}
+\hypertarget{class_session}{}\label{class_session}\index{Session@{Session}}
+
+
+Represents a single active client connection on the server.  
+
+
+
+
+{\ttfamily \+\#include $<$Session.\+h$>$}
+
+
+
+Inheritance diagram for Session:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=195pt]{class_session__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Session:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=195pt]{class_session__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{class_session_a3e61b797eb0c948093927e4c13b54260}{Session}} (tcp::\+socket socket, \doxymbox{\hyperlink{class_server}{Server}} \&server)
+\begin{DoxyCompactList}\small\item\em Constructor for \doxylink{class_session}{Session} class. \end{DoxyCompactList}\item 
+\Hypertarget{class_session_a2e8acc4c1d2f65023e9b1a204ef441e5}\label{class_session_a2e8acc4c1d2f65023e9b1a204ef441e5} 
+{\bfseries \texorpdfstring{$\sim$}{\string~}\+Session} ()=default
+\begin{DoxyCompactList}\small\item\em Destructor for \doxylink{class_session}{Session} class. Closes the connection and cleans up resources. \end{DoxyCompactList}\item 
+uint32\+\_\+t \doxymbox{\hyperlink{class_session_a20a2a0a503281e6a0ac3400319090b13}{user\+Id}} ()
+\begin{DoxyCompactList}\small\item\em Helper getter to directly grab the connected user\textquotesingle{}s ID. \end{DoxyCompactList}\item 
+std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_user}{User}} $>$ \doxymbox{\hyperlink{class_session_a63c465d6bcd3366f311df3dee65b1e83}{user}} ()
+\begin{DoxyCompactList}\small\item\em Getter for the \doxylink{class_user}{User} object linked to this session. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_session_a78a47de8463f8b96790035e206c3acd3}{set\+User}} (uint32\+\_\+t id, std::\+string nickname)
+\begin{DoxyCompactList}\small\item\em Populates the \doxylink{class_user}{User} object data once the client logs in or registers successfully. \end{DoxyCompactList}\item 
+\Hypertarget{class_session_ae5897e387a91a07fb6fb184dd454c391}\label{class_session_ae5897e387a91a07fb6fb184dd454c391} 
+void {\bfseries do\+Read} ()
+\begin{DoxyCompactList}\small\item\em Starts the asynchronous reading loop to listen for data from the client. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_session_a4fb47d414545bc8a59632c761e08125a}{deliver}} (const \doxymbox{\hyperlink{class_packet}{Packet}} \&p)
+\begin{DoxyCompactList}\small\item\em Sends a network packet directly to this specific client. \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{class_session_a773c733b3c75bd462a272a3aada6f02e}{is\+Authenticated}} () const
+\begin{DoxyCompactList}\small\item\em Checks if the client has successfully logged in. \end{DoxyCompactList}\item 
+\Hypertarget{class_session_ab36eeec3e87afdac72b0df63704a3fbd}\label{class_session_ab36eeec3e87afdac72b0df63704a3fbd} 
+void {\bfseries logout} ()
+\begin{DoxyCompactList}\small\item\em Logs out the user by resetting the authentication flag and clearing user data. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Represents a single active client connection on the server. 
+
+
+\begin{DoxyItemize}
+\item This class inherits from std::\+enable\+\_\+shared\+\_\+from\+\_\+this so we can safely pass shared pointers of this session to rooms or async Asio handlers. It reads data from the socket, authenticates the user, and sends packets back. 
+\end{DoxyItemize}
+
+\label{class_session_doc-constructors}
+\Hypertarget{class_session_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_session_a3e61b797eb0c948093927e4c13b54260}\index{Session@{Session}!Session@{Session}}
+\index{Session@{Session}!Session@{Session}}
+\doxysubsubsection{\texorpdfstring{Session()}{Session()}}
+{\footnotesize\ttfamily \label{class_session_a3e61b797eb0c948093927e4c13b54260} 
+Session::\+\+Session (\begin{DoxyParamCaption}\item[{tcp::\+socket}]{socket}{, }\item[{\doxymbox{\hyperlink{class_server}{Server}} \&}]{server}{}\end{DoxyParamCaption})}
+
+
+
+Constructor for \doxylink{class_session}{Session} class. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em socket} & The TCP socket connected to the client. \\
+\hline
+{\em server} & Reference to the main \doxylink{class_server}{Server} instance to access managers or database. \\
+\hline
+\end{DoxyParams}
+
+
+\label{class_session_doc-func-members}
+\Hypertarget{class_session_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_session_a4fb47d414545bc8a59632c761e08125a}\index{Session@{Session}!deliver@{deliver}}
+\index{deliver@{deliver}!Session@{Session}}
+\doxysubsubsection{\texorpdfstring{deliver()}{deliver()}}
+{\footnotesize\ttfamily \label{class_session_a4fb47d414545bc8a59632c761e08125a} 
+void Session::\+deliver (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{class_packet}{Packet}} \&}]{p}{}\end{DoxyParamCaption})}
+
+
+
+Sends a network packet directly to this specific client. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & The \doxylink{class_packet}{Packet} object to serialize and transmit. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_session_a773c733b3c75bd462a272a3aada6f02e}\index{Session@{Session}!isAuthenticated@{isAuthenticated}}
+\index{isAuthenticated@{isAuthenticated}!Session@{Session}}
+\doxysubsubsection{\texorpdfstring{isAuthenticated()}{isAuthenticated()}}
+{\footnotesize\ttfamily \label{class_session_a773c733b3c75bd462a272a3aada6f02e} 
+bool Session::\+is\+Authenticated (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+
+
+Checks if the client has successfully logged in. 
+
+\begin{DoxyReturn}{Returns}
+true if authenticated, false otherwise. 
+\end{DoxyReturn}
+\Hypertarget{class_session_a78a47de8463f8b96790035e206c3acd3}\index{Session@{Session}!setUser@{setUser}}
+\index{setUser@{setUser}!Session@{Session}}
+\doxysubsubsection{\texorpdfstring{setUser()}{setUser()}}
+{\footnotesize\ttfamily \label{class_session_a78a47de8463f8b96790035e206c3acd3} 
+void Session::\+set\+User (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{id}{, }\item[{std::\+string}]{nickname}{}\end{DoxyParamCaption})}
+
+
+
+Populates the \doxylink{class_user}{User} object data once the client logs in or registers successfully. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & The user ID received from the database. \\
+\hline
+{\em nickname} & The username of the client. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_session_a63c465d6bcd3366f311df3dee65b1e83}\index{Session@{Session}!user@{user}}
+\index{user@{user}!Session@{Session}}
+\doxysubsubsection{\texorpdfstring{user()}{user()}}
+{\footnotesize\ttfamily \label{class_session_a63c465d6bcd3366f311df3dee65b1e83} 
+std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_user}{User}} $>$ Session::\+user (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Getter for the \doxylink{class_user}{User} object linked to this session. 
+
+\begin{DoxyReturn}{Returns}
+Shared pointer to the \doxylink{class_user}{User} instance. 
+\end{DoxyReturn}
+\Hypertarget{class_session_a20a2a0a503281e6a0ac3400319090b13}\index{Session@{Session}!userId@{userId}}
+\index{userId@{userId}!Session@{Session}}
+\doxysubsubsection{\texorpdfstring{userId()}{userId()}}
+{\footnotesize\ttfamily \label{class_session_a20a2a0a503281e6a0ac3400319090b13} 
+uint32\+\_\+t Session::\+user\+Id (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Helper getter to directly grab the connected user\textquotesingle{}s ID. 
+
+\begin{DoxyReturn}{Returns}
+Unique ID of the logged-\/in user, or 0 if not logged in. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files:\+\begin{DoxyCompactItemize}
+\item 
+server/\+include/\+server/\+Session.\+h\item 
+server/\+src/\+Session.\+cpp\end{DoxyCompactItemize}

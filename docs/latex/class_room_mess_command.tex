@@ -1,0 +1,83 @@
+\doxysection{Room\+Mess\+Command Class Reference}
+\hypertarget{class_room_mess_command}{}\label{class_room_mess_command}\index{RoomMessCommand@{RoomMessCommand}}
+
+
+\doxylink{class_command}{Command} handler used when a user sends a message to a chat room.  
+
+
+
+
+{\ttfamily \+\#include $<$Room\+Mess\+Command.\+h$>$}
+
+
+
+Inheritance diagram for Room\+Mess\+Command:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=191pt]{class_room_mess_command__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Room\+Mess\+Command:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=191pt]{class_room_mess_command__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \doxymbox{\hyperlink{class_room_mess_command_ad504d3dbda8cd5d3d20fd1ee1f8de17f}{execute}} (std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_session}{Session}} $>$ session, const \doxymbox{\hyperlink{class_packet}{Packet}} \&p, \doxymbox{\hyperlink{class_server}{Server}} \&server) override
+\begin{DoxyCompactList}\small\item\em Executes the room message processing logic. Extracts the room ID and message contents from the packet, saves the message to the database history, and broadcasts it to all other users currently inside that room. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \doxymbox{\hyperlink{class_command}{Command}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual {\bfseries \texorpdfstring{$\sim$}{\string~}\+Command} ()=default
+\begin{DoxyCompactList}\small\item\em Virtual destructor to ensure proper cleanup of derived command objects. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\doxylink{class_command}{Command} handler used when a user sends a message to a chat room. 
+
+
+\begin{DoxyItemize}
+\item It inherits from the base \doxylink{class_command}{Command} class and overrides the execute method to handle broadcasting text or audio messages to an entire room. 
+\end{DoxyItemize}
+
+\label{class_room_mess_command_doc-func-members}
+\Hypertarget{class_room_mess_command_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_room_mess_command_ad504d3dbda8cd5d3d20fd1ee1f8de17f}\index{RoomMessCommand@{RoomMessCommand}!execute@{execute}}
+\index{execute@{execute}!RoomMessCommand@{RoomMessCommand}}
+\doxysubsubsection{\texorpdfstring{execute()}{execute()}}
+{\footnotesize\ttfamily \label{class_room_mess_command_ad504d3dbda8cd5d3d20fd1ee1f8de17f} 
+void Room\+Mess\+Command::\+execute (\begin{DoxyParamCaption}\item[{std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_session}{Session}} $>$}]{session}{, }\item[{const \doxymbox{\hyperlink{class_packet}{Packet}} \&}]{p}{, }\item[{\doxymbox{\hyperlink{class_server}{Server}} \&}]{server}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Executes the room message processing logic. Extracts the room ID and message contents from the packet, saves the message to the database history, and broadcasts it to all other users currently inside that room. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em session} & Shared pointer to the network session of the user who sent the message. \\
+\hline
+{\em p} & The incoming \doxylink{class_packet}{Packet} containing the target room ID and the message text or audio data. \\
+\hline
+{\em server} & Reference to the main \doxylink{class_server}{Server} instance to access the database and room manager. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \doxymbox{\hyperlink{class_command_aa65874a3f62c1237796da1feb04a5f1d}{Command}}.
+
+
+
+The documentation for this class was generated from the following files:\+\begin{DoxyCompactItemize}
+\item 
+server/\+include/\+server/\+\+Commands/\+Room\+Mess\+Command.\+h\item 
+server/\+src/\+\+Commands/\+Room\+Mess\+Command.\+cpp\end{DoxyCompactItemize}

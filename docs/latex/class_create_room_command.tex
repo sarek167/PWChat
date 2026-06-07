@@ -1,0 +1,83 @@
+\doxysection{Create\+Room\+Command Class Reference}
+\hypertarget{class_create_room_command}{}\label{class_create_room_command}\index{CreateRoomCommand@{CreateRoomCommand}}
+
+
+\doxylink{class_command}{Command} handler used when a user requests to create a new chat room.  
+
+
+
+
+{\ttfamily \+\#include $<$Create\+Room\+Command.\+h$>$}
+
+
+
+Inheritance diagram for Create\+Room\+Command:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=197pt]{class_create_room_command__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Create\+Room\+Command:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=197pt]{class_create_room_command__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \doxymbox{\hyperlink{class_create_room_command_adc292b163e3d2702a4209fc0556b4adb}{execute}} (std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_session}{Session}} $>$ session, const \doxymbox{\hyperlink{class_packet}{Packet}} \&p, \doxymbox{\hyperlink{class_server}{Server}} \&server) override
+\begin{DoxyCompactList}\small\item\em Executes the room creation logic. Extracts the new room details from the packet, saves the room in the database, registers it within the server\textquotesingle{}s room manager, and sends a confirmation back to the client. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \doxymbox{\hyperlink{class_command}{Command}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual {\bfseries \texorpdfstring{$\sim$}{\string~}\+Command} ()=default
+\begin{DoxyCompactList}\small\item\em Virtual destructor to ensure proper cleanup of derived command objects. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\doxylink{class_command}{Command} handler used when a user requests to create a new chat room. 
+
+
+\begin{DoxyItemize}
+\item It inherits from the base \doxylink{class_command}{Command} class and overrides the execute method to handle setting up a new public or private room. 
+\end{DoxyItemize}
+
+\label{class_create_room_command_doc-func-members}
+\Hypertarget{class_create_room_command_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_create_room_command_adc292b163e3d2702a4209fc0556b4adb}\index{CreateRoomCommand@{CreateRoomCommand}!execute@{execute}}
+\index{execute@{execute}!CreateRoomCommand@{CreateRoomCommand}}
+\doxysubsubsection{\texorpdfstring{execute()}{execute()}}
+{\footnotesize\ttfamily \label{class_create_room_command_adc292b163e3d2702a4209fc0556b4adb} 
+void Create\+Room\+Command::\+execute (\begin{DoxyParamCaption}\item[{std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_session}{Session}} $>$}]{session}{, }\item[{const \doxymbox{\hyperlink{class_packet}{Packet}} \&}]{p}{, }\item[{\doxymbox{\hyperlink{class_server}{Server}} \&}]{server}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Executes the room creation logic. Extracts the new room details from the packet, saves the room in the database, registers it within the server\textquotesingle{}s room manager, and sends a confirmation back to the client. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em session} & Shared pointer to the network session of the user who wants to create the room. \\
+\hline
+{\em p} & The incoming \doxylink{class_packet}{Packet} containing the desired room name and privacy settings. \\
+\hline
+{\em server} & Reference to the main \doxylink{class_server}{Server} instance to access the database and room manager. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \doxymbox{\hyperlink{class_command_aa65874a3f62c1237796da1feb04a5f1d}{Command}}.
+
+
+
+The documentation for this class was generated from the following files:\+\begin{DoxyCompactItemize}
+\item 
+server/\+include/\+server/\+\+Commands/\+Create\+Room\+Command.\+h\item 
+server/\+src/\+\+Commands/\+Create\+Room\+Command.\+cpp\end{DoxyCompactItemize}

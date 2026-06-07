@@ -1,0 +1,84 @@
+\doxysection{Network\+Manager.\+h}
+\hypertarget{_network_manager_8h_source}{}\label{_network_manager_8h_source}\index{client/include/client/NetworkManager.h@{client/include/client/NetworkManager.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ NETWORKMANAGER\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ NETWORKMANAGER\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <asio.hpp>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <QObject>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <QString>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}common/Packet.h"{}}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}common/User.h"{}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}common/RoomData.h"{}}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}common/RegisterRequest.h"{}}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}common/RoomUserData.h"{}}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ "{}common/MessageData.h"{}}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ "{}common/JoinRoomRequest.h"{}}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ "{}common/AuthResponse.h"{}}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{keyword}{using\ }asio::ip::tcp;}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00026\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_network_manager_a25e5a69c0dba31cc028050c2b6eea855}{NetworkManager}}\ :\ \textcolor{keyword}{public}\ QObject\ \{}
+\DoxyCodeLine{00027\ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }NetworkManagerTest;}
+\DoxyCodeLine{00029\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keyword}{explicit}\ \doxymbox{\hyperlink{class_network_manager_a25e5a69c0dba31cc028050c2b6eea855}{NetworkManager}}(QObject\ *parent\ =\ \textcolor{keyword}{nullptr})}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ :\ QObject(parent),\ m\_socket(m\_io\_context),\ m\_resolver(m\_io\_context)\ \{\}}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00041\ \ \ \ \ \doxymbox{\hyperlink{class_network_manager_a2cfe4223139cf58587a9f066b956cb23}{\string~NetworkManager}}();}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_network_manager_a21940b4e9fbf1a7f89a69d6d7b033a16}{connect}}(\textcolor{keyword}{const}\ std::string\&\ host,\ \textcolor{keyword}{const}\ std::string\&\ port);}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_network_manager_ad78e7790ca462e5744c1d03e817e2438}{send}}(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{class_packet}{Packet}}\&\ p);}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_network_manager_a93cd87d1fd2a0a85450991ca48715d9c}{doRead}}();}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00065\ \ \ \ \ std::shared\_ptr<User>\ \doxymbox{\hyperlink{class_network_manager_afd67955bbab89a433a2f1bf42d3dd196}{user}}();}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_network_manager_a4a9535de6fe0a9fa06f37fdb2983eac6}{setUser}}(std::shared\_ptr<User>\ userPtr);}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keywordtype}{void}\ waitForRequest();}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keywordtype}{void}\ dispatchPacket(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{class_packet}{Packet}}\&\ packet);}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keywordtype}{void}\ readBody(\doxymbox{\hyperlink{struct_packet_header}{PacketHeader}}\ header);}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \ \ \ \ std::shared\_ptr<User>\ m\_user;\ \ }
+\DoxyCodeLine{00094\ \ \ \ \ asio::io\_context\ m\_io\_context;\ }
+\DoxyCodeLine{00095\ \ \ \ \ tcp::socket\ m\_socket;\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00096\ \ \ \ \ tcp::resolver\ m\_resolver;\ \ \ \ \ \ }
+\DoxyCodeLine{00097\ \ \ \ \ asio::streambuf\ m\_buffer;\ \ \ \ \ \ }
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ signals:}
+\DoxyCodeLine{00104\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_network_manager_ab35c2095cb5f3cd3b8e783c758ad5938}{AuthResultReceived}}(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{struct_auth_response}{AuthResponse}}\&\ res);}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00115\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_network_manager_af51dd5282304eadd9695515fe5c0b056}{MessageReceived}}(\textcolor{keyword}{const}\ uint32\_t\ senderId,\ \textcolor{keyword}{const}\ QString\&\ senderName,\ \textcolor{keyword}{const}\ uint32\_t\ targetId,\ \textcolor{keyword}{const}\ MessageContentType\&\ msgType,\ \textcolor{keyword}{const}\ QString\&\ message,\ \textcolor{keywordtype}{bool}\ toRoom);}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00122\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_network_manager_a3909a5a2a01bacb5a5c53679cfdf7f44}{AudioMessageReceived}}(\textcolor{keyword}{const}\ QString\&\ senderId,\ \textcolor{keyword}{const}\ std::vector<char>\&\ audioMessage);}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00128\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_network_manager_ad6438d48eaa70c91f86a3901e19b84fa}{RoomRequestConfirmation}}(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{struct_room_data}{RoomData}}\&\ room);}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00134\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_network_manager_a74b0e186519595532f28e9dbf66099f9}{RegisterResultReceived}}(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{struct_register_request}{RegisterRequest}}\&\ req);}
+\DoxyCodeLine{00135\ }
+\DoxyCodeLine{00139\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_network_manager_ac5cc006fa2ca752e3aff38141dc527b4}{LogoutResultReceived}}();}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00145\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_network_manager_a778dbb401e2f176bdda08a302dfa49d8}{RoomInfoReceived}}(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{struct_room_user_data}{RoomUserData}}\&\ roomUserData);}
+\DoxyCodeLine{00146\ }
+\DoxyCodeLine{00152\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_network_manager_ab2cc7a2ad8cf632c00b509333ef15cc0}{LeaveResultReceived}}(\textcolor{keyword}{const}\ uint32\_t\ roomId,\ \textcolor{keyword}{const}\ uint32\_t\ userId);}
+\DoxyCodeLine{00153\ }
+\DoxyCodeLine{00158\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_network_manager_a669ed5058cb617cb49feb68dce4fdf97}{MessagesReceived}}(\textcolor{keyword}{const}\ std::vector<MessageData>\&\ messages);}
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00164\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_network_manager_ab0ee4f355ddd4a45e01253209187b995}{AccessCodeReceived}}(\textcolor{keyword}{const}\ uint32\_t\&\ code);}
+\DoxyCodeLine{00165\ }
+\DoxyCodeLine{00170\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_network_manager_a231924ba872fd84a3588acc419f7ddf4}{AccessCodeRequired}}(\doxymbox{\hyperlink{struct_join_room_request}{JoinRoomRequest}}\ req);}
+\DoxyCodeLine{00171\ }
+\DoxyCodeLine{00176\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_network_manager_abd5951720185f3a6a8f83d9c1931dc27}{UserFoundResult}}(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{struct_user_data}{UserData}}\&\ foundUser);}
+\DoxyCodeLine{00177\ \};}
+\DoxyCodeLine{00178\ }
+\DoxyCodeLine{00179\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ NETWORKMANAGER\_H}}
+
+\end{DoxyCode}

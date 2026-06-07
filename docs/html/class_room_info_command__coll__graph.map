@@ -1,0 +1,5 @@
+<map id="RoomInfoCommand" name="RoomInfoCommand">
+<area shape="rect" id="Node000001" title="Command handler used when a client requests details about a specific chat room." alt="" coords="5,80,144,107"/>
+<area shape="rect" id="Node000002" href="$class_command.html" title="Base interface for the Command pattern used to handle incoming packets." alt="" coords="34,5,115,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="76,46,77,80,72,79,73,50"/>
+</map>

@@ -1,0 +1,26 @@
+\doxysection{Private\+Room.\+h}
+\hypertarget{_private_room_8h_source}{}\label{_private_room_8h_source}\index{server/include/server/PrivateRoom.h@{server/include/server/PrivateRoom.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ PRIVATEROOM\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ PRIVATEROOM\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}Room.h"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00013\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_private_room_a75248cf2619f9fb33eec0b93a92c3ab0}{PrivateRoom}}\ :\ \textcolor{keyword}{public}\ \doxymbox{\hyperlink{class_room_a4a1bc911e10ab6af877c82674031eb65}{Room}}\ \{}
+\DoxyCodeLine{00014\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00015\ \ \ \ \ std::string\ m\_accessCode;\ }
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00025\ \ \ \ \ \doxymbox{\hyperlink{class_private_room_a75248cf2619f9fb33eec0b93a92c3ab0}{PrivateRoom}}(uint32\_t\ \textcolor{keywordtype}{id},\ std::string\ \doxymbox{\hyperlink{class_room_a6e03eeada32ee3d353ac57888cd4a6d6}{name}},\ uint32\_t\ \doxymbox{\hyperlink{class_room_a7916ace444c80da62290307304197541}{ownerId}})\ :\ \doxymbox{\hyperlink{class_room_a4a1bc911e10ab6af877c82674031eb65}{Room}}(\doxymbox{\hyperlink{class_room_a5e0f1f91d9daa18d216c032b8bcfaad6}{id}},\ \doxymbox{\hyperlink{class_room_a6e03eeada32ee3d353ac57888cd4a6d6}{name}},\ \doxymbox{\hyperlink{class_room_a7916ace444c80da62290307304197541}{ownerId}})\ \{\}}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keyword}{virtual}\ \doxymbox{\hyperlink{class_private_room_acb91c15e3f14b1169e155db570d09fa0}{\string~PrivateRoom}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{class_private_room_ac6d2b1bbbaa6f75e102f32072c1febaf}{canJoin}}(\textcolor{keyword}{const}\ std::string\&\ token)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00038\ \};}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ PRIVATEROOM\_H}}
+
+\end{DoxyCode}

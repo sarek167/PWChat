@@ -1,0 +1,23 @@
+\doxysection{Create\+Room\+Request.\+h}
+\hypertarget{_create_room_request_8h_source}{}\label{_create_room_request_8h_source}\index{common/include/common/CreateRoomRequest.h@{common/include/common/CreateRoomRequest.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ ROOMREQUEST\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ ROOMREQUEST\_H}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <cereal/types/string.hpp>}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00012\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{struct_create_room_request}{CreateRoomRequest}}\ \{}
+\DoxyCodeLine{00013\ \ \ \ \ std::string\ \doxymbox{\hyperlink{struct_create_room_request_a7843cab29ed4464039f054b6944626c6}{roomName}};\ }
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{struct_create_room_request_a355539f69d9a5991af6a5ce4de4aebb9}{isPrivate}};\ \ \ \ \ \ \ }
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{struct_create_room_request_af104cf0387b0d88c00751725f2349b95}{isAdmin}};\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ Archive>}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{struct_create_room_request_a74182340beefe7bd82dc41a498ae7cc9}{serialize}}(Archive\ \&\ archive)\ \{}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ archive(\doxymbox{\hyperlink{struct_create_room_request_a7843cab29ed4464039f054b6944626c6}{roomName}},\ \doxymbox{\hyperlink{struct_create_room_request_a355539f69d9a5991af6a5ce4de4aebb9}{isPrivate}},\ \doxymbox{\hyperlink{struct_create_room_request_af104cf0387b0d88c00751725f2349b95}{isAdmin}});}
+\DoxyCodeLine{00025\ \ \ \ \ \}}
+\DoxyCodeLine{00026\ \};}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ ROOMREQUEST\_H}}
+
+\end{DoxyCode}

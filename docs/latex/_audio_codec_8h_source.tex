@@ -1,0 +1,21 @@
+\doxysection{Audio\+Codec.\+h}
+\hypertarget{_audio_codec_8h_source}{}\label{_audio_codec_8h_source}\index{client/include/client/AudioCodec.h@{client/include/client/AudioCodec.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ AUDIOCODEC\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ AUDIOCODEC\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00012\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_audio_codec}{AudioCodec}}\ \{}
+\DoxyCodeLine{00013\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keyword}{virtual}\ \doxymbox{\hyperlink{class_audio_codec_ad1bdab8d51adc21868c70806847737eb}{\string~AudioCodec}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keyword}{virtual}\ std::vector<char>\ \doxymbox{\hyperlink{class_audio_codec_ad50bffaa2c6f191a1acb3c81855ee810}{encode}}(\textcolor{keyword}{const}\ std::vector<float>\&\ pcmData)\ =\ 0;}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keyword}{virtual}\ std::vector<float>\ \doxymbox{\hyperlink{class_audio_codec_a470e85c8351c522fef134a706afea04a}{decode}}(\textcolor{keyword}{const}\ std::vector<char>\&\ compressedData)\ =\ 0;}
+\DoxyCodeLine{00033\ \};}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ AUDIOCODEC\_H}}
+
+\end{DoxyCode}

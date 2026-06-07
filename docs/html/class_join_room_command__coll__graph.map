@@ -1,0 +1,5 @@
+<map id="JoinRoomCommand" name="JoinRoomCommand">
+<area shape="rect" id="Node000001" title="Command handler used when a user wants to join an existing chat room." alt="" coords="5,80,146,107"/>
+<area shape="rect" id="Node000002" href="$class_command.html" title="Base interface for the Command pattern used to handle incoming packets." alt="" coords="35,5,116,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="77,46,78,80,73,79,74,50"/>
+</map>

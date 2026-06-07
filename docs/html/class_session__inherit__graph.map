@@ -1,0 +1,5 @@
+<map id="Session" name="Session">
+<area shape="rect" id="Node000001" title="Represents a single active client connection on the server." alt="" coords="48,96,116,123"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,5,159,48"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="84,62,85,96,79,95,80,66"/>
+</map>

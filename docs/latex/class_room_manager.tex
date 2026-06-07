@@ -1,0 +1,186 @@
+\doxysection{Room\+Manager Class Reference}
+\hypertarget{class_room_manager}{}\label{class_room_manager}\index{RoomManager@{RoomManager}}
+
+
+Class that manages all chat rooms on the server.  
+
+
+
+
+{\ttfamily \+\#include $<$Room\+Manager.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+std::\+map$<$ uint32\+\_\+t, std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_room}{Room}} $>$ $>$ \doxymbox{\hyperlink{class_room_manager_ae511957b700c8a05d714907a55f55956}{all\+Rooms}} ()
+\begin{DoxyCompactList}\small\item\em Getter for the map of all existing rooms. \end{DoxyCompactList}\item 
+std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_room}{Room}} $>$ \doxymbox{\hyperlink{class_room_manager_a9c5130f4d3021a8514c5cc6902aa3566}{get\+Room}} (uint32\+\_\+t id)
+\begin{DoxyCompactList}\small\item\em Finds a room by its unique numerical ID. \end{DoxyCompactList}\item 
+std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_room}{Room}} $>$ \doxymbox{\hyperlink{class_room_manager_aa1f69e55c70062f17c5e44074f83e9b3}{get\+Room}} (std::\+string name)
+\begin{DoxyCompactList}\small\item\em Finds a room by its name string. \end{DoxyCompactList}\item 
+std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_room}{Room}} $>$ \doxymbox{\hyperlink{class_room_manager_ae4fbe0d4c4a4ae340329f5628bfc8e43}{create\+Room}} (uint32\+\_\+t room\+Id, std::\+string name, bool is\+Private, uint32\+\_\+t owner\+Id)
+\begin{DoxyCompactList}\small\item\em Creates a new room instance (either Public or Private) and adds it to the manager. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_room_manager_a30f1a095a4e371bf2b05e5bf1dd22caf}{remove\+Room}} (std::\+string name)
+\begin{DoxyCompactList}\small\item\em Deletes a room from the manager using its name. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_room_manager_ac0dc5ec305be28ef6ccb662a9079c591}{initialize}} (const std::\+vector$<$ \doxymbox{\hyperlink{struct_room_data}{Room\+Data}} $>$ \&rooms)
+\begin{DoxyCompactList}\small\item\em Initializes the manager with a list of rooms (e.\+g., loaded from the database at startup). \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_room_manager_ac0f708a1101e4af00b3a51f043cdc946}{login\+Initialize}} (const std::\+vector$<$ \doxymbox{\hyperlink{struct_room_data}{Room\+Data}} $>$ \&rooms, const std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_session}{Session}} $>$ session)
+\begin{DoxyCompactList}\small\item\em Links a user\textquotesingle{}s session to all the rooms they belong to when they log in. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_room_manager_a0ccecd39c3796fdfdc37b8b03968676a}{logout\+Initialize}} (const std::\+vector$<$ \doxymbox{\hyperlink{struct_room_data}{Room\+Data}} $>$ \&rooms, const std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_session}{Session}} $>$ session)
+\begin{DoxyCompactList}\small\item\em Unlinks a user\textquotesingle{}s session from their rooms when they disconnect or log out. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Class that manages all chat rooms on the server. 
+
+
+\begin{DoxyItemize}
+\item It allows creating, finding, and removing rooms, as well as updating room lists when users log in or out. 
+\end{DoxyItemize}
+
+\label{class_room_manager_doc-func-members}
+\Hypertarget{class_room_manager_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_room_manager_ae511957b700c8a05d714907a55f55956}\index{RoomManager@{RoomManager}!allRooms@{allRooms}}
+\index{allRooms@{allRooms}!RoomManager@{RoomManager}}
+\doxysubsubsection{\texorpdfstring{allRooms()}{allRooms()}}
+{\footnotesize\ttfamily \label{class_room_manager_ae511957b700c8a05d714907a55f55956} 
+std::\+map$<$ uint32\+\_\+t, std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_room}{Room}} $>$ $>$ Room\+Manager::\+all\+Rooms (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Getter for the map of all existing rooms. 
+
+\begin{DoxyReturn}{Returns}
+A map where the key is the room ID and the value is a shared pointer to the \doxylink{class_room}{Room}. 
+\end{DoxyReturn}
+\Hypertarget{class_room_manager_ae4fbe0d4c4a4ae340329f5628bfc8e43}\index{RoomManager@{RoomManager}!createRoom@{createRoom}}
+\index{createRoom@{createRoom}!RoomManager@{RoomManager}}
+\doxysubsubsection{\texorpdfstring{createRoom()}{createRoom()}}
+{\footnotesize\ttfamily \label{class_room_manager_ae4fbe0d4c4a4ae340329f5628bfc8e43} 
+std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_room}{Room}} $>$ Room\+Manager::\+create\+Room (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{room\+Id}{, }\item[{std::\+string}]{name}{, }\item[{bool}]{is\+Private}{, }\item[{uint32\+\_\+t}]{owner\+Id}{}\end{DoxyParamCaption})}
+
+
+
+Creates a new room instance (either Public or Private) and adds it to the manager. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em room\+Id} & Unique ID for the new room. \\
+\hline
+{\em name} & Name of the room. \\
+\hline
+{\em is\+Private} & True if it should be a \doxylink{class_private_room}{Private\+Room}, false for a \doxylink{class_public_room}{Public\+Room}. \\
+\hline
+{\em owner\+Id} & ID of the user who created this room. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Shared pointer to the newly created \doxylink{class_room}{Room} object. 
+\end{DoxyReturn}
+\Hypertarget{class_room_manager_aa1f69e55c70062f17c5e44074f83e9b3}\index{RoomManager@{RoomManager}!getRoom@{getRoom}}
+\index{getRoom@{getRoom}!RoomManager@{RoomManager}}
+\doxysubsubsection{\texorpdfstring{getRoom()}{getRoom()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_room_manager_aa1f69e55c70062f17c5e44074f83e9b3} 
+std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_room}{Room}} $>$ Room\+Manager::\+get\+Room (\begin{DoxyParamCaption}\item[{std::\+string}]{name}{}\end{DoxyParamCaption})}
+
+
+
+Finds a room by its name string. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & The name of the room to search for. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Shared pointer to the found \doxylink{class_room}{Room}, or nullptr if it doesn\textquotesingle{}t exist. 
+\end{DoxyReturn}
+\Hypertarget{class_room_manager_a9c5130f4d3021a8514c5cc6902aa3566}\index{RoomManager@{RoomManager}!getRoom@{getRoom}}
+\index{getRoom@{getRoom}!RoomManager@{RoomManager}}
+\doxysubsubsection{\texorpdfstring{getRoom()}{getRoom()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_room_manager_a9c5130f4d3021a8514c5cc6902aa3566} 
+std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_room}{Room}} $>$ Room\+Manager::\+get\+Room (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{id}{}\end{DoxyParamCaption})}
+
+
+
+Finds a room by its unique numerical ID. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & The ID of the room to search for. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Shared pointer to the found \doxylink{class_room}{Room}, or nullptr if it doesn\textquotesingle{}t exist. 
+\end{DoxyReturn}
+\Hypertarget{class_room_manager_ac0dc5ec305be28ef6ccb662a9079c591}\index{RoomManager@{RoomManager}!initialize@{initialize}}
+\index{initialize@{initialize}!RoomManager@{RoomManager}}
+\doxysubsubsection{\texorpdfstring{initialize()}{initialize()}}
+{\footnotesize\ttfamily \label{class_room_manager_ac0dc5ec305be28ef6ccb662a9079c591} 
+void Room\+Manager::\+initialize (\begin{DoxyParamCaption}\item[{const std::\+vector$<$ \doxymbox{\hyperlink{struct_room_data}{Room\+Data}} $>$ \&}]{rooms}{}\end{DoxyParamCaption})}
+
+
+
+Initializes the manager with a list of rooms (e.\+g., loaded from the database at startup). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rooms} & Vector of room data structures to build the internal maps. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_room_manager_ac0f708a1101e4af00b3a51f043cdc946}\index{RoomManager@{RoomManager}!loginInitialize@{loginInitialize}}
+\index{loginInitialize@{loginInitialize}!RoomManager@{RoomManager}}
+\doxysubsubsection{\texorpdfstring{loginInitialize()}{loginInitialize()}}
+{\footnotesize\ttfamily \label{class_room_manager_ac0f708a1101e4af00b3a51f043cdc946} 
+void Room\+Manager::\+login\+Initialize (\begin{DoxyParamCaption}\item[{const std::\+vector$<$ \doxymbox{\hyperlink{struct_room_data}{Room\+Data}} $>$ \&}]{rooms}{, }\item[{const std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_session}{Session}} $>$}]{session}{}\end{DoxyParamCaption})}
+
+
+
+Links a user\textquotesingle{}s session to all the rooms they belong to when they log in. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rooms} & Vector of rooms that the user is a member of. \\
+\hline
+{\em session} & Shared pointer to the user\textquotesingle{}s active network session. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_room_manager_a0ccecd39c3796fdfdc37b8b03968676a}\index{RoomManager@{RoomManager}!logoutInitialize@{logoutInitialize}}
+\index{logoutInitialize@{logoutInitialize}!RoomManager@{RoomManager}}
+\doxysubsubsection{\texorpdfstring{logoutInitialize()}{logoutInitialize()}}
+{\footnotesize\ttfamily \label{class_room_manager_a0ccecd39c3796fdfdc37b8b03968676a} 
+void Room\+Manager::\+logout\+Initialize (\begin{DoxyParamCaption}\item[{const std::\+vector$<$ \doxymbox{\hyperlink{struct_room_data}{Room\+Data}} $>$ \&}]{rooms}{, }\item[{const std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_session}{Session}} $>$}]{session}{}\end{DoxyParamCaption})}
+
+
+
+Unlinks a user\textquotesingle{}s session from their rooms when they disconnect or log out. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rooms} & Vector of rooms that the user is leaving. \\
+\hline
+{\em session} & Shared pointer to the user\textquotesingle{}s active network session. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_room_manager_a30f1a095a4e371bf2b05e5bf1dd22caf}\index{RoomManager@{RoomManager}!removeRoom@{removeRoom}}
+\index{removeRoom@{removeRoom}!RoomManager@{RoomManager}}
+\doxysubsubsection{\texorpdfstring{removeRoom()}{removeRoom()}}
+{\footnotesize\ttfamily \label{class_room_manager_a30f1a095a4e371bf2b05e5bf1dd22caf} 
+void Room\+Manager::\+remove\+Room (\begin{DoxyParamCaption}\item[{std::\+string}]{name}{}\end{DoxyParamCaption})}
+
+
+
+Deletes a room from the manager using its name. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & Name of the room to be removed. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files:\+\begin{DoxyCompactItemize}
+\item 
+server/\+include/\+server/\+Room\+Manager.\+h\item 
+server/\+src/\+Room\+Manager.\+cpp\end{DoxyCompactItemize}

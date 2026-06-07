@@ -1,0 +1,124 @@
+\doxysection{User Class Reference}
+\hypertarget{class_user}{}\label{class_user}\index{User@{User}}
+
+
+Class that represents a user object in the application.  
+
+
+
+
+{\ttfamily \+\#include $<$User.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{class_user_af6801c1197ff85e492a75fcbfe52f5d1}{User}} (uint32\+\_\+t id, std::\+string nickname)
+\begin{DoxyCompactList}\small\item\em Constructor for \doxylink{class_user}{User} class. \end{DoxyCompactList}\item 
+\Hypertarget{class_user_aaaa11924d837d07cbf5deb2cb71b83c1}\label{class_user_aaaa11924d837d07cbf5deb2cb71b83c1} 
+{\bfseries \texorpdfstring{$\sim$}{\string~}\+User} ()=default
+\begin{DoxyCompactList}\small\item\em Destructor for \doxylink{class_user}{User} class. \end{DoxyCompactList}\item 
+const uint32\+\_\+t \doxymbox{\hyperlink{class_user_af6d7fa507d0c32871ec9c739cc19a646}{id}} () const
+\begin{DoxyCompactList}\small\item\em Getter for the user\textquotesingle{}s ID. \end{DoxyCompactList}\item 
+const std::\+string \doxymbox{\hyperlink{class_user_a5853f3b9870d17eda0598baf035a4e13}{nickname}} () const
+\begin{DoxyCompactList}\small\item\em Getter for the user\textquotesingle{}s nickname. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_user_a7a4d83bbf24b084b3bf72acaa8d59c90}{set\+Id}} (uint32\+\_\+t id)
+\begin{DoxyCompactList}\small\item\em Setter to update the user\textquotesingle{}s ID. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_user_a403f2f88ba2dbef58663e76e1a412ee7}{set\+Nickname}} (std::\+string nick)
+\begin{DoxyCompactList}\small\item\em Setter to update the user\textquotesingle{}s nickname. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Class that represents a user object in the application. 
+
+
+\begin{DoxyItemize}
+\item This class keeps track of basic user properties like their ID and nickname, providing standard getters and setters to change them. 
+\end{DoxyItemize}
+
+\label{class_user_doc-constructors}
+\Hypertarget{class_user_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_user_af6801c1197ff85e492a75fcbfe52f5d1}\index{User@{User}!User@{User}}
+\index{User@{User}!User@{User}}
+\doxysubsubsection{\texorpdfstring{User()}{User()}}
+{\footnotesize\ttfamily \label{class_user_af6801c1197ff85e492a75fcbfe52f5d1} 
+User::\+\+User (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{id}{, }\item[{std::\+string}]{nickname}{}\end{DoxyParamCaption})}
+
+
+
+Constructor for \doxylink{class_user}{User} class. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & Unique ID number assigned to the user. \\
+\hline
+{\em nickname} & The chosen nickname of the user. \\
+\hline
+\end{DoxyParams}
+
+
+\label{class_user_doc-func-members}
+\Hypertarget{class_user_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_user_af6d7fa507d0c32871ec9c739cc19a646}\index{User@{User}!id@{id}}
+\index{id@{id}!User@{User}}
+\doxysubsubsection{\texorpdfstring{id()}{id()}}
+{\footnotesize\ttfamily \label{class_user_af6d7fa507d0c32871ec9c739cc19a646} 
+const uint32\+\_\+t User::\+id (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+
+
+Getter for the user\textquotesingle{}s ID. 
+
+\begin{DoxyReturn}{Returns}
+const uint32\+\_\+t The ID number of the user. 
+\end{DoxyReturn}
+\Hypertarget{class_user_a5853f3b9870d17eda0598baf035a4e13}\index{User@{User}!nickname@{nickname}}
+\index{nickname@{nickname}!User@{User}}
+\doxysubsubsection{\texorpdfstring{nickname()}{nickname()}}
+{\footnotesize\ttfamily \label{class_user_a5853f3b9870d17eda0598baf035a4e13} 
+const std::\+string User::\+nickname (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+
+
+Getter for the user\textquotesingle{}s nickname. 
+
+\begin{DoxyReturn}{Returns}
+const std::\+string The user\textquotesingle{}s nickname string. 
+\end{DoxyReturn}
+\Hypertarget{class_user_a7a4d83bbf24b084b3bf72acaa8d59c90}\index{User@{User}!setId@{setId}}
+\index{setId@{setId}!User@{User}}
+\doxysubsubsection{\texorpdfstring{setId()}{setId()}}
+{\footnotesize\ttfamily \label{class_user_a7a4d83bbf24b084b3bf72acaa8d59c90} 
+void User::\+set\+Id (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{id}{}\end{DoxyParamCaption})}
+
+
+
+Setter to update the user\textquotesingle{}s ID. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & The new ID number to assign. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_user_a403f2f88ba2dbef58663e76e1a412ee7}\index{User@{User}!setNickname@{setNickname}}
+\index{setNickname@{setNickname}!User@{User}}
+\doxysubsubsection{\texorpdfstring{setNickname()}{setNickname()}}
+{\footnotesize\ttfamily \label{class_user_a403f2f88ba2dbef58663e76e1a412ee7} 
+void User::\+set\+Nickname (\begin{DoxyParamCaption}\item[{std::\+string}]{nick}{}\end{DoxyParamCaption})}
+
+
+
+Setter to update the user\textquotesingle{}s nickname. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em nick} & The new nickname string to set. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files:\+\begin{DoxyCompactItemize}
+\item 
+common/\+include/\+common/\+User.\+h\item 
+common/\+src/\+User.\+cpp\end{DoxyCompactItemize}

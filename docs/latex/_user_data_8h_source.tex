@@ -1,0 +1,25 @@
+\doxysection{User\+Data.\+h}
+\hypertarget{_user_data_8h_source}{}\label{_user_data_8h_source}\index{common/include/common/UserData.h@{common/include/common/UserData.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ USERDATA\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ USERDATA\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <cereal/archives/binary.hpp>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <cereal/types/string.hpp>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{struct_user_data}{UserData}}\ \{}
+\DoxyCodeLine{00016\ \ \ \ \ uint32\_t\ \doxymbox{\hyperlink{struct_user_data_a8b0b3b230fa9fdc08c6fa143756bc6fa}{id}};\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00017\ \ \ \ \ std::string\ \doxymbox{\hyperlink{struct_user_data_aafb56eff10b2fd4ed3eed1fb5cbeb02a}{nickname}};\ \ \ \ }
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ Archive>}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{struct_user_data_a7b4dc3de8f24eed0c783c49cb0817d21}{serialize}}(Archive\ \&\ archive)\ \{}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ archive(\textcolor{keywordtype}{id},\ \doxymbox{\hyperlink{struct_user_data_aafb56eff10b2fd4ed3eed1fb5cbeb02a}{nickname}});}
+\DoxyCodeLine{00027\ \ \ \ \ \}}
+\DoxyCodeLine{00028\ \};}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ USERDATA\_H}}
+
+\end{DoxyCode}

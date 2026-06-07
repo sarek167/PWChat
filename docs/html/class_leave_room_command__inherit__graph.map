@@ -1,0 +1,5 @@
+<map id="LeaveRoomCommand" name="LeaveRoomCommand">
+<area shape="rect" id="Node000001" title="Command handler used when a user wants to leave a chat room." alt="" coords="5,80,157,107"/>
+<area shape="rect" id="Node000002" href="$class_command.html" title="Base interface for the Command pattern used to handle incoming packets." alt="" coords="40,5,122,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="83,46,84,81,78,79,79,50"/>
+</map>

@@ -1,0 +1,217 @@
+\doxysection{Server Class Reference}
+\hypertarget{class_server}{}\label{class_server}\index{Server@{Server}}
+
+
+The main class of the server core application.  
+
+
+
+
+{\ttfamily \+\#include $<$Server.\+h$>$}
+
+
+
+Collaboration diagram for Server:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=199pt]{class_server__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{class_server_a8166bc7b2decc154ecf2333120019a44}{Server}} (asio::\+io\+\_\+context \&io\+\_\+context, short port)
+\begin{DoxyCompactList}\small\item\em Constructor for \doxylink{class_server}{Server} class. Sets up the TCP acceptor on the specified port. \end{DoxyCompactList}\item 
+\Hypertarget{class_server_ac0c2f1f04de64bd49ef343ca283e71ed}\label{class_server_ac0c2f1f04de64bd49ef343ca283e71ed} 
+{\bfseries \texorpdfstring{$\sim$}{\string~}\+Server} ()=default
+\begin{DoxyCompactList}\small\item\em Destructor for \doxylink{class_server}{Server} class. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_server_a2ade0c7f68a40be01be01a6a724fac89}{on\+Packet\+Received}} (std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_session}{Session}} $>$ session, const \doxymbox{\hyperlink{class_packet}{Packet}} \&p)
+\begin{DoxyCompactList}\small\item\em Triggered whenever a complete packet is received from a client session. Passes the packet to the appropriate \doxylink{class_command}{Command} handler. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_server_a021f6a4ce04c1b621e2fbe81adf1bd46}{route\+Packet}} (const \doxymbox{\hyperlink{class_packet}{Packet}} \&p)
+\begin{DoxyCompactList}\small\item\em Routes a packet directly to its target user if they are online. Used mainly for direct messages between two users. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_server_aa60aa04101c845ccadbcb85b303c0018}{insert\+Client}} (std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_session}{Session}} $>$ session)
+\begin{DoxyCompactList}\small\item\em Adds a newly authenticated client session to the active clients list. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_server_af8bcba672999dc804e7b84349078e1fc}{remove\+Client}} (std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_session}{Session}} $>$ session)
+\begin{DoxyCompactList}\small\item\em Removes a client session from the active list (e.\+g., when they disconnect). \end{DoxyCompactList}\item 
+\Hypertarget{class_server_adc189d3baa049beed9eb76b786fc6e6f}\label{class_server_adc189d3baa049beed9eb76b786fc6e6f} 
+void {\bfseries load\+Data\+From\+DB} ()
+\begin{DoxyCompactList}\small\item\em Loads baseline configuration data (like rooms) from the database at startup. \end{DoxyCompactList}\item 
+const std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_session}{Session}} $>$ \doxymbox{\hyperlink{class_server_abf7252dbf4df305d76baa6d59e261e82}{client}} (uint32\+\_\+t client\+Id)
+\begin{DoxyCompactList}\small\item\em Finds an active client session using their unique user ID. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{class_room_manager}{Room\+Manager}} \& \doxymbox{\hyperlink{class_server_a35a6dd57890892281a245df93c836286}{room\+Manager}} ()
+\begin{DoxyCompactList}\small\item\em Getter for the room manager subsystem reference. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{class_d_b_connector}{DBConnector}} \& \doxymbox{\hyperlink{class_server_a2d4139523a3094585747754f5bf1d40e}{db}} ()
+\begin{DoxyCompactList}\small\item\em Getter for the database connector subsystem reference. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{class_room_manager}{Room\+Manager}} \doxymbox{\hyperlink{class_server_a6a00e5aa71ca5935b3e4d2c09238f0db}{m\+\_\+room\+Manager}}
+\item 
+std::\+unique\+\_\+ptr$<$ \doxymbox{\hyperlink{class_d_b_connector}{DBConnector}} $>$ \doxymbox{\hyperlink{class_server_adc4b467277b914029cd836536de85bce}{m\+\_\+db}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The main class of the server core application. 
+
+
+\begin{DoxyItemize}
+\item It is responsible for accepting new client connections, managing the list of active users, loading initial database records, and routing incoming network packets. 
+\end{DoxyItemize}
+
+\label{class_server_doc-constructors}
+\Hypertarget{class_server_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_server_a8166bc7b2decc154ecf2333120019a44}\index{Server@{Server}!Server@{Server}}
+\index{Server@{Server}!Server@{Server}}
+\doxysubsubsection{\texorpdfstring{Server()}{Server()}}
+{\footnotesize\ttfamily \label{class_server_a8166bc7b2decc154ecf2333120019a44} 
+Server::\+\+Server (\begin{DoxyParamCaption}\item[{asio::\+io\+\_\+context \&}]{io\+\_\+context}{, }\item[{short}]{port}{}\end{DoxyParamCaption})}
+
+
+
+Constructor for \doxylink{class_server}{Server} class. Sets up the TCP acceptor on the specified port. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em io\+\_\+context} & Asio context loop used for handling network events. \\
+\hline
+{\em port} & The port number on which the server will listen for connections. \\
+\hline
+\end{DoxyParams}
+
+
+\label{class_server_doc-func-members}
+\Hypertarget{class_server_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_server_abf7252dbf4df305d76baa6d59e261e82}\index{Server@{Server}!client@{client}}
+\index{client@{client}!Server@{Server}}
+\doxysubsubsection{\texorpdfstring{client()}{client()}}
+{\footnotesize\ttfamily \label{class_server_abf7252dbf4df305d76baa6d59e261e82} 
+const std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_session}{Session}} $>$ Server::\+client (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{client\+Id}{}\end{DoxyParamCaption})}
+
+
+
+Finds an active client session using their unique user ID. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em client\+Id} & The ID of the user to look for. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Shared pointer to the user\textquotesingle{}s \doxylink{class_session}{Session}, or nullptr if they are offline. 
+\end{DoxyReturn}
+\Hypertarget{class_server_a2d4139523a3094585747754f5bf1d40e}\index{Server@{Server}!db@{db}}
+\index{db@{db}!Server@{Server}}
+\doxysubsubsection{\texorpdfstring{db()}{db()}}
+{\footnotesize\ttfamily \label{class_server_a2d4139523a3094585747754f5bf1d40e} 
+\doxymbox{\hyperlink{class_d_b_connector}{DBConnector}} \& Server::\+db (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Getter for the database connector subsystem reference. 
+
+\begin{DoxyReturn}{Returns}
+Reference to the internal \doxylink{class_d_b_connector}{DBConnector} instance. 
+\end{DoxyReturn}
+\Hypertarget{class_server_aa60aa04101c845ccadbcb85b303c0018}\index{Server@{Server}!insertClient@{insertClient}}
+\index{insertClient@{insertClient}!Server@{Server}}
+\doxysubsubsection{\texorpdfstring{insertClient()}{insertClient()}}
+{\footnotesize\ttfamily \label{class_server_aa60aa04101c845ccadbcb85b303c0018} 
+void Server::\+insert\+Client (\begin{DoxyParamCaption}\item[{std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_session}{Session}} $>$}]{session}{}\end{DoxyParamCaption})}
+
+
+
+Adds a newly authenticated client session to the active clients list. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em session} & Shared pointer to the client session. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_server_a2ade0c7f68a40be01be01a6a724fac89}\index{Server@{Server}!onPacketReceived@{onPacketReceived}}
+\index{onPacketReceived@{onPacketReceived}!Server@{Server}}
+\doxysubsubsection{\texorpdfstring{onPacketReceived()}{onPacketReceived()}}
+{\footnotesize\ttfamily \label{class_server_a2ade0c7f68a40be01be01a6a724fac89} 
+void Server::\+on\+Packet\+Received (\begin{DoxyParamCaption}\item[{std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_session}{Session}} $>$}]{session}{, }\item[{const \doxymbox{\hyperlink{class_packet}{Packet}} \&}]{p}{}\end{DoxyParamCaption})}
+
+
+
+Triggered whenever a complete packet is received from a client session. Passes the packet to the appropriate \doxylink{class_command}{Command} handler. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em session} & Shared pointer to the client session that sent the packet. \\
+\hline
+{\em p} & The complete incoming \doxylink{class_packet}{Packet} object. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_server_af8bcba672999dc804e7b84349078e1fc}\index{Server@{Server}!removeClient@{removeClient}}
+\index{removeClient@{removeClient}!Server@{Server}}
+\doxysubsubsection{\texorpdfstring{removeClient()}{removeClient()}}
+{\footnotesize\ttfamily \label{class_server_af8bcba672999dc804e7b84349078e1fc} 
+void Server::\+remove\+Client (\begin{DoxyParamCaption}\item[{std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_session}{Session}} $>$}]{session}{}\end{DoxyParamCaption})}
+
+
+
+Removes a client session from the active list (e.\+g., when they disconnect). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em session} & Shared pointer to the client session to remove. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_server_a35a6dd57890892281a245df93c836286}\index{Server@{Server}!roomManager@{roomManager}}
+\index{roomManager@{roomManager}!Server@{Server}}
+\doxysubsubsection{\texorpdfstring{roomManager()}{roomManager()}}
+{\footnotesize\ttfamily \label{class_server_a35a6dd57890892281a245df93c836286} 
+\doxymbox{\hyperlink{class_room_manager}{Room\+Manager}} \& Server::\+room\+Manager (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Getter for the room manager subsystem reference. 
+
+\begin{DoxyReturn}{Returns}
+Reference to the internal \doxylink{class_room_manager}{Room\+Manager} instance. 
+\end{DoxyReturn}
+\Hypertarget{class_server_a021f6a4ce04c1b621e2fbe81adf1bd46}\index{Server@{Server}!routePacket@{routePacket}}
+\index{routePacket@{routePacket}!Server@{Server}}
+\doxysubsubsection{\texorpdfstring{routePacket()}{routePacket()}}
+{\footnotesize\ttfamily \label{class_server_a021f6a4ce04c1b621e2fbe81adf1bd46} 
+void Server::\+route\+Packet (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{class_packet}{Packet}} \&}]{p}{}\end{DoxyParamCaption})}
+
+
+
+Routes a packet directly to its target user if they are online. Used mainly for direct messages between two users. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & The packet to be routed. \\
+\hline
+\end{DoxyParams}
+
+
+\label{class_server_doc-variable-members}
+\Hypertarget{class_server_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_server_adc4b467277b914029cd836536de85bce}\index{Server@{Server}!m\_db@{m\_db}}
+\index{m\_db@{m\_db}!Server@{Server}}
+\doxysubsubsection{\texorpdfstring{m\_db}{m\_db}}
+{\footnotesize\ttfamily \label{class_server_adc4b467277b914029cd836536de85bce} 
+std::\+unique\+\_\+ptr$<$\doxymbox{\hyperlink{class_d_b_connector}{DBConnector}}$>$ Server::\+m\+\_\+db\hspace{0.3cm}{\ttfamily [protected]}}
+
+Pointer to the interface executing database operations. \Hypertarget{class_server_a6a00e5aa71ca5935b3e4d2c09238f0db}\index{Server@{Server}!m\_roomManager@{m\_roomManager}}
+\index{m\_roomManager@{m\_roomManager}!Server@{Server}}
+\doxysubsubsection{\texorpdfstring{m\_roomManager}{m\_roomManager}}
+{\footnotesize\ttfamily \label{class_server_a6a00e5aa71ca5935b3e4d2c09238f0db} 
+\doxymbox{\hyperlink{class_room_manager}{Room\+Manager}} Server::\+m\+\_\+room\+Manager\hspace{0.3cm}{\ttfamily [protected]}}
+
+Subsystem managing all active chat room channels. 
+
+The documentation for this class was generated from the following files:\+\begin{DoxyCompactItemize}
+\item 
+server/\+include/\+server/\+Server.\+h\item 
+server/\+src/\+Server.\+cpp\end{DoxyCompactItemize}

@@ -1,0 +1,76 @@
+\doxysection{App\+Manager Class Reference}
+\hypertarget{class_app_manager}{}\label{class_app_manager}\index{AppManager@{AppManager}}
+
+
+Class responsible for client side connection between all app segments while keeping them separate.  
+
+
+
+
+{\ttfamily \+\#include $<$App\+Manager.\+h$>$}
+
+
+
+Inheritance diagram for App\+Manager:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=151pt]{class_app_manager__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for App\+Manager:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=151pt]{class_app_manager__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{class_app_manager_a6097cfff354b0a5010e0795390ef2e96}{App\+Manager}} (QObject \texorpdfstring{$\ast$}{*}parent=nullptr)
+\begin{DoxyCompactList}\small\item\em Constructor for \doxylink{class_app_manager}{App\+Manager} class. Initializes all internal subsystems including \doxylink{class_network_manager}{Network\+Manager} and \doxylink{class_audio_manager}{Audio\+Manager}. \end{DoxyCompactList}\item 
+\Hypertarget{class_app_manager_a9a212a7ca3eb3a6853f4123fa1f963a7}\label{class_app_manager_a9a212a7ca3eb3a6853f4123fa1f963a7} 
+{\bfseries \texorpdfstring{$\sim$}{\string~}\+App\+Manager} ()=default
+\begin{DoxyCompactList}\small\item\em Destructor for \doxylink{class_app_manager}{App\+Manager} class. \end{DoxyCompactList}\item 
+\Hypertarget{class_app_manager_ab3b9bfa5387850ab1f99663ff44eb3d6}\label{class_app_manager_ab3b9bfa5387850ab1f99663ff44eb3d6} 
+void {\bfseries start} ()
+\begin{DoxyCompactList}\small\item\em Connects client to the server and shows login window. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Class responsible for client side connection between all app segments while keeping them separate. 
+
+
+\begin{DoxyItemize}
+\item It acts as the core orchestrator (controller) of the client application, managing the lifecycle of user interface windows and binding business logic from network and audio systems together. 
+\end{DoxyItemize}
+
+\label{class_app_manager_doc-constructors}
+\Hypertarget{class_app_manager_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_app_manager_a6097cfff354b0a5010e0795390ef2e96}\index{AppManager@{AppManager}!AppManager@{AppManager}}
+\index{AppManager@{AppManager}!AppManager@{AppManager}}
+\doxysubsubsection{\texorpdfstring{AppManager()}{AppManager()}}
+{\footnotesize\ttfamily \label{class_app_manager_a6097cfff354b0a5010e0795390ef2e96} 
+App\+Manager::\+\+App\+Manager (\begin{DoxyParamCaption}\item[{QObject \texorpdfstring{$\ast$}{*}}]{parent}{ = {\ttfamily nullptr}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Constructor for \doxylink{class_app_manager}{App\+Manager} class. Initializes all internal subsystems including \doxylink{class_network_manager}{Network\+Manager} and \doxylink{class_audio_manager}{Audio\+Manager}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em parent} & Pointer to the parent QObject (defaults to nullptr). \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files:\+\begin{DoxyCompactItemize}
+\item 
+client/\+include/\+client/\+App\+Manager.\+h\item 
+client/\+src/\+App\+Manager.\+cpp\end{DoxyCompactItemize}

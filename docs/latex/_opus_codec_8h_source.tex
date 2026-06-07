@@ -1,0 +1,30 @@
+\doxysection{Opus\+Codec.\+h}
+\hypertarget{_opus_codec_8h_source}{}\label{_opus_codec_8h_source}\index{client/include/client/OpusCodec.h@{client/include/client/OpusCodec.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ OPUSCODEC\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ OPUSCODEC\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}AudioCodec.h"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <opus.h>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00013\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_opus_codec_ace11536fc33533d6af64b1d6224b9be7}{OpusCodec}}\ :\ \textcolor{keyword}{public}\ \doxymbox{\hyperlink{class_audio_codec}{AudioCodec}}\ \{}
+\DoxyCodeLine{00014\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00018\ \ \ \ \ \doxymbox{\hyperlink{class_opus_codec_ace11536fc33533d6af64b1d6224b9be7}{OpusCodec}}();}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00023\ \ \ \ \ \doxymbox{\hyperlink{class_opus_codec_a7f2261fba301b45cfd2363bb83464e0f}{\string~OpusCodec}}();}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00031\ \ \ \ \ std::vector<char>\ \doxymbox{\hyperlink{class_opus_codec_a145eaf84527c2401e4522e8f8f9c195e}{encode}}(\textcolor{keyword}{const}\ std::vector<float>\&\ pcmData)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00038\ \ \ \ \ std::vector<float>\ \doxymbox{\hyperlink{class_opus_codec_a955c1e9c06e41b2bc013a1210844a09c}{decode}}(\textcolor{keyword}{const}\ std::vector<char>\&\ compressedData)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00041\ \ \ \ \ OpusEncoder*\ m\_encoder\ =\ \textcolor{keyword}{nullptr};\ }
+\DoxyCodeLine{00042\ \ \ \ \ OpusDecoder*\ m\_decoder\ =\ \textcolor{keyword}{nullptr};\ }
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordtype}{int}\ m\_frameSize;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00044\ \};}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ OPUSCODEC\_H}}
+
+\end{DoxyCode}

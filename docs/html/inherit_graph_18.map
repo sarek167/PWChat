@@ -1,0 +1,7 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="Node000000" href="$class_room.html" title="Base class representing a general chat room on the server." alt="" coords="5,31,62,57"/>
+<area shape="rect" id="Node000001" href="$class_private_room.html" title="Represents a private chat room that requires an access code to join." alt="" coords="110,5,207,32"/>
+<area shape="poly" id="edge23_Node000000_Node000001" title=" " alt="" coords="76,33,112,27,107,30,78,38"/>
+<area shape="rect" id="Node000002" href="$class_public_room.html" title="Represents a public chat room that anyone can join." alt="" coords="112,56,204,83"/>
+<area shape="poly" id="edge24_Node000000_Node000002" title=" " alt="" coords="77,50,114,59,109,61,76,55"/>
+</map>

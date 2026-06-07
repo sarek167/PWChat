@@ -1,0 +1,21 @@
+var searchData=
+[
+  ['savemessage_0',['saveMessage',['../class_d_b_connector.html#a3daf3374ef4fa2fd09b87a82a4510992',1,'DBConnector::saveMessage()'],['../class_s_q_lite_connector.html#ab03ad6a91b17cb720d175ac4c79b8882',1,'SQLiteConnector::saveMessage()']]],
+  ['saveroom_1',['saveRoom',['../class_d_b_connector.html#a4ba2fba02a2a28eafd440d5f57417942',1,'DBConnector::saveRoom()'],['../class_s_q_lite_connector.html#a013860e5e46400c289f96bff7cbedb3f',1,'SQLiteConnector::saveRoom()']]],
+  ['saveroomcode_2',['saveRoomCode',['../class_d_b_connector.html#a8f21ffec806ca782f58b527ac7e13660',1,'DBConnector::saveRoomCode()'],['../class_s_q_lite_connector.html#a19b4dbe0bc81b64d18ea2064f3d7f1f3',1,'SQLiteConnector::saveRoomCode()']]],
+  ['saveuserroom_3',['saveUserRoom',['../class_d_b_connector.html#a0a2277a9c920d4d5413be7b5b5806031',1,'DBConnector::saveUserRoom()'],['../class_s_q_lite_connector.html#a0203669dbf8f6f38119b21261134c202',1,'SQLiteConnector::saveUserRoom()']]],
+  ['scrolltobottom_4',['scrollToBottom',['../class_main_window.html#a6d349dd10041da3554d4a8a931f98798',1,'MainWindow']]],
+  ['send_5',['send',['../class_network_manager.html#ad78e7790ca462e5744c1d03e817e2438',1,'NetworkManager']]],
+  ['sendrequested_6',['sendRequested',['../class_main_window.html#af710af05c1452535ec1883d4e054de4b',1,'MainWindow']]],
+  ['serialize_7',['serialize',['../struct_add_admin_request.html#ab53fbf6db726e2c9d3a09035f0235f06',1,'AddAdminRequest::serialize()'],['../struct_auth_response.html#a33b1c392c059be0967a575f00861cbbb',1,'AuthResponse::serialize()'],['../struct_create_room_request.html#a74182340beefe7bd82dc41a498ae7cc9',1,'CreateRoomRequest::serialize()'],['../struct_join_room_request.html#a24064c9136e726b7c927bb5ce4004abd',1,'JoinRoomRequest::serialize()'],['../struct_leave_room_request.html#a9bf5a8ddb47a4411715bee8f484fe7f7',1,'LeaveRoomRequest::serialize()'],['../struct_login_request.html#aae08688a0e6bdb7ae98a28048a61d76c',1,'LoginRequest::serialize()'],['../struct_message_data.html#a50964bc085f8042c7f1298494190bf66',1,'MessageData::serialize()'],['../struct_message_request.html#a027bef1c8b8a5f9cd3ff7ecf1d5e33fe',1,'MessageRequest::serialize()'],['../class_packet.html#a072cc445645c460434c557051ead1cd4',1,'Packet::serialize()'],['../struct_register_request.html#a85dc8e99cc1fba7bc8a4c45d3a15df39',1,'RegisterRequest::serialize()'],['../struct_room_data.html#a16be876611ea5758a2473826004ede59',1,'RoomData::serialize()'],['../struct_room_user_data.html#a8c0e001ef74842ad63c219c77c8ce1a1',1,'RoomUserData::serialize()'],['../struct_user_data.html#a7b4dc3de8f24eed0c783c49cb0817d21',1,'UserData::serialize()']]],
+  ['server_8',['Server',['../class_server.html#a8166bc7b2decc154ecf2333120019a44',1,'Server']]],
+  ['session_9',['Session',['../class_session.html#a3e61b797eb0c948093927e4c13b54260',1,'Session']]],
+  ['setid_10',['setId',['../class_user.html#a7a4d83bbf24b084b3bf72acaa8d59c90',1,'User']]],
+  ['setnickname_11',['setNickname',['../class_user.html#a403f2f88ba2dbef58663e76e1a412ee7',1,'User']]],
+  ['setuser_12',['setUser',['../class_network_manager.html#a4a9535de6fe0a9fa06f37fdb2983eac6',1,'NetworkManager::setUser()'],['../class_session.html#a78a47de8463f8b96790035e206c3acd3',1,'Session::setUser()']]],
+  ['showcontextmenu_13',['showContextMenu',['../class_main_window.html#ad19372f195f2fc4821eb08fa33fbc027',1,'MainWindow']]],
+  ['sqliteconnector_14',['SQLiteConnector',['../class_s_q_lite_connector.html#a9afb7d142346b839b72c537503ac0989',1,'SQLiteConnector']]],
+  ['start_15',['start',['../class_app_manager.html#ab3b9bfa5387850ab1f99663ff44eb3d6',1,'AppManager']]],
+  ['startrecording_16',['startRecording',['../class_audio_manager.html#a886f3128cf0c2d0d7094a662416eb3da',1,'AudioManager']]],
+  ['stoprecording_17',['stopRecording',['../class_audio_manager.html#ad01567fc165c88e198966967e4571618',1,'AudioManager']]]
+];

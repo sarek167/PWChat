@@ -1,0 +1,83 @@
+\doxysection{Login\+Command Class Reference}
+\hypertarget{class_login_command}{}\label{class_login_command}\index{LoginCommand@{LoginCommand}}
+
+
+\doxylink{class_command}{Command} handler used when a user tries to log into the application.  
+
+
+
+
+{\ttfamily \+\#include $<$Login\+Command.\+h$>$}
+
+
+
+Inheritance diagram for Login\+Command:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=164pt]{class_login_command__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Login\+Command:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=164pt]{class_login_command__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \doxymbox{\hyperlink{class_login_command_a81091dcaecec5cf371b347b99981b225}{execute}} (std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_session}{Session}} $>$ session, const \doxymbox{\hyperlink{class_packet}{Packet}} \&p, \doxymbox{\hyperlink{class_server}{Server}} \&server) override
+\begin{DoxyCompactList}\small\item\em Executes the user login logic. Extracts the nickname and password from the packet, checks them against the database, marks the session as authenticated if they match, and loads the user\textquotesingle{}s initial room list. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \doxymbox{\hyperlink{class_command}{Command}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual {\bfseries \texorpdfstring{$\sim$}{\string~}\+Command} ()=default
+\begin{DoxyCompactList}\small\item\em Virtual destructor to ensure proper cleanup of derived command objects. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\doxylink{class_command}{Command} handler used when a user tries to log into the application. 
+
+
+\begin{DoxyItemize}
+\item It inherits from the base \doxylink{class_command}{Command} class and overrides the execute method to handle verifying user credentials. 
+\end{DoxyItemize}
+
+\label{class_login_command_doc-func-members}
+\Hypertarget{class_login_command_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_login_command_a81091dcaecec5cf371b347b99981b225}\index{LoginCommand@{LoginCommand}!execute@{execute}}
+\index{execute@{execute}!LoginCommand@{LoginCommand}}
+\doxysubsubsection{\texorpdfstring{execute()}{execute()}}
+{\footnotesize\ttfamily \label{class_login_command_a81091dcaecec5cf371b347b99981b225} 
+void Login\+Command::\+execute (\begin{DoxyParamCaption}\item[{std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_session}{Session}} $>$}]{session}{, }\item[{const \doxymbox{\hyperlink{class_packet}{Packet}} \&}]{p}{, }\item[{\doxymbox{\hyperlink{class_server}{Server}} \&}]{server}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Executes the user login logic. Extracts the nickname and password from the packet, checks them against the database, marks the session as authenticated if they match, and loads the user\textquotesingle{}s initial room list. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em session} & Shared pointer to the network session of the client trying to log in. \\
+\hline
+{\em p} & The incoming \doxylink{class_packet}{Packet} containing the entered nickname and password. \\
+\hline
+{\em server} & Reference to the main \doxylink{class_server}{Server} instance to access the database and managers. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \doxymbox{\hyperlink{class_command_aa65874a3f62c1237796da1feb04a5f1d}{Command}}.
+
+
+
+The documentation for this class was generated from the following files:\+\begin{DoxyCompactItemize}
+\item 
+server/\+include/\+server/\+\+Commands/\+Login\+Command.\+h\item 
+server/\+src/\+\+Commands/\+Login\+Command.\+cpp\end{DoxyCompactItemize}

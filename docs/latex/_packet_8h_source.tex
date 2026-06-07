@@ -1,0 +1,74 @@
+\doxysection{Packet.\+h}
+\hypertarget{_packet_8h_source}{}\label{_packet_8h_source}\index{common/include/common/Packet.h@{common/include/common/Packet.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ PACKET\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ PACKET\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <sstream>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <cereal/archives/binary.hpp>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <cereal/types/vector.hpp>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <cereal/types/string.hpp>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}PacketHeader.h"{}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}MessageType.h"{}}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00019\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_packet_ab1ec7232eac75450a4392bb9c10921fb}{Packet}}\ \{}
+\DoxyCodeLine{00020\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00024\ \ \ \ \ \doxymbox{\hyperlink{class_packet_ab1ec7232eac75450a4392bb9c10921fb}{Packet}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00031\ \ \ \ \ \doxymbox{\hyperlink{class_packet_ab1ec7232eac75450a4392bb9c10921fb}{Packet}}(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{struct_packet_header}{PacketHeader}}\&\ \doxymbox{\hyperlink{class_packet_a06981f802585bcbf7405f84af9058cd6}{header}},\ \textcolor{keyword}{const}\ std::vector<char>\&\ \doxymbox{\hyperlink{class_packet_af67f45d2f1c3c226a3e8f120d0ff4aca}{body}});}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00037\ \ \ \ \ std::vector<char>\ \doxymbox{\hyperlink{class_packet_aeefbd760718b9fe237359a088094c196}{pack}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{struct_packet_header}{PacketHeader}}\&\ \doxymbox{\hyperlink{class_packet_a06981f802585bcbf7405f84af9058cd6}{header}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keyword}{const}\ std::vector<char>\&\ \doxymbox{\hyperlink{class_packet_af67f45d2f1c3c226a3e8f120d0ff4aca}{body}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_packet_ab2f44cbb59a08132f4c843e5225bba0e}{cereal::access}};\ }
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ Archive>}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_packet_a072cc445645c460434c557051ead1cd4}{serialize}}(Archive\&\ archive)\ \{}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ archive(m\_header,\ m\_body);}
+\DoxyCodeLine{00061\ \ \ \ \ \};}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00069\ \ \ \ \ T\ \doxymbox{\hyperlink{class_packet_a6270ea18d3ccce3344cb48bbc1703b5a}{unpackBody}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ std::string\ dataStr(m\_body.begin(),\ m\_body.end());}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ std::istringstream\ ss(dataStr,\ std::ios::binary);}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ T\ data;}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ cereal::BinaryInputArchive\ iarchive(ss);}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ iarchive(data);}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ data;}
+\DoxyCodeLine{00079\ \ \ \ \ \}}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00090\ \ \ \ \ \doxymbox{\hyperlink{class_packet_a8de7adc57aac11cb83792902542192f9}{Packet}}(MessageType\ type,\ uint32\_t\ targetId,\ uint32\_t\ senderId,\ \textcolor{keyword}{const}\ T\&\ data)\ \{}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ m\_header.type\ =\ type;}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ m\_header.targetId\ =\ targetId;}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ m\_header.senderId\ =\ senderId;}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ std::ostringstream\ ss(std::ios::binary);}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ cereal::BinaryOutputArchive\ oarchive(ss);}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ oarchive(data);}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ std::string\ serializedData\ =\ ss.str();}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ m\_body.assign(serializedData.begin(),\ serializedData.end());}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ m\_header.bodySize\ =\ \textcolor{keyword}{static\_cast<}uint32\_t\textcolor{keyword}{>}(m\_body.size());}
+\DoxyCodeLine{00105\ \ \ \ \ \}}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00108\ \ \ \ \ \doxymbox{\hyperlink{struct_packet_header}{PacketHeader}}\ m\_header;\ \ \ \ }
+\DoxyCodeLine{00109\ \ \ \ \ std::vector<char>\ m\_body;\ }
+\DoxyCodeLine{00110\ \};}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ PACKET\_H}}
+
+\end{DoxyCode}

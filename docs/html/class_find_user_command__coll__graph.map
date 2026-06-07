@@ -1,0 +1,5 @@
+<map id="FindUserCommand" name="FindUserCommand">
+<area shape="rect" id="Node000001" title="Command handler used when a user wants to search for another user by their nickname." alt="" coords="5,80,140,107"/>
+<area shape="rect" id="Node000002" href="$class_command.html" title="Base interface for the Command pattern used to handle incoming packets." alt="" coords="32,5,113,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="74,46,75,80,70,79,71,50"/>
+</map>

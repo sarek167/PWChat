@@ -1,0 +1,30 @@
+\doxysection{Auth\+Response.\+h}
+\hypertarget{_auth_response_8h_source}{}\label{_auth_response_8h_source}\index{common/include/common/AuthResponse.h@{common/include/common/AuthResponse.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ AUTHRESPONSE\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ AUTHRESPONSE\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <cereal/archives/binary.hpp>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <cereal/types/string.hpp>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <cereal/types/vector.hpp>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}common/UserData.h"{}}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}common/RoomData.h"{}}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00018\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{struct_auth_response}{AuthResponse}}\ \{}
+\DoxyCodeLine{00019\ \ \ \ \ uint32\_t\ \doxymbox{\hyperlink{struct_auth_response_a5e0a5d23cfcb44efb3f983a6a895b3de}{myId}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00020\ \ \ \ \ std::string\ \doxymbox{\hyperlink{struct_auth_response_a265d864ef158b0fbc16d6ea19ccd6fa8}{myNickname}};\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00021\ \ \ \ \ std::vector<UserData>\ \doxymbox{\hyperlink{struct_auth_response_a9b1f011d67f0638b9232a4f1ffc8e040}{userChats}};\ }
+\DoxyCodeLine{00022\ \ \ \ \ std::vector<RoomData>\ \doxymbox{\hyperlink{struct_auth_response_a8f1a91e507daf47955feef6eb03df029}{userRooms}};\ }
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ Archive>}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{struct_auth_response_a33b1c392c059be0967a575f00861cbbb}{serialize}}(Archive\ \&\ archive)\ \{}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ archive(\doxymbox{\hyperlink{struct_auth_response_a5e0a5d23cfcb44efb3f983a6a895b3de}{myId}},\ \doxymbox{\hyperlink{struct_auth_response_a265d864ef158b0fbc16d6ea19ccd6fa8}{myNickname}},\ \doxymbox{\hyperlink{struct_auth_response_a9b1f011d67f0638b9232a4f1ffc8e040}{userChats}},\ \doxymbox{\hyperlink{struct_auth_response_a8f1a91e507daf47955feef6eb03df029}{userRooms}});}
+\DoxyCodeLine{00032\ \ \ \ \ \}}
+\DoxyCodeLine{00033\ \};}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ AUTHRESPONSE\_H}}
+
+\end{DoxyCode}

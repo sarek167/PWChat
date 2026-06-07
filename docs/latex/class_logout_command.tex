@@ -1,0 +1,83 @@
+\doxysection{Logout\+Command Class Reference}
+\hypertarget{class_logout_command}{}\label{class_logout_command}\index{LogoutCommand@{LogoutCommand}}
+
+
+\doxylink{class_command}{Command} handler used when a user wants to log out of the server.  
+
+
+
+
+{\ttfamily \+\#include $<$Logout\+Command.\+h$>$}
+
+
+
+Inheritance diagram for Logout\+Command:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=170pt]{class_logout_command__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Logout\+Command:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=170pt]{class_logout_command__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \doxymbox{\hyperlink{class_logout_command_a7854aaa522f7e5da002a8ba23f32d70d}{execute}} (std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_session}{Session}} $>$ session, const \doxymbox{\hyperlink{class_packet}{Packet}} \&p, \doxymbox{\hyperlink{class_server}{Server}} \&server) override
+\begin{DoxyCompactList}\small\item\em Executes the user logout logic. Clears the authentication flag for the session, unlinks the user from any active rooms they were browsing, and sends a confirmation back before closing or resetting the state. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \doxymbox{\hyperlink{class_command}{Command}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual {\bfseries \texorpdfstring{$\sim$}{\string~}\+Command} ()=default
+\begin{DoxyCompactList}\small\item\em Virtual destructor to ensure proper cleanup of derived command objects. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\doxylink{class_command}{Command} handler used when a user wants to log out of the server. 
+
+
+\begin{DoxyItemize}
+\item It inherits from the base \doxylink{class_command}{Command} class and overrides the execute method to handle clearing the user\textquotesingle{}s active session state. 
+\end{DoxyItemize}
+
+\label{class_logout_command_doc-func-members}
+\Hypertarget{class_logout_command_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_logout_command_a7854aaa522f7e5da002a8ba23f32d70d}\index{LogoutCommand@{LogoutCommand}!execute@{execute}}
+\index{execute@{execute}!LogoutCommand@{LogoutCommand}}
+\doxysubsubsection{\texorpdfstring{execute()}{execute()}}
+{\footnotesize\ttfamily \label{class_logout_command_a7854aaa522f7e5da002a8ba23f32d70d} 
+void Logout\+Command::\+execute (\begin{DoxyParamCaption}\item[{std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_session}{Session}} $>$}]{session}{, }\item[{const \doxymbox{\hyperlink{class_packet}{Packet}} \&}]{p}{, }\item[{\doxymbox{\hyperlink{class_server}{Server}} \&}]{server}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Executes the user logout logic. Clears the authentication flag for the session, unlinks the user from any active rooms they were browsing, and sends a confirmation back before closing or resetting the state. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em session} & Shared pointer to the network session of the client who wants to log out. \\
+\hline
+{\em p} & The incoming \doxylink{class_packet}{Packet} containing the logout request. \\
+\hline
+{\em server} & Reference to the main \doxylink{class_server}{Server} instance to access managers and update active clients. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \doxymbox{\hyperlink{class_command_aa65874a3f62c1237796da1feb04a5f1d}{Command}}.
+
+
+
+The documentation for this class was generated from the following files:\+\begin{DoxyCompactItemize}
+\item 
+server/\+include/\+server/\+\+Commands/\+Logout\+Command.\+h\item 
+server/\+src/\+\+Commands/\+Logout\+Command.\+cpp\end{DoxyCompactItemize}

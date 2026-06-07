@@ -1,0 +1,22 @@
+\doxysection{Leave\+Room\+Request.\+h}
+\hypertarget{_leave_room_request_8h_source}{}\label{_leave_room_request_8h_source}\index{common/include/common/LeaveRoomRequest.h@{common/include/common/LeaveRoomRequest.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ LEAVEROOMREQUEST\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ LEAVEROOMREQUEST\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00012\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{struct_leave_room_request}{LeaveRoomRequest}}\ \{}
+\DoxyCodeLine{00013\ \ \ \ \ uint32\_t\ \doxymbox{\hyperlink{struct_leave_room_request_a30bb2ba07773ad1dce1de3f7857c89f5}{roomId}};\ }
+\DoxyCodeLine{00014\ \ \ \ \ uint32\_t\ \doxymbox{\hyperlink{struct_leave_room_request_aa502130b4ac8ce9d202b020c953d6453}{userId}};\ }
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ Archive>}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{struct_leave_room_request_a9bf5a8ddb47a4411715bee8f484fe7f7}{serialize}}(Archive\ \&\ archive)\ \{}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ archive(\doxymbox{\hyperlink{struct_leave_room_request_a30bb2ba07773ad1dce1de3f7857c89f5}{roomId}},\ \doxymbox{\hyperlink{struct_leave_room_request_aa502130b4ac8ce9d202b020c953d6453}{userId}});}
+\DoxyCodeLine{00024\ \ \ \ \ \}}
+\DoxyCodeLine{00025\ \};}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ LEAVEROOMREQUEST\_H}}
+
+\end{DoxyCode}

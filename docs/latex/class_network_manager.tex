@@ -1,0 +1,362 @@
+\doxysection{Network\+Manager Class Reference}
+\hypertarget{class_network_manager}{}\label{class_network_manager}\index{NetworkManager@{NetworkManager}}
+
+
+Class responsible for handling network communication with the server.  
+
+
+
+
+{\ttfamily \+\#include $<$Network\+Manager.\+h$>$}
+
+
+
+Inheritance diagram for Network\+Manager:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=170pt]{class_network_manager__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Network\+Manager:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=170pt]{class_network_manager__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \doxymbox{\hyperlink{class_network_manager_ab35c2095cb5f3cd3b8e783c758ad5938}{Auth\+Result\+Received}} (const \doxymbox{\hyperlink{struct_auth_response}{Auth\+Response}} \&res)
+\begin{DoxyCompactList}\small\item\em Emitted when the server responds to a login or registration attempt. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_network_manager_af51dd5282304eadd9695515fe5c0b056}{Message\+Received}} (const uint32\+\_\+t sender\+Id, const QString \&sender\+Name, const uint32\+\_\+t target\+Id, const Message\+Content\+Type \&msg\+Type, const QString \&message, bool to\+Room)
+\begin{DoxyCompactList}\small\item\em Emitted when a new chat message arrives. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_network_manager_a3909a5a2a01bacb5a5c53679cfdf7f44}{Audio\+Message\+Received}} (const QString \&sender\+Id, const std::\+vector$<$ char $>$ \&audio\+Message)
+\begin{DoxyCompactList}\small\item\em Emitted when raw audio data (voice message) is received. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_network_manager_ad6438d48eaa70c91f86a3901e19b84fa}{Room\+Request\+Confirmation}} (const \doxymbox{\hyperlink{struct_room_data}{Room\+Data}} \&room)
+\begin{DoxyCompactList}\small\item\em Emitted when the server confirms that a room was successfully created or joined. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_network_manager_a74b0e186519595532f28e9dbf66099f9}{Register\+Result\+Received}} (const \doxymbox{\hyperlink{struct_register_request}{Register\+Request}} \&req)
+\begin{DoxyCompactList}\small\item\em Emitted when the registration result arrives from the server. \end{DoxyCompactList}\item 
+\Hypertarget{class_network_manager_ac5cc006fa2ca752e3aff38141dc527b4}\label{class_network_manager_ac5cc006fa2ca752e3aff38141dc527b4} 
+void {\bfseries Logout\+Result\+Received} ()
+\begin{DoxyCompactList}\small\item\em Emitted when the user is successfully logged out. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_network_manager_a778dbb401e2f176bdda08a302dfa49d8}{Room\+Info\+Received}} (const \doxymbox{\hyperlink{struct_room_user_data}{Room\+User\+Data}} \&room\+User\+Data)
+\begin{DoxyCompactList}\small\item\em Emitted when full details about a room (like its member list) are received. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_network_manager_ab2cc7a2ad8cf632c00b509333ef15cc0}{Leave\+Result\+Received}} (const uint32\+\_\+t room\+Id, const uint32\+\_\+t user\+Id)
+\begin{DoxyCompactList}\small\item\em Emitted when the server confirms that a user left a room. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_network_manager_a669ed5058cb617cb49feb68dce4fdf97}{Messages\+Received}} (const std::\+vector$<$ \doxymbox{\hyperlink{struct_message_data}{Message\+Data}} $>$ \&messages)
+\begin{DoxyCompactList}\small\item\em Emitted when a requested batch of archived chat history arrives. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_network_manager_ab0ee4f355ddd4a45e01253209187b995}{Access\+Code\+Received}} (const uint32\+\_\+t \&code)
+\begin{DoxyCompactList}\small\item\em Emitted when a new password/\+pin code for a private room is received. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_network_manager_a231924ba872fd84a3588acc419f7ddf4}{Access\+Code\+Required}} (\doxymbox{\hyperlink{struct_join_room_request}{Join\+Room\+Request}} req)
+\begin{DoxyCompactList}\small\item\em Emitted when trying to enter a private room that requires typing a password/\+pin. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_network_manager_abd5951720185f3a6a8f83d9c1931dc27}{User\+Found\+Result}} (const \doxymbox{\hyperlink{struct_user_data}{User\+Data}} \&found\+User)
+\begin{DoxyCompactList}\small\item\em Emitted when the server returns the result of searching for a user. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{class_network_manager_a25e5a69c0dba31cc028050c2b6eea855}{Network\+Manager}} (QObject \texorpdfstring{$\ast$}{*}parent=nullptr)
+\begin{DoxyCompactList}\small\item\em Constructor for \doxylink{class_network_manager}{Network\+Manager} class. Initializes the socket and resolver. \end{DoxyCompactList}\item 
+\Hypertarget{class_network_manager_a2cfe4223139cf58587a9f066b956cb23}\label{class_network_manager_a2cfe4223139cf58587a9f066b956cb23} 
+{\bfseries \texorpdfstring{$\sim$}{\string~}\+Network\+Manager} ()
+\begin{DoxyCompactList}\small\item\em Destructor for \doxylink{class_network_manager}{Network\+Manager} class. Closes the open socket and stops the internal io\+\_\+context loop. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_network_manager_a21940b4e9fbf1a7f89a69d6d7b033a16}{connect}} (const std::\+string \&host, const std::\+string \&port)
+\begin{DoxyCompactList}\small\item\em Connects the client to the server using the given host and port. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_network_manager_ad78e7790ca462e5744c1d03e817e2438}{send}} (const \doxymbox{\hyperlink{class_packet}{Packet}} \&p)
+\begin{DoxyCompactList}\small\item\em Sends a packet to the server. \end{DoxyCompactList}\item 
+\Hypertarget{class_network_manager_a93cd87d1fd2a0a85450991ca48715d9c}\label{class_network_manager_a93cd87d1fd2a0a85450991ca48715d9c} 
+void {\bfseries do\+Read} ()
+\begin{DoxyCompactList}\small\item\em Starts the background process of listening for incoming packets. \end{DoxyCompactList}\item 
+std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_user}{User}} $>$ \doxymbox{\hyperlink{class_network_manager_afd67955bbab89a433a2f1bf42d3dd196}{user}} ()
+\begin{DoxyCompactList}\small\item\em Getter for the user linked to the current session. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_network_manager_a4a9535de6fe0a9fa06f37fdb2983eac6}{set\+User}} (std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_user}{User}} $>$ user\+Ptr)
+\begin{DoxyCompactList}\small\item\em Setter to update the user linked to the current session. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_network_manager_a9db71c9f8fc0f839c4a4632ece03c77c}\label{class_network_manager_a9db71c9f8fc0f839c4a4632ece03c77c} 
+class {\bfseries Network\+Manager\+Test}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Class responsible for handling network communication with the server. 
+
+
+\begin{DoxyItemize}
+\item It manages TCP connections, runs the packet reading loop, and sends data. It uses Qt signals to notify the rest of the application when new packets arrive. 
+\end{DoxyItemize}
+
+\label{class_network_manager_doc-constructors}
+\Hypertarget{class_network_manager_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_network_manager_a25e5a69c0dba31cc028050c2b6eea855}\index{NetworkManager@{NetworkManager}!NetworkManager@{NetworkManager}}
+\index{NetworkManager@{NetworkManager}!NetworkManager@{NetworkManager}}
+\doxysubsubsection{\texorpdfstring{NetworkManager()}{NetworkManager()}}
+{\footnotesize\ttfamily \label{class_network_manager_a25e5a69c0dba31cc028050c2b6eea855} 
+Network\+Manager::\+\+Network\+Manager (\begin{DoxyParamCaption}\item[{QObject \texorpdfstring{$\ast$}{*}}]{parent}{ = {\ttfamily nullptr}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+
+
+Constructor for \doxylink{class_network_manager}{Network\+Manager} class. Initializes the socket and resolver. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em parent} & Pointer to the parent QObject (defaults to nullptr). \\
+\hline
+\end{DoxyParams}
+
+
+\label{class_network_manager_doc-func-members}
+\Hypertarget{class_network_manager_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_network_manager_ab0ee4f355ddd4a45e01253209187b995}\index{NetworkManager@{NetworkManager}!AccessCodeReceived@{AccessCodeReceived}}
+\index{AccessCodeReceived@{AccessCodeReceived}!NetworkManager@{NetworkManager}}
+\doxysubsubsection{\texorpdfstring{AccessCodeReceived}{AccessCodeReceived}}
+{\footnotesize\ttfamily \label{class_network_manager_ab0ee4f355ddd4a45e01253209187b995} 
+void Network\+Manager::\+\+Access\+Code\+Received (\begin{DoxyParamCaption}\item[{const uint32\+\_\+t \&}]{code}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+Emitted when a new password/\+pin code for a private room is received. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em code} & The numeric access code. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_network_manager_a231924ba872fd84a3588acc419f7ddf4}\index{NetworkManager@{NetworkManager}!AccessCodeRequired@{AccessCodeRequired}}
+\index{AccessCodeRequired@{AccessCodeRequired}!NetworkManager@{NetworkManager}}
+\doxysubsubsection{\texorpdfstring{AccessCodeRequired}{AccessCodeRequired}}
+{\footnotesize\ttfamily \label{class_network_manager_a231924ba872fd84a3588acc419f7ddf4} 
+void Network\+Manager::\+\+Access\+Code\+Required (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{struct_join_room_request}{Join\+Room\+Request}}}]{req}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+Emitted when trying to enter a private room that requires typing a password/\+pin. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em req} & The join room request that needs verification. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_network_manager_a3909a5a2a01bacb5a5c53679cfdf7f44}\index{NetworkManager@{NetworkManager}!AudioMessageReceived@{AudioMessageReceived}}
+\index{AudioMessageReceived@{AudioMessageReceived}!NetworkManager@{NetworkManager}}
+\doxysubsubsection{\texorpdfstring{AudioMessageReceived}{AudioMessageReceived}}
+{\footnotesize\ttfamily \label{class_network_manager_a3909a5a2a01bacb5a5c53679cfdf7f44} 
+void Network\+Manager::\+\+Audio\+Message\+Received (\begin{DoxyParamCaption}\item[{const QString \&}]{sender\+Id}{, }\item[{const std::\+vector$<$ char $>$ \&}]{audio\+Message}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+Emitted when raw audio data (voice message) is received. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sender\+Id} & ID of the user who sent the audio. \\
+\hline
+{\em audio\+Message} & Vector containing the raw audio bytes (e.\+g., Opus data). \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_network_manager_ab35c2095cb5f3cd3b8e783c758ad5938}\index{NetworkManager@{NetworkManager}!AuthResultReceived@{AuthResultReceived}}
+\index{AuthResultReceived@{AuthResultReceived}!NetworkManager@{NetworkManager}}
+\doxysubsubsection{\texorpdfstring{AuthResultReceived}{AuthResultReceived}}
+{\footnotesize\ttfamily \label{class_network_manager_ab35c2095cb5f3cd3b8e783c758ad5938} 
+void Network\+Manager::\+\+Auth\+Result\+Received (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{struct_auth_response}{Auth\+Response}} \&}]{res}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+Emitted when the server responds to a login or registration attempt. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em res} & Object containing the user\textquotesingle{}s details, chat lists, and rooms. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_network_manager_a21940b4e9fbf1a7f89a69d6d7b033a16}\index{NetworkManager@{NetworkManager}!connect@{connect}}
+\index{connect@{connect}!NetworkManager@{NetworkManager}}
+\doxysubsubsection{\texorpdfstring{connect()}{connect()}}
+{\footnotesize\ttfamily \label{class_network_manager_a21940b4e9fbf1a7f89a69d6d7b033a16} 
+void Network\+Manager::\+connect (\begin{DoxyParamCaption}\item[{const std::\+string \&}]{host}{, }\item[{const std::\+string \&}]{port}{}\end{DoxyParamCaption})}
+
+
+
+Connects the client to the server using the given host and port. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em host} & The server address or hostname (e.\+g., "{}127.\+0.\+0.\+1"{}). \\
+\hline
+{\em port} & The server port number as a string (e.\+g., "{}12345"{}). \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_network_manager_ab2cc7a2ad8cf632c00b509333ef15cc0}\index{NetworkManager@{NetworkManager}!LeaveResultReceived@{LeaveResultReceived}}
+\index{LeaveResultReceived@{LeaveResultReceived}!NetworkManager@{NetworkManager}}
+\doxysubsubsection{\texorpdfstring{LeaveResultReceived}{LeaveResultReceived}}
+{\footnotesize\ttfamily \label{class_network_manager_ab2cc7a2ad8cf632c00b509333ef15cc0} 
+void Network\+Manager::\+\+Leave\+Result\+Received (\begin{DoxyParamCaption}\item[{const uint32\+\_\+t}]{room\+Id}{, }\item[{const uint32\+\_\+t}]{user\+Id}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+Emitted when the server confirms that a user left a room. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em room\+Id} & ID of the room that was left. \\
+\hline
+{\em user\+Id} & ID of the user who left. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_network_manager_af51dd5282304eadd9695515fe5c0b056}\index{NetworkManager@{NetworkManager}!MessageReceived@{MessageReceived}}
+\index{MessageReceived@{MessageReceived}!NetworkManager@{NetworkManager}}
+\doxysubsubsection{\texorpdfstring{MessageReceived}{MessageReceived}}
+{\footnotesize\ttfamily \label{class_network_manager_af51dd5282304eadd9695515fe5c0b056} 
+void Network\+Manager::\+\+Message\+Received (\begin{DoxyParamCaption}\item[{const uint32\+\_\+t}]{sender\+Id}{, }\item[{const QString \&}]{sender\+Name}{, }\item[{const uint32\+\_\+t}]{target\+Id}{, }\item[{const Message\+Content\+Type \&}]{msg\+Type}{, }\item[{const QString \&}]{message}{, }\item[{bool}]{to\+Room}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+Emitted when a new chat message arrives. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sender\+Id} & ID of the user who sent the message. \\
+\hline
+{\em sender\+Name} & Nickname of the sender. \\
+\hline
+{\em target\+Id} & ID of the receiving room or user. \\
+\hline
+{\em msg\+Type} & The type of message (text or audio). \\
+\hline
+{\em message} & The actual message text or filename. \\
+\hline
+{\em to\+Room} & True if the message belongs to a room, false if it\textquotesingle{}s a private chat. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_network_manager_a669ed5058cb617cb49feb68dce4fdf97}\index{NetworkManager@{NetworkManager}!MessagesReceived@{MessagesReceived}}
+\index{MessagesReceived@{MessagesReceived}!NetworkManager@{NetworkManager}}
+\doxysubsubsection{\texorpdfstring{MessagesReceived}{MessagesReceived}}
+{\footnotesize\ttfamily \label{class_network_manager_a669ed5058cb617cb49feb68dce4fdf97} 
+void Network\+Manager::\+\+Messages\+Received (\begin{DoxyParamCaption}\item[{const std::\+vector$<$ \doxymbox{\hyperlink{struct_message_data}{Message\+Data}} $>$ \&}]{messages}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+Emitted when a requested batch of archived chat history arrives. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em messages} & Vector containing the list of past messages. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_network_manager_a74b0e186519595532f28e9dbf66099f9}\index{NetworkManager@{NetworkManager}!RegisterResultReceived@{RegisterResultReceived}}
+\index{RegisterResultReceived@{RegisterResultReceived}!NetworkManager@{NetworkManager}}
+\doxysubsubsection{\texorpdfstring{RegisterResultReceived}{RegisterResultReceived}}
+{\footnotesize\ttfamily \label{class_network_manager_a74b0e186519595532f28e9dbf66099f9} 
+void Network\+Manager::\+\+Register\+Result\+Received (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{struct_register_request}{Register\+Request}} \&}]{req}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+Emitted when the registration result arrives from the server. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em req} & The original registration request info, reflecting the outcome. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_network_manager_a778dbb401e2f176bdda08a302dfa49d8}\index{NetworkManager@{NetworkManager}!RoomInfoReceived@{RoomInfoReceived}}
+\index{RoomInfoReceived@{RoomInfoReceived}!NetworkManager@{NetworkManager}}
+\doxysubsubsection{\texorpdfstring{RoomInfoReceived}{RoomInfoReceived}}
+{\footnotesize\ttfamily \label{class_network_manager_a778dbb401e2f176bdda08a302dfa49d8} 
+void Network\+Manager::\+\+Room\+Info\+Received (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{struct_room_user_data}{Room\+User\+Data}} \&}]{room\+User\+Data}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+Emitted when full details about a room (like its member list) are received. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em room\+User\+Data} & Object holding lists of users, admins, and room settings. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_network_manager_ad6438d48eaa70c91f86a3901e19b84fa}\index{NetworkManager@{NetworkManager}!RoomRequestConfirmation@{RoomRequestConfirmation}}
+\index{RoomRequestConfirmation@{RoomRequestConfirmation}!NetworkManager@{NetworkManager}}
+\doxysubsubsection{\texorpdfstring{RoomRequestConfirmation}{RoomRequestConfirmation}}
+{\footnotesize\ttfamily \label{class_network_manager_ad6438d48eaa70c91f86a3901e19b84fa} 
+void Network\+Manager::\+\+Room\+Request\+Confirmation (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{struct_room_data}{Room\+Data}} \&}]{room}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+Emitted when the server confirms that a room was successfully created or joined. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em room} & Object containing the basic details of the room. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_network_manager_ad78e7790ca462e5744c1d03e817e2438}\index{NetworkManager@{NetworkManager}!send@{send}}
+\index{send@{send}!NetworkManager@{NetworkManager}}
+\doxysubsubsection{\texorpdfstring{send()}{send()}}
+{\footnotesize\ttfamily \label{class_network_manager_ad78e7790ca462e5744c1d03e817e2438} 
+void Network\+Manager::\+send (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{class_packet}{Packet}} \&}]{p}{}\end{DoxyParamCaption})}
+
+
+
+Sends a packet to the server. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & The network packet object to be sent. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_network_manager_a4a9535de6fe0a9fa06f37fdb2983eac6}\index{NetworkManager@{NetworkManager}!setUser@{setUser}}
+\index{setUser@{setUser}!NetworkManager@{NetworkManager}}
+\doxysubsubsection{\texorpdfstring{setUser()}{setUser()}}
+{\footnotesize\ttfamily \label{class_network_manager_a4a9535de6fe0a9fa06f37fdb2983eac6} 
+void Network\+Manager::\+set\+User (\begin{DoxyParamCaption}\item[{std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_user}{User}} $>$}]{user\+Ptr}{}\end{DoxyParamCaption})}
+
+
+
+Setter to update the user linked to the current session. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em user\+Ptr} & Shared pointer to the new \doxylink{class_user}{User} object. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_network_manager_afd67955bbab89a433a2f1bf42d3dd196}\index{NetworkManager@{NetworkManager}!user@{user}}
+\index{user@{user}!NetworkManager@{NetworkManager}}
+\doxysubsubsection{\texorpdfstring{user()}{user()}}
+{\footnotesize\ttfamily \label{class_network_manager_afd67955bbab89a433a2f1bf42d3dd196} 
+std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_user}{User}} $>$ Network\+Manager::\+user (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Getter for the user linked to the current session. 
+
+\begin{DoxyReturn}{Returns}
+std::\+shared\+\_\+ptr$<$\+User$>$ Shared pointer to the current \doxylink{class_user}{User}. 
+\end{DoxyReturn}
+\Hypertarget{class_network_manager_abd5951720185f3a6a8f83d9c1931dc27}\index{NetworkManager@{NetworkManager}!UserFoundResult@{UserFoundResult}}
+\index{UserFoundResult@{UserFoundResult}!NetworkManager@{NetworkManager}}
+\doxysubsubsection{\texorpdfstring{UserFoundResult}{UserFoundResult}}
+{\footnotesize\ttfamily \label{class_network_manager_abd5951720185f3a6a8f83d9c1931dc27} 
+void Network\+Manager::\+\+User\+Found\+Result (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{struct_user_data}{User\+Data}} \&}]{found\+User}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+Emitted when the server returns the result of searching for a user. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em found\+User} & Structure containing the basic profile of the found user. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files:\+\begin{DoxyCompactItemize}
+\item 
+client/\+include/\+client/\+Network\+Manager.\+h\item 
+client/\+src/\+Network\+Manager.\+cpp\end{DoxyCompactItemize}

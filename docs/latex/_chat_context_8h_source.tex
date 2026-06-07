@@ -1,0 +1,27 @@
+\doxysection{Chat\+Context.\+h}
+\hypertarget{_chat_context_8h_source}{}\label{_chat_context_8h_source}\index{client/include/client/ChatContext.h@{client/include/client/ChatContext.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ CHATCONTEXT\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ CHATCONTEXT\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00010\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{struct_chat_context}{ChatContext}}\ \{}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keyword}{enum\ class}\ \doxymbox{\hyperlink{struct_chat_context_a4f99c6867baf75a0ca1140fc1edb4a0f}{Type}}\ \{}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{struct_chat_context_a4f99c6867baf75a0ca1140fc1edb4a0fa6adf97f83acf6453d4a6a4b1070f3754}{None}},\ }
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{class_room}{Room}},\ }
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{class_user}{User}}\ \ }
+\DoxyCodeLine{00019\ \ \ \ \ \};}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \ \ \ \ uint32\_t\ \doxymbox{\hyperlink{struct_chat_context_af4ab436b246d19242783b26a1dc8be60}{id}};\ }
+\DoxyCodeLine{00022\ \ \ \ \ \doxymbox{\hyperlink{struct_chat_context_a4f99c6867baf75a0ca1140fc1edb4a0f}{Type}}\ \doxymbox{\hyperlink{struct_chat_context_a81749633f5f7574b2abf73f35396c4b4}{type}}\ =\ \doxymbox{\hyperlink{struct_chat_context_a4f99c6867baf75a0ca1140fc1edb4a0fa6adf97f83acf6453d4a6a4b1070f3754}{Type::None}};\ }
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{struct_chat_context_a89dd0fcbde73b508e2548e8df95d7e68}{operator==}}(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{struct_chat_context}{ChatContext}}\&\ other)\ \{}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keywordtype}{id}\ ==\ other.\doxymbox{\hyperlink{struct_chat_context_af4ab436b246d19242783b26a1dc8be60}{id}}\ \&\&\ \doxymbox{\hyperlink{struct_chat_context_a81749633f5f7574b2abf73f35396c4b4}{type}}\ ==\ other.\doxymbox{\hyperlink{struct_chat_context_a81749633f5f7574b2abf73f35396c4b4}{type}};}
+\DoxyCodeLine{00031\ \ \ \ \ \}}
+\DoxyCodeLine{00032\ \};}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ CHATCONTEXT\_H}}
+
+\end{DoxyCode}

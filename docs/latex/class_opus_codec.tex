@@ -1,0 +1,107 @@
+\doxysection{Opus\+Codec Class Reference}
+\hypertarget{class_opus_codec}{}\label{class_opus_codec}\index{OpusCodec@{OpusCodec}}
+
+
+Subclass of \doxylink{class_audio_codec}{Audio\+Codec} using specifically Opus library. It is responsible for encoding pcm data to transferable vector of chars and decode chars to pcm.  
+
+
+
+
+{\ttfamily \+\#include $<$Opus\+Codec.\+h$>$}
+
+
+
+Inheritance diagram for Opus\+Codec:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=149pt]{class_opus_codec__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Opus\+Codec:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=149pt]{class_opus_codec__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_opus_codec_ace11536fc33533d6af64b1d6224b9be7}\label{class_opus_codec_ace11536fc33533d6af64b1d6224b9be7} 
+{\bfseries Opus\+Codec} ()
+\begin{DoxyCompactList}\small\item\em Constructor of \doxylink{class_opus_codec}{Opus\+Codec} class. \end{DoxyCompactList}\item 
+\Hypertarget{class_opus_codec_a7f2261fba301b45cfd2363bb83464e0f}\label{class_opus_codec_a7f2261fba301b45cfd2363bb83464e0f} 
+{\bfseries \texorpdfstring{$\sim$}{\string~}\+Opus\+Codec} ()
+\begin{DoxyCompactList}\small\item\em Destructor of \doxylink{class_opus_codec}{Opus\+Codec} class. \end{DoxyCompactList}\item 
+std::\+vector$<$ char $>$ \doxymbox{\hyperlink{class_opus_codec_a145eaf84527c2401e4522e8f8f9c195e}{encode}} (const std::\+vector$<$ float $>$ \&pcm\+Data) override
+\begin{DoxyCompactList}\small\item\em Method which takes pcm data captured by microphone and compresses it to transferable format which is vector of chars. \end{DoxyCompactList}\item 
+std::\+vector$<$ float $>$ \doxymbox{\hyperlink{class_opus_codec_a955c1e9c06e41b2bc013a1210844a09c}{decode}} (const std::\+vector$<$ char $>$ \&compressed\+Data) override
+\begin{DoxyCompactList}\small\item\em Method which takes compressed data (received from server) and decodes it to pcm data to be able to play it to user. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \doxymbox{\hyperlink{class_audio_codec}{Audio\+Codec}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual {\bfseries \texorpdfstring{$\sim$}{\string~}\+Audio\+Codec} ()=default
+\begin{DoxyCompactList}\small\item\em Virtual destructor for \doxylink{class_audio_codec}{Audio\+Codec} class. Ensures proper cleanup of derived codec resources. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Subclass of \doxylink{class_audio_codec}{Audio\+Codec} using specifically Opus library. It is responsible for encoding pcm data to transferable vector of chars and decode chars to pcm. 
+
+\label{class_opus_codec_doc-func-members}
+\Hypertarget{class_opus_codec_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_opus_codec_a955c1e9c06e41b2bc013a1210844a09c}\index{OpusCodec@{OpusCodec}!decode@{decode}}
+\index{decode@{decode}!OpusCodec@{OpusCodec}}
+\doxysubsubsection{\texorpdfstring{decode()}{decode()}}
+{\footnotesize\ttfamily \label{class_opus_codec_a955c1e9c06e41b2bc013a1210844a09c} 
+std::\+vector$<$ float $>$ Opus\+Codec::\+decode (\begin{DoxyParamCaption}\item[{const std::\+vector$<$ char $>$ \&}]{compressed\+Data}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Method which takes compressed data (received from server) and decodes it to pcm data to be able to play it to user. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em compressed\+Data} & Input vector containing raw compressed Opus bytes received from the network. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+std::\+vector$<$float$>$ Output vector containing decoded float PCM samples ready for audio playback. 
+\end{DoxyReturn}
+
+
+Implements \doxymbox{\hyperlink{class_audio_codec_a470e85c8351c522fef134a706afea04a}{Audio\+Codec}}.
+
+\Hypertarget{class_opus_codec_a145eaf84527c2401e4522e8f8f9c195e}\index{OpusCodec@{OpusCodec}!encode@{encode}}
+\index{encode@{encode}!OpusCodec@{OpusCodec}}
+\doxysubsubsection{\texorpdfstring{encode()}{encode()}}
+{\footnotesize\ttfamily \label{class_opus_codec_a145eaf84527c2401e4522e8f8f9c195e} 
+std::\+vector$<$ char $>$ Opus\+Codec::\+encode (\begin{DoxyParamCaption}\item[{const std::\+vector$<$ float $>$ \&}]{pcm\+Data}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Method which takes pcm data captured by microphone and compresses it to transferable format which is vector of chars. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pcm\+Data} & Input vector containing raw float PCM audio samples to be compressed. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+std::\+vector$<$char$>$ Output vector containing the compressed Opus packet data. 
+\end{DoxyReturn}
+
+
+Implements \doxymbox{\hyperlink{class_audio_codec_ad50bffaa2c6f191a1acb3c81855ee810}{Audio\+Codec}}.
+
+
+
+The documentation for this class was generated from the following files:\+\begin{DoxyCompactItemize}
+\item 
+client/\+include/\+client/\+Opus\+Codec.\+h\item 
+client/\+src/\+Opus\+Codec.\+cpp\end{DoxyCompactItemize}

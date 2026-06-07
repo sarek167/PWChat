@@ -1,0 +1,5 @@
+<map id="LoadAudioCommand" name="LoadAudioCommand">
+<area shape="rect" id="Node000001" title="Command handler used when a client requests to download or load a recorded audio message." alt="" coords="5,80,148,107"/>
+<area shape="rect" id="Node000002" href="$class_command.html" title="Base interface for the Command pattern used to handle incoming packets." alt="" coords="36,5,117,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="78,46,79,80,74,79,75,50"/>
+</map>

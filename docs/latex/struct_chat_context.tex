@@ -1,0 +1,114 @@
+\doxysection{Chat\+Context Struct Reference}
+\hypertarget{struct_chat_context}{}\label{struct_chat_context}\index{ChatContext@{ChatContext}}
+
+
+Struct used for storing context of currently opened chat.  
+
+
+
+
+{\ttfamily \+\#include $<$Chat\+Context.\+h$>$}
+
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum class \doxymbox{\hyperlink{struct_chat_context_a4f99c6867baf75a0ca1140fc1edb4a0f}{Type}} \{ \doxymbox{\hyperlink{struct_chat_context_a4f99c6867baf75a0ca1140fc1edb4a0fa6adf97f83acf6453d4a6a4b1070f3754}{None}}
+, \doxymbox{\hyperlink{struct_chat_context_a4f99c6867baf75a0ca1140fc1edb4a0facc3abcf4426bff80257d22999d0eda8f}{Room}}
+, \doxymbox{\hyperlink{struct_chat_context_a4f99c6867baf75a0ca1140fc1edb4a0fa8f9bfe9d1345237cb3b2b205864da075}{User}}
+ \}
+\begin{DoxyCompactList}\small\item\em \doxylink{struct_chat_context_a4f99c6867baf75a0ca1140fc1edb4a0f}{Type} enum which contains chat types. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \doxymbox{\hyperlink{struct_chat_context_a89dd0fcbde73b508e2548e8df95d7e68}{operator==}} (const \doxymbox{\hyperlink{struct_chat_context}{Chat\+Context}} \&other)
+\begin{DoxyCompactList}\small\item\em Overloading operator of "{}=="{} for checking if whole context struct is the same as the compared one. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+uint32\+\_\+t \doxymbox{\hyperlink{struct_chat_context_af4ab436b246d19242783b26a1dc8be60}{id}}
+\item 
+\doxymbox{\hyperlink{struct_chat_context_a4f99c6867baf75a0ca1140fc1edb4a0f}{Type}} \doxymbox{\hyperlink{struct_chat_context_a81749633f5f7574b2abf73f35396c4b4}{type}} = \doxymbox{\hyperlink{struct_chat_context_a4f99c6867baf75a0ca1140fc1edb4a0fa6adf97f83acf6453d4a6a4b1070f3754}{Type::\+\+None}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Struct used for storing context of currently opened chat. 
+
+\label{struct_chat_context_doc-enum-members}
+\Hypertarget{struct_chat_context_doc-enum-members}
+\doxysubsection{Member Enumeration Documentation}
+\Hypertarget{struct_chat_context_a4f99c6867baf75a0ca1140fc1edb4a0f}\index{ChatContext@{ChatContext}!Type@{Type}}
+\index{Type@{Type}!ChatContext@{ChatContext}}
+\doxysubsubsection{\texorpdfstring{Type}{Type}}
+{\footnotesize\ttfamily \label{struct_chat_context_a4f99c6867baf75a0ca1140fc1edb4a0f} 
+enum class \doxymbox{\hyperlink{struct_chat_context_a4f99c6867baf75a0ca1140fc1edb4a0f}{Chat\+Context::\+\+Type}}\hspace{0.3cm}{\ttfamily [strong]}}
+
+
+
+\doxylink{struct_chat_context_a4f99c6867baf75a0ca1140fc1edb4a0f}{Type} enum which contains chat types. 
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{None@{None}!ChatContext@{ChatContext}}
+\index{ChatContext@{ChatContext}!None@{None}}
+}\Hypertarget{struct_chat_context_a4f99c6867baf75a0ca1140fc1edb4a0fa6adf97f83acf6453d4a6a4b1070f3754}\label{struct_chat_context_a4f99c6867baf75a0ca1140fc1edb4a0fa6adf97f83acf6453d4a6a4b1070f3754} 
+None&Default state when no conversation is active. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Room@{Room}!ChatContext@{ChatContext}}
+\index{ChatContext@{ChatContext}!Room@{Room}}
+}\Hypertarget{struct_chat_context_a4f99c6867baf75a0ca1140fc1edb4a0facc3abcf4426bff80257d22999d0eda8f}\label{struct_chat_context_a4f99c6867baf75a0ca1140fc1edb4a0facc3abcf4426bff80257d22999d0eda8f} 
+Room&Active context is a multi-\/user group chat room. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{User@{User}!ChatContext@{ChatContext}}
+\index{ChatContext@{ChatContext}!User@{User}}
+}\Hypertarget{struct_chat_context_a4f99c6867baf75a0ca1140fc1edb4a0fa8f9bfe9d1345237cb3b2b205864da075}\label{struct_chat_context_a4f99c6867baf75a0ca1140fc1edb4a0fa8f9bfe9d1345237cb3b2b205864da075} 
+User&Active context is a private direct message conversation. \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\label{struct_chat_context_doc-func-members}
+\Hypertarget{struct_chat_context_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{struct_chat_context_a89dd0fcbde73b508e2548e8df95d7e68}\index{ChatContext@{ChatContext}!operator==@{operator==}}
+\index{operator==@{operator==}!ChatContext@{ChatContext}}
+\doxysubsubsection{\texorpdfstring{operator==()}{operator==()}}
+{\footnotesize\ttfamily \label{struct_chat_context_a89dd0fcbde73b508e2548e8df95d7e68} 
+bool Chat\+Context::\+operator== (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{struct_chat_context}{Chat\+Context}} \&}]{other}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Overloading operator of "{}=="{} for checking if whole context struct is the same as the compared one. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & The another \doxylink{struct_chat_context}{Chat\+Context} instance to compare with. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool True if both contexts have identical IDs and types, false otherwise. 
+\end{DoxyReturn}
+
+
+\label{struct_chat_context_doc-variable-members}
+\Hypertarget{struct_chat_context_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{struct_chat_context_af4ab436b246d19242783b26a1dc8be60}\index{ChatContext@{ChatContext}!id@{id}}
+\index{id@{id}!ChatContext@{ChatContext}}
+\doxysubsubsection{\texorpdfstring{id}{id}}
+{\footnotesize\ttfamily \label{struct_chat_context_af4ab436b246d19242783b26a1dc8be60} 
+uint32\+\_\+t Chat\+Context::\+id}
+
+Unique identifier of chat \Hypertarget{struct_chat_context_a81749633f5f7574b2abf73f35396c4b4}\index{ChatContext@{ChatContext}!type@{type}}
+\index{type@{type}!ChatContext@{ChatContext}}
+\doxysubsubsection{\texorpdfstring{type}{type}}
+{\footnotesize\ttfamily \label{struct_chat_context_a81749633f5f7574b2abf73f35396c4b4} 
+\doxymbox{\hyperlink{struct_chat_context_a4f99c6867baf75a0ca1140fc1edb4a0f}{Type}} Chat\+Context::\+type = \doxymbox{\hyperlink{struct_chat_context_a4f99c6867baf75a0ca1140fc1edb4a0fa6adf97f83acf6453d4a6a4b1070f3754}{Type::\+\+None}}}
+
+\doxylink{struct_chat_context_a4f99c6867baf75a0ca1140fc1edb4a0f}{Type} of chat -\/ if it\textquotesingle{}s either \doxylink{class_user}{User} or \doxylink{class_room}{Room} (or None) 
+
+The documentation for this struct was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+client/\+include/\+client/\+Chat\+Context.\+h\end{DoxyCompactItemize}

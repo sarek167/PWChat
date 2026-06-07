@@ -1,0 +1,25 @@
+\doxysection{Register\+Request.\+h}
+\hypertarget{_register_request_8h_source}{}\label{_register_request_8h_source}\index{common/include/common/RegisterRequest.h@{common/include/common/RegisterRequest.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ REGISTERREQUEST\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ REGISTERREQUEST\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <cereal/types/string.hpp>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <cstdint>}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00014\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{struct_register_request}{RegisterRequest}}\ \{}
+\DoxyCodeLine{00015\ \ \ \ \ uint32\_t\ \doxymbox{\hyperlink{struct_register_request_a01fb8b1293fe9b4ef44f49b242be2e04}{id}};\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00016\ \ \ \ \ std::string\ \doxymbox{\hyperlink{struct_register_request_a27e035473f0cad6d4a062c64435c3ecc}{nickname}};\ }
+\DoxyCodeLine{00017\ \ \ \ \ std::string\ \doxymbox{\hyperlink{struct_register_request_aade9e90e5fd873888f01fec9ed1d5b6d}{password}};\ }
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ Archive>}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{struct_register_request_a85dc8e99cc1fba7bc8a4c45d3a15df39}{serialize}}(Archive\ \&\ archive)\ \{}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ archive(\textcolor{keywordtype}{id},\ \doxymbox{\hyperlink{struct_register_request_a27e035473f0cad6d4a062c64435c3ecc}{nickname}},\ \doxymbox{\hyperlink{struct_register_request_aade9e90e5fd873888f01fec9ed1d5b6d}{password}});}
+\DoxyCodeLine{00027\ \ \ \ \ \}}
+\DoxyCodeLine{00028\ \};}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ REGISTERREQUEST\_H}}
+
+\end{DoxyCode}

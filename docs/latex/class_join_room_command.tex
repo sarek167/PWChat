@@ -1,0 +1,83 @@
+\doxysection{Join\+Room\+Command Class Reference}
+\hypertarget{class_join_room_command}{}\label{class_join_room_command}\index{JoinRoomCommand@{JoinRoomCommand}}
+
+
+\doxylink{class_command}{Command} handler used when a user wants to join an existing chat room.  
+
+
+
+
+{\ttfamily \+\#include $<$Join\+Room\+Command.\+h$>$}
+
+
+
+Inheritance diagram for Join\+Room\+Command:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=185pt]{class_join_room_command__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Join\+Room\+Command:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=185pt]{class_join_room_command__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \doxymbox{\hyperlink{class_join_room_command_a0fdf0c02b938997bb435880660817761}{execute}} (std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_session}{Session}} $>$ session, const \doxymbox{\hyperlink{class_packet}{Packet}} \&p, \doxymbox{\hyperlink{class_server}{Server}} \&server) override
+\begin{DoxyCompactList}\small\item\em Executes the room joining logic. Extracts the room ID and optional access code from the packet, checks if the room exists and if the user is allowed to enter, updates the database/\+room state, and links the user session. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \doxymbox{\hyperlink{class_command}{Command}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual {\bfseries \texorpdfstring{$\sim$}{\string~}\+Command} ()=default
+\begin{DoxyCompactList}\small\item\em Virtual destructor to ensure proper cleanup of derived command objects. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\doxylink{class_command}{Command} handler used when a user wants to join an existing chat room. 
+
+
+\begin{DoxyItemize}
+\item It inherits from the base \doxylink{class_command}{Command} class and overrides the execute method to handle entry requests for both public and private rooms. 
+\end{DoxyItemize}
+
+\label{class_join_room_command_doc-func-members}
+\Hypertarget{class_join_room_command_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_join_room_command_a0fdf0c02b938997bb435880660817761}\index{JoinRoomCommand@{JoinRoomCommand}!execute@{execute}}
+\index{execute@{execute}!JoinRoomCommand@{JoinRoomCommand}}
+\doxysubsubsection{\texorpdfstring{execute()}{execute()}}
+{\footnotesize\ttfamily \label{class_join_room_command_a0fdf0c02b938997bb435880660817761} 
+void Join\+Room\+Command::\+execute (\begin{DoxyParamCaption}\item[{std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_session}{Session}} $>$}]{session}{, }\item[{const \doxymbox{\hyperlink{class_packet}{Packet}} \&}]{p}{, }\item[{\doxymbox{\hyperlink{class_server}{Server}} \&}]{server}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Executes the room joining logic. Extracts the room ID and optional access code from the packet, checks if the room exists and if the user is allowed to enter, updates the database/\+room state, and links the user session. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em session} & Shared pointer to the network session of the user who wants to join the room. \\
+\hline
+{\em p} & The incoming \doxylink{class_packet}{Packet} containing the target room ID and password token (if private). \\
+\hline
+{\em server} & Reference to the main \doxylink{class_server}{Server} instance to access the database and room manager. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \doxymbox{\hyperlink{class_command_aa65874a3f62c1237796da1feb04a5f1d}{Command}}.
+
+
+
+The documentation for this class was generated from the following files:\+\begin{DoxyCompactItemize}
+\item 
+server/\+include/\+server/\+\+Commands/\+Join\+Room\+Command.\+h\item 
+server/\+src/\+\+Commands/\+Join\+Room\+Command.\+cpp\end{DoxyCompactItemize}
