@@ -459,12 +459,13 @@ void MainWindow::resetJoinRoom() {
 }
 
 void MainWindow::on_btnSend_clicked() {
+    if (m_currentChat.type == ChatContext::Type::None) return;
     uint32_t targetId = m_currentChat.id;
     std::string message = ui->editMess->text().toStdString();
     bool toRoom = m_currentChat.type == ChatContext::Type::Room ? true : false;
 
     emit sendRequested(targetId, message, toRoom);
-    appendMessage(QString("You"), MessageContentType::TEXT, QString::fromStdString(message), false);
+    ui->editMess->clear();
 }
 
 void MainWindow::on_btnCreateRoom_clicked()

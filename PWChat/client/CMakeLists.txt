@@ -28,7 +28,6 @@ add_library(client_lib STATIC
     view/loginwindow.cpp
     view/mainwindow.h
     view/mainwindow.cpp
-    resources/resources.qrc
     view/createroomdialog.h
     view/createroomdialog.cpp
     ui/createroomdialog.ui
@@ -51,5 +50,8 @@ target_include_directories(client_lib PUBLIC
 target_compile_definitions(client_lib PUBLIC ASIO_STANDALONE)
 target_link_libraries(client_lib PUBLIC Qt6::Widgets Qt6::Network Qt6::Multimedia opus common Qt6::Svg)
 
-add_executable(client WIN32 src/main.cpp)
+add_executable(client WIN32
+    src/main.cpp
+    resources/resources.qrc
+)
 target_link_libraries(client PRIVATE client_lib)
